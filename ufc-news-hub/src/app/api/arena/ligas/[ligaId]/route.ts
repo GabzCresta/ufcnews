@@ -102,10 +102,10 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     );
 
     // Buscar evento atual (próximo agendado)
-    const eventoAtual = await queryOne<{ id: string; nome: string; data: string }>(
-      `SELECT id, nome, data FROM eventos
-       WHERE status = 'agendado' AND data > NOW()
-       ORDER BY data ASC LIMIT 1`
+    const eventoAtual = await queryOne<{ id: string; nome: string; data_evento: string }>(
+      `SELECT id, nome, data_evento FROM eventos
+       WHERE status = 'agendado' AND data_evento > NOW()
+       ORDER BY data_evento ASC LIMIT 1`
     );
 
     // Calcular status de picks por membro para o evento atual
@@ -207,7 +207,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       evento_atual: eventoAtual ? {
         id: eventoAtual.id,
         nome: eventoAtual.nome,
-        data: eventoAtual.data,
+        data: eventoAtual.data_evento,
         total_membros: membros.length,
         membros_com_picks: membrosComPicks,
       } : null,
