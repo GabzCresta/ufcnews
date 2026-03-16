@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Octagon } from 'lucide-react';
@@ -16,6 +16,20 @@ const GOOGLE_ERROR_MESSAGES: Record<string, string> = {
 };
 
 export default function ArenaLoginPage() {
+  return (
+    <Suspense fallback={
+      <OctagonPortalLayout>
+        <div className="flex items-center justify-center min-h-[40vh]">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-ufc-red" />
+        </div>
+      </OctagonPortalLayout>
+    }>
+      <ArenaLoginContent />
+    </Suspense>
+  );
+}
+
+function ArenaLoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { login, isAuthenticated, isLoading: authLoading } = useArenaAuth();
