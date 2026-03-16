@@ -12,7 +12,8 @@ import { PicksPressure } from '@/components/arena/PicksPressure';
 import { MembroCard } from '@/components/arena/MembroCard';
 import { SairLigaModal } from '@/components/arena/SairLigaModal';
 import { GerenciarLigaModal } from '@/components/arena/GerenciarLigaModal';
-import type { Liga, MembroLiga, EventoAtualLiga } from '@/types/arena';
+import { EventoRankingLiga } from '@/components/arena/EventoRankingLiga';
+import type { Liga, MembroLiga, EventoAtualLiga, EventoRankingLiga as EventoRankingLigaType } from '@/types/arena';
 
 // ═══════════════════════════════════════════════════════════════
 // Types
@@ -44,6 +45,7 @@ interface LigaResponse {
   minha_posicao: number | null;
   pode_entrar: boolean;
   evento_atual: EventoAtualLiga | null;
+  ultimo_evento_ranking: EventoRankingLigaType | null;
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -59,6 +61,7 @@ export default function LigaPage({ params }: PageProps) {
   const [membros, setMembros] = useState<MembroLiga[]>([]);
   const [isMembro, setIsMembro] = useState(false);
   const [eventoAtual, setEventoAtual] = useState<EventoAtualLiga | null>(null);
+  const [ultimoRanking, setUltimoRanking] = useState<EventoRankingLigaType | null>(null);
   const [showSairModal, setShowSairModal] = useState(false);
   const [showGerenciarModal, setShowGerenciarModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -76,6 +79,7 @@ export default function LigaPage({ params }: PageProps) {
         setMembros(data.membros || []);
         setIsMembro(data.is_membro || false);
         setEventoAtual(data.evento_atual ?? null);
+        setUltimoRanking(data.ultimo_evento_ranking ?? null);
       } else if (res.status === 404) {
         router.push('/arena/ligas');
       }
@@ -235,6 +239,14 @@ export default function LigaPage({ params }: PageProps) {
           </div>
         )}
       </div>
+
+      {/* ── Evento Ranking (after member list, before chat) ── */}
+      {ultimoRanking && isMembro && (
+        <EventoRankingLiga
+          ranking={ultimoRanking}
+          currentUserId={usuario?.id}
+        />
+      )}
 
       {/* ── Chat (members only) ── */}
       {isMembro && <LigaChat ligaId={id} />}
