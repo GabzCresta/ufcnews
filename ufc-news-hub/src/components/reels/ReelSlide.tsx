@@ -9,17 +9,20 @@ import { ReelActions } from './ReelActions';
 interface ReelSlideProps {
   noticia: ReelNoticia;
   isActive: boolean;
+  isMobile?: boolean;
   onToggleLike: () => void;
   onOpenComments: () => void;
 }
 
-export function ReelSlide({ noticia, isActive, onToggleLike, onOpenComments }: ReelSlideProps) {
+export function ReelSlide({ noticia, isActive, isMobile, onToggleLike, onOpenComments }: ReelSlideProps) {
   const [imgError, setImgError] = useState(false);
   const hasImage = noticia.imagem_url && !imgError;
 
   return (
     <div
-      className="relative h-[60vh] w-full flex-shrink-0 overflow-hidden rounded-2xl md:h-[70vh]"
+      className={`relative w-full flex-shrink-0 overflow-hidden rounded-2xl ${
+        isMobile ? 'h-[85vh]' : 'h-[70vh]'
+      }`}
       role="article"
       aria-label={noticia.reel_caption || noticia.titulo}
     >

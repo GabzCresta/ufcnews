@@ -9,13 +9,28 @@ import { ReelComments } from './ReelComments';
 import { ReelEndScreen } from './ReelEndScreen';
 import { ReelEmptyState } from './ReelEmptyState';
 
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)');
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
+  return isMobile;
+}
+
 export function ReelsContainer() {
   const { noticias, isLoading, toggleLike } = useReels();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [commentsNoticiaId, setCommentsNoticiaId] = useState<string | null>(null);
-  const touchStartX = useRef(0);
-  const touchDeltaX = useRef(0);
+  const touchStart = useRef(0);
+  const touchDelta = useRef(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
   const totalSlides = noticias.length;
 
@@ -38,45 +53,55 @@ export function ReelsContainer() {
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (commentsNoticiaId) return; // Don't navigate while comments open
-      if (e.key === 'ArrowRight') goNext();
-      if (e.key === 'ArrowLeft') goPrev();
+      if (commentsNoticiaId) return;
+      if (isMobile) {
+        if (e.key === 'ArrowDown') goNext();
+        if (e.key === 'ArrowUp') goPrev();
+      } else {
+        if (e.key === 'ArrowRight') goNext();
+        if (e.key === 'ArrowLeft') goPrev();
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [goNext, goPrev, commentsNoticiaId]);
+  }, [goNext, goPrev, commentsNoticiaId, isMobile]);
 
-  // Touch handlers for mobile swipe
+  // Touch handlers — Y-axis on mobile, X-axis on desktop
   const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-    touchDeltaX.current = 0;
+    const touch = e.touches[0];
+    touchStart.current = isMobile ? touch.clientY : touch.clientX;
+    touchDelta.current = 0;
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    touchDeltaX.current = e.touches[0].clientX - touchStartX.current;
+    const touch = e.touches[0];
+    touchDelta.current = (isMobile ? touch.clientY : touch.clientX) - touchStart.current;
   };
 
   const handleTouchEnd = () => {
     const threshold = 50;
-    if (touchDeltaX.current < -threshold) {
+    if (touchDelta.current < -threshold) {
       goNext();
-    } else if (touchDeltaX.current > threshold) {
+    } else if (touchDelta.current > threshold) {
       goPrev();
     }
-    touchDeltaX.current = 0;
+    touchDelta.current = 0;
   };
 
-  // Loading state
   if (isLoading) {
     return (
-      <div className="h-[60vh] w-full animate-shimmer rounded-2xl bg-dark-card md:h-[70vh]" />
+      <div className="h-[85vh] w-full animate-shimmer rounded-2xl bg-dark-card md:h-[70vh]" />
     );
   }
 
-  // Empty state
   if (totalSlides === 0) {
     return <ReelEmptyState />;
   }
+
+  // Mobile: vertical, Desktop: horizontal
+  const transformStyle = isMobile
+    ? { transform: `translateY(-${currentIndex * 100}%)`, transitionDuration: '0.4s' }
+    : { transform: `translateX(-${currentIndex * 100}%)`, transitionDuration: '0.4s' };
 
   return (
     <div className="relative">
@@ -89,29 +114,28 @@ export function ReelsContainer() {
         onTouchEnd={handleTouchEnd}
       >
         <div
-          className="flex transition-transform duration-400 ease-out"
-          style={{
-            transform: `translateX(-${currentIndex * 100}%)`,
-            transitionDuration: '0.4s',
-          }}
+          className={`transition-transform ease-out ${
+            isMobile ? 'flex flex-col' : 'flex'
+          }`}
+          style={transformStyle}
         >
           {noticias.map((noticia, index) => (
             <ReelSlide
               key={noticia.id}
               noticia={noticia}
               isActive={index === currentIndex}
+              isMobile={isMobile}
               onToggleLike={() => toggleLike(noticia.id)}
               onOpenComments={() => setCommentsNoticiaId(noticia.id)}
             />
           ))}
 
-          {/* End Screen as last "slide" */}
-          <ReelEndScreen onRestart={() => setCurrentIndex(0)} />
+          <ReelEndScreen isMobile={isMobile} onRestart={() => setCurrentIndex(0)} />
         </div>
       </div>
 
-      {/* Desktop Arrow Navigation — positioned outside the slide card */}
-      {currentIndex > 0 && (
+      {/* Desktop Arrow Navigation */}
+      {!isMobile && currentIndex > 0 && (
         <button
           onClick={goPrev}
           className="neu-button absolute -left-14 top-1/2 z-10 hidden -translate-y-1/2 rounded-full p-2.5 text-dark-textMuted transition-all hover:text-white hover:scale-110 lg:flex"
@@ -120,7 +144,7 @@ export function ReelsContainer() {
           <ChevronLeft className="h-6 w-6" />
         </button>
       )}
-      {currentIndex < totalSlides && (
+      {!isMobile && currentIndex < totalSlides && (
         <button
           onClick={goNext}
           className="neu-button absolute -right-14 top-1/2 z-10 hidden -translate-y-1/2 rounded-full p-2.5 text-dark-textMuted transition-all hover:text-white hover:scale-110 lg:flex"
@@ -130,11 +154,12 @@ export function ReelsContainer() {
         </button>
       )}
 
-      {/* Progress Dots */}
+      {/* Progress — dots below on desktop, side bar on mobile */}
       <ReelProgress
         total={totalSlides}
         current={currentIndex >= totalSlides ? totalSlides - 1 : currentIndex}
         onDotClick={goTo}
+        isMobile={isMobile}
       />
 
       {/* Comments Drawer */}

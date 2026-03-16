@@ -1,12 +1,15 @@
 'use client';
 
 interface ReelEndScreenProps {
+  isMobile?: boolean;
   onRestart: () => void;
 }
 
-export function ReelEndScreen({ onRestart }: ReelEndScreenProps) {
+export function ReelEndScreen({ isMobile, onRestart }: ReelEndScreenProps) {
   return (
-    <div className="flex h-[60vh] w-full flex-shrink-0 flex-col items-center justify-center gap-6 rounded-2xl bg-dark-card md:h-[70vh]">
+    <div className={`flex w-full flex-shrink-0 flex-col items-center justify-center gap-6 rounded-2xl bg-dark-card ${
+      isMobile ? 'h-[85vh]' : 'h-[70vh]'
+    }`}>
       {/* Animated Octagon */}
       <div className="relative">
         <svg
