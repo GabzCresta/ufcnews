@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ufc-news-hub-v1';
+const CACHE_NAME = 'ufc-news-hub-v2';
 const STATIC_ASSETS = [
   '/',
   '/arena',
