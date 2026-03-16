@@ -88,6 +88,9 @@ export default function LigaPage({ params }: PageProps) {
 
   useEffect(() => {
     fetchLiga();
+    // Refresh member status every 30s
+    const interval = setInterval(fetchLiga, 30_000);
+    return () => clearInterval(interval);
   }, [fetchLiga]);
 
   // ── Actions ──
