@@ -131,10 +131,24 @@ export function MembroCard({ membro, isCurrentUser, showPicksDetail, posicao }: 
 
         {/* Points */}
         <div className="shrink-0 text-right">
-          <span className="text-ufc-gold font-display text-lg leading-none">
-            {membro.pontos_temporada}
-          </span>
-          <span className="text-dark-textMuted text-xs ml-0.5">pts</span>
+          {membro.evento_pontos !== undefined ? (
+            <>
+              <span className="text-ufc-gold font-display text-lg leading-none">
+                {membro.evento_pontos}
+              </span>
+              <span className="text-dark-textMuted text-xs ml-0.5">pts</span>
+              <div className="text-[10px] text-dark-textMuted">
+                {membro.evento_acertos}/{membro.evento_total_lutas} acertos
+              </div>
+            </>
+          ) : (
+            <>
+              <span className="text-ufc-gold font-display text-lg leading-none">
+                {membro.pontos_temporada}
+              </span>
+              <span className="text-dark-textMuted text-xs ml-0.5">pts</span>
+            </>
+          )}
         </div>
 
         {/* Expand chevron */}

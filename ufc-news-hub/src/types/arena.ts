@@ -276,6 +276,9 @@ export interface MembroLiga {
   picks_data?: PrevisaoResumida[];
   pontos_temporada: number;
   posicao_atual: number;
+  evento_pontos?: number;
+  evento_acertos?: number;
+  evento_total_lutas?: number;
 }
 
 export interface EventoAtualLiga {
@@ -311,7 +314,7 @@ export interface LigaVivaResponse {
   minha_posicao: number | null;
   pode_entrar: boolean;
   evento_atual: EventoAtualLiga | null;
-  ultimo_evento_ranking: EventoRankingLiga | null;
+  ultimo_evento: { nome: string; data: string } | null;
 }
 
 // =============================================

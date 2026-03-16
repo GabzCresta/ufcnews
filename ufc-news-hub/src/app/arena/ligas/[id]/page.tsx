@@ -12,8 +12,7 @@ import { PicksPressure } from '@/components/arena/PicksPressure';
 import { MembroCard } from '@/components/arena/MembroCard';
 import { SairLigaModal } from '@/components/arena/SairLigaModal';
 import { GerenciarLigaModal } from '@/components/arena/GerenciarLigaModal';
-import { EventoRankingLiga } from '@/components/arena/EventoRankingLiga';
-import type { Liga, MembroLiga, EventoAtualLiga, EventoRankingLiga as EventoRankingLigaType } from '@/types/arena';
+import type { Liga, MembroLiga, EventoAtualLiga } from '@/types/arena';
 
 // ═══════════════════════════════════════════════════════════════
 // Types
@@ -45,7 +44,7 @@ interface LigaResponse {
   minha_posicao: number | null;
   pode_entrar: boolean;
   evento_atual: EventoAtualLiga | null;
-  ultimo_evento_ranking: EventoRankingLigaType | null;
+  ultimo_evento: { nome: string; data: string } | null;
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -61,7 +60,7 @@ export default function LigaPage({ params }: PageProps) {
   const [membros, setMembros] = useState<MembroLiga[]>([]);
   const [isMembro, setIsMembro] = useState(false);
   const [eventoAtual, setEventoAtual] = useState<EventoAtualLiga | null>(null);
-  const [ultimoRanking, setUltimoRanking] = useState<EventoRankingLigaType | null>(null);
+  const [ultimoEvento, setUltimoEvento] = useState<{ nome: string; data: string } | null>(null);
   const [showSairModal, setShowSairModal] = useState(false);
   const [showGerenciarModal, setShowGerenciarModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -79,7 +78,7 @@ export default function LigaPage({ params }: PageProps) {
         setMembros(data.membros || []);
         setIsMembro(data.is_membro || false);
         setEventoAtual(data.evento_atual ?? null);
-        setUltimoRanking(data.ultimo_evento_ranking ?? null);
+        setUltimoEvento(data.ultimo_evento ?? null);
       } else if (res.status === 404) {
         router.push('/arena/ligas');
       }
@@ -146,9 +145,14 @@ export default function LigaPage({ params }: PageProps) {
 
   const isAdmin = membros.some((m) => m.id === usuario?.id && m.is_admin);
 
-  const sortedMembros = [...membros].sort(
-    (a, b) => (a.posicao_atual || 999) - (b.posicao_atual || 999)
-  );
+  // Sort by event points if available, otherwise by season points
+  const hasEventoData = membros.some(m => m.evento_pontos !== undefined);
+  const sortedMembros = [...membros].sort((a, b) => {
+    if (hasEventoData) {
+      return (b.evento_pontos ?? -1) - (a.evento_pontos ?? -1);
+    }
+    return (a.posicao_atual || 999) - (b.posicao_atual || 999);
+  });
 
   const showPicksDetail = liga?.mostrar_picks_antes ?? false;
 
@@ -218,7 +222,14 @@ export default function LigaPage({ params }: PageProps) {
       <div className="neu-card rounded-xl overflow-hidden mb-6">
         <div className="px-5 py-4 border-b border-dark-border flex items-center gap-2">
           <Crown className="w-5 h-5 text-ufc-gold" />
-          <h2 className="font-display text-lg uppercase text-white">Membros</h2>
+          <h2 className="font-display text-lg uppercase text-white">
+            {ultimoEvento ? 'Ranking' : 'Membros'}
+          </h2>
+          {ultimoEvento && (
+            <span className="text-xs text-dark-textMuted ml-auto">
+              {ultimoEvento.nome}
+            </span>
+          )}
         </div>
 
         {sortedMembros.length === 0 ? (
