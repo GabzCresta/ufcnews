@@ -4,19 +4,18 @@ interface ReelProgressProps {
   total: number;
   current: number;
   onDotClick: (index: number) => void;
-  isMobile?: boolean;
 }
 
-export function ReelProgress({ total, current, onDotClick, isMobile }: ReelProgressProps) {
+export function ReelProgress({ total, current, onDotClick }: ReelProgressProps) {
   if (total <= 1) return null;
 
   const maxDots = 10;
   const showDots = total <= maxDots;
 
-  // Mobile: vertical bar on the right side
-  if (isMobile) {
-    return (
-      <div className="absolute right-2 top-1/2 z-20 -translate-y-1/2 flex flex-col items-center gap-1.5">
+  return (
+    <>
+      {/* Mobile: vertical dots on right side */}
+      <div className="absolute right-2 top-1/2 z-20 -translate-y-1/2 flex flex-col items-center gap-1.5 md:hidden">
         {showDots ? (
           Array.from({ length: total }, (_, i) => (
             <button
@@ -36,30 +35,28 @@ export function ReelProgress({ total, current, onDotClick, isMobile }: ReelProgr
           </span>
         )}
       </div>
-    );
-  }
 
-  // Desktop: horizontal dots below
-  return (
-    <div className="flex items-center justify-center gap-1.5 py-3">
-      {showDots ? (
-        Array.from({ length: total }, (_, i) => (
-          <button
-            key={i}
-            onClick={() => onDotClick(i)}
-            className={`rounded-full transition-all duration-300 ${
-              i === current
-                ? 'h-2.5 w-2.5 bg-ufc-red'
-                : 'h-2 w-2 bg-white/30 hover:bg-white/50'
-            }`}
-            aria-label={`Ir para notícia ${i + 1}`}
-          />
-        ))
-      ) : (
-        <span className="text-xs font-medium text-dark-textMuted">
-          {current + 1} / {total}
-        </span>
-      )}
-    </div>
+      {/* Desktop: horizontal dots below */}
+      <div className="hidden md:flex items-center justify-center gap-1.5 py-3">
+        {showDots ? (
+          Array.from({ length: total }, (_, i) => (
+            <button
+              key={i}
+              onClick={() => onDotClick(i)}
+              className={`rounded-full transition-all duration-300 ${
+                i === current
+                  ? 'h-2.5 w-2.5 bg-ufc-red'
+                  : 'h-2 w-2 bg-white/30 hover:bg-white/50'
+              }`}
+              aria-label={`Ir para notícia ${i + 1}`}
+            />
+          ))
+        ) : (
+          <span className="text-xs font-medium text-dark-textMuted">
+            {current + 1} / {total}
+          </span>
+        )}
+      </div>
+    </>
   );
 }

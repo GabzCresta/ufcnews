@@ -10,7 +10,7 @@ import { ReelEndScreen } from './ReelEndScreen';
 import { ReelEmptyState } from './ReelEmptyState';
 
 function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
 
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 767px)');
@@ -98,45 +98,53 @@ export function ReelsContainer() {
     return <ReelEmptyState />;
   }
 
-  // Mobile: translateY with vh units (percentage would be relative to total height of all slides)
-  // Desktop: translateX with percentage (works because container width = 1 slide width)
-  const transformStyle = isMobile
-    ? { transform: `translateY(-${currentIndex * 85}vh)`, transitionDuration: '0.4s' }
-    : { transform: `translateX(-${currentIndex * 100}%)`, transitionDuration: '0.4s' };
+  // CSS custom properties for the transform — avoids needing JS for layout
+  // Mobile: translateY with vh, Desktop: translateX with %
+  // On first render (isMobile=null, index=0) both are translate(0) so no visual issue
+  const mobileTransform = `translateY(-${currentIndex * 85}vh)`;
+  const desktopTransform = `translateX(-${currentIndex * 100}%)`;
 
   return (
     <div className="relative">
-      {/* Slides container */}
+      {/* Slides container — CSS handles height: 85vh mobile, auto desktop */}
       <div
         ref={containerRef}
-        className={`relative overflow-hidden rounded-2xl ${isMobile ? 'h-[85vh]' : ''}`}
+        className="relative overflow-hidden rounded-2xl h-[85vh] md:h-auto"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
+        {/*
+          Layout is pure CSS: flex-col on mobile, flex-row on desktop.
+          Transform uses CSS custom properties set per breakpoint.
+        */}
         <div
-          className={`transition-transform ease-out ${
-            isMobile ? 'flex flex-col' : 'flex'
-          }`}
-          style={transformStyle}
+          className="flex flex-col md:flex-row transition-transform ease-out"
+          style={{
+            ['--mobile-transform' as string]: mobileTransform,
+            ['--desktop-transform' as string]: desktopTransform,
+            transform: isMobile === null
+              ? undefined // first render: no transform (index 0 anyway)
+              : isMobile ? mobileTransform : desktopTransform,
+            transitionDuration: '0.4s',
+          }}
         >
           {noticias.map((noticia, index) => (
             <ReelSlide
               key={noticia.id}
               noticia={noticia}
               isActive={index === currentIndex}
-              isMobile={isMobile}
               onToggleLike={() => toggleLike(noticia.id)}
               onOpenComments={() => setCommentsNoticiaId(noticia.id)}
             />
           ))}
 
-          <ReelEndScreen isMobile={isMobile} onRestart={() => setCurrentIndex(0)} />
+          <ReelEndScreen onRestart={() => setCurrentIndex(0)} />
         </div>
       </div>
 
       {/* Desktop Arrow Navigation */}
-      {!isMobile && currentIndex > 0 && (
+      {currentIndex > 0 && (
         <button
           onClick={goPrev}
           className="neu-button absolute -left-14 top-1/2 z-10 hidden -translate-y-1/2 rounded-full p-2.5 text-dark-textMuted transition-all hover:text-white hover:scale-110 lg:flex"
@@ -145,7 +153,7 @@ export function ReelsContainer() {
           <ChevronLeft className="h-6 w-6" />
         </button>
       )}
-      {!isMobile && currentIndex < totalSlides && (
+      {currentIndex < totalSlides && (
         <button
           onClick={goNext}
           className="neu-button absolute -right-14 top-1/2 z-10 hidden -translate-y-1/2 rounded-full p-2.5 text-dark-textMuted transition-all hover:text-white hover:scale-110 lg:flex"
@@ -155,12 +163,11 @@ export function ReelsContainer() {
         </button>
       )}
 
-      {/* Progress — dots below on desktop, side bar on mobile */}
+      {/* Progress — vertical dots on mobile (CSS), horizontal on desktop */}
       <ReelProgress
         total={totalSlides}
         current={currentIndex >= totalSlides ? totalSlides - 1 : currentIndex}
         onDotClick={goTo}
-        isMobile={isMobile}
       />
 
       {/* Comments Drawer */}
