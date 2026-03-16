@@ -3,8 +3,7 @@
 import Link from 'next/link';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useState } from 'react';
-import type { MembroLiga } from '@/types/arena';
-import { NIVEL_CONFIG } from '@/types/arena';
+import { NIVEL_CONFIG, type MembroLiga } from '@/types/arena';
 import { formatUltimoAcesso } from '@/lib/arena/format';
 
 // ═══════════════════════════════════════════════════════════════

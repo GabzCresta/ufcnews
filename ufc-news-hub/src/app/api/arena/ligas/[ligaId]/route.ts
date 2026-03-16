@@ -109,7 +109,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     );
 
     // Calcular status de picks por membro para o evento atual
-    let memberPickStatus: Record<string, boolean> = {};
+    const memberPickStatus: Record<string, boolean> = {};
     let membrosComPicks = 0;
 
     if (eventoAtual) {
@@ -126,7 +126,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     }
 
     // Buscar dados de picks (somente se liga.mostrar_picks_antes estiver ativo)
-    let memberPicksData: Record<string, Array<{
+    const memberPicksData: Record<string, Array<{
       luta_id: string;
       vencedor_nome: string;
       metodo_previsto: string | null;
@@ -222,7 +222,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 }
 
 // DELETE - Sair da liga
-export async function DELETE(request: NextRequest, { params }: RouteParams) {
+export async function DELETE(_request: NextRequest, { params }: RouteParams) {
   try {
     const { ligaId } = await params;
     const usuario = await getUsuarioAtual();

@@ -65,9 +65,7 @@ export function BannerUpload({ ligaId, currentBanner, onUpload, isOpen, onClose 
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  if (!isOpen) return null;
-
-  // ── File processing ──
+  // ── File processing (hooks must be before early return) ──
 
   const processFile = useCallback(async (file: File) => {
     setError(null);
@@ -104,6 +102,8 @@ export function BannerUpload({ ligaId, currentBanner, onUpload, isOpen, onClose 
     },
     [processFile]
   );
+
+  if (!isOpen) return null;
 
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();

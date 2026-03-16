@@ -192,7 +192,7 @@ export default function LigaPage({ params }: PageProps) {
         <PicksPressure
           eventoAtual={eventoAtual}
           membros={membros}
-          mostrarNomesPendentes={isAdmin}
+          mostrarNomesPendentes={true}
         />
       )}
 
