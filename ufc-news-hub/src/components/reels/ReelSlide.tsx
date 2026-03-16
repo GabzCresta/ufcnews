@@ -19,7 +19,7 @@ export function ReelSlide({ noticia, isActive, onToggleLike, onOpenComments }: R
 
   return (
     <div
-      className="relative w-full flex-shrink-0 overflow-hidden rounded-2xl h-[85vh] snap-start md:h-[70vh]"
+      className="relative h-full w-full flex-shrink-0 overflow-hidden md:h-[70vh] md:rounded-2xl"
       role="article"
       aria-label={noticia.reel_caption || noticia.titulo}
     >
