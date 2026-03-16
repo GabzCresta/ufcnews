@@ -184,6 +184,58 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       posicao_atual: index + 1,
     }));
 
+    // Buscar ranking do ultimo evento finalizado
+    let ultimoEventoRanking = null;
+
+    const ultimoEvento = await queryOne<{ id: string; nome: string; data_evento: string }>(
+      `SELECT id, nome, data_evento FROM eventos
+       WHERE status = 'finalizado'
+       ORDER BY data_evento DESC LIMIT 1`
+    );
+
+    if (ultimoEvento) {
+      const membroIds = membros.map(m => m.usuario_id);
+      const pontuacoes = await query<{
+        usuario_id: string;
+        pontos_totais: number;
+        acertos: number;
+        total_lutas: number;
+      }>(
+        `SELECT usuario_id, pontos_totais, acertos, total_lutas
+         FROM evento_pontuacao
+         WHERE evento_id = $1 AND usuario_id = ANY($2::uuid[])
+         ORDER BY pontos_totais DESC`,
+        [ultimoEvento.id, membroIds]
+      );
+
+      // Build ranking including members who didn't participate
+      const pontuacaoMap = new Map(pontuacoes.map(p => [p.usuario_id, p]));
+      const rankingEntries = membros.map(m => {
+        const p = pontuacaoMap.get(m.usuario_id);
+        return {
+          usuario_id: m.usuario_id,
+          username: m.usuario_username,
+          display_name: m.usuario_display_name,
+          avatar_url: m.usuario_avatar,
+          pontos: p?.pontos_totais || 0,
+          acertos: p?.acertos || 0,
+          total_lutas: p?.total_lutas || 0,
+          posicao: 0, // will be set below
+        };
+      });
+
+      // Sort by points desc, then assign positions
+      rankingEntries.sort((a, b) => b.pontos - a.pontos);
+      rankingEntries.forEach((entry, i) => { entry.posicao = i + 1; });
+
+      ultimoEventoRanking = {
+        evento_id: ultimoEvento.id,
+        evento_nome: ultimoEvento.nome,
+        evento_data: ultimoEvento.data_evento,
+        ranking: rankingEntries,
+      };
+    }
+
     return NextResponse.json({
       liga: {
         ...liga,
@@ -211,6 +263,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
         total_membros: membros.length,
         membros_com_picks: membrosComPicks,
       } : null,
+      ultimo_evento_ranking: ultimoEventoRanking,
     });
   } catch (error) {
     console.error('Erro ao buscar liga:', error);
