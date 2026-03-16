@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { Copy, Settings, LogOut, Lock, Globe, Check } from 'lucide-react';
 import type { Liga } from '@/types/arena';
-import { BannerUpload } from './BannerUpload';
 
 // ═══════════════════════════════════════════════════════════════
 // Props
@@ -21,7 +20,7 @@ interface LigaHeaderProps {
   isAdmin: boolean;
   isMembro: boolean;
   onSairClick: () => void;
-  onBannerUpdate: (url: string | null) => void;
+  onGerenciarClick: () => void;
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -33,10 +32,9 @@ export function LigaHeader({
   isAdmin,
   isMembro,
   onSairClick,
-  onBannerUpdate,
+  onGerenciarClick,
 }: LigaHeaderProps) {
   const [copied, setCopied] = useState(false);
-  const [bannerOpen, setBannerOpen] = useState(false);
 
   // ── Invite copy ──
 
@@ -67,7 +65,7 @@ export function LigaHeader({
   // ── Render ──
 
   return (
-    <>
+    <div>
       {/* ── Banner area ── */}
       <div className="relative w-full rounded-2xl overflow-hidden" style={{ minHeight: '180px' }}>
         {liga.imagem_url ? (
@@ -152,7 +150,7 @@ export function LigaHeader({
           {/* Edit banner (admin only) */}
           {isAdmin && (
             <button
-              onClick={() => setBannerOpen(true)}
+              onClick={onGerenciarClick}
               className="flex items-center gap-2 px-4 py-2 rounded-xl border border-dark-border text-dark-textMuted hover:text-white hover:border-ufc-red/50 transition-all text-sm"
             >
               <Settings size={14} />
@@ -173,14 +171,6 @@ export function LigaHeader({
         </div>
       )}
 
-      {/* ── BannerUpload modal ── */}
-      <BannerUpload
-        ligaId={liga.id}
-        currentBanner={liga.imagem_url}
-        onUpload={onBannerUpdate}
-        isOpen={bannerOpen}
-        onClose={() => setBannerOpen(false)}
-      />
-    </>
+    </div>
   );
 }

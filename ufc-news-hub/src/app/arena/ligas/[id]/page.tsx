@@ -11,6 +11,7 @@ import { LigaHeader } from '@/components/arena/LigaHeader';
 import { PicksPressure } from '@/components/arena/PicksPressure';
 import { MembroCard } from '@/components/arena/MembroCard';
 import { SairLigaModal } from '@/components/arena/SairLigaModal';
+import { GerenciarLigaModal } from '@/components/arena/GerenciarLigaModal';
 import type { Liga, MembroLiga, EventoAtualLiga } from '@/types/arena';
 
 // ═══════════════════════════════════════════════════════════════
@@ -59,6 +60,7 @@ export default function LigaPage({ params }: PageProps) {
   const [isMembro, setIsMembro] = useState(false);
   const [eventoAtual, setEventoAtual] = useState<EventoAtualLiga | null>(null);
   const [showSairModal, setShowSairModal] = useState(false);
+  const [showGerenciarModal, setShowGerenciarModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isJoining, setIsJoining] = useState(false);
   const [error, setError] = useState('');
@@ -124,6 +126,15 @@ export default function LigaPage({ params }: PageProps) {
     setLiga((prev) => prev ? { ...prev, imagem_url: url } : prev);
   }
 
+  function handleLigaUpdate(fields: Partial<Liga>) {
+    setLiga((prev) => prev ? { ...prev, ...fields } as LigaDetalhes : prev);
+  }
+
+  function handleMembroExpulso(userId: string) {
+    setMembros((prev) => prev.filter((m) => m.id !== userId));
+    setLiga((prev) => prev ? { ...prev, total_membros: Math.max((prev.total_membros || 1) - 1, 0) } : prev);
+  }
+
   // ── Derived state ──
 
   const isAdmin = membros.some((m) => m.id === usuario?.id && m.is_admin);
@@ -167,7 +178,7 @@ export default function LigaPage({ params }: PageProps) {
           isAdmin={isAdmin}
           isMembro={isMembro}
           onSairClick={() => setShowSairModal(true)}
-          onBannerUpdate={handleBannerUpdate}
+          onGerenciarClick={() => setShowGerenciarModal(true)}
         />
       </div>
 
@@ -239,6 +250,18 @@ export default function LigaPage({ params }: PageProps) {
         isOpen={showSairModal}
         onClose={() => setShowSairModal(false)}
       />
+
+      {isAdmin && (
+        <GerenciarLigaModal
+          liga={liga}
+          membros={membros}
+          isOpen={showGerenciarModal}
+          onClose={() => setShowGerenciarModal(false)}
+          onBannerUpdate={handleBannerUpdate}
+          onLigaUpdate={handleLigaUpdate}
+          onMembroExpulso={handleMembroExpulso}
+        />
+      )}
     </div>
   );
 }
