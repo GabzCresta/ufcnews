@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { query, queryOne } from '@/lib/db';
+import { query, queryOne, transaction } from '@/lib/db';
 import { getUsuarioAtual } from '@/lib/arena/auth';
-import { Liga, LigaMembro, UsuarioArenaPublico } from '@/types/arena';
+import { Liga, LigaMembro } from '@/types/arena';
 
 interface RouteParams {
   params: Promise<{ ligaId: string }>;
@@ -85,13 +85,15 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       usuario_display_name: string | null;
       usuario_avatar: string | null;
       usuario_nivel: string;
+      usuario_ultimo_acesso: string | null;
     }>(
       `SELECT
         lm.*,
         u.username as usuario_username,
         u.display_name as usuario_display_name,
         u.avatar_url as usuario_avatar,
-        u.nivel as usuario_nivel
+        u.nivel as usuario_nivel,
+        u.ultimo_acesso as usuario_ultimo_acesso
       FROM liga_membros lm
       JOIN usuarios_arena u ON u.id = lm.usuario_id
       WHERE lm.liga_id = $1
@@ -99,17 +101,87 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       [ligaId]
     );
 
-    // Atualizar posições
-    const membrosComPosicao = membros.map((m, index) => ({
-      ...m,
+    // Buscar evento atual (próximo agendado)
+    const eventoAtual = await queryOne<{ id: string; nome: string; data: string }>(
+      `SELECT id, nome, data FROM eventos
+       WHERE status = 'agendado' AND data > NOW()
+       ORDER BY data ASC LIMIT 1`
+    );
+
+    // Calcular status de picks por membro para o evento atual
+    let memberPickStatus: Record<string, boolean> = {};
+    let membrosComPicks = 0;
+
+    if (eventoAtual) {
+      const membroIds = membros.map(m => m.usuario_id);
+      const picksFeitos = await query<{ usuario_id: string }>(
+        `SELECT DISTINCT usuario_id FROM previsoes
+         WHERE evento_id = $1 AND usuario_id = ANY($2::uuid[])`,
+        [eventoAtual.id, membroIds]
+      );
+      for (const p of picksFeitos) {
+        memberPickStatus[p.usuario_id] = true;
+      }
+      membrosComPicks = picksFeitos.length;
+    }
+
+    // Buscar dados de picks (somente se liga.mostrar_picks_antes estiver ativo)
+    let memberPicksData: Record<string, Array<{
+      luta_id: string;
+      vencedor_nome: string;
+      metodo_previsto: string | null;
+      round_previsto: number | null;
+      pontos_confianca: number;
+    }>> = {};
+
+    if (eventoAtual && liga.mostrar_picks_antes) {
+      const membrosComPickIds = Object.keys(memberPickStatus);
+      if (membrosComPickIds.length > 0) {
+        const allPicks = await query<{
+          usuario_id: string;
+          luta_id: string;
+          vencedor_nome: string;
+          metodo_previsto: string | null;
+          round_previsto: number | null;
+          pontos_confianca: number;
+        }>(
+          `SELECT p.usuario_id, p.luta_id, l.nome as vencedor_nome,
+                  p.metodo_previsto, p.round_previsto, p.pontos_confianca
+           FROM previsoes p
+           LEFT JOIN lutadores l ON l.id = p.vencedor_previsto_id
+           WHERE p.evento_id = $1 AND p.usuario_id = ANY($2::uuid[])`,
+          [eventoAtual.id, membrosComPickIds]
+        );
+
+        for (const pick of allPicks) {
+          if (!memberPicksData[pick.usuario_id]) {
+            memberPicksData[pick.usuario_id] = [];
+          }
+          memberPicksData[pick.usuario_id].push({
+            luta_id: pick.luta_id,
+            vencedor_nome: pick.vencedor_nome,
+            metodo_previsto: pick.metodo_previsto,
+            round_previsto: pick.round_previsto,
+            pontos_confianca: pick.pontos_confianca,
+          });
+        }
+      }
+    }
+
+    const membrosFormatados = membros.map((m, index) => ({
+      id: m.usuario_id,
+      username: m.usuario_username,
+      display_name: m.usuario_display_name,
+      avatar_url: m.usuario_avatar,
+      nivel: m.usuario_nivel,
+      is_admin: m.is_admin,
+      ultimo_acesso: m.usuario_ultimo_acesso,
+      picks_status: eventoAtual
+        ? (memberPickStatus[m.usuario_id] ? 'done' as const : 'pending' as const)
+        : null,
+      picks_data: liga.mostrar_picks_antes ? memberPicksData[m.usuario_id] : undefined,
+      pontos_temporada: m.pontos_temporada || 0,
       posicao_atual: index + 1,
-      usuario: {
-        id: m.usuario_id,
-        username: m.usuario_username,
-        display_name: m.usuario_display_name,
-        avatar_url: m.usuario_avatar,
-        nivel: m.usuario_nivel,
-      } as UsuarioArenaPublico,
     }));
 
     return NextResponse.json({
@@ -128,10 +200,17 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
           avatar_url: liga.campeao_avatar,
         } : null,
       },
-      membros: membrosComPosicao,
+      membros: membrosFormatados,
       is_membro: isMembro,
       minha_posicao: minhasPosicao,
       pode_entrar: !isMembro && liga.total_membros < liga.max_membros,
+      evento_atual: eventoAtual ? {
+        id: eventoAtual.id,
+        nome: eventoAtual.nome,
+        data: eventoAtual.data,
+        total_membros: membros.length,
+        membros_com_picks: membrosComPicks,
+      } : null,
     });
   } catch (error) {
     console.error('Erro ao buscar liga:', error);
@@ -187,11 +266,17 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
       );
     }
 
-    // Remover membro
-    await query(
-      `DELETE FROM liga_membros WHERE liga_id = $1 AND usuario_id = $2`,
-      [ligaId, usuario.id]
-    );
+    // Remover membro e decrementar total_membros (em transaction)
+    await transaction(async (client) => {
+      await client.query(
+        `DELETE FROM liga_membros WHERE liga_id = $1 AND usuario_id = $2`,
+        [ligaId, usuario.id]
+      );
+      await client.query(
+        `UPDATE ligas SET total_membros = GREATEST(total_membros - 1, 0) WHERE id = $1`,
+        [ligaId]
+      );
+    });
 
     return NextResponse.json({ success: true });
   } catch (error) {
