@@ -400,10 +400,150 @@ const analisePT: FullSingleAnalise = {
   },
 };
 
+const analiseEN: FullSingleAnalise = {
+  ...analisePT,
+  titulo: 'Baraniewski vs Lane: The Undefeated Judoka vs the NFL Athlete',
+  subtitulo: 'The 7-0 Polish prospect with two 20-second knockouts faces the former NFL player switching weight classes',
+  evento_data: 'March 21, 2026', evento_local: 'The O2 Arena, London, United Kingdom', categoria_peso: 'Light Heavyweight (205 lbs)',
+  fight_prediction: { ...analisePT.fight_prediction, confidence: 'MEDIUM-HIGH' },
+  fighter2_info: { ...analisePT.fighter2_info, ultimasLutas: [{ result: 'L', opponent: 'Vitor Petrino', method: 'Submission R1', event: 'UFC Fight Night' }, { result: 'L', opponent: 'Mario Pinto', method: 'KO R2', event: 'UFC Fight Night' }] },
+  full_analysis: {
+    hero: { ...analisePT.full_analysis.hero, evento_data: 'March 21, 2026', evento_local: 'The O2 Arena, London, United Kingdom', categoria_peso: 'Light Heavyweight (205 lbs)', tagline: 'The Undefeated Judoka vs the NFL Giant', tagline_sub: 'Polish prospect with lightning knockouts faces the former NFL player making his light heavyweight debut', fighter1: { ...analisePT.full_analysis.hero.fighter1, ranking: 'N/R Light Heavyweight', info_extra: 'Poland | 27 years old' }, fighter2: { ...analisePT.full_analysis.hero.fighter2, ranking: 'N/R Light Heavyweight', info_extra: 'USA | 38 years old' } },
+    narrativa: {
+      html_content: `
+        <h3 class="font-display text-xl uppercase text-ufc-red mb-4">Explosive Power vs Raw Size</h3>
+        <p class="mb-4"><strong class="text-ufc-red">Iwo Baraniewski</strong> is the kind of prospect that scares people. The 27-year-old Pole isn't just undefeated at 7-0; he finishes fights at absurd speed. On the Contender Series, he knocked out Mahamed Aly in 20 seconds. In his UFC debut against Ibo Aslan, he got a first-round knockout and earned Performance of the Night. With a judo background and explosive power in his hands, Baraniewski is a wrecking ball the UFC is carefully building.</p>
+        <p class="mb-4">On the other side is <strong class="text-blue-400">Austen Lane</strong>, a completely different story. A former NFL defensive end (he played for the Jacksonville Jaguars, Detroit Lions, and other teams), Lane brought his absurd athleticism to MMA after retiring from football. At 6'6" with an 80-inch reach, he's physically imposing. But recent results haven't been good: two consecutive losses, knocked out by Mario Pinto in the second round and submitted by Vitor Petrino. Now, at 38, he's dropping from heavyweight to light heavyweight looking for a fresh start.</p>
+        <h3 class="font-display text-xl uppercase text-ufc-red mb-4 mt-8">The Polish Mission</h3>
+        <p class="mb-4">For Baraniewski, this is the chance to confirm his debut wasn't a fluke. Lane, despite recent results, is a real physical test: taller, heavier, with massive reach and NFL-level athleticism. If the Pole can get through Lane dominantly, he positions himself as one of the most dangerous light heavyweight prospects. If Lane surprises at his new weight, it could be the career turnaround he desperately needs.</p>
+      `,
+      stakes: [
+        { dimensao: 'Ranking', fighter1: 'Unranked', fighter2: 'Unranked' },
+        { dimensao: 'Streak', fighter1: '7-fight win streak (undefeated)', fighter2: '2-fight losing streak' },
+        { dimensao: 'Goal', fighter1: 'Confirm the hype at 2-0 in the UFC', fighter2: 'Snap the losing streak at new weight class' },
+        { dimensao: 'Risk', fighter1: 'First career loss against experienced veteran', fighter2: 'Third consecutive loss' },
+      ],
+      prognostico: {
+        fighter1_vence: { titulo: 'THE WRECKING BALL KEEPS ROLLING', subtitulo: 'Baraniewski knocks out Lane and establishes himself as a top light heavyweight prospect', consequencias: [{ tag: 'RANKING', texto: 'Baraniewski at 8-0 starts appearing on the light heavyweight ranking radar' }, { tag: 'NEXT', texto: 'Fight against an established veteran or fellow prospect on the next European card' }], proxima_luta: 'Baraniewski vs ranked top 15 opponent' },
+        fighter2_vence: { titulo: 'THE NFL NEVER DIES', subtitulo: 'Lane uses size and athleticism to surprise at his new weight class', consequencias: [{ tag: 'REDEMPTION', texto: 'Lane snaps the losing streak and proves the weight cut was the right decision' }, { tag: 'NEXT', texto: 'More fights at light heavyweight against similar-level opponents' }], proxima_luta: 'Lane vs light heavyweight opponent on the next card' },
+      },
+    },
+    momento_atual: {
+      fighter1: { ...analisePT.full_analysis.momento_atual.fighter1, recent_fights: [{ date: 'Dec 2025', opponent: 'Ibo Aslan', result: 'W', method: 'KO R1', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'First-round knockout on UFC debut. Earned Performance of the Night. Impressive.' }, { date: 'Sep 2025', opponent: 'Mahamed Aly', result: 'W', method: 'KO R1 (0:20)', opponent_rank: 'N/R (DWCS)', quality_score: 1, quality_label: 'Poor', note: 'Knockout in 20 seconds on the Contender Series. Earned UFC contract on the spot.' }], full_fight_history: [{ date: 'Sep 2025', opponent: 'Mahamed Aly', result: 'W', method: 'KO R1 (0:20)', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'DWCS, UFC contract' }, { date: 'Dec 2025', opponent: 'Ibo Aslan', result: 'W', method: 'KO R1', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'UFC debut, Performance of the Night' }], momentum_label: 'On Fire', momentum_note: 'Baraniewski is in the best possible moment. Undefeated, two consecutive lightning knockouts, UFC contract earned dramatically and debut with a bonus. The hype is justified and the activity level is perfect.' },
+      fighter2: { ...analisePT.full_analysis.momento_atual.fighter2, recent_fights: [{ date: 'Jul 2025', opponent: 'Vitor Petrino', result: 'L', method: 'Submission R1 (RNC)', opponent_rank: '#12 HW', quality_score: 3, quality_label: 'Good', note: 'Submitted by rear-naked choke in the first round by the Brazilian prospect.' }, { date: 'Mar 2025', opponent: 'Mario Pinto', result: 'L', method: 'KO R2 (0:39)', opponent_rank: 'N/R HW', quality_score: 1, quality_label: 'Poor', note: 'Knocked out in the second round by left-right. Second consecutive loss.' }, { date: 'Oct 2024', opponent: 'Robelis Despaigne', result: 'W', method: 'Unanimous Decision', opponent_rank: 'N/R HW', quality_score: 1, quality_label: 'Poor', note: 'First and only UFC win by unanimous decision.' }, { date: 'Apr 2024', opponent: 'Jhonata Diniz', result: 'L', method: 'KO R2', opponent_rank: 'N/R HW', quality_score: 1, quality_label: 'Poor', note: 'Knocked out in the second round by the former GLORY fighter.' }], full_fight_history: [{ date: 'Jun 2023', opponent: 'Justin Tafa', result: 'NC', method: 'NC R1 (eye poke)', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'No Contest from accidental eye poke' }, { date: 'Sep 2023', opponent: 'Justin Tafa', result: 'L', method: 'KO R1', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'R1 KO in the rematch' }, { date: 'Apr 2024', opponent: 'Jhonata Diniz', result: 'L', method: 'KO R2', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'R2 KO' }, { date: 'Oct 2024', opponent: 'Robelis Despaigne', result: 'W', method: 'UD', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'Only UFC win' }, { date: 'Mar 2025', opponent: 'Mario Pinto', result: 'L', method: 'KO R2', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'R2 KO' }, { date: 'Jul 2025', opponent: 'Vitor Petrino', result: 'L', method: 'Sub R1', opponent_rank: '#12 HW', quality_score: 3, quality_label: 'Good', note: 'R1 submission' }], momentum_label: 'Declining', momentum_note: 'Lane is in a negative spiral. Two consecutive quick losses, knocked out by Pinto in R2 and submitted by Petrino in R1. The decision to drop to light heavyweight at 38 is a risky but necessary gamble. Another loss and his UFC situation becomes unsustainable.' },
+    },
+    nivel_competicao: { fighter1: { nome: 'Baraniewski', media_oponentes: 2, media_oponentes_label: 'Average', aproveitamento: '1W-0L (100%)', contra_top5: '0W-0L' }, fighter2: { nome: 'Lane', media_oponentes: 2, media_oponentes_label: 'Average', aproveitamento: '1W-4L (20%)', contra_top5: '0W-0L' }, oponentes_em_comum_count: { fighter1: 0, fighter2: 0 }, oponentes_em_comum_note: 'No common opponents. Baraniewski is new to the UFC (just 1 fight). Lane has 6 UFC bouts (1-4, 1 NC) but with poor recent results.' },
+    oponente_comum: null,
+    comparacao_estatistica: { stats: [
+      { label: 'Sig. Strikes Per Minute', valueA: 7.50, valueB: 3.82, maxVal: 10, format: 'decimal' },
+      { label: 'Striking Accuracy (%)', valueA: 75, valueB: 42, maxVal: 100, format: 'percent' },
+      { label: 'Strikes Absorbed/Min', valueA: 3.75, valueB: 5.31, maxVal: 8, format: 'decimal', reverseWinner: true },
+      { label: 'Strike Defense (%)', valueA: 50, valueB: 48, maxVal: 100, format: 'percent' },
+      { label: 'Takedowns Per 15 Min', valueA: 0.00, valueB: 0.68, maxVal: 4, format: 'decimal' },
+      { label: 'Takedown Accuracy (%)', valueA: 0, valueB: 36, maxVal: 100, format: 'percent' },
+      { label: 'Takedown Defense (%)', valueA: 100, valueB: 50, maxVal: 100, format: 'percent' },
+    ], tale_of_tape: [
+      { label: 'Age', fighter1: '27 years old', fighter2: '38 years old', note: 'Baraniewski 11 years younger' },
+      { label: 'Height', fighter1: '6\'0" (1.83m)', fighter2: '6\'6" (1.98m)', note: 'Lane 6 inches taller' },
+      { label: 'Reach', fighter1: '74" (187cm)', fighter2: '80" (203cm)', note: 'Lane with 6-inch reach advantage' },
+      { label: 'Stance', fighter1: 'Orthodox', fighter2: 'Orthodox', note: null },
+      { label: 'Background', fighter1: 'Judo', fighter2: 'Ex-NFL (Defensive End)', note: 'Completely different athleticism' },
+    ] },
+    perfil_habilidades: { skills: [
+      { label: 'Knockout Power', valueA: 88, valueB: 65, labelA: 'Very Good', labelB: 'Good', advantage: 'fighter1', advantage_note: '5 KOs in 7 fights for Baraniewski. Knocked out Aslan and Aly in seconds. Real explosive power.' },
+      { label: 'Technical Striking', valueA: 72, valueB: 48, labelA: 'Good', labelB: 'Average', advantage: 'fighter1', advantage_note: 'Baraniewski has 75% accuracy in the UFC vs 42% for Lane. Clear technical gap.' },
+      { label: 'Wrestling/Grappling', valueA: 70, valueB: 55, labelA: 'Good', labelB: 'Good', advantage: 'fighter1', advantage_note: 'Baraniewski has a judo background with 2 career submissions. Lane has 1 career submission and limited grappling technique.' },
+      { label: 'Athleticism & Explosion', valueA: 85, valueB: 72, labelA: 'Very Good', labelB: 'Good', advantage: 'fighter1', advantage_note: 'Baraniewski is explosive and young. Lane has NFL athleticism but at 38, the explosion has diminished.' },
+      { label: 'Chin & Durability', valueA: 65, valueB: 50, labelA: 'Good', labelB: 'Average', advantage: 'fighter1', advantage_note: 'Baraniewski has never been dropped. Lane was KO\'d by Pinto in R2 and submitted by Petrino in R1 in his last 2 fights.' },
+      { label: 'Physical Advantage', valueA: 40, valueB: 80, labelA: 'Average', labelB: 'Very Good', advantage: 'fighter2', advantage_note: 'Lane is 6 inches taller with 6 inches more reach. Significant physical advantage.' },
+    ], insight: 'Baraniewski holds the advantage in almost everything except physical size. The Pole is more technical, more explosive, younger, and more confident. Lane has size, but recent results suggest he hasn\'t been able to use that advantage effectively.' },
+    distribuicao_vitorias: { ...analisePT.full_analysis.distribuicao_vitorias, insight: 'Baraniewski has never gone to a decision: 100% of wins by finish (71% KO, 29% submission). Lane is even more of a knockout artist (85% KO) but has been getting finished frequently recently. The trend points to a short fight with a finish.' },
+    danger_zones: { zones: [
+      { rounds: 'R1', danger_level: 9, danger_label: 'BARANIEWSKI ADVANTAGE', color: 'red', title: 'The Demolition Zone', description: 'Baraniewski finished his last two fights in the first round, one in 20 seconds. Lane was finished in his last two fights quickly (Petrino in R1, Pinto in R2). The convergence is clear: if someone is getting knocked out early, it\'s likely Lane. The Pole enters with the intention of ending it fast.' },
+      { rounds: 'R2', danger_level: 5, danger_label: 'EVEN', color: 'gold', title: 'Unknown Territory', description: 'If the fight reaches R2, we enter unknown territory for both. Baraniewski has never needed a second round in the UFC. Lane could find his rhythm if he survives the first assault. Lane\'s size advantage could start to matter here.' },
+      { rounds: 'R3', danger_level: 4, danger_label: 'LANE ADVANTAGE', color: 'green', title: 'The Veteran\'s Experience', description: 'If the fight drags to R3, Lane has experience in longer fights (1 career decision, against Despaigne). Baraniewski has never gone to a decision. Lane\'s size and the natural cardio from his NFL days could be factors in this scenario.' },
+    ] },
+    intangiveis: { items: [
+      { icon: 'TrendingUp', title: 'Momentum vs Spiral', fighter: 'Baraniewski', risk_level: 'HUGE POSITIVE', risk_color: 'green', description: 'Baraniewski is at his peak: undefeated, two devastating knockouts, Performance of the Night bonus. Lane is in a spiral: two consecutive losses in R1. The momentum contrast is enormous.' },
+      { icon: 'AlertTriangle', title: 'Compromised Chin', fighter: 'Lane', risk_level: 'HIGH RISK', risk_color: 'red', description: 'Lane was knocked out by Mario Pinto in R2 and submitted by Petrino in R1 in his last two fights. His durability is in serious question. Against Baraniewski\'s power, that\'s concerning.' },
+      { icon: 'Activity', title: 'Weight Cut', fighter: 'Lane', risk_level: 'MEDIUM RISK', risk_color: 'yellow', description: 'Lane is making his light heavyweight debut (205 lbs) coming from heavyweight (265 lbs). Losing nearly 60 lbs could affect power, endurance, and recovery. Total unknown.' },
+      { icon: 'Shield', title: 'Absurd Size Advantage', fighter: 'Lane', risk_level: 'POSITIVE', risk_color: 'green', description: 'Lane is 6 inches taller and has 6 inches more reach. Even at light heavyweight, he\'ll be significantly bigger. If he uses the jab and maintains distance, he could frustrate Baraniewski.' },
+      { icon: 'Zap', title: 'Judoka Explosiveness', fighter: 'Baraniewski', risk_level: 'POSITIVE', risk_color: 'green', description: 'The judo background gives Baraniewski unique explosiveness to close distance quickly. Even with Lane\'s reach, if Baraniewski closes, the judo could be decisive.' },
+    ] },
+    caminhos_vitoria: {
+      fighter1: { nome: 'Baraniewski', total_probability: 72, scenarios: [
+        { name: 'Lightning Knockout', probability: 40, method: 'KO/TKO R1', description: 'Baraniewski closes the distance with judoka explosiveness, lands heavy combinations and knocks out Lane in the first round. Most likely scenario given both fighters\' histories.' },
+        { name: 'Takedown & Submission', probability: 18, method: 'Submission R1-R2', description: 'Baraniewski uses his judo to take Lane down and finds a submission. Has 2 career submissions and the technical background for it.' },
+        { name: 'Technical Domination', probability: 14, method: 'TKO R2-R3', description: 'Baraniewski hurts Lane early but doesn\'t get the immediate finish. Accumulates damage and the referee stops it in the second or third round.' },
+      ] },
+      fighter2: { nome: 'Lane', total_probability: 26, scenarios: [
+        { name: 'The Giant\'s Jab', probability: 10, method: 'Unanimous Decision', description: 'Lane uses his 6-inch height and 6-inch reach advantage to keep Baraniewski at distance with the jab. Wins on points without ever letting the Pole close.' },
+        { name: 'Power Counter', probability: 9, method: 'KO/TKO R1-R2', description: 'Baraniewski comes forward aggressively and Lane finds a counter or uppercut with his natural 120kg power. Size could be the equalizer.' },
+        { name: 'New Weight Effect', probability: 7, method: 'Decision/TKO', description: 'The drop to light heavyweight rejuvenates Lane. Faster, lighter, with renewed energy, he surprises with superior cardio and volume.' },
+      ] },
+    },
+    previsao_final: {
+      ...analisePT.full_analysis.previsao_final, confidence_label: 'MEDIUM-HIGH',
+      explanation: 'Baraniewski is more technical, more explosive, younger, and has far superior momentum. Lane comes off two losses in R1 with a compromised chin, and is making his debut at a new weight class at 38 years old. Baraniewski\'s power combined with Lane\'s recent fragility points strongly to an early knockout by the Pole. The only variable is Lane\'s size, which could complicate things if he manages to maintain distance. But historically, Lane hasn\'t shown the ability to do that.',
+      x_factor: { title: 'The Weight Cut', description: 'Nobody knows how Lane will react at light heavyweight. If he comes in light, fast, and energized, he could be a better version of himself. If the weight loss affects his power and endurance, he could be even more vulnerable.' },
+      upset_alert: { title: 'Size Matters', description: 'Lane is MUCH bigger than Baraniewski. 6 inches of height, 6 inches of reach. If he uses the jab and maintains distance, Baraniewski could struggle to get inside. The Pole has never faced someone this large.' },
+    },
+    o_que_observar: { points: [
+      { num: 1, title: 'The First 60 Seconds', icon: 'Zap', description: 'Baraniewski is dangerous from the opening bell (knocked out Aly in 20 seconds). If he closes the distance quickly, the fight could end before Lane has a chance to use his size.' },
+      { num: 2, title: 'Lane\'s Jab', icon: 'Target', description: 'If Lane uses the jab intelligently to maintain distance, he could frustrate Baraniewski\'s entries. With 6 extra inches of reach, the jab is his best weapon.' },
+      { num: 3, title: 'Lane\'s Physique at New Weight', icon: 'Activity', description: 'Watch how Lane moves at light heavyweight. If he looks slow or heavy despite the weight cut, that\'s a bad sign. If he looks lighter and more agile, it could be an improved version.' },
+      { num: 4, title: 'Baraniewski\'s Judo Entries', icon: 'Shield', description: 'Baraniewski has a judo background. If Lane pushes him to the clinch, the Pole could use throws and trips to take it to the ground. Watch the clinch attempts.' },
+      { num: 5, title: 'Lane\'s Chin', icon: 'AlertTriangle', description: 'Lane was KO\'d by Pinto in R2 and submitted by Petrino in R1 in his last 2 fights. If Baraniewski lands something clean in the opening minutes, Lane\'s reaction will reveal whether the chin can hold up.' },
+    ] },
+    creator_kit: {
+      instagram: [
+        { slide_number: 1, title: 'YOUTH vs EXPERIENCE', content: 'BARANIEWSKI vs LANE\nUFC London | Light Heavyweight\n\n7-0 vs 13-7\n27-year-old undefeated judoka\nvs 38-year-old ex-NFL athlete', color: 'red' },
+        { slide_number: 2, title: 'BARANIEWSKI: WRECKING BALL', content: '7-0 career record\n5 KOs (71%)\nContender Series: KO in 20 SECONDS\nUFC debut: KO R1 + POTN\n27 years old, judo base', color: 'red' },
+        { slide_number: 3, title: 'LANE: THE NFL GIANT', content: '13-7 career record\n6\'6" tall\n80" reach\nFormer NFL defensive end\nLight heavyweight debut at 38', color: 'blue' },
+        { slide_number: 4, title: 'PREDICTION', content: 'BARANIEWSKI by KO/TKO R1\n\nConfidence: MEDIUM-HIGH\n72% Baraniewski / 26% Lane\n\nThe Pole is too much for Lane\nright now.', color: 'gold' },
+      ],
+      twitter: [
+        { num: '1/4', text: 'Baraniewski vs Lane: 27-year-old undefeated judoka against a 38-year-old former NFL player. Baraniewski knocked out in 20 seconds on DWCS and R1 on debut. Lane lost his last 2 in R1.' },
+        { num: '2/4', text: 'The scariest stat: Baraniewski has 75% striking accuracy in the UFC. SEVENTY-FIVE. Against a guy with 48% defense. Do the math.' },
+        { num: '3/4', text: 'Lane is 6 inches taller with 6 inches more reach. But he\'s dropping from heavyweight to light heavyweight at 38 after 2 losses in R1. The variable is the size.' },
+        { num: '4/4', text: 'Prediction: Baraniewski by KO in the first round. The Pole is too explosive and Lane is too vulnerable right now.' },
+      ],
+      video: [
+        { time: '0-10s', title: 'Hook', text: 'This guy knocked someone out in 20 SECONDS on the Contender Series. And now he faces a former NFL player who\'s 6\'6". Who takes it?' },
+        { time: '10-25s', title: 'Context', text: 'Iwo Baraniewski, 7-0, Polish, judo base, two lightning knockouts. Austen Lane, 13-7, ex-NFL, 6\'6", dropping from heavyweight. Size vs technique.' },
+        { time: '25-40s', title: 'Analysis', text: 'Baraniewski is better at everything except size. Lane was knocked out and submitted in his last 2. The math favors the Pole, but the size difference is real.' },
+        { time: '40-55s', title: 'Prediction', text: 'Baraniewski by KO in R1. The Pole is too explosive, and Lane is in a really bad stretch. Could be another quick night.' },
+      ],
+      tiktok: [
+        { hook: 'Knockout in 20 SECONDS. This guy is LEGIT.', body: 'Iwo Baraniewski knocked out Mahamed Aly in 20 seconds on the Contender Series. Then knocked out Ibo Aslan in R1 on debut. Now he faces Austen Lane, a former NFL player who\'s 6\'6". But Lane lost his last 2 in R1.', cta: 'Does the Pole knock out again? Comment!' },
+        { hook: 'Former NFL player at 6\'6" vs 6\'0" judoka. Who wins?', body: 'Austen Lane played in the NFL as a defensive end. 6\'6", 80-inch reach. But he lost his last 2 fights in R1 and is cutting weight. Baraniewski is undefeated with 5 KOs in 7 fights. Size vs technique.', cta: 'Size or technique? Comment!' },
+      ],
+      headlines: ['Baraniewski vs Lane: The 20-Second Judoka vs the NFL Giant', 'Can Iwo Baraniewski Confirm the Hype With Another Lightning Knockout?', 'Austen Lane Drops Weight and Seeks Rebirth at Light Heavyweight', 'UFC London: Will the 6-Inch Height Difference Matter?', 'The Most Explosive Polish UFC Prospect Faces His Biggest Physical Test'],
+    },
+    betting_value: null,
+    radar_apostador: {
+      odds: { ...analisePT.full_analysis.radar_apostador.odds, source: 'Average across sportsbooks (March 2026)' },
+      edges: [
+        { icon: 'Zap', titulo: 'Baraniewski\'s Explosive Power', stat_headline: '2 CONSECUTIVE R1 KNOCKOUTS, ONE IN JUST 20 SECONDS', contexto: 'Baraniewski finishes at absurd speed. The power is genuine and the timing is precise.', implicacao_aposta: 'Strong edge for Baraniewski inside the distance and Under 1.5 rounds.', edge_level: 'forte', fighter_side: 'fighter1' },
+        { icon: 'AlertTriangle', titulo: 'Lane\'s Durability in Question', stat_headline: 'LANE WAS FINISHED IN HIS LAST 2 FIGHTS (PINTO R2 KO, PETRINO R1 SUB)', contexto: 'Lane\'s chin and ability to survive are in serious decline. Knocked out and submitted consecutively.', implicacao_aposta: 'Drastically increases the probability of an early Baraniewski finish.', edge_level: 'forte', fighter_side: 'fighter1' },
+        { icon: 'BarChart3', titulo: 'Size Difference: 6 Inches of Height', stat_headline: 'LANE IS 6\'6" WITH 80" REACH VS BARANIEWSKI\'S 6\'0"', contexto: 'The physical difference is massive. If Lane uses his size intelligently, he could keep Baraniewski at bay.', implicacao_aposta: 'Only argument for Lane. If you believe size matters more than everything else.', edge_level: 'leve', fighter_side: 'fighter2' },
+        { icon: 'Activity', titulo: 'Light Heavyweight Debut for Lane', stat_headline: 'LANE DROPS FROM HEAVYWEIGHT (265 LBS) TO LIGHT HEAVYWEIGHT (205 LBS)', contexto: 'First time in his career Lane makes 205 lbs. The 60-lb drop could affect performance positively or negatively.', implicacao_aposta: 'Total unknown. Don\'t bet heavy on Lane based on the weight cut.', edge_level: 'leve', fighter_side: 'neutral' },
+      ],
+      value_picks: [
+        { tipo: 'Method', pick: 'Baraniewski by KO/TKO R1', odds: '-200', confianca: 'alta', raciocinio: 'The most likely scenario given both fighters\' histories. Baraniewski finishes in R1, Lane gets finished in R1. Total convergence.' },
+        { tipo: 'Over/Under', pick: 'Under 1.5 Rounds', odds: '-180', confianca: 'alta', raciocinio: 'The last 4 combined fights (2 each) all ended in the first two rounds. The probability of going further is low.' },
+        { tipo: 'Moneyline', pick: 'Baraniewski (-450)', odds: '-450', confianca: 'media', edge_vs_mercado: 'The price is high but justified. Doesn\'t offer great value.', raciocinio: 'Baraniewski is the clear favorite, but -450 doesn\'t give much return. Better to bet on method and round.' },
+      ],
+      armadilha: { titulo: 'Trap: Lane by Decision', descricao: 'The last 4 combined fights of both fighters ended in the first two rounds. Betting on a decision in this fight goes against all recent evidence. If there\'s a winner, it\'ll be by finish.' },
+      disclaimer: 'Statistical analysis for informational purposes. Gamble responsibly.',
+    },
+  },
+};
+
 function PageContent() {
   const searchParams = useSearchParams();
   const lang = (searchParams.get('lang') === 'en' ? 'en' : 'pt') as Lang;
-  const analise = analisePT; // TODO: add analiseEN
+  const analise = lang === 'en' ? analiseEN : analisePT;
   return <FullAnalysisView analise={analise} lang={lang} />;
 }
 

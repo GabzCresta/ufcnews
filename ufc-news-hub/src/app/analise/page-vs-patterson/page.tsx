@@ -412,10 +412,161 @@ const analisePT: FullSingleAnalise = {
   },
 };
 
+const analiseEN: FullSingleAnalise = {
+  ...analisePT,
+  titulo: 'Page vs Patterson: The Showman vs The Finisher',
+  subtitulo: 'The point karate veteran takes on the young Brit who finishes everyone',
+  evento_data: 'March 21, 2026', evento_local: 'The O2 Arena, London, United Kingdom', categoria_peso: 'Welterweight (170 lbs)',
+  fight_prediction: { ...analisePT.fight_prediction, predictedMethod: 'Submission R1-R2', confidence: 'MEDIUM' },
+  fighter1_info: { ...analisePT.fighter1_info, ultimasLutas: [{ result: 'W', opponent: 'Jared Cannonier', method: 'Unanimous Decision', event: 'UFC 319' }, { result: 'W', opponent: 'Sharabutdin Magomedov', method: 'Unanimous Decision', event: 'UFC Fight Night 250' }, { result: 'L', opponent: 'Ian Garry', method: 'Unanimous Decision', event: 'UFC 303' }] },
+  fighter2_info: { ...analisePT.fighter2_info, ultimasLutas: [{ result: 'W', opponent: 'Trey Waters', method: 'TKO R1', event: 'UFC Paris' }, { result: 'W', opponent: 'Danny Barlow', method: 'KO R1', event: 'UFC Vegas 103' }, { result: 'W', opponent: 'Kiefer Crosbie', method: 'Sub R1', event: 'UFC 304' }] },
+  full_analysis: {
+    hero: { ...analisePT.full_analysis.hero, evento_data: 'March 21, 2026', evento_local: 'The O2 Arena, London, United Kingdom', categoria_peso: 'Welterweight (170 lbs)', tagline: 'The Showman vs The Finisher', tagline_sub: 'An all-British clash between the point karate veteran and the young man who finishes everyone in his path', fighter1: { ...analisePT.full_analysis.hero.fighter1, ranking: '#13 Welterweight', info_extra: 'London, England | 38 years old' }, fighter2: { ...analisePT.full_analysis.hero.fighter2, ranking: 'N/R Welterweight', info_extra: 'Watford, England | 29 years old' } },
+    narrativa: {
+      html_content: `
+        <h3 class="font-display text-xl uppercase text-ufc-red mb-4">The All-British Clash London Deserves</h3>
+        <p class="mb-4">This is the kind of fight London crowds love: two Brits, completely opposite styles, and the promise of fireworks. <strong class="text-ufc-red">Michael "Venom" Page</strong> is a living legend of British MMA. Ten-time world kickboxing champion, Bellator star for nearly a decade, and owner of the most polarizing style in the sport: hands down, unpredictable movement, strikes from impossible angles.</p>
+        <p class="mb-4">At 38 years old, MVP is in the twilight of his career but still relevant. Three wins in four UFC fights, including victories over Kevin Holland on debut, Sharabutdin Magomedov, and Jared Cannonier, show he can still compete with high-level names when he implements his gameplan. But the loss to Ian Garry exposed the vulnerability that was always there: when opponents close the distance and neutralize his movement, Page suffers.</p>
+        <h3 class="font-display text-xl uppercase text-ufc-red mb-4 mt-8">The Future Has Arrived</h3>
+        <p class="mb-4"><strong class="text-blue-400">Sam Patterson</strong> didn't earn the nickname "The Future" for nothing. At 29 years old, 6'3" tall with nearly 78 inches of reach, he's a nightmare for any welterweight opponent. Four consecutive first-round finishes, mixing submissions and knockouts, prove Patterson isn't there to make friends. Seven career submissions (including arm-triangle chokes and rear-naked chokes) make him one of the most dangerous finishers in the division.</p>
+        <p class="mb-4">The dynamic is fascinating: Page wants to keep distance and use his unorthodox striking. Patterson wants to close the gap, take it to the ground, and submit. If Patterson gets the takedown, Page is in serious danger. If Page keeps it standing, experience and unconventional techniques could frustrate the youngster. The O2 Arena will be split, and that's the beauty of an all-British showdown.</p>
+      `,
+      stakes: [
+        { dimensao: 'Ranking', fighter1: '#13 Welterweight', fighter2: 'Unranked' },
+        { dimensao: 'Streak', fighter1: '2-fight win streak', fighter2: '4-fight win streak' },
+        { dimensao: 'Narrative', fighter1: 'Stay relevant at 38', fighter2: 'Beat the legend and enter the rankings' },
+        { dimensao: 'Risk', fighter1: 'Second UFC loss in 5 fights', fighter2: 'Lose the chance to level up' },
+      ],
+      prognostico: {
+        fighter1_vence: { titulo: 'VENOM STILL STRIKES', subtitulo: 'Page frustrates Patterson with movement and timing on the feet', consequencias: [{ tag: 'RANKING', texto: 'Page stays in the top 15 and adds another home win against a relevant name' }, { tag: 'LEGACY', texto: 'At 38, MVP proves he can still compete with the division\'s young guns' }], proxima_luta: 'Page vs ranked top 10 opponent on a European card' },
+        fighter2_vence: { titulo: 'THE FUTURE IS NOW', subtitulo: 'Patterson submits the legend and announces his arrival in the rankings', consequencias: [{ tag: 'RANKING', texto: 'Patterson enters the welterweight top 15 with a win over a ranked fighter' }, { tag: 'NEXT', texto: 'Fight against an established top 10-15 name at the next opportunity' }], proxima_luta: 'Patterson vs ranked top 10-15 opponent' },
+      },
+    },
+    momento_atual: {
+      fighter1: { ...analisePT.full_analysis.momento_atual.fighter1, recent_fights: [{ date: 'Aug 2025', opponent: 'Jared Cannonier', result: 'W', method: 'Unanimous Decision', opponent_rank: 'Ex-MW title challenger', quality_score: 3, quality_label: 'Good', note: 'Solid decision win over a dangerous veteran. MVP used movement and counters.' }, { date: 'Feb 2025', opponent: 'Sharabutdin Magomedov', result: 'W', method: 'Unanimous Decision', opponent_rank: '#14 MW', quality_score: 3, quality_label: 'Good', note: 'Impressive upset. Page dominated the undefeated Magomedov by unanimous decision in Riyadh.' }, { date: 'Jun 2024', opponent: 'Ian Garry', result: 'L', method: 'Unanimous Decision', opponent_rank: '#10 WW', quality_score: 4, quality_label: 'Very Good', note: 'Competitive loss to a top prospect. Garry controlled distance and neutralized Page\'s style.' }, { date: 'Mar 2024', opponent: 'Kevin Holland', result: 'W', method: 'Unanimous Decision', opponent_rank: '#14 WW', quality_score: 3, quality_label: 'Good', note: 'Impressive UFC debut. Page frustrated Holland with movement and counters for 3 rounds.' }], full_fight_history: [{ date: 'Mar 2024', opponent: 'Kevin Holland', result: 'W', method: 'UD', opponent_rank: '#14 WW', quality_score: 3, quality_label: 'Good', note: 'UFC debut, unanimous decision' }, { date: 'Jun 2024', opponent: 'Ian Garry', result: 'L', method: 'UD', opponent_rank: '#10 WW', quality_score: 4, quality_label: 'Very Good', note: 'Decision loss' }, { date: 'Feb 2025', opponent: 'Sharabutdin Magomedov', result: 'W', method: 'UD', opponent_rank: '#14 MW', quality_score: 3, quality_label: 'Good', note: 'Upset over undefeated Magomedov in Riyadh' }, { date: 'Aug 2025', opponent: 'Jared Cannonier', result: 'W', method: 'UD', opponent_rank: 'Ex-MW title challenger', quality_score: 3, quality_label: 'Good', note: 'Third UFC win' }], momentum_label: 'On Fire', momentum_note: 'Page is in good form in the UFC. Won his debut against Holland, lost to Garry, then strung together two straight wins over Magomedov and Cannonier. Three wins in four UFC fights show MVP is competitive at the highest level. At 38, the window is closing, but the momentum is positive.' },
+      fighter2: { ...analisePT.full_analysis.momento_atual.fighter2, recent_fights: [{ date: 'Sep 2025', opponent: 'Trey Waters', result: 'W', method: 'TKO R1', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'First-round TKO with precise rights. Fourth consecutive R1 finish.' }, { date: 'Mar 2025', opponent: 'Danny Barlow', result: 'W', method: 'KO R1', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'First-round knockout. Took Barlow\'s undefeated record with brutal power.' }, { date: 'Jul 2024', opponent: 'Kiefer Crosbie', result: 'W', method: 'Submission R1 (arm-triangle)', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'Arm-triangle choke submission in the first round at UFC 304 in Manchester.' }, { date: 'Jan 2024', opponent: 'Yohan Lainesse', result: 'W', method: 'Submission R1 (RNC)', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'Rear-naked choke submission in the first round at UFC 297.' }], full_fight_history: [{ date: 'Mar 2023', opponent: 'Yanal Ashmouz', result: 'L', method: 'KO R1', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'UFC debut loss at lightweight' }, { date: 'Jan 2024', opponent: 'Yohan Lainesse', result: 'W', method: 'Sub R1', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'RNC in R1, first UFC win' }, { date: 'Jul 2024', opponent: 'Kiefer Crosbie', result: 'W', method: 'Sub R1', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'Arm-triangle in R1' }, { date: 'Mar 2025', opponent: 'Danny Barlow', result: 'W', method: 'KO R1', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'KO in R1' }, { date: 'Sep 2025', opponent: 'Trey Waters', result: 'W', method: 'TKO R1', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'TKO in R1, fourth straight win' }], momentum_label: 'On Fire', momentum_note: 'Patterson is on an incredible streak: four consecutive wins, all in the first round (two submissions and two knockouts). The move from lightweight to welterweight was perfect. At 6\'3" with nearly 78 inches of reach, he finally found his ideal weight class. This fight against Page is the step up in competition he needs.' },
+    },
+    nivel_competicao: { fighter1: { nome: 'Page', media_oponentes: 3, media_oponentes_label: 'Good', aproveitamento: '3W-1L (75%)', contra_top5: '0W-0L' }, fighter2: { nome: 'Patterson', media_oponentes: 1, media_oponentes_label: 'Poor', aproveitamento: '4W-1L (80%)', contra_top5: '0W-0L' }, oponentes_em_comum_count: { fighter1: 0, fighter2: 0 }, oponentes_em_comum_note: 'No common opponents. Page has faced far superior competition (Holland, Garry, Magomedov, Cannonier) while Patterson has won against unranked opponents. This fight will show if Patterson is ready for the next level.' },
+    oponente_comum: null,
+    comparacao_estatistica: {
+      stats: [
+        { label: 'Sig. Strikes Per Minute', valueA: 3.15, valueB: 5.80, maxVal: 7, format: 'decimal' },
+        { label: 'Striking Accuracy (%)', valueA: 44, valueB: 52, maxVal: 100, format: 'percent' },
+        { label: 'Strikes Absorbed/Min', valueA: 3.28, valueB: 3.10, maxVal: 6, format: 'decimal', reverseWinner: true },
+        { label: 'Strike Defense (%)', valueA: 55, valueB: 50, maxVal: 100, format: 'percent' },
+        { label: 'Takedowns Per 15 Min', valueA: 0.41, valueB: 3.23, maxVal: 5, format: 'decimal' },
+        { label: 'Takedown Accuracy (%)', valueA: 33, valueB: 50, maxVal: 100, format: 'percent' },
+        { label: 'Takedown Defense (%)', valueA: 42, valueB: 75, maxVal: 100, format: 'percent' },
+        { label: 'Submissions Per 15 Min', valueA: 0.0, valueB: 2.5, maxVal: 4, format: 'decimal' },
+      ],
+      tale_of_tape: [
+        { label: 'Age', fighter1: '38 years old', fighter2: '29 years old', note: 'Page 9 years older' },
+        { label: 'Height', fighter1: '6\'3" (1.91m)', fighter2: '6\'3" (1.91m)', note: 'Same height' },
+        { label: 'Reach', fighter1: '77" (196cm)', fighter2: '78" (198cm)', note: 'Patterson with slight advantage' },
+        { label: 'Stance', fighter1: 'Southpaw/Switch', fighter2: 'Orthodox', note: 'Page constantly switches stances' },
+        { label: 'Gym', fighter1: 'London Shootfighters', fighter2: 'Team Crossface, Watford', note: null },
+      ],
+    },
+    perfil_habilidades: {
+      skills: [
+        { label: 'Stand-up Striking', valueA: 78, valueB: 60, labelA: 'Very Good', labelB: 'Good', advantage: 'fighter1', advantage_note: 'Page is a 10x world kickboxing champion. Unique movement and timing, even at 38.' },
+        { label: 'Wrestling/Takedowns', valueA: 30, valueB: 82, labelA: 'Poor', labelB: 'Very Good', advantage: 'fighter2', advantage_note: 'Patterson averages 3.23 takedowns per 15 min. Page has just 42% takedown defense.' },
+        { label: 'Jiu-Jitsu/Submissions', valueA: 30, valueB: 88, labelA: 'Poor', labelB: 'Very Good', advantage: 'fighter2', advantage_note: 'Patterson has 7 career submissions. Page has just 3 submissions in 24 wins.' },
+        { label: 'Movement & Footwork', valueA: 90, valueB: 55, labelA: 'Excellent', labelB: 'Good', advantage: 'fighter1', advantage_note: 'Page\'s footwork is unique in MMA. Point karate base with quick entries and exits.' },
+        { label: 'Takedown Defense', valueA: 42, valueB: 75, labelA: 'Average', labelB: 'Very Good', advantage: 'fighter2', advantage_note: 'Page has just 42% TDD. Against an active wrestler like Patterson, that\'s concerning.' },
+        { label: 'High-Level Experience', valueA: 78, valueB: 40, labelA: 'Very Good', labelB: 'Average', advantage: 'fighter1', advantage_note: 'Page has faced Holland, Garry, Magomedov, and Cannonier in the UFC. Patterson has only fought unranked opponents.' },
+      ],
+      insight: 'The styles are diametrically opposed. Page dominates on the feet with movement and creative striking, but Patterson dominates on the ground with wrestling and submissions. The fight will be defined by where it takes place: standing or on the mat.',
+    },
+    distribuicao_vitorias: { ...analisePT.full_analysis.distribuicao_vitorias, insight: 'Total contrast. Page is primarily a striker: 54% KO, 13% submission, 33% decision. Patterson is a ground finisher: 50% submission, 43% KO. Patterson almost never goes to decision (just 7%). If the fight goes to the ground, it\'s the young man\'s territory. If it stays standing, it\'s Page\'s territory.' },
+    danger_zones: { zones: [
+      { rounds: 'R1', danger_level: 7, danger_label: 'PATTERSON ADVANTAGE', color: 'green', title: 'The Guillotine Lurks', description: 'Patterson won his last four fights in the first round, by submission or knockout. He comes in aggressive looking for the takedown or finish from the opening seconds. If Page doesn\'t defend the first takedown, he could be submitted quickly. Patterson has diverse submissions (arm-triangle, RNC) and the reach to apply them.' },
+      { rounds: 'R2', danger_level: 5, danger_label: 'EVEN', color: 'gold', title: 'The Adjustment Round', description: 'If Page survives R1, the second round could be more balanced. Page has more experience in longer fights and could find the timing for his counters. Patterson rarely reaches R2 and could be in unfamiliar territory.' },
+      { rounds: 'R3', danger_level: 6, danger_label: 'PAGE ADVANTAGE', color: 'red', title: 'Experience Counts', description: 'If the fight reaches the third round, Page\'s experience in 3-round fights (11 career decisions) could be decisive. Patterson has just 1 decision win in 14 fights. Going the distance favors the veteran.' },
+    ] },
+    intangiveis: { items: [
+      { icon: 'Clock', title: 'Age & Mileage', fighter: 'Page', risk_level: 'MEDIUM RISK', risk_color: 'yellow', description: 'Page is 38 with over 20 years of competition between kickboxing and MMA. The accumulated mileage could affect recovery and reflexes, especially against a 29-year-old.' },
+      { icon: 'Target', title: 'Known Vulnerability', fighter: 'Page', risk_level: 'HIGH RISK', risk_color: 'red', description: 'Page\'s takedown defense (42%) is his biggest vulnerability. Garry exploited this in Page\'s only UFC loss. Patterson, who lives off takedowns and submissions, will attack exactly this weakness.' },
+      { icon: 'MapPin', title: 'Both Brits at Home', fighter: 'Both', risk_level: 'NEUTRAL', risk_color: 'neutral', description: 'Both are British fighting in London. Page from London, Patterson from Watford. The crowd could split, though Page likely has more fans by name recognition.' },
+      { icon: 'Zap', title: 'R1 Finishes', fighter: 'Patterson', risk_level: 'POSITIVE', risk_color: 'green', description: 'Four consecutive first-round wins (two submissions and two KOs). Patterson is a first-round predator who doesn\'t waste energy. If he gets the takedown, he closes the deal fast.' },
+      { icon: 'Brain', title: 'Veteran Fight IQ', fighter: 'Page', risk_level: 'POSITIVE', risk_color: 'green', description: 'Page has seen it all in nearly 30 fights. He knows how to frustrate opponents, maintain distance, and use timing to his advantage. Experience could be the difference if the fight stays standing.' },
+    ] },
+    caminhos_vitoria: {
+      fighter1: { nome: 'Page', total_probability: 38, scenarios: [
+        { name: 'Long-Range Striking', probability: 18, method: 'Unanimous Decision', description: 'Page maintains distance with footwork and jab, frustrates Patterson\'s takedown attempts, and wins on points with counters and unconventional techniques.' },
+        { name: 'Showman Knockout', probability: 12, method: 'KO/TKO R1-R2', description: 'Page finds the perfect timing for a flying knee, spinning back kick, or clean counter that ends the fight spectacularly.' },
+        { name: 'TDD & Volume', probability: 8, method: 'Unanimous Decision', description: 'Page surprises with improved takedown defense and wins with superior strike volume and distance scoring.' },
+      ] },
+      fighter2: { nome: 'Patterson', total_probability: 60, scenarios: [
+        { name: 'Lightning Submission', probability: 28, method: 'Submission R1', description: 'Patterson closes the distance, completes the takedown, and finds the submission quickly. Guillotine on the level change or RNC after taking the back.' },
+        { name: 'Ground and Pound', probability: 18, method: 'TKO R1-R2', description: 'Patterson takes it down and dominates with ground and pound. Page has no tools to get up or defend from the bottom, and the referee stops the fight.' },
+        { name: 'Control Dominance', probability: 14, method: 'Unanimous Decision', description: 'Patterson can\'t get the finish but controls Page on the ground long enough to win every round on the scorecards.' },
+      ] },
+    },
+    previsao_final: {
+      ...analisePT.full_analysis.previsao_final, predicted_method: 'Submission R1-R2', confidence_label: 'MEDIUM',
+      explanation: 'This fight comes down to one question: can Page keep it standing? With just 42% takedown defense and Patterson completing 3.23 takedowns per 15 minutes, the math doesn\'t favor MVP. Patterson has the tools to close the distance (similar reach), take it down, and submit. Page\'s takedown defense was exploited by Garry in his UFC 303 loss, and Patterson is a more dangerous ground grappler. However, Page\'s experience (3-1 in the UFC) and his creative striking are factors that can\'t be ignored. If Page maintains distance for 15 minutes, he could frustrate Patterson.',
+      x_factor: { title: 'Patterson\'s Step Up in Competition', description: 'Patterson has never faced anyone of Page\'s caliber. All his UFC opponents were unranked with limited experience. Page is the first real test. If Patterson gets nervous or shows too much respect for Page\'s striking, he might not be able to close the distance.' },
+      upset_alert: { title: 'Page\'s Timing', description: 'Page is unpredictable by nature. A flying knee on a takedown entry, a counter at the exact right moment, or an upkick from the bottom could change everything. Don\'t underestimate the fight IQ of a 38-year-old veteran.' },
+    },
+    o_que_observar: { points: [
+      { num: 1, title: 'The First Takedown Attempt', icon: 'Target', description: 'Everything starts here. If Patterson completes the first takedown, his confidence skyrockets and Page will spend the entire fight worried about the ground. If Page defends, the dynamic shifts completely.' },
+      { num: 2, title: 'Page\'s Footwork', icon: 'Activity', description: 'Point karate footwork is Page\'s primary weapon for avoiding takedowns. If he maintains lateral movement with quick entries and exits, he can frustrate Patterson. If he stands still, he\'s easy prey.' },
+      { num: 3, title: 'Submissions on Level Changes', icon: 'Zap', description: 'Patterson has 7 career submissions with technical variety. When Page ducks his head to defend a takedown, any type of choke is a real danger. Watch Patterson\'s hands whenever there\'s a level change.' },
+      { num: 4, title: 'Step-Up Nerves', icon: 'Brain', description: 'Patterson has never faced a name like Page. The nerves of stepping up in competition could affect his aggression and timing. Watch if he hesitates on takedown entries.' },
+      { num: 5, title: 'MVP\'s Unconventional Techniques', icon: 'Eye', description: 'Page is famous for strikes from unpredictable angles. Flying knees, spinning back kicks, and counters out of nowhere. One technique could end the fight at any moment.' },
+    ] },
+    creator_kit: {
+      instagram: [
+        { slide_number: 1, title: 'ALL-BRITISH CLASH', content: 'PAGE vs PATTERSON\nUFC London | Welterweight\n\nThe Showman vs The Finisher\n24-3 vs 14-2-1\nOpposite styles, same arena.', color: 'red' },
+        { slide_number: 2, title: 'MVP: THE SHOWMAN', content: '24-3 career record\n13 KOs | 10x kickboxing world champ\n#13 UFC welterweight\n38 years old, point karate\nHands down, impossible angles', color: 'red' },
+        { slide_number: 3, title: 'PATTERSON: THE FUTURE', content: '14-2-1 career record\n7 career submissions\n4 straight R1 finishes\n29 years old, 6\'3", Watford\nThe prospect who finishes everyone', color: 'blue' },
+        { slide_number: 4, title: 'THE KEY', content: 'Page: 42% takedown defense\nPatterson: 3.23 TDs per 15 min\n\nIf it goes to the ground = Patterson\nIf it stays standing = Page\n\nWhere will it happen?', color: 'gold' },
+        { slide_number: 5, title: 'PREDICTION', content: 'PATTERSON by Submission R1-R2\n\nConfidence: MEDIUM\n60% Patterson / 38% Page\n\nBut MVP is unpredictable.\nAlways.', color: 'gold' },
+      ],
+      twitter: [
+        { num: '1/5', text: 'Page vs Patterson is the perfect all-British clash. The point karate showman against the Watford finisher. Completely opposite styles. Thread:' },
+        { num: '2/5', text: 'MVP (24-3): 13 KOs, 3-1 in the UFC, 10 world kickboxing titles, hands down, impossible angles. But 42% takedown defense. FORTY-TWO.' },
+        { num: '3/5', text: 'Patterson (14-2-1): 7 career submissions, FOUR consecutive R1 finishes. The guy closes and finishes. And now he faces someone with 42% TDD.' },
+        { num: '4/5', text: 'If Patterson closes the distance, it\'s game over for Page. If Page keeps it standing, experience and creative striking could frustrate the youngster. A fight of contrasts.' },
+        { num: '5/5', text: 'Prediction: Patterson by submission in the first two rounds. The math doesn\'t lie: 42% TDD vs 3.23 TDs per 15 min. But MVP is MVP. 3-1 in the UFC. Always unpredictable.' },
+      ],
+      video: [
+        { time: '0-10s', title: 'Hook', text: 'Michael Page has 42% takedown defense. Sam Patterson has 4 consecutive first-round finishes. Do the math.' },
+        { time: '10-25s', title: 'Context', text: 'All-British clash at the O2 Arena. MVP, 38, kickboxing legend, #13 in the rankings. Patterson, 29, 7 submissions, the most dangerous prospect from Watford.' },
+        { time: '25-40s', title: 'Analysis', text: 'Simple gameplan fight: if it goes to the ground, Patterson dominates. If it stays standing, Page frustrates. Page\'s takedown defense is the critical point.' },
+        { time: '40-55s', title: 'Prediction', text: 'Patterson by submission in the first two rounds. But if you like risky bets, MVP by spectacular knockout pays well and isn\'t impossible.' },
+      ],
+      tiktok: [
+        { hook: 'This guy has 42% takedown defense and is about to face a GROUND PREDATOR.', body: 'Michael Page, MVP, kickboxing legend. But 42% TDD. Sam Patterson won his last FOUR fights in the first round. Seven career submissions. And now he faces a guy who can\'t defend takedowns. Do the math.', cta: 'Patterson by sub or MVP by spectacular KO? Comment!' },
+        { hook: 'All-British clash at the O2 Arena and nobody is talking about it.', body: 'Page vs Patterson. The 38-year-old veteran showman against the 29-year-old finisher. If it goes to the ground, Patterson dominates. If it stays standing, Page frustrates. Completely opposite styles. Same arena. It\'s going to be epic.', cta: 'Who are you picking? Comment!' },
+      ],
+      headlines: ['Page vs Patterson: 42% TDD Meets the First-Round Predator', 'The Showman vs The Future: The All-British Clash London Deserves', 'Can Sam Patterson Be MVP\'s Worst Nightmare on the Ground?', 'Michael Page at 38: Can Experience Overcome Youth?', 'UFC London: The Style Clash That Promises Fireworks at Welterweight'],
+    },
+    betting_value: null,
+    radar_apostador: {
+      odds: { ...analisePT.full_analysis.radar_apostador.odds, source: 'Average across sportsbooks (March 2026)' },
+      edges: [
+        { icon: 'Target', titulo: 'Fragile Takedown Defense', stat_headline: 'PAGE HAS JUST 42% TAKEDOWN DEFENSE IN THE UFC', contexto: 'Page\'s most exploited vulnerability. Garry neutralized his style by exploiting this. Patterson lives off takedowns.', implicacao_aposta: 'Very strong edge for Patterson. The math is clear: 42% TDD vs 3.23 TDs per 15 min.', edge_level: 'forte', fighter_side: 'fighter2' },
+        { icon: 'Zap', titulo: 'R1 Win Streak', stat_headline: '4 CONSECUTIVE FIRST-ROUND WINS (2 SUBS + 2 KOs)', contexto: 'Patterson doesn\'t waste time. Closes, takes down or lands heavy strikes. Finishes fast.', implicacao_aposta: 'Strong edge for Under and Patterson by finish.', edge_level: 'forte', fighter_side: 'fighter2' },
+        { icon: 'Brain', titulo: 'Page\'s Experience & Unpredictability', stat_headline: '27 PRO FIGHTS, 3-1 IN THE UFC, 10 WORLD KICKBOXING TITLES', contexto: 'Page has seen everything. Three wins in four UFC fights. Unconventional techniques can surprise even the most prepared.', implicacao_aposta: 'Don\'t rule out Page by KO. The price as underdog could have value.', edge_level: 'moderado', fighter_side: 'fighter1' },
+        { icon: 'Clock', titulo: 'Age: 38 vs 29', stat_headline: 'PAGE IS 9 YEARS OLDER THAN PATTERSON', contexto: 'The age gap is significant. Page is in the twilight, Patterson in his athletic prime.', implicacao_aposta: 'Favors Patterson in high-intensity fights and scrambles.', edge_level: 'moderado', fighter_side: 'fighter2' },
+      ],
+      value_picks: [
+        { tipo: 'Method', pick: 'Patterson by Submission', odds: '+110', confianca: 'alta', raciocinio: '50% of Patterson\'s wins are by submission. Page has 42% TDD and 0 submissions defensively. Most likely scenario if the fight goes to the ground.' },
+        { tipo: 'Over/Under', pick: 'Under 2.5 Rounds', odds: '-130', confianca: 'media', raciocinio: 'Patterson consistently finishes in R1. If he gets the takedown, the fight could end quickly.' },
+        { tipo: 'Moneyline', pick: 'Page (+140)', odds: '+140', confianca: 'baixa', edge_vs_mercado: 'Page as underdog at +140 has value if you believe he can keep it standing.', raciocinio: 'Page is unpredictable and has high fight IQ. If he maintains distance, he could frustrate Patterson.' },
+      ],
+      armadilha: { titulo: 'Trap: Patterson by Decision', descricao: 'Patterson has just 1 decision win in 14 fights (7%). Betting on his decision is going against his entire track record. Either he finishes or he doesn\'t. There\'s no middle ground with Patterson.' },
+      disclaimer: 'Statistical analysis for informational purposes. Gamble responsibly.',
+    },
+  },
+};
+
 function PageContent() {
   const searchParams = useSearchParams();
   const lang = (searchParams.get('lang') === 'en' ? 'en' : 'pt') as Lang;
-  const analise = analisePT; // TODO: add analiseEN
+  const analise = lang === 'en' ? analiseEN : analisePT;
   return <FullAnalysisView analise={analise} lang={lang} />;
 }
 
