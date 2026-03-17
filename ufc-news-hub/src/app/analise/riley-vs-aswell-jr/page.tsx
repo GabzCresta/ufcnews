@@ -553,7 +553,7 @@ const analiseEN: FullSingleAnalise = {
     },
     betting_value: null,
     radar_apostador: {
-      odds: { ...analisePT.full_analysis.radar_apostador.odds, source: 'Average across sportsbooks (March 2026)' },
+      odds: { ...analisePT.full_analysis.radar_apostador!.odds, source: 'Average across sportsbooks (March 2026)' },
       edges: [
         { icon: 'Zap', titulo: 'Riley\'s KO Rate', stat_headline: '75% OF WINS BY KO/TKO, 9 IN 12 FIGHTS', contexto: 'Riley is a natural finisher. He almost never needs the judges\' scorecards.', implicacao_aposta: 'Strong edge for Riley inside the distance. Fight is unlikely to go to the judges.', edge_level: 'forte', fighter_side: 'fighter1' },
         { icon: 'Shield', titulo: 'Aswell\'s Weak Strike Defense', stat_headline: '45% STRIKE DEFENSE IN THE UFC, ABSORBS 3.85 PER MINUTE', contexto: 'Aswell absorbs too many shots against a striker of Riley\'s caliber. Clear vulnerability.', implicacao_aposta: 'Increases probability of an early Riley finish.', edge_level: 'forte', fighter_side: 'fighter1' },

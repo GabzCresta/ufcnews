@@ -358,10 +358,70 @@ const analisePT: PrelimsAnalise = {
   },
 };
 
+const analiseEN: PrelimsAnalise = {
+  ...analisePT, evento_data: 'March 21, 2026', evento_local: 'The O2 Arena, London, United Kingdom', categoria_peso: 'Middleweight (185 lbs)',
+  fight_prediction: { ...analisePT.fight_prediction, confidence: 'MEDIUM-HIGH' },
+  prelims_analysis: {
+    hero: { ...analisePT.prelims_analysis.hero, evento_data: 'March 21, 2026', categoria_peso: 'Middleweight (185 lbs)' },
+    comparacao_estatistica: { stats: [
+      { label: 'Sig. Strikes Per Minute', valueA: 5.45, valueB: 3.20, maxVal: 8, format: 'decimal', note: 'Kondratavicius is far more active in striking, nearly double Trocoli\'s volume' },
+      { label: 'Striking Accuracy (%)', valueA: 58, valueB: 42, maxVal: 100, format: 'percent', note: 'Significantly superior accuracy from the Lithuanian, landing nearly 6 out of 10' },
+      { label: 'Strikes Absorbed/Min', valueA: 3.20, valueB: 5.80, maxVal: 8, format: 'decimal', reverseWinner: true, note: 'Trocoli absorbs nearly 6 strikes per minute, an extremely concerning number' },
+      { label: 'Strike Defense (%)', valueA: 55, valueB: 38, maxVal: 100, format: 'percent', note: 'Trocoli defends less than 40% of strikes, a massive vulnerability' },
+      { label: 'Takedowns Per 15 Min', valueA: 0.90, valueB: 1.10, maxVal: 5, format: 'decimal' },
+      { label: 'Takedown Accuracy (%)', valueA: 50, valueB: 33, maxVal: 100, format: 'percent' },
+      { label: 'Takedown Defense (%)', valueA: 70, valueB: 55, maxVal: 100, format: 'percent', note: 'Kondratavicius defends takedowns solidly' },
+    ], tale_of_tape: [
+      { label: 'Age', fighter1: '26 years old', fighter2: '35 years old', note: 'Kondratavicius is 9 years younger' },
+      { label: 'Height', fighter1: '6\'3" (1.91m)', fighter2: '6\'5" (1.96m)', note: 'Trocoli has a 5cm height advantage' },
+      { label: 'Reach', fighter1: '75.5" (192cm)', fighter2: '82" (209cm)', note: 'Trocoli has 6.5 inches more reach, a massive difference' },
+      { label: 'Stance', fighter1: 'Orthodox', fighter2: 'Orthodox', note: null },
+      { label: 'Gym', fighter1: 'Fighter House / Kaunas, Lithuania', fighter2: 'Team Malvado / Brazil', note: null },
+    ] },
+    historico_lutas: {
+      fighter1: { nome: 'Kondratavicius', recent_fights: [
+        { date: 'Sep 2025', opponent: 'Djani Barbir', result: 'W', method: 'TKO R1 (punches, 1:06)', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'TKO in 66 seconds on DWCS against an undefeated fighter. Earned UFC contract dominantly.' },
+        { date: 'Mar 2025', opponent: 'Michael Tchamou', result: 'W', method: 'KO R1', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'First-round knockout against one of Cage Warriors\' best strikers.' },
+        { date: 'Jan 2024', opponent: 'Kirill Lumivouri', result: 'W', method: 'Sub R1', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'First-round submission, showed versatility beyond striking.' },
+        { date: 'Jun 2023', opponent: 'Virgil Augene', result: 'L', method: 'TKO R1', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'Only career loss at ARES FC. Was stopped in the first round.' },
+        { date: 'Feb 2023', opponent: 'Titos Mokbel', result: 'W', method: 'KO R1', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'Another first-round knockout, pattern of quick finishes.' },
+      ] },
+      fighter2: { nome: 'Trocoli', recent_fights: [
+        { date: 'Dec 2025', opponent: 'Mansur Abdul-Malik', result: 'L', method: 'Sub R1 (guillotine, 1:09)', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'Submitted in just over 1 minute at UFC 323. Third consecutive loss.' },
+        { date: 'Nov 2024', opponent: 'Tresean Gore', result: 'L', method: 'Sub R1 (guillotine, 1:23)', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'Submitted again by guillotine in the first round. Concerning pattern.' },
+        { date: 'Jun 2024', opponent: 'Shara Magomedov', result: 'L', method: 'TKO R3', opponent_rank: 'N/R', quality_score: 4, quality_label: 'Very Good', note: 'Lasted 3 rounds against Shara Bullet in Riyadh, accepted on short notice. Elite-level opponent.' },
+        { date: 'Nov 2021', opponent: 'Reslley Isael', result: 'W', method: 'Sub R1 (RNC, 2:10)', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'Last career win, quick submission. Since then, 3 consecutive UFC losses.' },
+        { date: 'Jul 2019', opponent: 'Kenneth Bergh', result: 'NC', method: 'NC (failed drug test)', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'Won by submission on DWCS and earned contract, but result was overturned for failing drug test. Contract rescinded.' },
+      ] },
+    },
+    perfil_habilidades: { skills: [
+      { label: 'Stand-up Striking', valueA: 78, valueB: 62, labelA: 'Very Good', labelB: 'Good', advantage: 'fighter1', advantage_note: 'Kondratavicius has superior accuracy (58%) and higher volume. Trocoli relies more on ground submissions than striking.' },
+      { label: 'Knockout Power', valueA: 82, valueB: 72, labelA: 'Very Good', labelB: 'Good', advantage: 'fighter1', advantage_note: 'Kondratavicius has superior knockout power with 75% wins by KO. Trocoli has just 25% KOs and relies more on submissions.' },
+      { label: 'Wrestling & Grappling', valueA: 55, valueB: 50, labelA: 'Good', labelB: 'Average', advantage: 'even', advantage_note: 'Neither is an elite grappler. Trocoli was submitted twice by guillotine, a clear vulnerability.' },
+      { label: 'Overall Defense', valueA: 60, valueB: 35, labelA: 'Good', labelB: 'Average', advantage: 'fighter1', advantage_note: 'Trocoli defends only 38% of strikes and was submitted 3 times in a row. Very concerning defense.' },
+      { label: 'Cardio & Pace', valueA: 55, valueB: 52, labelA: 'Good', labelB: 'Average', advantage: 'even', advantage_note: 'Both prefer to finish in the first round. If the fight goes long, neither has a clear advantage.' },
+      { label: 'Octagon Experience', valueA: 30, valueB: 55, labelA: 'Poor', labelB: 'Good', advantage: 'fighter2', advantage_note: 'Trocoli has 3 UFC fights (0W-3L) and faced Shara Magomedov. Kondratavicius makes his octagon debut.' },
+    ], insight: 'Kondratavicius is a natural finisher who has never needed the judges, winning 100% of his fights by knockout or submission. Trocoli has UFC experience but comes off 3 consecutive losses (all by submission in R1) with his defense in total collapse. The Lithuanian enters as the clear favorite despite being a debutant.' },
+    distribuicao_vitorias: {
+      fighter1: { nome: 'Kondratavicius', ko_tko: { count: 6, percent: 75 }, submission: { count: 2, percent: 25 }, decision: { count: 0, percent: 0 }, total_wins: 8 },
+      fighter2: { nome: 'Trocoli', ko_tko: { count: 3, percent: 25 }, submission: { count: 5, percent: 42 }, decision: { count: 4, percent: 33 }, total_wins: 12 },
+      insight: 'Kondratavicius has never gone to a decision. All 8 wins were by knockout (75%) or submission (25%), all in the first round. Trocoli is more of a ground finisher with 42% wins by submission and just 25% by KO, but has been systematically submitted in his last 3 bouts. This fight will likely be decided in the opening minutes.',
+    },
+    previsao_final: {
+      winner_name: 'Kondratavicius', winner_side: 'fighter1', predicted_method: 'KO/TKO R1', confidence_score: 7, confidence_label: 'MEDIUM-HIGH',
+      explanation: 'Mantas Kondratavicius is a genuine prospect with a 100% finish rate and explosive power that earned him a DWCS contract in 66 seconds. Trocoli comes off 3 consecutive losses, all by submission in the first round, with just 38% strike defense. The Brazilian has experience and power, but is in freefall momentum. The Lithuanian should impose his pace from the opening bell and exploit Trocoli\'s defensive gaps to find a quick knockout.',
+      x_factor: { title: 'Kondratavicius\'s finish rate', description: '100% career finishes. Kondratavicius has never needed judges and ends fights with brutality. If Trocoli doesn\'t show maximum respect for the Lithuanian\'s power, he\'s hitting the canvas fast.' },
+      upset_alert: { title: 'Trocoli\'s reach could make the difference', description: 'With 6.5 inches more reach and 5cm of height, Trocoli can maintain distance and use the jab. Despite coming off 3 losses, he lasted 3 rounds against Shara Magomedov and has octagon experience. If Kondratavicius enters without respecting the reach, he could be surprised.' },
+      probabilities: { fighter1: { nome: 'Kondratavicius', percent: 68 }, fighter2: { nome: 'Trocoli', percent: 30 }, draw: 2 },
+      value_picks: undefined,
+    },
+  },
+};
+
 function PageContent() {
   const searchParams = useSearchParams();
   const lang = (searchParams.get('lang') === 'en' ? 'en' : 'pt') as Lang;
-  const analise = analisePT; // TODO: add analiseEN
+  const analise = lang === 'en' ? analiseEN : analisePT;
   return <PrelimsAnalysisView analise={analise} lang={lang} />;
 }
 

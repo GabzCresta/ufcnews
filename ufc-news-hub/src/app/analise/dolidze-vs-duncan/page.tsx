@@ -541,7 +541,7 @@ const analiseEN: FullSingleAnalise = {
     },
     betting_value: null,
     radar_apostador: {
-      odds: { ...analisePT.full_analysis.radar_apostador.odds, source: 'Average across sportsbooks (March 2026)' },
+      odds: { ...analisePT.full_analysis.radar_apostador!.odds, source: 'Average across sportsbooks (March 2026)' },
       edges: [
         { icon: 'Target', titulo: 'Duncan\'s Superior Reach', stat_headline: '79-INCH REACH VS DOLIDZE\'S 76 INCHES', contexto: 'Duncan has 3 extra inches of range. Can use jab and straights from distance to keep Dolidze away.', implicacao_aposta: 'Favors Duncan on the feet. If the fight stays in the striking, Duncan has a structural advantage.', edge_level: 'moderado', fighter_side: 'fighter2' },
         { icon: 'Shield', titulo: 'Dolidze\'s Wrestling vs Duncan\'s TDD', stat_headline: 'DOLIDZE: 2.10 TDS/15MIN. DUNCAN: 58% TDD', contexto: 'Dolidze is an active wrestler and Duncan has never faced this level of ground pressure.', implicacao_aposta: 'If you think Dolidze takes it down, he can control and win.', edge_level: 'moderado', fighter_side: 'fighter1' },

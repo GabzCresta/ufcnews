@@ -358,10 +358,77 @@ const analisePT: PrelimsAnalise = {
   },
 };
 
+const analiseEN: PrelimsAnalise = {
+  ...analisePT,
+  evento_data: 'March 21, 2026', evento_local: 'The O2 Arena, London, United Kingdom', categoria_peso: 'Featherweight (145 lbs)',
+  fight_prediction: { ...analisePT.fight_prediction, predictedMethod: 'Unanimous Decision', confidence: 'MEDIUM' },
+  prelims_analysis: {
+    hero: { ...analisePT.prelims_analysis.hero, evento_data: 'March 21, 2026', categoria_peso: 'Featherweight (145 lbs)' },
+    comparacao_estatistica: {
+      stats: [
+        { label: 'Sig. Strikes Per Minute', valueA: 5.75, valueB: 4.80, maxVal: 8, format: 'decimal', note: 'Wood is a machine gun on the feet, nearly 6 significant strikes per minute' },
+        { label: 'Striking Accuracy (%)', valueA: 48, valueB: 52, maxVal: 100, format: 'percent', note: 'Keita lands with more precision, a reflection of his boxing background' },
+        { label: 'Strikes Absorbed/Min', valueA: 4.10, valueB: 3.50, maxVal: 7, format: 'decimal', reverseWinner: true, note: 'Keita absorbs fewer shots, indicating superior movement' },
+        { label: 'Strike Defense (%)', valueA: 55, valueB: 58, maxVal: 100, format: 'percent' },
+        { label: 'Takedowns Per 15 Min', valueA: 1.50, valueB: 0.80, maxVal: 5, format: 'decimal', note: 'Wood has a more solid grappling background and uses takedowns to control' },
+        { label: 'Takedown Accuracy (%)', valueA: 73, valueB: 40, maxVal: 100, format: 'percent', note: 'Wood has elite takedown accuracy, lands nearly 3 out of every 4 attempts' },
+        { label: 'Takedown Defense (%)', valueA: 72, valueB: 68, maxVal: 100, format: 'percent' },
+      ],
+      tale_of_tape: [
+        { label: 'Age', fighter1: '32 years old', fighter2: '28 years old', note: 'Keita is 4 years younger' },
+        { label: 'Height', fighter1: '5\'6" (1.68m)', fighter2: '5\'9" (1.76m)', note: 'Keita has an 8cm height advantage' },
+        { label: 'Reach', fighter1: '68.9" (175cm)', fighter2: '69.3" (176cm)', note: null },
+        { label: 'Stance', fighter1: 'Orthodox', fighter2: 'Orthodox', note: null },
+        { label: 'Gym', fighter1: 'Great Britain Top Team / London', fighter2: 'Lamiro Fight Club / Kortrijk, Belgium', note: null },
+      ],
+    },
+    historico_lutas: {
+      fighter1: { nome: 'Wood', recent_fights: [
+        { date: 'Oct 2025', opponent: 'Jose Miguel Delgado', result: 'W', method: 'Unanimous Decision', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'Safe points win at UFC 321, maintained 3-fight win streak.' },
+        { date: 'Mar 2025', opponent: 'Morgan Charriere', result: 'W', method: 'Unanimous Decision', opponent_rank: 'N/R', quality_score: 3, quality_label: 'Good', note: 'Beat the Frenchman in his own backyard at UFC Paris, showing maturity and tactical control.' },
+        { date: 'Jul 2024', opponent: 'Daniel Pineda', result: 'W', method: 'Unanimous Decision', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'Win at UFC 304 in Manchester, maintained high pace for 3 rounds in front of the English crowd.' },
+        { date: 'Oct 2023', opponent: 'Muhammad Naimov', result: 'L', method: 'Unanimous Decision', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'Points loss at UFC 294 in Abu Dhabi, Naimov controlled with clinch and ground control.' },
+        { date: 'Jul 2023', opponent: 'Andre Fili', result: 'W', method: 'Unanimous Decision', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'Solid points win at UFC London against a division veteran.' },
+      ] },
+      fighter2: { nome: 'Keita', recent_fights: [
+        { date: 'Sep 2025', opponent: 'Patricio Pitbull', result: 'NC', method: 'Canceled (missed weight)', opponent_rank: 'N/R', quality_score: 3, quality_label: 'Good', note: 'UFC debut canceled for weighing 149lbs, 3 pounds over the limit. Discipline red flag.' },
+        { date: 'Dec 2024', opponent: 'Ronald Paradeiser', result: 'W', method: 'TKO R3', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'Won the Oktagon lightweight tournament and title. Triple crown: 2x lightweight + featherweight.' },
+        { date: 'Sep 2024', opponent: 'Mateusz Legierski', result: 'W', method: 'Unanimous Decision', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'Oktagon tournament semifinal, calculated points win against the Pole.' },
+        { date: 'Jul 2024', opponent: 'Predrag Bogdanovic', result: 'W', method: 'KO R2', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'Devastating knockout in the Oktagon tournament quarterfinals.' },
+        { date: 'Jun 2022', opponent: 'Ivan Buchinger', result: 'W', method: 'TKO R1', opponent_rank: 'Oktagon Champion', quality_score: 3, quality_label: 'Good', note: 'Dethroned the dual champion Buchinger in the first round to capture the title.' },
+      ] },
+    },
+    perfil_habilidades: {
+      skills: [
+        { label: 'Stand-up Striking', valueA: 82, valueB: 80, labelA: 'Very Good', labelB: 'Very Good', advantage: 'even', advantage_note: 'Wood has absurd volume at 5.75 SLpM. Keita has 10 career KOs and superior precision. Elite-level striking matchup.' },
+        { label: 'Knockout Power', valueA: 65, valueB: 85, labelA: 'Good', labelB: 'Very Good', advantage: 'fighter2', advantage_note: 'Keita has 10 KOs in 16 wins (63%), including knockouts against Oktagon champions. Wood has 8 KOs but against inferior opposition.' },
+        { label: 'Wrestling & Grappling', valueA: 76, valueB: 55, labelA: 'Very Good', labelB: 'Good', advantage: 'fighter1', advantage_note: 'Wood has 73% takedown accuracy and 5 career submissions. Keita is primarily a striker with little offensive grappling.' },
+        { label: 'Overall Defense', valueA: 72, valueB: 65, labelA: 'Good', labelB: 'Good', advantage: 'fighter1', advantage_note: 'Wood has 72% takedown defense and more defensive experience. Keita has never been tested by an elite grappler.' },
+        { label: 'Cardio & Pace', valueA: 80, valueB: 72, labelA: 'Very Good', labelB: 'Good', advantage: 'fighter1', advantage_note: 'Wood maintains a high pace for 3 full rounds, his last 3 wins were all unanimous decisions.' },
+        { label: 'Octagon Experience', valueA: 85, valueB: 25, labelA: 'Very Good', labelB: 'Poor', advantage: 'fighter1', advantage_note: 'Wood has 13 UFC fights (10W-3L) and has faced top 15 opponents. Keita has never fought in the octagon, his debut was canceled.' },
+      ],
+      insight: 'Wood is the more complete and experienced fighter, with clear advantages in grappling, cardio, and octagon maturity. Keita brings explosive knockout power and the confidence of an undefeated champion, but the transition from Oktagon to UFC is a massive leap. The key is whether Keita can land clean in the first two rounds before Wood\'s cardio takes over.',
+    },
+    distribuicao_vitorias: {
+      fighter1: { nome: 'Wood', ko_tko: { count: 8, percent: 36 }, submission: { count: 5, percent: 23 }, decision: { count: 9, percent: 41 }, total_wins: 22 },
+      fighter2: { nome: 'Keita', ko_tko: { count: 10, percent: 63 }, submission: { count: 0, percent: 0 }, decision: { count: 6, percent: 37 }, total_wins: 16 },
+      insight: 'Opposite profiles in how they win. Wood is well-distributed between decision (41%), KO (36%), and submission (23%), showing total versatility. Keita relies on power with 63% knockouts and zero submissions, but also knows how to score with 37% decisions. If the fight goes the distance, it favors Wood. If Keita connects early, it could end fast.',
+    },
+    previsao_final: {
+      winner_name: 'Wood', winner_side: 'fighter1', predicted_method: 'Unanimous Decision', confidence_score: 6, confidence_label: 'MEDIUM',
+      explanation: 'Nathaniel Wood fights at home in London with 3 consecutive wins and 13 fights of octagon experience. Keita is talented and dangerous, but has never stepped inside the UFC cage and lost his only chance to debut by missing weight. The pressure of debuting in hostile territory, combined with Wood\'s relentless pace and superior grappling, should be decisive factors. However, Keita\'s power is real and Wood has shown vulnerability against heavy strikers.',
+      x_factor: { title: 'London and Wood\'s home crowd', description: 'Wood has never lost at home in England in the UFC. The O2 Arena energy will push the Brit, especially in the late rounds when cardio can make the difference.' },
+      upset_alert: { title: 'Keita has the power to shut anyone\'s lights off', description: 'With 10 KOs in 16 wins, including knockouts against Oktagon champions, Keita can end the fight with a single shot. If Wood underestimates the Belgian\'s power and trades openly, he could be surprised.' },
+      probabilities: { fighter1: { nome: 'Wood', percent: 62 }, fighter2: { nome: 'Keita', percent: 36 }, draw: 2 },
+      value_picks: undefined,
+    },
+  },
+};
+
 function PageContent() {
   const searchParams = useSearchParams();
   const lang = (searchParams.get('lang') === 'en' ? 'en' : 'pt') as Lang;
-  const analise = analisePT; // TODO: add analiseEN
+  const analise = lang === 'en' ? analiseEN : analisePT;
   return <PrelimsAnalysisView analise={analise} lang={lang} />;
 }
 

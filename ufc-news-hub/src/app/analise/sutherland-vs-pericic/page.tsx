@@ -359,10 +359,70 @@ const analisePT: PrelimsAnalise = {
   },
 };
 
+const analiseEN: PrelimsAnalise = {
+  ...analisePT, evento_data: 'March 21, 2026', evento_local: 'The O2 Arena, London, United Kingdom', categoria_peso: 'Heavyweight (265 lbs)',
+  fight_prediction: { ...analisePT.fight_prediction, confidence: 'MEDIUM' },
+  prelims_analysis: {
+    hero: { ...analisePT.prelims_analysis.hero, evento_data: 'March 21, 2026', categoria_peso: 'Heavyweight (265 lbs)' },
+    comparacao_estatistica: { stats: [
+      { label: 'Sig. Strikes Per Minute', valueA: 4.20, valueB: 6.15, maxVal: 8, format: 'decimal', note: 'Pericic has explosive volume, over 6 significant strikes per minute on debut' },
+      { label: 'Striking Accuracy (%)', valueA: 45, valueB: 55, maxVal: 100, format: 'percent', note: 'Pericic lands with more precision, a product of his professional kickboxing background' },
+      { label: 'Strikes Absorbed/Min', valueA: 3.80, valueB: 2.50, maxVal: 7, format: 'decimal', reverseWinner: true, note: 'Pericic absorbs far fewer shots, finished fast without giving opponents time to react' },
+      { label: 'Strike Defense (%)', valueA: 48, valueB: 60, maxVal: 100, format: 'percent', note: 'Sutherland has below-average defense, was submitted by heel hook on his UFC debut' },
+      { label: 'Takedowns Per 15 Min', valueA: 1.80, valueB: 0.50, maxVal: 5, format: 'decimal', note: 'Sutherland attempts more takedowns, could be his path to victory' },
+      { label: 'Takedown Accuracy (%)', valueA: 42, valueB: 33, maxVal: 100, format: 'percent' },
+      { label: 'Takedown Defense (%)', valueA: 55, valueB: 70, maxVal: 100, format: 'percent', note: 'Pericic trains with Israel Adesanya and the elite City Kickboxing team' },
+    ], tale_of_tape: [
+      { label: 'Age', fighter1: '32 years old', fighter2: '31 years old', note: 'Very close in age, both in their 30s' },
+      { label: 'Height', fighter1: '6\'3" (1.91m)', fighter2: '6\'5" (1.96m)', note: 'Pericic has a 5cm advantage' },
+      { label: 'Reach', fighter1: '76" (193cm)', fighter2: '78" (198cm)', note: 'Pericic has 5cm more reach' },
+      { label: 'Stance', fighter1: 'Orthodox', fighter2: 'Orthodox', note: null },
+      { label: 'Gym', fighter1: 'Great Britain Top Team / England', fighter2: 'City Kickboxing / Auckland, NZ', note: 'Pericic trains with Adesanya and Volk' },
+    ] },
+    historico_lutas: {
+      fighter1: { nome: 'Sutherland', recent_fights: [
+        { date: 'Oct 2025', opponent: 'Valter Walker', result: 'L', method: 'Sub R1 (heel hook, 1:24)', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'Submitted by heel hook in just 1:24 of the first round at UFC 321. Disastrous UFC debut.' },
+        { date: 'Jun 2025', opponent: 'Luke Newland', result: 'W', method: 'TKO R1 (punches)', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'Won the Levels Fight League 18 title with a first-round knockout.' },
+        { date: 'Feb 2025', opponent: 'Luis Carlos de Brito', result: 'W', method: 'TKO R1 (punches)', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'First-round knockout at Levels Fight League 16, stacking wins on the regional circuit.' },
+        { date: 'Dec 2024', opponent: 'Renato Rangel', result: 'W', method: 'Unanimous Decision', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'Points win at Levels Fight League 15, showed patience in a longer fight.' },
+        { date: 'May 2024', opponent: 'Slim Trabelsi', result: 'L', method: 'Unanimous Decision (30-27 x3)', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'Dominated for 3 rounds at Bellator Champions Series in Paris against a French wrestler.' },
+      ] },
+      fighter2: { nome: 'Pericic', recent_fights: [
+        { date: 'Sep 2025', opponent: 'Elisha Ellison', result: 'W', method: 'TKO R1 (1:55)', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'Explosive UFC debut in Perth. Dropped and finished with ground-and-pound in under 2 minutes. Performance of the Night.' },
+        { date: 'Oct 2024', opponent: 'Orion Kenny', result: 'W', method: 'TKO R1 (ground and pound, 1:08)', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'Explosive finish at SFL 1, dropped and finished with ground and pound in just over 1 minute.' },
+        { date: 'May 2024', opponent: 'Tumanako Phillips', result: 'W', method: 'TKO R1 (punches, 0:17)', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'Knockout in just 17 seconds at HEX Fight Series 30. Lightning finish.' },
+        { date: 'Apr 2024', opponent: 'Randall Rayment', result: 'L', method: 'Sub R2 (RNC, 1:36)', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'Only career loss. Submitted by rear-naked choke in the second round at Shuriken Fight Series.' },
+        { date: 'Nov 2019', opponent: 'Kelvin Fitial', result: 'W', method: 'Sub R1 (RNC, 3:26)', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'Rear-naked choke submission in the first round at Diamondback FC.' },
+      ] },
+    },
+    perfil_habilidades: { skills: [
+      { label: 'Stand-up Striking', valueA: 62, valueB: 82, labelA: 'Good', labelB: 'Very Good', advantage: 'fighter2', advantage_note: 'Pericic is 18-2 in professional kickboxing with multiple titles. Striking is his primary weapon and he\'s on another technical level.' },
+      { label: 'Knockout Power', valueA: 72, valueB: 85, labelA: 'Good', labelB: 'Very Good', advantage: 'fighter2', advantage_note: 'Pericic has 80% wins by KO/TKO. Sutherland also has power but is less consistent.' },
+      { label: 'Wrestling & Grappling', valueA: 50, valueB: 48, labelA: 'Average', labelB: 'Average', advantage: 'even', advantage_note: 'Both are primarily strikers. Neither has high-level wrestling, but Sutherland attempts more takedowns.' },
+      { label: 'Overall Defense', valueA: 42, valueB: 60, labelA: 'Average', labelB: 'Good', advantage: 'fighter2', advantage_note: 'Sutherland was submitted by heel hook on debut and dominated by decision at Bellator. Pericic trains with CKB elite and absorbs fewer strikes.' },
+      { label: 'Cardio & Pace', valueA: 50, valueB: 55, labelA: 'Average', labelB: 'Good', advantage: 'fighter2', advantage_note: 'As heavyweights, both prefer to finish early. Pericic has never gone past R1 in his wins.' },
+      { label: 'Octagon Experience', valueA: 45, valueB: 35, labelA: 'Average', labelB: 'Average', advantage: 'fighter1', advantage_note: 'Sutherland has 1 UFC fight (0W-1L), Pericic has 1 KO win. Both are octagon rookies.' },
+    ], insight: 'Pericic is technically superior in striking with a professional kickboxing background and training at the elite City Kickboxing gym. Sutherland has power but is defensively inconsistent. This fight probably won\'t go to the scorecards.' },
+    distribuicao_vitorias: {
+      fighter1: { nome: 'Sutherland', ko_tko: { count: 8, percent: 80 }, submission: { count: 0, percent: 0 }, decision: { count: 2, percent: 20 }, total_wins: 10 },
+      fighter2: { nome: 'Pericic', ko_tko: { count: 4, percent: 80 }, submission: { count: 1, percent: 20 }, decision: { count: 0, percent: 0 }, total_wins: 5 },
+      insight: 'Two knockout artists in the UFC\'s heaviest division. Sutherland has 80% KOs and Pericic an impressive 80% with zero decision wins. Pericic has never needed the judges to win. This fight has everything to end before the final bell.',
+    },
+    previsao_final: {
+      winner_name: 'Pericic', winner_side: 'fighter2', predicted_method: 'KO/TKO R1', confidence_score: 6, confidence_label: 'MEDIUM',
+      explanation: 'Brando Pericic has a clear technical striking advantage with a professional kickboxing background (18-2) and training at City Kickboxing with Israel Adesanya. Sutherland has power but is defensively vulnerable, having been dominated at Bellator and submitted by heel hook on his UFC debut. Pericic is taller, has more reach, and trains with a world-class team. Sutherland\'s only chance is to land a clean shot riding the home crowd energy, but Pericic should be too technical to allow that.',
+      x_factor: { title: 'City Kickboxing training', description: 'Pericic trains daily with former champions like Adesanya and Volkanovski. That level of sparring prepares you for any opponent, especially against a less technical striker like Sutherland.' },
+      upset_alert: { title: 'Sutherland at home with the crowd', description: 'Sutherland fights in England with the O2 Arena behind him. He has real power and as a heavyweight, one punch can change everything. If he connects early before Pericic finds his rhythm, he could surprise.' },
+      probabilities: { fighter1: { nome: 'Sutherland', percent: 35 }, fighter2: { nome: 'Pericic', percent: 63 }, draw: 2 },
+      value_picks: undefined,
+    },
+  },
+};
+
 function PageContent() {
   const searchParams = useSearchParams();
   const lang = (searchParams.get('lang') === 'en' ? 'en' : 'pt') as Lang;
-  const analise = analisePT; // TODO: add analiseEN
+  const analise = lang === 'en' ? analiseEN : analisePT;
   return <PrelimsAnalysisView analise={analise} lang={lang} />;
 }
 

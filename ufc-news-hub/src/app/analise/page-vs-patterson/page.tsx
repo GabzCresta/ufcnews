@@ -545,7 +545,7 @@ const analiseEN: FullSingleAnalise = {
     },
     betting_value: null,
     radar_apostador: {
-      odds: { ...analisePT.full_analysis.radar_apostador.odds, source: 'Average across sportsbooks (March 2026)' },
+      odds: { ...analisePT.full_analysis.radar_apostador!.odds, source: 'Average across sportsbooks (March 2026)' },
       edges: [
         { icon: 'Target', titulo: 'Fragile Takedown Defense', stat_headline: 'PAGE HAS JUST 42% TAKEDOWN DEFENSE IN THE UFC', contexto: 'Page\'s most exploited vulnerability. Garry neutralized his style by exploiting this. Patterson lives off takedowns.', implicacao_aposta: 'Very strong edge for Patterson. The math is clear: 42% TDD vs 3.23 TDs per 15 min.', edge_level: 'forte', fighter_side: 'fighter2' },
         { icon: 'Zap', titulo: 'R1 Win Streak', stat_headline: '4 CONSECUTIVE FIRST-ROUND WINS (2 SUBS + 2 KOs)', contexto: 'Patterson doesn\'t waste time. Closes, takes down or lands heavy strikes. Finishes fast.', implicacao_aposta: 'Strong edge for Under and Patterson by finish.', edge_level: 'forte', fighter_side: 'fighter2' },
