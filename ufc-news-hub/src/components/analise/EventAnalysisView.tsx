@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import FighterImage from '@/components/ui/FighterImage';
 import { EventAnalysisCard, type EventFightCard } from './EventAnalysisCard';
+import { getLabels, type Lang } from '@/lib/i18n-labels';
 
 export interface EventAnalysisData {
   evento_nome: string;
@@ -42,8 +43,10 @@ function SectionTitle({
 /* ════════════════════════════════════════════
    Main Component
    ════════════════════════════════════════════ */
-export function EventAnalysisView({ data }: { data: EventAnalysisData }) {
+export function EventAnalysisView({ data, lang = 'pt' }: { data: EventAnalysisData; lang?: Lang }) {
   const [heroHovered, setHeroHovered] = useState(false);
+  const t = getLabels(lang);
+  const langParam = lang === 'en' ? '?lang=en' : '';
 
   const mainEvent = data.main_card.find((f) => f.is_main_event) || data.main_card[0];
   const restMainCard = data.main_card.filter((f) => f !== mainEvent);
@@ -62,7 +65,7 @@ export function EventAnalysisView({ data }: { data: EventAnalysisData }) {
 
         <div className="relative px-4 pb-10 pt-14 text-center md:pb-14 md:pt-20">
           <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.4em] text-ufc-red/80">
-            Analise Completa do Card
+            {t.analise_completa_card}
           </p>
           <h1 className="font-display text-4xl uppercase tracking-wide text-white md:text-6xl lg:text-7xl">
             {data.evento_nome}
@@ -80,7 +83,7 @@ export function EventAnalysisView({ data }: { data: EventAnalysisData }) {
 
         {/* ──────── Main Event: Neumorphic Hero Card ──────── */}
         <Link
-          href={`/analise/${mainEvent.slug}`}
+          href={`/analise/${mainEvent.slug}${langParam}`}
           onMouseEnter={() => setHeroHovered(true)}
           onMouseLeave={() => setHeroHovered(false)}
           className={`group mb-8 block rounded-2xl border p-8 transition-all duration-300 md:p-10
@@ -169,7 +172,7 @@ export function EventAnalysisView({ data }: { data: EventAnalysisData }) {
             {/* Prediction - neumorphic inset bar */}
             <div className="mx-auto mt-5 max-w-md rounded-xl bg-[#0e0e0e] px-4 py-3 shadow-[inset_2px_2px_5px_rgba(0,0,0,0.6),inset_-2px_-2px_5px_rgba(255,255,255,0.015)]">
               <p className="text-sm text-neutral-300">
-                → {mainEvent.predicted_winner} por {mainEvent.predicted_method}
+                → {mainEvent.predicted_winner} {t.por} {mainEvent.predicted_method}
               </p>
             </div>
           </div>
@@ -178,7 +181,7 @@ export function EventAnalysisView({ data }: { data: EventAnalysisData }) {
         {/* ──────── Main Card ──────── */}
         {restMainCard.length > 0 && (
           <section>
-            <SectionTitle accent>Main Card</SectionTitle>
+            <SectionTitle accent>{t.main_card}</SectionTitle>
             <div className="space-y-4">
               {restMainCard.map((fight) => (
                 <EventAnalysisCard
@@ -187,6 +190,7 @@ export function EventAnalysisView({ data }: { data: EventAnalysisData }) {
                   size="card"
                   showMeta
                   showPrediction
+                  lang={lang}
                 />
               ))}
             </div>
@@ -196,7 +200,7 @@ export function EventAnalysisView({ data }: { data: EventAnalysisData }) {
         {/* ──────── Prelims ──────── */}
         {data.prelims.length > 0 && (
           <section>
-            <SectionTitle>Preliminar</SectionTitle>
+            <SectionTitle>{t.preliminar}</SectionTitle>
             <div className="space-y-3">
               {data.prelims.map((fight) => (
                 <EventAnalysisCard
@@ -205,6 +209,7 @@ export function EventAnalysisView({ data }: { data: EventAnalysisData }) {
                   size="prelim"
                   showMeta
                   showPrediction
+                  lang={lang}
                 />
               ))}
             </div>
@@ -214,7 +219,7 @@ export function EventAnalysisView({ data }: { data: EventAnalysisData }) {
         {/* ──────── Footer ──────── */}
         <div className="pt-12 text-center">
           <p className="text-xs text-neutral-500">
-            {allFights.length} lutas analisadas
+            {allFights.length} {t.lutas_analisadas}
           </p>
         </div>
       </div>

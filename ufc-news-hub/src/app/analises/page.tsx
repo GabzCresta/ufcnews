@@ -96,10 +96,11 @@ function EventCard({
   const ctaBg = isSemanal
     ? 'bg-ufc-red/20 text-ufc-red group-hover:bg-ufc-red group-hover:text-white'
     : 'bg-dark-border text-dark-textMuted group-hover:bg-dark-textMuted group-hover:text-dark-bg';
+  const langParam = lang === 'en' ? '?lang=en' : '';
 
   return (
     <Link
-      href={`/analise/evento/${event.slug}`}
+      href={`/analise/evento/${event.slug}${langParam}`}
       className="group block"
     >
       <div className={`relative overflow-hidden rounded-lg border ${borderColor} bg-dark-card p-6 transition-all duration-300 hover:shadow-lg`}>

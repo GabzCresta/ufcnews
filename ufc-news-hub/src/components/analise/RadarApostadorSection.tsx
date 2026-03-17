@@ -17,6 +17,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import type { RadarApostadorSectionData, EstatisticoEdge, ValuePick } from '@/types/analise';
+import { getLabels, type Lang } from '@/lib/i18n-labels';
 import { SectionHeader } from './SectionHeader';
 
 const iconMap: Record<string, LucideIcon> = {
@@ -145,10 +146,11 @@ function ValuePickCard({ pick, rank }: { pick: ValuePick; rank: number }) {
   );
 }
 
-export function RadarApostadorSection({ data }: { data: RadarApostadorSectionData }) {
+export function RadarApostadorSection({ data, lang = 'pt' }: { data: RadarApostadorSectionData; lang?: Lang }) {
+  const t = getLabels(lang);
   return (
     <section>
-      <SectionHeader number="15" title="Radar do" accent="Apostador" />
+      <SectionHeader number="15" title={t.radar_title} accent={t.radar_accent} />
 
       {/* Odds Display */}
       <div className="mb-8">
