@@ -15,7 +15,7 @@ const analise: FullSingleAnalise = {
     radarData: [],
     taleOfTape: {
       fighter1: { altura: '1,75m', envergadura: '175cm', idade: 26, academia: 'NEXT Generation MMA' },
-      fighter2: { altura: '1,73m', envergadura: '175cm', idade: 25, academia: 'Texas MMA' },
+      fighter2: { altura: '1,73m', envergadura: '175cm', idade: 25, academia: '4oz Fight Club' },
     },
     pathsToVictory: { fighter1: [], fighter2: [] },
     dangerZones: [],
@@ -81,7 +81,7 @@ const analise: FullSingleAnalise = {
         sobrenome: 'Aswell Jr.',
         record: '11-3-0',
         ranking: 'N/R Peso-Pena',
-        info_extra: 'Texas, EUA | 25 anos',
+        info_extra: 'Houston, Texas, EUA | 25 anos',
         imagem_fullbody_url: null,
       },
     },
@@ -202,7 +202,7 @@ const analise: FullSingleAnalise = {
         { label: 'Altura', fighter1: '1,75m (5\'9")', fighter2: '1,73m (5\'8")', note: 'Riley levemente mais alto' },
         { label: 'Envergadura', fighter1: '175cm (69")', fighter2: '175cm (69")', note: 'Mesma envergadura' },
         { label: 'Stance', fighter1: 'Ortodoxo', fighter2: 'Ortodoxo', note: null },
-        { label: 'Academia', fighter1: 'NEXT Generation MMA, Inglaterra', fighter2: 'Texas, EUA', note: null },
+        { label: 'Academia', fighter1: 'NEXT Generation MMA, Inglaterra', fighter2: '4oz Fight Club, Houston', note: null },
       ],
     },
 
@@ -222,8 +222,8 @@ const analise: FullSingleAnalise = {
       fighter1: {
         nome: 'Riley',
         ko_tko: { count: 9, percent: 75 },
-        submission: { count: 1, percent: 8 },
-        decision: { count: 2, percent: 17 },
+        submission: { count: 0, percent: 0 },
+        decision: { count: 3, percent: 25 },
         total_wins: 12,
       },
       fighter2: {

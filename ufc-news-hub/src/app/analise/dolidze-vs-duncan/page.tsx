@@ -35,7 +35,7 @@ const analise: FullSingleAnalise = {
     ultimasLutas: [
       { result: 'L', opponent: 'Anthony Hernandez', method: 'Submissao R4', event: 'UFC on ESPN 72' },
       { result: 'W', opponent: 'Marvin Vettori', method: 'Decisao Unanime', event: 'UFC Fight Night' },
-      { result: 'W', opponent: 'Kevin Holland', method: 'KO R1', event: 'UFC 307' },
+      { result: 'W', opponent: 'Kevin Holland', method: 'TKO R1 (lesao)', event: 'UFC 307' },
     ],
   },
   fighter2_info: {
@@ -74,7 +74,7 @@ const analise: FullSingleAnalise = {
         apelido: 'The Caucasian',
         sobrenome: 'Dolidze',
         record: '15-4-0',
-        ranking: 'N/R Peso-Medio',
+        ranking: '#11 Peso-Medio',
         info_extra: 'Tbilisi, Georgia | 37 anos',
         imagem_fullbody_url: null,
       },
@@ -84,7 +84,7 @@ const analise: FullSingleAnalise = {
         sobrenome: 'Duncan',
         record: '13-2-0',
         ranking: 'N/R Peso-Medio',
-        info_extra: 'Cheltenham, Inglaterra | 30 anos',
+        info_extra: 'Gloucester, Inglaterra | 30 anos',
         imagem_fullbody_url: null,
       },
     },
@@ -93,21 +93,21 @@ const analise: FullSingleAnalise = {
       html_content: `
         <h3 class="font-display text-xl uppercase text-ufc-red mb-4">O Veterano Buscando Redencao</h3>
         <p class="mb-4">
-          <strong class="text-ufc-red">Roman Dolidze</strong> e um caso interessante no peso-medio. O georgiano de 37 anos ja provou que pode competir com a elite: nocauteou Kevin Holland, venceu Marvin Vettori por decisao, e bateu Anthony Smith. Mas a inconsistencia e sua marca: entre essas vitorias, perdeu para Nassourdine Imavov e foi finalizado por Anthony Hernandez no quarto round. Com 15-4, Dolidze e perigoso mas irregular.
+          <strong class="text-ufc-red">Roman Dolidze</strong> e um caso interessante no peso-medio. O georgiano de 37 anos ja provou que pode competir com a elite: venceu Kevin Holland por TKO (lesao costela), derrotou Marvin Vettori por decisao unanime em 5 rounds, e bateu Anthony Smith em short notice no UFC 303. Mas a inconsistencia e sua marca: entre essas vitorias, perdeu para Nassourdine Imavov e foi finalizado por Anthony Hernandez no quarto round. Com 15-4, Dolidze e perigoso mas irregular.
         </p>
         <p class="mb-4">
           A derrota para Hernandez em agosto de 2025 foi particularmente dolorosa: Dolidze estava na luta principal e foi submetido no quarto round, mostrando que quando a luta vai para o cardio tardio, ele pode ter problemas. Agora, aos 37 anos, a pressao para voltar aos trilhos e imensa.
         </p>
         <h3 class="font-display text-xl uppercase text-ufc-red mb-4 mt-8">CLD: O Britanico Que Ninguem Quer Enfrentar</h3>
         <p class="mb-4">
-          <strong class="text-blue-400">Christian Leroy Duncan</strong> esta vivendo o melhor momento da carreira. Tres vitorias consecutivas, duas por nocaute no primeiro e segundo round, provam que CLD encontrou seu ritmo no UFC. Com 30 anos, 1,88m e envergadura de 2,01m, ele tem as ferramentas fisicas para dominar no peso-medio. A unica derrota no UFC foi para Gregory Rodrigues em julho de 2024, e desde entao ele nao parou de evoluir.
+          <strong class="text-blue-400">Christian Leroy Duncan</strong> esta vivendo o melhor momento da carreira. Tres vitorias consecutivas, duas por nocaute no primeiro e segundo round, provam que CLD encontrou seu ritmo no UFC. Com 30 anos, 1,88m e envergadura de 2,01m, ele tem as ferramentas fisicas para dominar no peso-medio. As duas derrotas no UFC vieram para Armen Petrosyan em junho de 2023 e Gregory Rodrigues em julho de 2024, e desde a ultima ele nao parou de evoluir.
         </p>
         <p class="mb-4">
           Lutando em casa em Londres, Duncan quer usar essa plataforma para se lancar ao ranking do peso-medio. Vencer Dolidze, um veterano que ja derrotou nomes como Vettori e Holland, seria a declaracao perfeita. E a torcida britanica vai estar totalmente do lado dele.
         </p>
       `,
       stakes: [
-        { dimensao: 'Ranking', fighter1: 'Sem ranking (ex-top 10)', fighter2: 'Sem ranking' },
+        { dimensao: 'Ranking', fighter1: '#11 Peso-Medio', fighter2: 'Sem ranking' },
         { dimensao: 'Sequencia', fighter1: 'Vem de derrota', fighter2: '3 vitorias consecutivas' },
         { dimensao: 'Objetivo', fighter1: 'Voltar ao ranking do peso-medio', fighter2: 'Entrar no ranking pela primeira vez' },
         { dimensao: 'Risco', fighter1: '2 derrotas nas ultimas 3 lutas', fighter2: 'Perder momentum contra veterano' },
@@ -141,14 +141,14 @@ const analise: FullSingleAnalise = {
         recent_fights: [
           { date: 'Ago 2025', opponent: 'Anthony Hernandez', result: 'L', method: 'Submissao R4 (RNC)', opponent_rank: '#10 MW', quality_score: 3, quality_label: 'Bom', note: 'Finalizado no quarto round por rear-naked choke. Perdeu na luta principal apos estar competitivo.' },
           { date: 'Mar 2025', opponent: 'Marvin Vettori', result: 'W', method: 'Decisao Unanime', opponent_rank: '#10 MW', quality_score: 4, quality_label: 'Muito Bom', note: 'Vitoria por decisao unanime sobre Vettori em 5 rounds na luta principal. Performance de maturidade.' },
-          { date: 'Out 2024', opponent: 'Kevin Holland', result: 'W', method: 'KO R1', opponent_rank: '#14 MW', quality_score: 3, quality_label: 'Bom', note: 'Nocaute no primeiro round sobre Holland. Performance explosiva e eficiente.' },
-          { date: 'Jun 2024', opponent: 'Anthony Smith', result: 'W', method: 'Decisao Unanime', opponent_rank: '#12 MW', quality_score: 3, quality_label: 'Bom', note: 'Vitoria por decisao sobre o veterano Smith em luta de 3 rounds.' },
+          { date: 'Out 2024', opponent: 'Kevin Holland', result: 'W', method: 'TKO R1 (lesao costela)', opponent_rank: '#14 MW', quality_score: 3, quality_label: 'Bom', note: 'Holland sofreu lesao na costela durante troca no chao e nao continuou apos o R1. TKO por lesao.' },
+          { date: 'Jun 2024', opponent: 'Anthony Smith', result: 'W', method: 'Decisao Unanime', opponent_rank: '#12 LHW', quality_score: 3, quality_label: 'Bom', note: 'Vitoria por decisao sobre o veterano Smith em luta de 3 rounds no UFC 303 (peso meio-pesado, short notice).' },
           { date: 'Fev 2024', opponent: 'Nassourdine Imavov', result: 'L', method: 'Decisao Majoritaria', opponent_rank: '#7 MW', quality_score: 4, quality_label: 'Muito Bom', note: 'Derrota apertada para Imavov na luta principal. Luta competitiva ate o final.' },
         ],
         full_fight_history: [
           { date: 'Fev 2024', opponent: 'Nassourdine Imavov', result: 'L', method: 'MD', opponent_rank: '#7 MW', quality_score: 4, quality_label: 'Muito Bom', note: 'Derrota apertada' },
-          { date: 'Jun 2024', opponent: 'Anthony Smith', result: 'W', method: 'UD', opponent_rank: '#12 MW', quality_score: 3, quality_label: 'Bom', note: 'Vitoria por decisao' },
-          { date: 'Out 2024', opponent: 'Kevin Holland', result: 'W', method: 'KO R1', opponent_rank: '#14 MW', quality_score: 3, quality_label: 'Bom', note: 'KO no R1' },
+          { date: 'Jun 2024', opponent: 'Anthony Smith', result: 'W', method: 'UD', opponent_rank: '#12 LHW', quality_score: 3, quality_label: 'Bom', note: 'Vitoria por decisao, UFC 303 (LHW, short notice)' },
+          { date: 'Out 2024', opponent: 'Kevin Holland', result: 'W', method: 'TKO R1 (lesao)', opponent_rank: '#14 MW', quality_score: 3, quality_label: 'Bom', note: 'TKO por lesao na costela de Holland' },
           { date: 'Mar 2025', opponent: 'Marvin Vettori', result: 'W', method: 'UD', opponent_rank: '#10 MW', quality_score: 4, quality_label: 'Muito Bom', note: 'Decisao em 5 rounds' },
           { date: 'Ago 2025', opponent: 'Anthony Hernandez', result: 'L', method: 'Sub R4', opponent_rank: '#10 MW', quality_score: 3, quality_label: 'Bom', note: 'Finalizado no R4' },
         ],
@@ -156,7 +156,7 @@ const analise: FullSingleAnalise = {
         momentum_score: 5,
         momentum_label: 'Estavel (com ressalvas)',
         momentum_trend: 'resilient',
-        momentum_note: 'Dolidze e irregular por natureza. Vem de derrota para Hernandez, mas antes disso teve tres vitorias impressionantes (Smith, Holland, Vettori). Ele e o tipo de lutador que pode nocautear qualquer um no primeiro round ou ser finalizado no quarto. A inconsistencia e sua marca.',
+        momentum_note: 'Dolidze e irregular por natureza. Vem de derrota para Hernandez, mas antes disso teve tres vitorias consecutivas impressionantes (Smith, Holland, Vettori). Ele e o tipo de lutador que pode finalizar qualquer um no primeiro round ou ser submetido no quarto. A inconsistencia e sua marca.',
       },
       fighter2: {
         nome: 'Christian Leroy Duncan',
@@ -168,10 +168,14 @@ const analise: FullSingleAnalise = {
           { date: 'Jul 2024', opponent: 'Gregory Rodrigues', result: 'L', method: 'Decisao Unanime', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Unica derrota no UFC. Perdeu por decisao no UFC 304 em Manchester.' },
         ],
         full_fight_history: [
-          { date: 'Jul 2024', opponent: 'Gregory Rodrigues', result: 'L', method: 'UD', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Unica derrota UFC' },
+          { date: 'Mar 2023', opponent: 'Dusko Todorovic', result: 'W', method: 'TKO R1 (lesao)', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Debut UFC, TKO por lesao' },
+          { date: 'Jun 2023', opponent: 'Armen Petrosyan', result: 'L', method: 'UD', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Primeira derrota UFC' },
+          { date: 'Nov 2023', opponent: 'Denis Tiuliulin', result: 'W', method: 'TKO R2', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'TKO no R2' },
+          { date: 'Mar 2024', opponent: 'Claudio Ribeiro', result: 'W', method: 'TKO R2', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'TKO no R2' },
+          { date: 'Jul 2024', opponent: 'Gregory Rodrigues', result: 'L', method: 'UD', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Segunda derrota UFC, UFC 304' },
           { date: 'Mar 2025', opponent: 'Andrey Pulyaev', result: 'W', method: 'UD', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'UFC Londres, decisao' },
           { date: 'Ago 2025', opponent: 'Eryk Anders', result: 'W', method: 'KO R1', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'KO R1' },
-          { date: 'Nov 2025', opponent: 'Marco Tulio Silva', result: 'W', method: 'KO R2', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'KO R2' },
+          { date: 'Nov 2025', opponent: 'Marco Tulio Silva', result: 'W', method: 'KO R2', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'KO R2, Performance da Noite' },
         ],
         layoff_warning: null,
         momentum_score: 8,
@@ -186,18 +190,18 @@ const analise: FullSingleAnalise = {
         nome: 'Dolidze',
         media_oponentes: 3,
         media_oponentes_label: 'Bom',
-        aproveitamento: '6W-4L (60%)',
+        aproveitamento: '9W-4L (69%)',
         contra_top5: '0W-1L',
       },
       fighter2: {
         nome: 'Duncan',
         media_oponentes: 1,
         media_oponentes_label: 'Ruim',
-        aproveitamento: '4W-2L (67%)',
+        aproveitamento: '6W-2L (75%)',
         contra_top5: '0W-0L',
       },
       oponentes_em_comum_count: { fighter1: 0, fighter2: 0 },
-      oponentes_em_comum_note: 'Sem oponentes em comum. Dolidze enfrentou nivel muito superior (Vettori, Holland, Imavov, Hernandez) enquanto Duncan so enfrentou oponentes sem ranking. Essa luta e o grande teste de nivel para Duncan.',
+      oponentes_em_comum_note: 'Sem oponentes em comum. Dolidze (9-4 UFC) enfrentou nivel muito superior (Vettori, Holland, Imavov, Hernandez) enquanto Duncan (6-2 UFC) so enfrentou oponentes sem ranking. Essa luta e o grande teste de nivel para Duncan.',
     },
 
     oponente_comum: null,
@@ -226,7 +230,7 @@ const analise: FullSingleAnalise = {
       skills: [
         { label: 'Wrestling Ofensivo', valueA: 75, valueB: 45, labelA: 'Muito Bom', labelB: 'Medio', advantage: 'fighter1', advantage_note: 'Dolidze media 2.10 takedowns por 15 min. Background de sambo e wrestling e significativo.' },
         { label: 'Striking em Pe', valueA: 62, valueB: 76, labelA: 'Bom', labelB: 'Muito Bom', advantage: 'fighter2', advantage_note: 'Duncan tem mais volume (4.12 vs 3.45 por minuto) e 3 polegadas de envergadura a mais.' },
-        { label: 'Poder de Nocaute', valueA: 72, valueB: 75, labelA: 'Bom', labelB: 'Muito Bom', advantage: 'even', advantage_note: 'Ambos nocautearam oponentes no R1 recentemente. Dolidze: Holland. Duncan: Anders. Poder equilibrado.' },
+        { label: 'Poder de Nocaute', valueA: 72, valueB: 75, labelA: 'Bom', labelB: 'Muito Bom', advantage: 'even', advantage_note: 'Ambos finalizaram oponentes no R1 recentemente. Dolidze: Holland (TKO por lesao). Duncan: Anders (KO spinning back elbow). Poder equilibrado, mas Duncan com 77% KO rate e mais impressionante.' },
         { label: 'Defesa de Takedown', valueA: 72, valueB: 58, labelA: 'Bom', labelB: 'Bom', advantage: 'fighter1', advantage_note: 'Dolidze tem 72% de TDD, Duncan apenas 58%. Se Dolidze buscar o wrestling, Duncan pode ter dificuldade.' },
         { label: 'Cardio e Resistencia', valueA: 55, valueB: 72, labelA: 'Bom', labelB: 'Bom', advantage: 'fighter2', advantage_note: 'Dolidze foi finalizado no R4 por Hernandez. Duncan e 7 anos mais jovem e mais fresco.' },
         { label: 'Experiencia em Alto Nivel', valueA: 82, valueB: 42, labelA: 'Muito Bom', labelB: 'Medio', advantage: 'fighter1', advantage_note: 'Dolidze ja enfrentou Vettori, Holland, Imavov, Hernandez. Duncan so enfrentou oponentes sem ranking.' },
@@ -237,19 +241,19 @@ const analise: FullSingleAnalise = {
     distribuicao_vitorias: {
       fighter1: {
         nome: 'Dolidze',
-        ko_tko: { count: 7, percent: 47 },
-        submission: { count: 4, percent: 27 },
-        decision: { count: 4, percent: 26 },
+        ko_tko: { count: 8, percent: 53 },
+        submission: { count: 3, percent: 20 },
+        decision: { count: 4, percent: 27 },
         total_wins: 15,
       },
       fighter2: {
         nome: 'Duncan',
-        ko_tko: { count: 8, percent: 62 },
-        submission: { count: 2, percent: 15 },
-        decision: { count: 3, percent: 23 },
+        ko_tko: { count: 10, percent: 77 },
+        submission: { count: 1, percent: 8 },
+        decision: { count: 2, percent: 15 },
         total_wins: 13,
       },
-      insight: 'Ambos sao finalizadores, mas com perfis diferentes. Dolidze e mais diversificado: 47% KO, 27% submissao. Duncan e mais striker: 62% KO. A versatilidade de Dolidze (pode nocautear ou submeter) e uma vantagem, mas o volume de nocautes recentes de Duncan e mais impressionante.',
+      insight: 'Ambos sao finalizadores, mas com perfis diferentes. Dolidze e mais diversificado: 53% KO, 20% submissao, 27% decisao. Duncan e um nocauteador nato: 77% KO. A versatilidade de Dolidze (pode nocautear ou submeter) e uma vantagem, mas o volume de nocautes de Duncan (10 em 13 vitorias) e impressionante.',
     },
 
     danger_zones: {
@@ -260,7 +264,7 @@ const analise: FullSingleAnalise = {
           danger_label: 'VANTAGEM DUNCAN',
           color: 'green',
           title: 'A Explosao Inicial',
-          description: 'Duncan vem de dois nocautes nos primeiros rounds (Anders no R1, Marco Tulio no R2). A explosividade e confianca dele estao no pico. Se ele conectar cedo com a vantagem de envergadura, pode encerrar a luta. Dolidze tambem nocauteou Holland no R1, entao ambos sao perigosos aqui.',
+          description: 'Duncan vem de dois nocautes nos primeiros rounds (Anders no R1, Marco Tulio no R2). A explosividade e confianca dele estao no pico. Se ele conectar cedo com a vantagem de envergadura, pode encerrar a luta. Dolidze tambem finalizou Holland no R1 (TKO por lesao), entao ambos sao perigosos aqui.',
         },
         {
           rounds: 'R2',
@@ -285,7 +289,7 @@ const analise: FullSingleAnalise = {
       items: [
         { icon: 'MapPin', title: 'Torcida em Casa', fighter: 'Duncan', risk_level: 'ENORME POSITIVO', risk_color: 'green', description: 'Duncan luta em casa no O2 Arena. O publico britanico vai apoiar intensamente. Para um lutador em ascensao, essa energia pode ser o combustivel para a melhor performance da carreira.' },
         { icon: 'TrendingUp', title: 'Momentum de Nocautes', fighter: 'Duncan', risk_level: 'POSITIVO', risk_color: 'green', description: 'Duncan vem de dois nocautes consecutivos. A confianca no poder esta no teto. Quando um lutador esta nesse estado, os golpes sao mais comprometidos e perigosos.' },
-        { icon: 'Brain', title: 'Experiencia em Alto Nivel', fighter: 'Dolidze', risk_level: 'POSITIVO', risk_color: 'green', description: 'Dolidze ja enfrentou Vettori, Holland, Imavov, Hernandez. A experiencia contra elite e um ativo valioso. Duncan nunca enfrentou ninguem desse calibre.' },
+        { icon: 'Brain', title: 'Experiencia em Alto Nivel', fighter: 'Dolidze', risk_level: 'POSITIVO', risk_color: 'green', description: 'Dolidze ja enfrentou Vettori, Holland, Imavov, Hernandez, Smith. A experiencia contra elite e um ativo valioso. Duncan nunca enfrentou ninguem desse calibre.' },
         { icon: 'Clock', title: 'Idade: 37 vs 30', fighter: 'Duncan', risk_level: 'POSITIVO', risk_color: 'green', description: 'A diferenca de 7 anos e significativa. Dolidze esta no final da carreira enquanto Duncan esta no prime atletico. Reflexos, recuperacao e explosividade favorecem o mais jovem.' },
         { icon: 'AlertTriangle', title: 'Cardio de Dolidze', fighter: 'Dolidze', risk_level: 'RISCO MEDIO', risk_color: 'yellow', description: 'Dolidze foi finalizado no R4 por Hernandez, mostrando problemas de resistencia em lutas longas. Se nao conseguir o takedown cedo, o gas pode faltar no R3.' },
       ],
@@ -297,8 +301,8 @@ const analise: FullSingleAnalise = {
         total_probability: 40,
         scenarios: [
           { name: 'Wrestling e Controle', probability: 18, method: 'Decisao Unanime', description: 'Dolidze usa o wrestling para controlar Duncan no chao, acumula tempo de controle e vence nos pontos. A defesa de takedown de Duncan (58%) pode nao ser suficiente.' },
-          { name: 'Nocaute de Poder', probability: 12, method: 'KO/TKO R1-R2', description: 'Dolidze encontra uma abertura no striking de Duncan e conecta algo pesado. Ele nocauteou Holland no R1 e tem poder real.' },
-          { name: 'Submissao do Grappler', probability: 10, method: 'Submissao R2-R3', description: 'Dolidze leva ao chao e encontra uma submissao. Com 4 submissoes na carreira e background de sambo, o chao e territorio favoravel.' },
+          { name: 'Nocaute de Poder', probability: 12, method: 'KO/TKO R1-R2', description: 'Dolidze encontra uma abertura no striking de Duncan e conecta algo pesado. Ele tem 8 KOs na carreira (53%) e poder real nas maos.' },
+          { name: 'Submissao do Grappler', probability: 10, method: 'Submissao R2-R3', description: 'Dolidze leva ao chao e encontra uma submissao. Com 3 submissoes na carreira e background de sambo, o chao e territorio favoravel.' },
         ],
       },
       fighter2: {
@@ -321,7 +325,7 @@ const analise: FullSingleAnalise = {
       explanation: 'Essa e uma luta equilibrada com estilos contrastantes. Duncan tem a vantagem de juventude (7 anos mais novo), envergadura (3 polegadas a mais), momentum (3 vitorias seguidas) e torcida em casa. Dolidze traz experiencia contra elite e wrestling superior. A chave sera a defesa de takedown de Duncan: se ele mantiver em pe, a envergadura e o volume vao dominar. Se Dolidze levar ao chao, pode controlar. Prevejo Duncan mantendo distancia suficiente para vencer nos pontos, mas e uma luta que pode ir para qualquer lado.',
       x_factor: {
         title: 'O Primeiro Teste Real de Duncan',
-        description: 'Duncan nunca enfrentou ninguem do nivel de Dolidze. O georgiano ja derrotou Vettori e Holland. Se Duncan sentir a pressao do salto de qualidade, pode hesitar nas trocas e abrir espaco para o wrestling de Dolidze.',
+        description: 'Duncan nunca enfrentou ninguem do nivel de Dolidze. O georgiano, #11 do ranking, ja derrotou Vettori, Holland e Smith. Se Duncan sentir a pressao do salto de qualidade, pode hesitar nas trocas e abrir espaco para o wrestling de Dolidze.',
       },
       upset_alert: {
         title: 'O Wrestling do Georgiano',
@@ -347,29 +351,29 @@ const analise: FullSingleAnalise = {
     creator_kit: {
       instagram: [
         { slide_number: 1, title: 'TESTE DE FOGO NO PESO-MEDIO', content: 'DOLIDZE vs DUNCAN\nUFC Londres | Peso Medio\n\n15-4 vs 13-2\nO veterano georgiano\nvs o britanico em ascensao', color: 'red' },
-        { slide_number: 2, title: 'DOLIDZE: O IRREGULADOR', content: '15-4 na carreira\nNocauteou Kevin Holland (R1)\nVenceu Marvin Vettori (UD)\n37 anos, Sambo/Wrestling\nExperiencia contra elite', color: 'red' },
+        { slide_number: 2, title: 'DOLIDZE: O IRREGULADOR', content: '15-4 na carreira\n#11 Peso-Medio\nVenceu Holland (TKO R1) e Vettori (UD)\n37 anos, Sambo/Wrestling\nExperiencia contra elite', color: 'red' },
         { slide_number: 3, title: 'DUNCAN: CLD EM ASCENSAO', content: '13-2 na carreira\n3 vitorias consecutivas\n2 nocautes seguidos (Anders, Silva)\n201cm de envergadura\n30 anos, luta em casa', color: 'blue' },
         { slide_number: 4, title: 'PREVISAO', content: 'DUNCAN por Decisao Unanime\n\nConfianca: MEDIA\n58% Duncan / 40% Dolidze\n\nA envergadura e o momentum\nfavorecem CLD.', color: 'gold' },
       ],
       twitter: [
-        { num: '1/4', text: 'Dolidze vs Duncan e o teste que CLD precisa. Dolidze nocauteou Holland e venceu Vettori. Duncan vem de 2 nocautes seguidos e luta em casa. Quem leva?' },
+        { num: '1/4', text: 'Dolidze vs Duncan e o teste que CLD precisa. Dolidze venceu Holland (TKO) e Vettori (decisao). Duncan vem de 2 nocautes seguidos e luta em casa. Quem leva?' },
         { num: '2/4', text: 'A chave: Duncan tem 201cm de envergadura e 58% de defesa de takedown. Dolidze media 2.10 TDs por 15 min. Se Duncan manter em pe, domina. Se Dolidze levar ao chao, controla.' },
         { num: '3/4', text: 'O fator que ninguem fala: Duncan NUNCA enfrentou alguem do nivel de Dolidze. Todos os oponentes dele no UFC eram sem ranking. Esse e o primeiro teste real.' },
         { num: '4/4', text: 'Previsao: Duncan por decisao. A envergadura, juventude e momentum favorecem CLD. Mas Dolidze e perigoso demais pra ignorar.' },
       ],
       video: [
-        { time: '0-10s', title: 'Hook', text: 'Christian Leroy Duncan nunca enfrentou ninguem que nocauteou Kevin Holland e venceu Marvin Vettori. Esse teste e diferente.' },
+        { time: '0-10s', title: 'Hook', text: 'Christian Leroy Duncan nunca enfrentou ninguem que venceu Kevin Holland e Marvin Vettori. Esse teste e diferente.' },
         { time: '10-25s', title: 'Contexto', text: 'Dolidze, 37 anos, ex-top 10, sambo e wrestling. Duncan, 30 anos, 3 vitorias seguidas, 2 nocautes, 201cm de envergadura. Veterano vs juventude em Londres.' },
         { time: '25-40s', title: 'Analise', text: 'Se ficar em pe, Duncan domina com envergadura. Se Dolidze levar ao chao, controla. A defesa de takedown de Duncan (58%) e a variavel chave.' },
         { time: '40-55s', title: 'Previsao', text: 'Duncan por decisao. O momentum, a torcida e a envergadura favorecem CLD. Mas Dolidze pode surpreender com o wrestling.' },
       ],
       tiktok: [
-        { hook: 'Esse cara NUNCA enfrentou ninguem do nivel do oponente de sabado.', body: 'CLD tem 3 vitorias seguidas, 2 nocautes, e luta em casa em Londres. Mas Roman Dolidze nocauteou Kevin Holland e venceu Marvin Vettori. O primeiro teste real de Duncan. Sera que ele aguenta?', cta: 'Duncan ou Dolidze? Comenta!' },
+        { hook: 'Esse cara NUNCA enfrentou ninguem do nivel do oponente de sabado.', body: 'CLD tem 3 vitorias seguidas, 2 nocautes, e luta em casa em Londres. Mas Roman Dolidze venceu Kevin Holland e Marvin Vettori. O primeiro teste real de Duncan. Sera que ele aguenta?', cta: 'Duncan ou Dolidze? Comenta!' },
         { hook: '201cm de envergadura contra o melhor wrestling que CLD ja enfrentou.', body: 'Duncan tem 3 polegadas a mais de envergadura que Dolidze. Mas Dolidze media 2.10 takedowns por 15 min. Se levar ao chao, Duncan esta em perigo. Se manter em pe, Duncan domina. Simples assim.', cta: 'Em pe ou no chao? Onde vai ser decidido? Comenta!' },
       ],
       headlines: [
         'Dolidze vs Duncan: O Primeiro Teste Real Para CLD no UFC',
-        'Christian Leroy Duncan Pode Vencer Quem Nocauteou Holland?',
+        'Christian Leroy Duncan Pode Vencer Quem Derrotou Holland e Vettori?',
         'O Wrestler Georgiano Contra o Striker Britanico: Preview do Peso-Medio',
         'Duncan em Casa, Dolidze com Experiencia: Quem Leva o Duelo de Estilos?',
         'UFC Londres: A Envergadura de Duncan e Suficiente Para Neutralizar Dolidze?',
@@ -390,7 +394,7 @@ const analise: FullSingleAnalise = {
         { icon: 'Target', titulo: 'Envergadura Superior de Duncan', stat_headline: '201CM DE ENVERGADURA VS 193CM DE DOLIDZE', contexto: 'Duncan tem 3 polegadas a mais de alcance. Pode usar jab e diretos de distancia para manter Dolidze longe.', implicacao_aposta: 'Favorece Duncan em pe. Se a luta ficar no striking, Duncan tem vantagem estrutural.', edge_level: 'moderado', fighter_side: 'fighter2' },
         { icon: 'Shield', titulo: 'Wrestling de Dolidze vs TDD de Duncan', stat_headline: 'DOLIDZE: 2.10 TDS/15MIN. DUNCAN: 58% TDD', contexto: 'Dolidze e wrestler ativo e Duncan nunca enfrentou esse nivel de pressao no chao.', implicacao_aposta: 'Se voce acha que Dolidze vai levar ao chao, ele pode controlar e vencer.', edge_level: 'moderado', fighter_side: 'fighter1' },
         { icon: 'TrendingUp', titulo: 'Momentum de Duncan', stat_headline: '3 VITORIAS CONSECUTIVAS, 2 NOCAUTES SEGUIDOS', contexto: 'Duncan esta em ascensao com nocautes sobre Anders e Marco Tulio. Confianca e ritmo no pico.', implicacao_aposta: 'Favorece Duncan por finalizacao. O momentum recente e real.', edge_level: 'moderado', fighter_side: 'fighter2' },
-        { icon: 'Brain', titulo: 'Experiencia de Dolidze', stat_headline: 'JA DERROTOU VETTORI, HOLLAND E SMITH', contexto: 'Dolidze tem experiencia contra elite que Duncan nao tem. Sabe lutar sob pressao.', implicacao_aposta: 'Nao descarte Dolidze. Ele ja venceu nomes melhores que Duncan.', edge_level: 'moderado', fighter_side: 'fighter1' },
+        { icon: 'Brain', titulo: 'Experiencia de Dolidze', stat_headline: '#11 MW, JA DERROTOU VETTORI, HOLLAND E SMITH', contexto: 'Dolidze tem experiencia contra elite que Duncan nao tem. Sabe lutar sob pressao.', implicacao_aposta: 'Nao descarte Dolidze. Ele ja venceu nomes melhores que Duncan.', edge_level: 'moderado', fighter_side: 'fighter1' },
         { icon: 'MapPin', titulo: 'Fator Casa de Duncan', stat_headline: 'CLD LUTA EM LONDRES COM TORCIDA BRITANICA', contexto: 'Duncan lutando em casa com apoio total da torcida. Energia extra em momentos decisivos.', implicacao_aposta: 'Pode influenciar rounds apertados. Juizes sentem a pressao da arena.', edge_level: 'leve', fighter_side: 'fighter2' },
       ],
       value_picks: [

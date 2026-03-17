@@ -6,7 +6,7 @@ const analise: FullSingleAnalise = {
   evento_id: null,
   slug: 'campbell-vs-silva',
   titulo: 'Campbell vs Silva: A Pantera de Liverpool Faz Sua Estreia',
-  subtitulo: 'O prospect invicto de 8-0 do Contender Series enfrenta o americano de Santa Ana em seu debut no UFC',
+  subtitulo: 'O prospect invicto de 8-0 do Contender Series enfrenta o veterano americano de 10-2 em seu debut no UFC',
   lutador1_id: null,
   lutador2_id: null,
   artigo_conteudo: '',
@@ -14,8 +14,8 @@ const analise: FullSingleAnalise = {
     stats: [],
     radarData: [],
     taleOfTape: {
-      fighter1: { altura: '1,78m', envergadura: '180cm', idade: 23, academia: 'KC Fight Base, Liverpool' },
-      fighter2: { altura: '1,80m', envergadura: '183cm', idade: 27, academia: 'Santa Ana, California' },
+      fighter1: { altura: '1,75m', envergadura: '183cm', idade: 23, academia: 'The MMA Academy, Liverpool' },
+      fighter2: { altura: '1,80m', envergadura: '178cm', idade: 29, academia: 'Bloodline Combat Sports, Costa Mesa' },
     },
     pathsToVictory: { fighter1: [], fighter2: [] },
     dangerZones: [],
@@ -80,7 +80,7 @@ const analise: FullSingleAnalise = {
         sobrenome: 'Silva',
         record: '10-2-0',
         ranking: 'N/R Peso-Pena',
-        info_extra: 'Santa Ana, California, EUA | 27 anos',
+        info_extra: 'Santa Ana, California, EUA | 29 anos',
         imagem_fullbody_url: null,
       },
     },
@@ -96,7 +96,7 @@ const analise: FullSingleAnalise = {
         </p>
         <h3 class="font-display text-xl uppercase text-ufc-red mb-4 mt-8">El Puma Nao Veio Passear</h3>
         <p class="mb-4">
-          <strong class="text-blue-400">Danny Silva</strong> pode nao ter o hype de Campbell, mas nao falta experiencia. O americano de Santa Ana, California, tem 10-2 na carreira e ja tem tres lutas no UFC. A estreia foi uma vitoria por decisao dividida sobre Joshua Culibao, seguida por outra dividida contra Lucas Almeida. A unica derrota no UFC veio contra Kevin Vallejos, um prospect dinamico que esta em ascensao. Com 27 anos, Silva e um boxer nato que troca de stance constantemente e sabe competir em lutas apertadas.
+          <strong class="text-blue-400">Danny Silva</strong> pode nao ter o hype de Campbell, mas nao falta experiencia. O americano de Santa Ana, California, tem 10-2 na carreira e ja tem tres lutas no UFC. A estreia foi uma vitoria por decisao dividida sobre Joshua Culibao, seguida por outra dividida contra Lucas Almeida. A unica derrota no UFC veio contra Kevin Vallejos, um prospect dinamico que esta em ascensao. Com 29 anos, Silva e um boxer nato que troca de stance constantemente e sabe competir em lutas apertadas.
         </p>
         <p class="mb-4">
           Essa e uma luta classica de debut: o prospect empolgante contra o veterano que ja sabe como funciona o UFC. Campbell tem poder, agressividade e torcida. Silva tem experiencia, compostura e a capacidade de vencer rounds apertados. Quem impoe o estilo, vence.
@@ -135,10 +135,10 @@ const analise: FullSingleAnalise = {
         nome: 'Kurtis Campbell',
         color: 'red',
         recent_fights: [
-          { date: 'Set 2025', opponent: 'Oponente DWCS', result: 'W', method: 'Vitoria no Contender Series', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'Conquistou contrato do UFC no Contender Series com performance dominante em setembro de 2025.' },
+          { date: 'Set 2025', opponent: 'Demba Seck', result: 'W', method: 'TKO R1 (1:20, joelho e socos)', opponent_rank: 'N/R (DWCS)', quality_score: 1, quality_label: 'Ruim', note: 'Nocauteou Demba Seck no primeiro round com joelho e socos no Contender Series. Ganhou contrato do UFC.' },
         ],
         full_fight_history: [
-          { date: 'Set 2025', opponent: 'Oponente DWCS', result: 'W', method: 'Vitoria DWCS', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'Contrato UFC conquistado' },
+          { date: 'Set 2025', opponent: 'Demba Seck', result: 'W', method: 'TKO R1 (1:20)', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'DWCS, contrato UFC conquistado' },
         ],
         layoff_warning: null,
         momentum_score: 8,
@@ -199,9 +199,9 @@ const analise: FullSingleAnalise = {
         { label: 'Defesa de Takedown (%)', valueA: 0, valueB: 75, maxVal: 100, format: 'percent' },
       ],
       tale_of_tape: [
-        { label: 'Idade', fighter1: '23 anos', fighter2: '27 anos', note: 'Campbell 4 anos mais jovem' },
-        { label: 'Altura', fighter1: '1,78m (5\'10")', fighter2: '1,80m (5\'11")', note: 'Praticamente iguais' },
-        { label: 'Envergadura', fighter1: '~180cm (71")', fighter2: '183cm (72")', note: 'Silva com leve vantagem' },
+        { label: 'Idade', fighter1: '23 anos', fighter2: '29 anos', note: 'Campbell 6 anos mais jovem' },
+        { label: 'Altura', fighter1: '1,75m (5\'9")', fighter2: '1,80m (5\'11")', note: 'Silva 5cm mais alto' },
+        { label: 'Envergadura', fighter1: '183cm (72")', fighter2: '178cm (70")', note: 'Campbell com leve vantagem de envergadura' },
         { label: 'Stance', fighter1: 'Ortodoxo', fighter2: 'Switch Stance', note: 'Silva troca de stance constantemente' },
         { label: 'Background', fighter1: 'Muay Thai', fighter2: 'Boxe', note: 'Striker vs Striker' },
         { label: 'Dados UFC', fighter1: 'Debut (sem dados)', fighter2: '3 lutas (2-1)', note: 'Silva com mais dados disponiveis' },
@@ -212,7 +212,7 @@ const analise: FullSingleAnalise = {
       skills: [
         { label: 'Striking/Muay Thai', valueA: 75, valueB: 68, labelA: 'Muito Bom', labelB: 'Bom', advantage: 'fighter1', advantage_note: 'Campbell tem base forte em Muay Thai com cinco titulos amadores. Arma principal. Porem sem dados UFC para confirmar.' },
         { label: 'Boxe Puro', valueA: 60, valueB: 72, labelA: 'Bom', labelB: 'Bom', advantage: 'fighter2', advantage_note: 'Silva e descrito como boxer nato que troca de stance. Mais experiencia em trocacoes de boxe no UFC.' },
-        { label: 'Poder de Nocaute', valueA: 70, valueB: 55, labelA: 'Bom', labelB: 'Bom', advantage: 'fighter1', advantage_note: 'Campbell finalizou a maioria das lutas. Silva tem apenas 40% de KOs e depende mais de decisoes (50%).' },
+        { label: 'Poder de Nocaute', valueA: 70, valueB: 55, labelA: 'Bom', labelB: 'Bom', advantage: 'fighter1', advantage_note: 'Campbell finalizou a maioria das lutas (63% KO). Silva tem 50% de KOs e 50% decisoes, sem submissoes na carreira.' },
         { label: 'Experiencia UFC', valueA: 20, valueB: 62, labelA: 'Ruim', labelB: 'Bom', advantage: 'fighter2', advantage_note: 'Silva tem 3 lutas no UFC e sabe como funciona o octogono. Campbell faz o debut.' },
         { label: 'Compostura em Lutas Apertadas', valueA: 50, valueB: 70, labelA: 'Medio', labelB: 'Bom', advantage: 'fighter2', advantage_note: 'Silva venceu duas decisoes divididas. Sabe competir quando a luta e apertada.' },
         { label: 'Atletismo e Juventude', valueA: 82, valueB: 68, labelA: 'Muito Bom', labelB: 'Bom', advantage: 'fighter1', advantage_note: 'Campbell tem 23 anos e esta no pico atletico. A juventude e explosividade sao vantagens reais.' },
@@ -230,12 +230,12 @@ const analise: FullSingleAnalise = {
       },
       fighter2: {
         nome: 'Silva',
-        ko_tko: { count: 4, percent: 40 },
-        submission: { count: 1, percent: 10 },
+        ko_tko: { count: 5, percent: 50 },
+        submission: { count: 0, percent: 0 },
         decision: { count: 5, percent: 50 },
         total_wins: 10,
       },
-      insight: 'Campbell e mais finalizador: 63% KO + 12% sub = 75% de finalizacoes. Silva depende mais de decisoes (50%). Os perfis sao diferentes: Campbell busca encerrar, Silva compete. Isso pode criar uma dinamica onde Campbell pressiona e Silva tenta sobreviver para vencer nos pontos.',
+      insight: 'Campbell e mais finalizador: 63% KO + 12% sub = 75% de finalizacoes. Silva tem divisao igual entre KOs e decisoes (50/50), sem submissoes. Os perfis sao diferentes: Campbell busca encerrar, Silva compete. Isso pode criar uma dinamica onde Campbell pressiona e Silva tenta sobreviver para vencer nos pontos.',
     },
 
     danger_zones: {
@@ -262,7 +262,7 @@ const analise: FullSingleAnalise = {
           danger_label: 'VANTAGEM SILVA',
           color: 'green',
           title: 'A Experiencia Fala Mais Alto',
-          description: 'Se a luta chegar ao R3, Silva esta em territorio familiar. Ele tem 5 decisoes na carreira e sabe como vencer rounds apertados. Campbell nunca foi a distancia de 3 rounds no nivel UFC e a fadiga do debut pode afetar seu desempenho.',
+          description: 'Se a luta chegar ao R3, Silva esta em territorio familiar. Ele tem 5 decisoes em 10 vitorias na carreira e sabe como vencer rounds apertados. Campbell nunca foi a distancia de 3 rounds no nivel UFC e a fadiga do debut pode afetar seu desempenho.',
         },
       ],
     },
@@ -273,7 +273,7 @@ const analise: FullSingleAnalise = {
         { icon: 'AlertTriangle', title: 'Nervosismo de Debut', fighter: 'Campbell', risk_level: 'RISCO MEDIO', risk_color: 'yellow', description: 'Debuter no UFC e intenso. A pressao da torcida, as camaras, a expectativa. Campbell nunca experimentou nada parecido. Se o nervosismo atrapalhar, os primeiros minutos podem ser complicados.' },
         { icon: 'Brain', title: 'Experiencia no Octogono', fighter: 'Silva', risk_level: 'POSITIVO', risk_color: 'green', description: 'Silva ja lutou 3 vezes no UFC e sabe como funciona. Sabe lidar com a pressao, com os juizes, com o ritmo do octogono. Essa experiencia e valiosa contra um debutante.' },
         { icon: 'TrendingUp', title: 'Invencibilidade e Confianca', fighter: 'Campbell', risk_level: 'POSITIVO', risk_color: 'green', description: 'Campbell nunca perdeu (8-0). A invencibilidade carrega um peso psicologico positivo. Ele entra acreditando que vai vencer, e essa confianca pode ser o diferencial.' },
-        { icon: 'Clock', title: 'Idade: 23 vs 27', fighter: 'Campbell', risk_level: 'POSITIVO', risk_color: 'green', description: 'Campbell e 4 anos mais jovem, no auge atletico com reflexos e explosividade superiores. Aos 23, ele tem tempo e energia de sobra.' },
+        { icon: 'Clock', title: 'Idade: 23 vs 29', fighter: 'Campbell', risk_level: 'POSITIVO', risk_color: 'green', description: 'Campbell e 6 anos mais jovem, no auge atletico com reflexos e explosividade superiores. Aos 23, ele tem tempo e energia de sobra.' },
         { icon: 'Eye', title: 'Switch Stance de Silva', fighter: 'Silva', risk_level: 'POSITIVO', risk_color: 'green', description: 'Silva troca de stance constantemente, o que pode confundir Campbell no debut. Enfrentar um switch-stance pela primeira vez no UFC adiciona uma camada de complexidade.' },
       ],
     },
@@ -335,18 +335,18 @@ const analise: FullSingleAnalise = {
       instagram: [
         { slide_number: 1, title: 'DEBUT DA PANTERA', content: 'CAMPBELL vs SILVA\nUFC Londres | Peso Pena\n\n8-0 vs 10-2\nA Pantera Rosa de Liverpool\nfaz seu debut no UFC', color: 'red' },
         { slide_number: 2, title: 'CAMPBELL: A PANTERA ROSA', content: '8-0 na carreira (invicto)\n5 nocautes (63%)\n5 titulos amadores\nContender Series: contrato UFC\n23 anos, Liverpool, Muay Thai', color: 'red' },
-        { slide_number: 3, title: 'SILVA: EL PUMA', content: '10-2 na carreira\n2-1 no UFC\nBoxer com switch stance\n50% das vitorias por decisao\n27 anos, Santa Ana, California', color: 'blue' },
+        { slide_number: 3, title: 'SILVA: EL PUMA', content: '10-2 na carreira\n2-1 no UFC\nBoxer com switch stance\n50% das vitorias por decisao\n29 anos, Santa Ana, California', color: 'blue' },
         { slide_number: 4, title: 'PREVISAO', content: 'CAMPBELL por KO/TKO R1-R2\n\nConfianca: MEDIA\n58% Campbell / 40% Silva\n\nO debut em casa pode ser\nespetacular. Ou imprevisivel.', color: 'gold' },
       ],
       twitter: [
-        { num: '1/4', text: 'Campbell vs Silva: a Pantera Rosa de Liverpool faz o debut no UFC em casa! 8-0, invicto, 5 KOs, 23 anos. Contra Silva (10-2, 2-1 UFC), o boxer de switch stance.' },
+        { num: '1/4', text: 'Campbell vs Silva: a Pantera Rosa de Liverpool faz o debut no UFC em casa! 8-0, invicto, 5 KOs, 23 anos. Contra Silva (10-2, 2-1 UFC, 29 anos), o boxer de switch stance.' },
         { num: '2/4', text: 'Kurtis Campbell e o tipo de prospect que faz eventos de Londres especiais. 5 titulos amadores, contrato do Contender Series, e agora o debut no O2 Arena. A torcida de Liverpool vai estar em peso.' },
         { num: '3/4', text: 'Silva nao e facil. 2-1 no UFC, venceu duas decisoes divididas. Sabe competir em lutas apertadas. Mas nunca enfrentou alguem com o poder e a energia de Campbell em casa.' },
         { num: '4/4', text: 'Previsao: Campbell por nocaute nos dois primeiros rounds. O Muay Thai, o poder e a torcida vao ser demais. Mas debuts sao imprevisiveis.' },
       ],
       video: [
         { time: '0-10s', title: 'Hook', text: 'A Pantera Rosa de Liverpool faz o debut no UFC. 8-0, invicto, 5 KOs, e 20 mil pessoas gritando o nome dele. Kurtis Campbell esta pronto?' },
-        { time: '10-25s', title: 'Contexto', text: 'Campbell, 23 anos, Muay Thai, contrato do Contender Series. Enfrenta Danny Silva, 10-2, 2-1 no UFC, boxer com switch stance. Prospect vs experiencia.' },
+        { time: '10-25s', title: 'Contexto', text: 'Campbell, 23 anos, Muay Thai, contrato do Contender Series. Enfrenta Danny Silva, 10-2, 29 anos, 2-1 no UFC, boxer com switch stance. Prospect vs experiencia.' },
         { time: '25-40s', title: 'Analise', text: 'Campbell tem poder e torcida. Silva tem experiencia e compostura. Se Campbell conectar cedo, acabou. Se a luta for apertada, Silva sabe vencer nos pontos.' },
         { time: '40-55s', title: 'Previsao', text: 'Campbell por nocaute no R1 ou R2. Mas cuidado: debuts sao imprevisiveis e Silva ja sobreviveu a 3 lutas no UFC.' },
       ],
@@ -374,7 +374,7 @@ const analise: FullSingleAnalise = {
         source: 'Media de casas de apostas (marco 2026)',
       },
       edges: [
-        { icon: 'Zap', titulo: 'Poder de Finalizacao de Campbell', stat_headline: '63% DAS VITORIAS POR KO/TKO, 5 EM 8 LUTAS', contexto: 'Campbell e um finalizador nato com base de Muay Thai. Tende a buscar a finalizacao cedo.', implicacao_aposta: 'Favorece Campbell dentro da distancia. Under pode ter valor se voce acredita no poder.', edge_level: 'moderado', fighter_side: 'fighter1' },
+        { icon: 'Zap', titulo: 'Poder de Finalizacao de Campbell', stat_headline: '63% DAS VITORIAS POR KO/TKO, 5 EM 8 LUTAS (+ TKO NO DWCS CONTRA DEMBA SECK)', contexto: 'Campbell e um finalizador nato com base de Muay Thai. Tende a buscar a finalizacao cedo.', implicacao_aposta: 'Favorece Campbell dentro da distancia. Under pode ter valor se voce acredita no poder.', edge_level: 'moderado', fighter_side: 'fighter1' },
         { icon: 'MapPin', titulo: 'Debut em Casa em Londres', stat_headline: 'CAMPBELL DE LIVERPOOL LUTA NO O2 ARENA COM 20.000 BRITANICOS', contexto: 'Cenario dos sonhos para um debut. A energia da torcida pode ser o diferencial.', implicacao_aposta: 'Favorece Campbell emocionalmente. Mas tambem pode gerar pressao excessiva.', edge_level: 'moderado', fighter_side: 'fighter1' },
         { icon: 'Brain', titulo: 'Experiencia UFC de Silva', stat_headline: '3 LUTAS NO UFC, 2 VITORIAS POR DECISAO DIVIDIDA', contexto: 'Silva sabe como funciona o octogono. Sabe competir em lutas apertadas e vencer nos pontos.', implicacao_aposta: 'Nao descarte Silva por decisao. Ele sabe como ganhar rounds.', edge_level: 'moderado', fighter_side: 'fighter2' },
         { icon: 'AlertTriangle', titulo: 'Incognita do Debut', stat_headline: 'CAMPBELL NUNCA LUTOU NO UFC, ZERO DADOS NO OCTOGONO', contexto: 'Prospects do Contender Series podem brilhar ou congelar no debut. E impossivel prever com certeza.', implicacao_aposta: 'Aumenta a incerteza geral. Nao aposte pesado em Campbell sem considerar o risco do debut.', edge_level: 'leve', fighter_side: 'neutral' },

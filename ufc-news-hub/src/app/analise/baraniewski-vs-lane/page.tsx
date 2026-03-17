@@ -41,7 +41,7 @@ const analise: FullSingleAnalise = {
     record: '13-7-0',
     ultimasLutas: [
       { result: 'L', opponent: 'Vitor Petrino', method: 'Submissao R1', event: 'UFC Fight Night' },
-      { result: 'L', opponent: 'Mario Pinto', method: 'KO R1', event: 'UFC Fight Night' },
+      { result: 'L', opponent: 'Mario Pinto', method: 'KO R2', event: 'UFC Fight Night' },
     ],
   },
   evento_nome: 'UFC Fight Night: Evloev vs Murphy',
@@ -93,7 +93,7 @@ const analise: FullSingleAnalise = {
           <strong class="text-ufc-red">Iwo Baraniewski</strong> e o tipo de prospect que assusta. O polones de 27 anos nao apenas e invicto com 7-0; ele finaliza lutas em velocidade absurda. No Contender Series, nocauteou Mahamed Aly em 20 segundos. No debut no UFC contra Ibo Aslan, nocauteou no primeiro round e ganhou o bonus de Performance da Noite. Com background em judo e poder explosivo nas maos, Baraniewski e uma bola de demolicao que o UFC esta construindo com cuidado.
         </p>
         <p class="mb-4">
-          Do outro lado esta <strong class="text-blue-400">Austen Lane</strong>, uma historia completamente diferente. Ex-defensive end da NFL (jogou por Jacksonville Jaguars, Detroit Lions e outras equipes), Lane trouxe seu atletismo absurdo para o MMA depois de se aposentar do futebol americano. Com 1,98m e envergadura de 203cm, ele e fisicamente impressionante. Mas os resultados recentes nao foram bons: duas derrotas consecutivas, nocauteado por Mario Pinto e finalizado por Vitor Petrino. Agora, aos 38 anos, ele desce de peso do peso-pesado para o meio-pesado buscando um novo comeco.
+          Do outro lado esta <strong class="text-blue-400">Austen Lane</strong>, uma historia completamente diferente. Ex-defensive end da NFL (jogou por Jacksonville Jaguars, Detroit Lions e outras equipes), Lane trouxe seu atletismo absurdo para o MMA depois de se aposentar do futebol americano. Com 1,98m e envergadura de 203cm, ele e fisicamente impressionante. Mas os resultados recentes nao foram bons: duas derrotas consecutivas, nocauteado por Mario Pinto no segundo round e finalizado por Vitor Petrino. Agora, aos 38 anos, ele desce de peso do peso-pesado para o meio-pesado buscando um novo comeco.
         </p>
         <h3 class="font-display text-xl uppercase text-ufc-red mb-4 mt-8">A Missao do Polones</h3>
         <p class="mb-4">
@@ -150,18 +150,24 @@ const analise: FullSingleAnalise = {
         nome: 'Austen Lane',
         color: 'blue',
         recent_fights: [
-          { date: 'Jul 2025', opponent: 'Vitor Petrino', result: 'L', method: 'Submissao R1', opponent_rank: '#12 LHW', quality_score: 3, quality_label: 'Bom', note: 'Finalizado por rear-naked choke no primeiro round pelo prospect brasileiro.' },
-          { date: 'Mar 2025', opponent: 'Mario Pinto', result: 'L', method: 'KO R1', opponent_rank: 'N/R HW', quality_score: 1, quality_label: 'Ruim', note: 'Nocauteado no primeiro round. Segunda derrota consecutiva.' },
+          { date: 'Jul 2025', opponent: 'Vitor Petrino', result: 'L', method: 'Submissao R1 (RNC)', opponent_rank: '#12 HW', quality_score: 3, quality_label: 'Bom', note: 'Finalizado por rear-naked choke no primeiro round pelo prospect brasileiro.' },
+          { date: 'Mar 2025', opponent: 'Mario Pinto', result: 'L', method: 'KO R2 (0:39)', opponent_rank: 'N/R HW', quality_score: 1, quality_label: 'Ruim', note: 'Nocauteado no segundo round por left-right. Segunda derrota consecutiva.' },
+          { date: 'Out 2024', opponent: 'Robelis Despaigne', result: 'W', method: 'Decisao Unanime', opponent_rank: 'N/R HW', quality_score: 1, quality_label: 'Ruim', note: 'Primeira e unica vitoria no UFC por decisao unanime.' },
+          { date: 'Abr 2024', opponent: 'Jhonata Diniz', result: 'L', method: 'KO R2', opponent_rank: 'N/R HW', quality_score: 1, quality_label: 'Ruim', note: 'Nocauteado no segundo round pelo ex-lutador de GLORY.' },
         ],
         full_fight_history: [
-          { date: 'Mar 2025', opponent: 'Mario Pinto', result: 'L', method: 'KO R1', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'KO no R1' },
-          { date: 'Jul 2025', opponent: 'Vitor Petrino', result: 'L', method: 'Sub R1', opponent_rank: '#12 LHW', quality_score: 3, quality_label: 'Bom', note: 'Submissao no R1' },
+          { date: 'Jun 2023', opponent: 'Justin Tafa', result: 'NC', method: 'NC R1 (eye poke)', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'No Contest por eye poke acidental' },
+          { date: 'Set 2023', opponent: 'Justin Tafa', result: 'L', method: 'KO R1', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'KO no R1 na revanche' },
+          { date: 'Abr 2024', opponent: 'Jhonata Diniz', result: 'L', method: 'KO R2', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'KO no R2' },
+          { date: 'Out 2024', opponent: 'Robelis Despaigne', result: 'W', method: 'UD', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'Unica vitoria UFC' },
+          { date: 'Mar 2025', opponent: 'Mario Pinto', result: 'L', method: 'KO R2', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'KO no R2' },
+          { date: 'Jul 2025', opponent: 'Vitor Petrino', result: 'L', method: 'Sub R1', opponent_rank: '#12 HW', quality_score: 3, quality_label: 'Bom', note: 'Submissao no R1' },
         ],
         layoff_warning: null,
         momentum_score: 3,
         momentum_label: 'Em Baixa',
         momentum_trend: 'descending',
-        momentum_note: 'Lane esta numa espiral negativa. Duas derrotas consecutivas no primeiro round, por nocaute e submissao. A decisao de descer para o meio-pesado aos 38 anos e uma jogada arriscada, mas necessaria. Se perder mais uma, a situacao no UFC fica insustentavel.',
+        momentum_note: 'Lane esta numa espiral negativa. Duas derrotas consecutivas rapidas, nocauteado por Pinto no R2 e finalizado por Petrino no R1. A decisao de descer para o meio-pesado aos 38 anos e uma jogada arriscada, mas necessaria. Se perder mais uma, a situacao no UFC fica insustentavel.',
       },
     },
 
@@ -177,11 +183,11 @@ const analise: FullSingleAnalise = {
         nome: 'Lane',
         media_oponentes: 2,
         media_oponentes_label: 'Medio',
-        aproveitamento: '3W-3L (50%)',
+        aproveitamento: '1W-4L (20%)',
         contra_top5: '0W-0L',
       },
       oponentes_em_comum_count: { fighter1: 0, fighter2: 0 },
-      oponentes_em_comum_note: 'Sem oponentes em comum. Baraniewski e novo no UFC (apenas 1 luta). Lane tem mais experiencia na organizacao mas vem de resultados ruins.',
+      oponentes_em_comum_note: 'Sem oponentes em comum. Baraniewski e novo no UFC (apenas 1 luta). Lane tem 6 lutas no UFC (1-4, 1 NC) mas vem de resultados ruins.',
     },
 
     oponente_comum: null,
@@ -209,9 +215,9 @@ const analise: FullSingleAnalise = {
       skills: [
         { label: 'Poder de Nocaute', valueA: 88, valueB: 65, labelA: 'Muito Bom', labelB: 'Bom', advantage: 'fighter1', advantage_note: '5 KOs em 7 lutas para Baraniewski. Nocauteou Aslan e Aly em segundos. Poder explosivo real.' },
         { label: 'Striking Tecnico', valueA: 72, valueB: 48, labelA: 'Bom', labelB: 'Medio', advantage: 'fighter1', advantage_note: 'Baraniewski tem 75% de precisao no UFC vs 42% de Lane. Diferenca tecnica clara.' },
-        { label: 'Wrestling/Grappling', valueA: 70, valueB: 55, labelA: 'Bom', labelB: 'Bom', advantage: 'fighter1', advantage_note: 'Baraniewski tem base de judo com 2 submissoes na carreira. Lane tem atletismo mas tecnica limitada.' },
+        { label: 'Wrestling/Grappling', valueA: 70, valueB: 55, labelA: 'Bom', labelB: 'Bom', advantage: 'fighter1', advantage_note: 'Baraniewski tem base de judo com 2 submissoes na carreira. Lane tem 1 submissao na carreira e atletismo, mas tecnica de grappling limitada.' },
         { label: 'Atletismo e Explosao', valueA: 85, valueB: 72, labelA: 'Muito Bom', labelB: 'Bom', advantage: 'fighter1', advantage_note: 'Baraniewski e explosivo e jovem. Lane tem atletismo da NFL mas aos 38 anos, a explosao diminuiu.' },
-        { label: 'Queixo e Durabilidade', valueA: 65, valueB: 50, labelA: 'Bom', labelB: 'Medio', advantage: 'fighter1', advantage_note: 'Baraniewski nunca foi derrubado. Lane foi nocauteado e finalizado nas ultimas 2 lutas.' },
+        { label: 'Queixo e Durabilidade', valueA: 65, valueB: 50, labelA: 'Bom', labelB: 'Medio', advantage: 'fighter1', advantage_note: 'Baraniewski nunca foi derrubado. Lane foi nocauteado por Pinto no R2 e finalizado por Petrino no R1 nas ultimas 2 lutas.' },
         { label: 'Vantagem Fisica', valueA: 40, valueB: 80, labelA: 'Medio', labelB: 'Muito Bom', advantage: 'fighter2', advantage_note: 'Lane e 15cm mais alto com 6 polegadas de envergadura a mais. Vantagem fisica significativa.' },
       ],
       insight: 'Baraniewski leva vantagem em quase tudo exceto tamanho fisico. O polones e mais tecnico, mais explosivo, mais jovem e mais confiante. Lane tem tamanho, mas os resultados recentes sugerem que ele nao esta conseguindo usar essa vantagem de forma efetiva.',
@@ -227,12 +233,12 @@ const analise: FullSingleAnalise = {
       },
       fighter2: {
         nome: 'Lane',
-        ko_tko: { count: 8, percent: 62 },
-        submission: { count: 2, percent: 15 },
-        decision: { count: 3, percent: 23 },
+        ko_tko: { count: 11, percent: 85 },
+        submission: { count: 1, percent: 8 },
+        decision: { count: 1, percent: 7 },
         total_wins: 13,
       },
-      insight: 'Baraniewski nunca foi para a decisao: 100% das vitorias por finalizacao (71% KO, 29% submissao). Lane tambem tem poder (62% KO), mas tem sido finalizado com frequencia recentemente. A tendencia aponta para uma luta curta com finalizacao.',
+      insight: 'Baraniewski nunca foi para a decisao: 100% das vitorias por finalizacao (71% KO, 29% submissao). Lane e ainda mais nocauteador (85% KO), mas tem sido finalizado com frequencia recentemente. A tendencia aponta para uma luta curta com finalizacao.',
     },
 
     danger_zones: {
@@ -243,7 +249,7 @@ const analise: FullSingleAnalise = {
           danger_label: 'VANTAGEM BARANIEWSKI',
           color: 'red',
           title: 'A Zona de Demolicao',
-          description: 'Baraniewski finalizou as duas ultimas lutas no primeiro round, uma em 20 segundos. Lane foi finalizado nas duas ultimas lutas no primeiro round. A convergencia e clara: se alguem vai ser nocauteado no R1, e provavel que seja Lane. O polones entra com intencao de encerrar cedo.',
+          description: 'Baraniewski finalizou as duas ultimas lutas no primeiro round, uma em 20 segundos. Lane foi finalizado nas duas ultimas lutas de forma rapida (Petrino no R1, Pinto no R2). A convergencia e clara: se alguem vai ser nocauteado cedo, e provavel que seja Lane. O polones entra com intencao de encerrar rapido.',
         },
         {
           rounds: 'R2',
@@ -259,7 +265,7 @@ const analise: FullSingleAnalise = {
           danger_label: 'VANTAGEM LANE',
           color: 'green',
           title: 'A Experiencia do Veterano',
-          description: 'Se a luta se arrastar ate o R3, Lane tem experiencia em lutas longas (3 decisoes na carreira). Baraniewski nunca foi a decisao. O tamanho de Lane e o cardio natural de quem jogou na NFL podem ser fatores nesse cenario.',
+          description: 'Se a luta se arrastar ate o R3, Lane tem experiencia em lutas longas (1 decisao na carreira, contra Despaigne). Baraniewski nunca foi a decisao. O tamanho de Lane e o cardio natural de quem jogou na NFL podem ser fatores nesse cenario.',
         },
       ],
     },
@@ -267,7 +273,7 @@ const analise: FullSingleAnalise = {
     intangiveis: {
       items: [
         { icon: 'TrendingUp', title: 'Momentum vs Espiral', fighter: 'Baraniewski', risk_level: 'ENORME POSITIVO', risk_color: 'green', description: 'Baraniewski esta no pico: invicto, dois nocautes devastadores, bonus de Performance da Noite. Lane esta numa espiral: duas derrotas consecutivas no R1. O contraste de momentum e enorme.' },
-        { icon: 'AlertTriangle', title: 'Queixo Comprometido', fighter: 'Lane', risk_level: 'RISCO ALTO', risk_color: 'red', description: 'Lane foi nocauteado por Mario Pinto e finalizado por Petrino nas ultimas duas lutas, ambas no R1. A durabilidade dele esta em questao seria. Contra o poder de Baraniewski, isso e preocupante.' },
+        { icon: 'AlertTriangle', title: 'Queixo Comprometido', fighter: 'Lane', risk_level: 'RISCO ALTO', risk_color: 'red', description: 'Lane foi nocauteado por Mario Pinto no R2 e finalizado por Petrino no R1 nas ultimas duas lutas. A durabilidade dele esta em questao seria. Contra o poder de Baraniewski, isso e preocupante.' },
         { icon: 'Activity', title: 'Descida de Peso', fighter: 'Lane', risk_level: 'RISCO MEDIO', risk_color: 'yellow', description: 'Lane esta fazendo sua estreia no meio-pesado (205 lbs) vindo do peso-pesado (265 lbs). Perder quase 60 lbs pode afetar poder, resistencia e recuperacao. E uma incognita total.' },
         { icon: 'Shield', title: 'Vantagem de Tamanho Absurda', fighter: 'Lane', risk_level: 'POSITIVO', risk_color: 'green', description: 'Lane e 15cm mais alto e tem 6 polegadas de envergadura a mais. Mesmo no meio-pesado, ele sera significativamente maior. Se usar o jab e manter distancia, pode frustrar Baraniewski.' },
         { icon: 'Zap', title: 'Explosividade do Judoca', fighter: 'Baraniewski', risk_level: 'POSITIVO', risk_color: 'green', description: 'A base de judo da a Baraniewski explosividade unica para fechar distancia rapidamente. Mesmo com a envergadura de Lane, se Baraniewski fechar, o judo pode ser decisivo.' },
@@ -323,7 +329,7 @@ const analise: FullSingleAnalise = {
         { num: 2, title: 'O Jab de Lane', icon: 'Target', description: 'Se Lane usar o jab de forma inteligente para manter distancia, pode frustrar as entradas de Baraniewski. Com 6 polegadas a mais de envergadura, o jab e sua melhor arma.' },
         { num: 3, title: 'O Fisico de Lane no Novo Peso', icon: 'Activity', description: 'Observe como Lane se move no meio-pesado. Se parecer lento ou pesado apesar da descida de peso, e sinal ruim. Se parecer mais leve e agil, pode ser uma versao melhorada.' },
         { num: 4, title: 'As Entradas de Judo de Baraniewski', icon: 'Shield', description: 'Baraniewski tem background em judo. Se Lane o empurrar para o clinch, o polones pode usar arremessos e viagens para levar ao chao. Observe as tentativas de clinch.' },
-        { num: 5, title: 'O Queixo de Lane', icon: 'AlertTriangle', description: 'Lane foi nocauteado e finalizado nas ultimas 2 lutas, ambas no R1. Se Baraniewski conectar algo limpo nos primeiros minutos, a reacao de Lane vai revelar se o queixo aguenta.' },
+        { num: 5, title: 'O Queixo de Lane', icon: 'AlertTriangle', description: 'Lane foi nocauteado por Pinto no R2 e finalizado por Petrino no R1 nas ultimas 2 lutas. Se Baraniewski conectar algo limpo nos primeiros minutos, a reacao de Lane vai revelar se o queixo aguenta.' },
       ],
     },
 
@@ -371,18 +377,18 @@ const analise: FullSingleAnalise = {
       },
       edges: [
         { icon: 'Zap', titulo: 'Poder Explosivo de Baraniewski', stat_headline: '2 NOCAUTES CONSECUTIVOS NO R1, UM EM APENAS 20 SEGUNDOS', contexto: 'Baraniewski finaliza com velocidade absurda. O poder e genuino e o timing e preciso.', implicacao_aposta: 'Forte edge para Baraniewski dentro da distancia e Under 1.5 rounds.', edge_level: 'forte', fighter_side: 'fighter1' },
-        { icon: 'AlertTriangle', titulo: 'Durabilidade em Questao de Lane', stat_headline: 'LANE FOI FINALIZADO NAS ULTIMAS 2 LUTAS, AMBAS NO R1', contexto: 'O queixo e a capacidade de sobreviver de Lane estao em serio declinio. Nocauteado e finalizado consecutivamente.', implicacao_aposta: 'Aumenta drasticamente a probabilidade de finalizacao precoce de Baraniewski.', edge_level: 'forte', fighter_side: 'fighter1' },
+        { icon: 'AlertTriangle', titulo: 'Durabilidade em Questao de Lane', stat_headline: 'LANE FOI FINALIZADO NAS ULTIMAS 2 LUTAS (PINTO NO R2, PETRINO NO R1)', contexto: 'O queixo e a capacidade de sobreviver de Lane estao em serio declinio. Nocauteado e finalizado consecutivamente.', implicacao_aposta: 'Aumenta drasticamente a probabilidade de finalizacao precoce de Baraniewski.', edge_level: 'forte', fighter_side: 'fighter1' },
         { icon: 'BarChart3', titulo: 'Diferenca de Tamanho: 15cm de Altura', stat_headline: 'LANE E 1,98M COM 203CM DE ENVERGADURA VS 1,83M DE BARANIEWSKI', contexto: 'A diferenca fisica e massiva. Se Lane usar o tamanho de forma inteligente, pode manter Baraniewski longe.', implicacao_aposta: 'Unico argumento para Lane. Se voce acredita que tamanho importa mais que tudo.', edge_level: 'leve', fighter_side: 'fighter2' },
         { icon: 'Activity', titulo: 'Estreia no Meio-Pesado para Lane', stat_headline: 'LANE DESCE DO PESO-PESADO (265 LBS) PARA O MEIO-PESADO (205 LBS)', contexto: 'Primeira vez na carreira que Lane faz 205 lbs. A descida de 60 lbs pode afetar desempenho positiva ou negativamente.', implicacao_aposta: 'Incognita total. Nao aposte pesado em Lane baseado na descida de peso.', edge_level: 'leve', fighter_side: 'neutral' },
       ],
       value_picks: [
         { tipo: 'Metodo', pick: 'Baraniewski por KO/TKO R1', odds: '-200', confianca: 'alta', raciocinio: 'O cenario mais provavel dado o historico de ambos. Baraniewski finaliza no R1, Lane e finalizado no R1. Convergencia total.' },
-        { tipo: 'Over/Under', pick: 'Under 1.5 Rounds', odds: '-180', confianca: 'alta', raciocinio: 'As ultimas 4 lutas combinadas (2 de cada) terminaram no R1. A probabilidade de ir alem disso e baixa.' },
+        { tipo: 'Over/Under', pick: 'Under 1.5 Rounds', odds: '-180', confianca: 'alta', raciocinio: 'As ultimas 4 lutas combinadas (2 de cada) terminaram nos dois primeiros rounds. A probabilidade de ir alem disso e baixa.' },
         { tipo: 'Moneyline', pick: 'Baraniewski (-450)', odds: '-450', confianca: 'media', edge_vs_mercado: 'O preco e alto mas justificado. Nao oferece grande valor.', raciocinio: 'Baraniewski e favorito claro, mas -450 nao da muito retorno. Melhor apostar no metodo e round.' },
       ],
       armadilha: {
         titulo: 'Armadilha: Lane por Decisao',
-        descricao: 'As ultimas 4 lutas combinadas de ambos terminaram no R1. Apostar em decisao nessa luta e ir contra toda a evidencia recente. Se vai ter vencedor, vai ser por finalizacao.',
+        descricao: 'As ultimas 4 lutas combinadas de ambos terminaram nos dois primeiros rounds. Apostar em decisao nessa luta e ir contra toda a evidencia recente. Se vai ter vencedor, vai ser por finalizacao.',
       },
       disclaimer: 'Analise estatistica para fins informativos. Aposte com responsabilidade.',
     },
