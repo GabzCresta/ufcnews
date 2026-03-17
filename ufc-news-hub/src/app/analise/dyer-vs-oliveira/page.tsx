@@ -358,10 +358,70 @@ const analisePT: PrelimsAnalise = {
   },
 };
 
+const analiseEN: PrelimsAnalise = {
+  ...analisePT, evento_data: 'March 21, 2026', evento_local: 'The O2 Arena, London, United Kingdom', categoria_peso: "Women's Strawweight (115 lbs)",
+  fight_prediction: { ...analisePT.fight_prediction, predictedMethod: 'Unanimous Decision', confidence: 'MEDIUM' },
+  prelims_analysis: {
+    hero: { ...analisePT.prelims_analysis.hero, evento_data: 'March 21, 2026', categoria_peso: "Women's Strawweight (115 lbs)" },
+    comparacao_estatistica: { stats: [
+      { label: 'Sig. Strikes Per Minute', valueA: 4.80, valueB: 5.20, maxVal: 8, format: 'decimal', note: 'Both with high volume for the women\'s division, fight is likely to be action-packed' },
+      { label: 'Striking Accuracy (%)', valueA: 46, valueB: 42, maxVal: 100, format: 'percent', note: 'Dyer lands with more precision, a reflection of her Muay Thai background' },
+      { label: 'Strikes Absorbed/Min', valueA: 4.50, valueB: 5.10, maxVal: 7, format: 'decimal', reverseWinner: true, note: 'Oliveira absorbs more strikes, was submitted in the third round against Luciano' },
+      { label: 'Strike Defense (%)', valueA: 48, valueB: 40, maxVal: 100, format: 'percent', note: 'Dyer has superior defense, although both still have room to improve' },
+      { label: 'Takedowns Per 15 Min', valueA: 0.60, valueB: 0.80, maxVal: 5, format: 'decimal' },
+      { label: 'Takedown Accuracy (%)', valueA: 33, valueB: 35, maxVal: 100, format: 'percent' },
+      { label: 'Takedown Defense (%)', valueA: 70, valueB: 55, maxVal: 100, format: 'percent', note: 'Dyer defends takedowns more consistently' },
+    ], tale_of_tape: [
+      { label: 'Age', fighter1: '24 years old', fighter2: '29 years old', note: 'Dyer is 5 years younger' },
+      { label: 'Height', fighter1: '5\'6" (1.67m)', fighter2: '5\'5" (1.65m)', note: null },
+      { label: 'Reach', fighter1: '65.7" (167cm)', fighter2: '65" (165cm)', note: null },
+      { label: 'Stance', fighter1: 'Orthodox', fighter2: 'Orthodox', note: null },
+      { label: 'Gym', fighter1: 'Great Britain Top Team / England', fighter2: 'Galpao da Luta / Salvador, Brazil', note: null },
+    ] },
+    historico_lutas: {
+      fighter1: { nome: 'Dyer', recent_fights: [
+        { date: 'Sep 2025', opponent: 'Carol Foro', result: 'L', method: 'Unanimous Decision', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'Lost on DWCS but earned a contract anyway. Was dropped twice in R1 but recovered with incredible courage.' },
+        { date: 'Sep 2024', opponent: 'Valentina Scatizzi', result: 'W', method: 'Split Decision', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'Split decision win at PFL Europe 3 Playoffs, showing competitiveness in a tight fight.' },
+        { date: 'Jun 2024', opponent: 'Mariam Torchinava', result: 'W', method: 'KO R1 (head kick, 3:53)', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'Head kick knockout at PFL Europe, showing high-level Muay Thai technique.' },
+        { date: 'Dec 2023', opponent: 'Liliya Kazak', result: 'W', method: 'TKO R3 (1:08)', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'Third-round TKO at Ares 18, showing the ability to maintain pressure.' },
+        { date: 'Sep 2023', opponent: 'Luisa Fernanda Cifuentes', result: 'W', method: 'Unanimous Decision', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'Points win at PFL Europe Playoffs, showing the ability to fight 3 full rounds.' },
+      ] },
+      fighter2: { nome: 'Oliveira', recent_fights: [
+        { date: 'Oct 2025', opponent: 'Stephanie Luciano', result: 'L', method: 'Sub R3 (RNC, 2:50)', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'Submitted in the third round, fatigue seemed to be a factor. Still winless in the UFC.' },
+        { date: 'Oct 2023', opponent: 'Tainara Lisboa', result: 'L', method: 'Unanimous Decision', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'UFC debut by unanimous decision. Couldn\'t impose her striking against the veteran.' },
+        { date: 'Aug 2023', opponent: 'Simone da Silva', result: 'W', method: 'KO/TKO R1', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'First-round knockout at LKC 5, before signing with the UFC.' },
+        { date: 'Jul 2023', opponent: 'Raquel de Andrade', result: 'W', method: 'KO/TKO R1', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'Quick knockout at MC Fight, showing impressive power for the division.' },
+        { date: 'Jan 2022', opponent: 'Sheila Amaral', result: 'W', method: 'Submission R1', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'First-round submission at Demo Fight 11, only career submission win.' },
+      ] },
+    },
+    perfil_habilidades: { skills: [
+      { label: 'Stand-up Striking', valueA: 72, valueB: 68, labelA: 'Good', labelB: 'Good', advantage: 'fighter1', advantage_note: 'Dyer has trained Muay Thai since age 9 and has more refined technique. Oliveira has raw power but less technique.' },
+      { label: 'Knockout Power', valueA: 72, valueB: 78, labelA: 'Good', labelB: 'Very Good', advantage: 'fighter2', advantage_note: 'Oliveira has 86% wins by KO/TKO, rare power in the women\'s division. Dyer also has 67% KOs, both are dangerous.' },
+      { label: 'Wrestling & Grappling', valueA: 50, valueB: 45, labelA: 'Average', labelB: 'Average', advantage: 'even', advantage_note: 'Neither is strong in grappling. Both prefer to settle it on the feet, fight is likely to stay in the striking.' },
+      { label: 'Overall Defense', valueA: 58, valueB: 42, labelA: 'Good', labelB: 'Average', advantage: 'fighter1', advantage_note: 'Dyer showed incredible resilience recovering from 2 knockdowns against Foro. Oliveira was submitted in R3 by Luciano.' },
+      { label: 'Cardio & Pace', valueA: 68, valueB: 52, labelA: 'Good', labelB: 'Average', advantage: 'fighter1', advantage_note: 'Dyer fought 3 rounds against Foro and improved in the later rounds. Oliveira was submitted in R3, possible cardio issue.' },
+      { label: 'UFC Experience', valueA: 25, valueB: 35, labelA: 'Poor', labelB: 'Average', advantage: 'fighter2', advantage_note: 'Oliveira has 2 UFC fights (0W-2L). Dyer makes her official octagon debut. Neither has a significant advantage.' },
+    ], insight: 'Two strikers with above-average knockout power for the women\'s division. Dyer has superior technique with a Muay Thai background and better cardio, while Oliveira brings explosive raw power in the early rounds. Dyer needs to survive the opening and impose her pace. If the fight passes R2, the advantage shifts completely to the Brit.' },
+    distribuicao_vitorias: {
+      fighter1: { nome: 'Dyer', ko_tko: { count: 4, percent: 67 }, submission: { count: 0, percent: 0 }, decision: { count: 2, percent: 33 }, total_wins: 6 },
+      fighter2: { nome: 'Oliveira', ko_tko: { count: 6, percent: 86 }, submission: { count: 1, percent: 14 }, decision: { count: 0, percent: 0 }, total_wins: 7 },
+      insight: 'Two knockout artists in the UFC\'s lightest women\'s division. Oliveira has the most impressive rate at 86% wins by KO/TKO, a rare number among women. Dyer has 67% knockouts. Neither wins by decision often (Oliveira has never won on points). This fight has a high probability of a stoppage by strikes.',
+    },
+    previsao_final: {
+      winner_name: 'Dyer', winner_side: 'fighter1', predicted_method: 'Unanimous Decision', confidence_score: 5, confidence_label: 'MEDIUM',
+      explanation: 'Shanelle Dyer has the advantage of fighting at home in the O2 Arena and demonstrated incredible resilience recovering from two knockdowns against Carol Foro on DWCS. Her Muay Thai is technically superior to Oliveira\'s striking and her cardio is visibly better. Oliveira has explosive power but comes off 2 consecutive UFC losses and showed vulnerability in cardio when submitted in the third round. If Dyer survives the first round and imposes her pace in rounds 2 and 3, she should accumulate enough points for the win. However, Oliveira\'s power at the start makes any prediction uncertain.',
+      x_factor: { title: 'Dyer\'s resilience', description: 'Getting dropped twice in the first round of DWCS and coming back to fight all 3 full rounds shows a warrior\'s mentality. At home, with the crowd pushing, that resilience could be the deciding factor if Oliveira connects early.' },
+      upset_alert: { title: 'Oliveira has the power to surprise anyone', description: 'With 86% wins by knockout, Oliveira is one of the biggest knockout artists in the division. If she connects clean in the opening minutes like she did in her 6 KO wins on the regional circuit, she could end the fight before Dyer has time to adapt.' },
+      probabilities: { fighter1: { nome: 'Dyer', percent: 55 }, fighter2: { nome: 'Oliveira', percent: 43 }, draw: 2 },
+      value_picks: undefined,
+    },
+  },
+};
+
 function PageContent() {
   const searchParams = useSearchParams();
   const lang = (searchParams.get('lang') === 'en' ? 'en' : 'pt') as Lang;
-  const analise = analisePT; // TODO: add analiseEN
+  const analise = lang === 'en' ? analiseEN : analisePT;
   return <PrelimsAnalysisView analise={analise} lang={lang} />;
 }
 

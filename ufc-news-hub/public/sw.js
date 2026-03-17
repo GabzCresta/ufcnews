@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ufc-news-hub-v3';
+const CACHE_NAME = 'ufc-news-hub-v4';
 const STATIC_ASSETS = [
   '/manifest.json',
 ];
@@ -13,7 +13,7 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
-// Activate event - clean up ALL old caches and force reload clients
+// Activate event - clean up ALL old caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -22,72 +22,46 @@ self.addEventListener('activate', (event) => {
           .filter((name) => name !== CACHE_NAME)
           .map((name) => caches.delete(name))
       );
-    }).then(() => {
-      // Force all open tabs to reload with fresh content
-      return self.clients.matchAll({ type: 'window' }).then((clients) => {
-        for (const client of clients) {
-          client.navigate(client.url);
-        }
-      });
     })
   );
   self.clients.claim();
 });
 
-// Fetch event - network first, fallback to cache
+// Fetch event - network only for pages, cache only for static assets
 self.addEventListener('fetch', (event) => {
-  // Skip non-GET requests
   if (event.request.method !== 'GET') return;
 
-  // Skip API requests - always go to network
-  if (event.request.url.includes('/api/')) {
+  // Never intercept API calls or page navigations
+  if (event.request.url.includes('/api/') || event.request.mode === 'navigate') {
     return;
   }
 
+  const url = new URL(event.request.url);
+
+  // Only cache static assets (_next/static, images, fonts, manifest)
+  const isStaticAsset =
+    url.pathname.startsWith('/_next/static/') ||
+    url.pathname.startsWith('/icons/') ||
+    url.pathname === '/manifest.json' ||
+    url.pathname.match(/\.(png|jpg|jpeg|webp|svg|ico|woff2?)$/);
+
+  if (!isStaticAsset) return;
+
   event.respondWith(
-    fetch(event.request)
-      .then((response) => {
-        // Clone the response before caching
-        const responseClone = response.clone();
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.match(event.request).then((cachedResponse) => {
+        if (cachedResponse) return cachedResponse;
 
-        // Cache successful responses
-        if (response.ok) {
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseClone);
-          });
-        }
-
-        return response;
-      })
-      .catch(() => {
-        // Fallback to cache if network fails
-        return caches.match(event.request).then((cachedResponse) => {
-          if (cachedResponse) {
-            return cachedResponse;
+        return fetch(event.request).then((response) => {
+          if (response.ok) {
+            cache.put(event.request, response.clone());
           }
-
-          // Return offline page for navigation requests
-          if (event.request.mode === 'navigate') {
-            return caches.match('/');
-          }
-
-          return new Response('Offline', { status: 503 });
+          return response;
         });
-      })
+      });
+    })
   );
 });
-
-// Background sync for predictions (future feature)
-self.addEventListener('sync', (event) => {
-  if (event.tag === 'sync-predictions') {
-    event.waitUntil(syncPredictions());
-  }
-});
-
-async function syncPredictions() {
-  // Future: sync offline predictions when back online
-  console.log('Syncing predictions...');
-}
 
 // Push notifications (future feature)
 self.addEventListener('push', (event) => {

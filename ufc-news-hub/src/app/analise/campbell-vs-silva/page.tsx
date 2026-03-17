@@ -624,7 +624,7 @@ const analiseEN: FullSingleAnalise = {
     },
     betting_value: null,
     radar_apostador: {
-      odds: { ...analisePT.full_analysis.radar_apostador.odds, source: 'Average across sportsbooks (March 2026)' },
+      odds: { ...analisePT.full_analysis.radar_apostador!.odds, source: 'Average across sportsbooks (March 2026)' },
       edges: [
         { icon: 'Zap', titulo: 'Campbell\'s Finishing Power', stat_headline: '63% OF WINS BY KO/TKO, 5 IN 8 FIGHTS (+ TKO ON DWCS AGAINST DEMBA SECK)', contexto: 'Campbell is a natural finisher with a Muay Thai base. He tends to look for the finish early.', implicacao_aposta: 'Favors Campbell inside the distance. Under could have value if you believe in the power.', edge_level: 'moderado', fighter_side: 'fighter1' },
         { icon: 'MapPin', titulo: 'Home Debut in London', stat_headline: 'CAMPBELL FROM LIVERPOOL FIGHTS AT THE O2 ARENA WITH 20,000 BRITS', contexto: 'Dream scenario for a debut. The crowd energy could be the difference-maker.', implicacao_aposta: 'Emotionally favors Campbell. But could also generate excessive pressure.', edge_level: 'moderado', fighter_side: 'fighter1' },

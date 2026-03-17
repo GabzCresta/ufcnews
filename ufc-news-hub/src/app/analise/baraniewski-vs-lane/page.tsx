@@ -522,7 +522,7 @@ const analiseEN: FullSingleAnalise = {
     },
     betting_value: null,
     radar_apostador: {
-      odds: { ...analisePT.full_analysis.radar_apostador.odds, source: 'Average across sportsbooks (March 2026)' },
+      odds: { ...analisePT.full_analysis.radar_apostador!.odds, source: 'Average across sportsbooks (March 2026)' },
       edges: [
         { icon: 'Zap', titulo: 'Baraniewski\'s Explosive Power', stat_headline: '2 CONSECUTIVE R1 KNOCKOUTS, ONE IN JUST 20 SECONDS', contexto: 'Baraniewski finishes at absurd speed. The power is genuine and the timing is precise.', implicacao_aposta: 'Strong edge for Baraniewski inside the distance and Under 1.5 rounds.', edge_level: 'forte', fighter_side: 'fighter1' },
         { icon: 'AlertTriangle', titulo: 'Lane\'s Durability in Question', stat_headline: 'LANE WAS FINISHED IN HIS LAST 2 FIGHTS (PINTO R2 KO, PETRINO R1 SUB)', contexto: 'Lane\'s chin and ability to survive are in serious decline. Knocked out and submitted consecutively.', implicacao_aposta: 'Drastically increases the probability of an early Baraniewski finish.', edge_level: 'forte', fighter_side: 'fighter1' },

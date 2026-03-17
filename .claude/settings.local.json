@@ -123,7 +123,10 @@
       "WebFetch(domain:raw.githubusercontent.com)",
       "WebFetch(domain:www.blog.datawithbaraa.com)",
       "Bash(do echo:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "WebFetch(domain:ufc-news.vercel.app)",
+      "Bash(for dir:*)",
+      "Read(//Users/gabz_cresta/Desktop/ufcnews/ufc-news-hub/src/app/analise/$dir/**)"
     ]
   },
   "enabledMcpjsonServers": [
