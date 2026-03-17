@@ -1,6 +1,7 @@
 'use client';
 
 import type { PrelimsAnalise, RecentFight } from '@/types/analise';
+import { getLabels, type Lang } from '@/lib/i18n-labels';
 import { SectionHeader } from './SectionHeader';
 import { ComparacaoEstatisticaSection } from './ComparacaoEstatisticaSection';
 import { PerfilHabilidadesSection } from './PerfilHabilidadesSection';
@@ -87,10 +88,11 @@ function FightCard({ fight }: { fight: RecentFight }) {
 }
 
 /* ── Historico de Lutas Section ── */
-function HistoricoLutasSection({ data }: { data: PrelimsAnalise['prelims_analysis']['historico_lutas'] }) {
+function HistoricoLutasSection({ data, lang = 'pt' }: { data: PrelimsAnalise['prelims_analysis']['historico_lutas']; lang?: Lang }) {
+  const t = getLabels(lang);
   return (
     <section>
-      <SectionHeader number="02" title="Historico de" accent="Lutas" />
+      <SectionHeader number="02" title={t.historico_title} accent={t.historico_accent} />
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Fighter 1 */}
         <div className="rounded-lg border border-dark-border bg-dark-card p-5">
@@ -125,8 +127,9 @@ function HistoricoLutasSection({ data }: { data: PrelimsAnalise['prelims_analysi
 }
 
 /* ── Main View ── */
-export function PrelimsAnalysisView({ analise }: { analise: PrelimsAnalise }) {
+export function PrelimsAnalysisView({ analise, lang = 'pt' }: { analise: PrelimsAnalise; lang?: Lang }) {
   const d = analise.prelims_analysis;
+  const t = getLabels(lang);
   const f1Name = d.hero.fighter1.nome;
   const f2Name = d.hero.fighter2.nome;
 
@@ -142,10 +145,11 @@ export function PrelimsAnalysisView({ analise }: { analise: PrelimsAnalise }) {
           fighter1Name={f1Name}
           fighter2Name={f2Name}
           sectionNumber="01"
+          lang={lang}
         />
 
         {/* Section 3: Historico de Lutas */}
-        <HistoricoLutasSection data={d.historico_lutas} />
+        <HistoricoLutasSection data={d.historico_lutas} lang={lang} />
 
         {/* Section 4: Perfil de Habilidades */}
         <PerfilHabilidadesSection
@@ -153,20 +157,21 @@ export function PrelimsAnalysisView({ analise }: { analise: PrelimsAnalise }) {
           fighter1Name={f1Name}
           fighter2Name={f2Name}
           sectionNumber="03"
+          lang={lang}
         />
 
         {/* Section 5: Distribuicao de Vitorias */}
-        <DistribuicaoVitoriasSection data={d.distribuicao_vitorias} sectionNumber="04" />
+        <DistribuicaoVitoriasSection data={d.distribuicao_vitorias} sectionNumber="04" lang={lang} />
 
         {/* Section 6: Previsao Final */}
-        <PrevisaoFinalSection data={d.previsao_final} sectionNumber="05" />
+        <PrevisaoFinalSection data={d.previsao_final} sectionNumber="05" lang={lang} />
       </div>
 
       {/* Footer */}
       <div className="container mx-auto px-4 pb-10">
         <div className="rounded-lg border border-dark-border bg-dark-bg p-5 text-center">
           <p className="text-xs text-dark-textMuted">
-            <span className="font-bold text-ufc-gold">UFC NEWS HUB</span> - Analise Preliminar
+            <span className="font-bold text-ufc-gold">UFC NEWS HUB</span> - {t.analise_preliminar}
           </p>
           <p className="mt-1 text-[10px] text-dark-textMuted">
             {d.hero.fighter1.nome} vs {d.hero.fighter2.nome} | {d.hero.evento_nome} | {d.hero.categoria_peso}

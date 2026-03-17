@@ -1,7 +1,12 @@
+'use client';
+
+import { Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { PrelimsAnalysisView } from '@/components/analise/PrelimsAnalysisView';
 import type { PrelimsAnalise } from '@/types/analise';
+import type { Lang } from '@/lib/i18n-labels';
 
-const analise: PrelimsAnalise = {
+const analisePT: PrelimsAnalise = {
   id: 'pinto-vs-franco',
   evento_id: null,
   slug: 'pinto-vs-franco',
@@ -354,6 +359,13 @@ const analise: PrelimsAnalise = {
   },
 };
 
+function PageContent() {
+  const searchParams = useSearchParams();
+  const lang = (searchParams.get('lang') === 'en' ? 'en' : 'pt') as Lang;
+  const analise = analisePT; // TODO: add analiseEN
+  return <PrelimsAnalysisView analise={analise} lang={lang} />;
+}
+
 export default function Page() {
-  return <PrelimsAnalysisView analise={analise} />;
+  return <Suspense><PageContent /></Suspense>;
 }

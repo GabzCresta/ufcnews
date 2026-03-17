@@ -1,7 +1,12 @@
+'use client';
+
+import { Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { FullAnalysisView } from '@/components/analise/FullAnalysisView';
 import type { FullSingleAnalise } from '@/types/analise';
+import type { Lang } from '@/lib/i18n-labels';
 
-const analise: FullSingleAnalise = {
+const analisePT: FullSingleAnalise = {
   id: 'evloev-vs-murphy',
   evento_id: null,
   slug: 'evloev-vs-murphy',
@@ -504,6 +509,429 @@ const analise: FullSingleAnalise = {
   },
 };
 
+// ═══════════════════════════════════════════════════════════════
+// ENGLISH VERSION
+// ═══════════════════════════════════════════════════════════════
+const analiseEN: FullSingleAnalise = {
+  ...analisePT,
+  titulo: 'Evloev vs Murphy: Undefeated on a Collision Course',
+  subtitulo: 'The #1 ranked featherweight faces #3 in a title eliminator in London',
+  evento_data: 'March 21, 2026',
+  evento_local: 'The O2 Arena, London, United Kingdom',
+  categoria_peso: 'Featherweight (145 lbs)',
+  fight_prediction: {
+    ...analisePT.fight_prediction,
+    predictedMethod: 'Unanimous Decision',
+    confidence: 'MEDIUM',
+  },
+  fighter1_info: {
+    ...analisePT.fighter1_info,
+    ultimasLutas: [
+      { result: 'W', opponent: 'Aljamain Sterling', method: 'Unanimous Decision', event: 'UFC 310' },
+      { result: 'W', opponent: 'Arnold Allen', method: 'Unanimous Decision', event: 'UFC 297' },
+      { result: 'W', opponent: 'Diego Lopes', method: 'Unanimous Decision', event: 'UFC 288' },
+    ],
+  },
+  fighter2_info: {
+    ...analisePT.fighter2_info,
+    ultimasLutas: [
+      { result: 'W', opponent: 'Aaron Pico', method: 'KO R1 (spinning elbow)', event: 'UFC 319' },
+      { result: 'W', opponent: 'Josh Emmett', method: 'Unanimous Decision', event: 'UFC on ESPN 65' },
+      { result: 'W', opponent: 'Dan Ige', method: 'Unanimous Decision', event: 'UFC 308' },
+    ],
+  },
+  full_analysis: {
+    hero: {
+      evento_nome: 'UFC Fight Night: Evloev vs Murphy',
+      evento_data: 'March 21, 2026',
+      evento_local: 'The O2 Arena, London, United Kingdom',
+      categoria_peso: 'Featherweight (145 lbs)',
+      num_rounds: 5,
+      titulo_em_jogo: null,
+      tagline: 'Undefeated on a Collision Course',
+      tagline_sub: 'A title eliminator at featherweight with 36 combined wins and zero losses',
+      fighter1: {
+        nome_completo: 'Movsar Evloev',
+        apelido: '',
+        sobrenome: 'Evloev',
+        record: '19-0-0',
+        ranking: '#1 Featherweight',
+        info_extra: 'Ingushetia, Russia | 32 years old',
+        imagem_fullbody_url: null,
+      },
+      fighter2: {
+        nome_completo: 'Lerone "The Miracle" Murphy',
+        apelido: 'The Miracle',
+        sobrenome: 'Murphy',
+        record: '17-0-1',
+        ranking: '#3 Featherweight',
+        info_extra: 'Manchester, England | 34 years old',
+        imagem_fullbody_url: null,
+      },
+    },
+    narrativa: {
+      html_content: `
+        <h3 class="font-display text-xl uppercase text-ufc-red mb-4">Two Perfect Records, One Inevitable Collision</h3>
+        <p class="mb-4">
+          There are fights that test your level. And then there are fights that define a generation. <strong class="text-ufc-red">Movsar Evloev</strong> versus <strong class="text-blue-400">Lerone Murphy</strong> is the latter. Two men who have never lost as professionals, who climbed the featherweight rankings with brutal consistency, and who now meet in the London main event with the promise of a title shot on the line.
+        </p>
+        <p class="mb-4">
+          Evloev is the machine. The 32-year-old Russian built his undefeated 19-0 record on relentless pressure, elite wrestling, and a unique ability to turn entire rounds into control exercises. It doesn't matter if his opponent is Aljamain Sterling, Arnold Allen, or Diego Lopes. Evloev finds a way to win. All nine of his UFC fights ended in decisions, and that's no coincidence. He doesn't chase highlights; he chases victories.
+        </p>
+        <h3 class="font-display text-xl uppercase text-ufc-red mb-4 mt-8">The Manchester Miracle</h3>
+        <p class="mb-4">
+          <strong class="text-blue-400">Murphy</strong> is a story of resilience that transcends the sport. In 2013, he took a bullet to the face and neck outside a barbershop in Manchester. He survived, recovered, and channeled everything into MMA. Now, at 34 years old, he carries a 17-0-1 record, with his only draw coming in his UFC debut against Zubaira Tukhugov. Since then, nine consecutive wins, including the devastating destruction of Aaron Pico with a spinning elbow in the first round that earned Knockout of the Year.
+        </p>
+        <h3 class="font-display text-xl uppercase text-ufc-red mb-4 mt-8">What's at Stake</h3>
+        <p class="mb-4">
+          This isn't just another fight. The winner faces Alexander Volkanovski for the featherweight title. For Evloev, who has already dominated everyone put in front of him, it's the final validation before the belt. For Murphy, fighting at home in the O2 Arena, it's the chance to turn an extraordinary career into something legendary. The British crowd will be deafening, and Murphy knows exactly how to harness that energy.
+        </p>
+        <p class="mb-4">
+          The question everyone wants answered: will Evloev's relentless wrestling smother Murphy's dynamic striking? Or will the Brit find openings to land the shots that have been dropping everyone? Five rounds. No escape. Someone's zero has to go.
+        </p>
+      `,
+      stakes: [
+        { dimensao: 'Ranking', fighter1: '#1 Featherweight', fighter2: '#3 Featherweight' },
+        { dimensao: 'Streak', fighter1: '19-fight win streak', fighter2: '9-fight win streak' },
+        { dimensao: 'Goal', fighter1: 'Featherweight title', fighter2: 'Featherweight title' },
+        { dimensao: 'Narrative', fighter1: 'Prove he is the best in the division', fighter2: 'Earn the title shot at home' },
+        { dimensao: 'Risk', fighter1: 'First career loss', fighter2: 'First career loss' },
+      ],
+      prognostico: {
+        fighter1_vence: {
+          titulo: 'THE MACHINE REACHES THE TOP',
+          subtitulo: 'Evloev smothers Murphy with wrestling and pressure for 5 rounds',
+          consequencias: [
+            { tag: 'TITLE', texto: 'Featherweight title fight against Alexander Volkanovski booked for the second half of 2026' },
+            { tag: 'LEGACY', texto: 'Evloev cements himself as the most dangerous featherweight contender at 20-0 with wins over Sterling, Allen, and Murphy' },
+            { tag: 'RANKING', texto: 'Murphy drops out of the top 3 but remains a serious threat in the division' },
+          ],
+          proxima_luta: 'Evloev vs Alexander Volkanovski for the featherweight title',
+        },
+        fighter2_vence: {
+          titulo: 'THE MIRACLE AT HOME',
+          subtitulo: 'Murphy knocks out Evloev in front of an erupting O2 Arena',
+          consequencias: [
+            { tag: 'TITLE', texto: 'Murphy challenges Volkanovski in a potential fight in England, creating a historic event' },
+            { tag: 'LEGACY', texto: 'The story of the kid who got shot in Manchester and earned a UFC title shot becomes legend' },
+            { tag: 'RANKING', texto: 'Evloev suffers his first loss but stays in the featherweight top 3' },
+          ],
+          proxima_luta: 'Murphy vs Alexander Volkanovski for the featherweight title',
+        },
+      },
+    },
+    momento_atual: {
+      fighter1: {
+        nome: 'Movsar Evloev',
+        color: 'red',
+        recent_fights: [
+          { date: 'Dec 2024', opponent: 'Aljamain Sterling', result: 'W', method: 'Unanimous Decision', opponent_rank: 'Ex-BW Champion', quality_score: 5, quality_label: 'Excellent', note: 'Controlled the former bantamweight champion with superior wrestling and constant pressure for 3 rounds' },
+          { date: 'Jan 2024', opponent: 'Arnold Allen', result: 'W', method: 'Unanimous Decision', opponent_rank: '#5 FW', quality_score: 4, quality_label: 'Very Good', note: 'Outworked Allen in Toronto with decisive takedowns and positional control' },
+          { date: 'May 2023', opponent: 'Diego Lopes', result: 'W', method: 'Unanimous Decision', opponent_rank: '#12 FW', quality_score: 3, quality_label: 'Good', note: 'Thrilling fight that earned Fight of the Night bonus against a dangerous striker' },
+          { date: 'Jun 2022', opponent: 'Dan Ige', result: 'W', method: 'Unanimous Decision', opponent_rank: '#10 FW', quality_score: 3, quality_label: 'Good', note: 'Total domination for 3 rounds with scorecards of 30-26, 30-27, 30-27' },
+          { date: 'Jun 2021', opponent: 'Hakeem Dawodu', result: 'W', method: 'Unanimous Decision', opponent_rank: '#12 FW', quality_score: 3, quality_label: 'Good', note: 'Solid win over a dangerous striker with pressure and takedowns' },
+        ],
+        full_fight_history: [
+          { date: 'Apr 2019', opponent: 'Seung Woo Choi', result: 'W', method: 'UD', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'UFC debut' },
+          { date: 'Oct 2019', opponent: 'Enrique Barzola', result: 'W', method: 'UD', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'Second UFC win' },
+          { date: 'Jul 2020', opponent: 'Mike Grundy', result: 'W', method: 'UD', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'Pandemic era win' },
+          { date: 'Jan 2021', opponent: 'Nik Lentz', result: 'W', method: 'SD', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'Close split decision' },
+          { date: 'Jun 2021', opponent: 'Hakeem Dawodu', result: 'W', method: 'UD', opponent_rank: '#12 FW', quality_score: 3, quality_label: 'Good', note: 'First ranked opponent' },
+          { date: 'Jun 2022', opponent: 'Dan Ige', result: 'W', method: 'UD', opponent_rank: '#10 FW', quality_score: 3, quality_label: 'Good', note: 'Total domination' },
+          { date: 'May 2023', opponent: 'Diego Lopes', result: 'W', method: 'UD', opponent_rank: '#12 FW', quality_score: 3, quality_label: 'Good', note: 'Fight of the Night' },
+          { date: 'Jan 2024', opponent: 'Arnold Allen', result: 'W', method: 'UD', opponent_rank: '#5 FW', quality_score: 4, quality_label: 'Very Good', note: 'Win over top 5' },
+          { date: 'Dec 2024', opponent: 'Aljamain Sterling', result: 'W', method: 'UD', opponent_rank: 'Ex-Champion', quality_score: 5, quality_label: 'Excellent', note: 'Win over former champion' },
+        ],
+        layoff_warning: 'Approximately 15 months without fighting since December 2024. Longest period of inactivity in his UFC career.',
+        momentum_score: 9,
+        momentum_label: 'On Fire',
+        momentum_trend: 'ascending',
+        momentum_note: 'Evloev is at the peak of his career. Coming off nine consecutive UFC wins with the level of opposition rising with each fight. The win over Aljamain Sterling in December 2024 cemented his position as the #1 contender. The only concern is the 15-month layoff.',
+      },
+      fighter2: {
+        nome: 'Lerone Murphy',
+        color: 'blue',
+        recent_fights: [
+          { date: 'Aug 2025', opponent: 'Aaron Pico', result: 'W', method: 'KO R1 (spinning elbow)', opponent_rank: 'N/R (ex-Bellator)', quality_score: 2, quality_label: 'Average', note: 'Spectacular knockout with a spinning elbow in R1. Earned Performance of the Night and Knockout of the Year' },
+          { date: 'Apr 2025', opponent: 'Josh Emmett', result: 'W', method: 'Unanimous Decision', opponent_rank: 'N/R FW', quality_score: 2, quality_label: 'Average', note: 'Dominated Emmett for 5 rounds in the main event with superior striking' },
+          { date: 'Oct 2024', opponent: 'Dan Ige', result: 'W', method: 'Unanimous Decision', opponent_rank: '#14 FW', quality_score: 3, quality_label: 'Good', note: 'Competitive fight but Murphy won the third round to seal a 29-28 decision' },
+          { date: 'May 2024', opponent: 'Edson Barboza', result: 'W', method: 'Unanimous Decision', opponent_rank: '#11 FW', quality_score: 3, quality_label: 'Good', note: 'Complete performance against a dangerous veteran. Earned Fight of the Night' },
+          { date: 'Jul 2023', opponent: 'Joshua Culibao', result: 'W', method: 'Unanimous Decision', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'Consistent unanimous decision victory' },
+        ],
+        full_fight_history: [
+          { date: 'Sep 2019', opponent: 'Zubaira Tukhugov', result: 'D', method: 'SD (draw)', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'UFC debut, split draw' },
+          { date: 'Jul 2020', opponent: 'Ricardo Ramos', result: 'W', method: 'TKO R1', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'R1 TKO, Performance of the Night' },
+          { date: 'Jan 2021', opponent: 'Douglas Silva de Andrade', result: 'W', method: 'UD', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'Unanimous decision win' },
+          { date: 'Oct 2021', opponent: 'Makwan Amirkhani', result: 'W', method: 'KO R2', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'Impressive knockout' },
+          { date: 'Mar 2023', opponent: 'Gabriel Santos', result: 'W', method: 'SD', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'Close split decision' },
+          { date: 'Jul 2023', opponent: 'Joshua Culibao', result: 'W', method: 'UD', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'Solid win' },
+          { date: 'May 2024', opponent: 'Edson Barboza', result: 'W', method: 'UD', opponent_rank: '#11 FW', quality_score: 3, quality_label: 'Good', note: 'Fight of the Night' },
+          { date: 'Oct 2024', opponent: 'Dan Ige', result: 'W', method: 'UD', opponent_rank: '#14 FW', quality_score: 3, quality_label: 'Good', note: 'UFC 308 win' },
+          { date: 'Apr 2025', opponent: 'Josh Emmett', result: 'W', method: 'UD', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: '5-round main event' },
+          { date: 'Aug 2025', opponent: 'Aaron Pico', result: 'W', method: 'KO R1', opponent_rank: 'N/R (ex-Bellator)', quality_score: 2, quality_label: 'Average', note: 'Knockout of the Year, Performance of the Night' },
+        ],
+        layoff_warning: null,
+        momentum_score: 9,
+        momentum_label: 'On Fire',
+        momentum_trend: 'ascending',
+        momentum_note: 'Murphy is on an incredible streak. Nine consecutive UFC wins since the draw with Tukhugov, with the latest being Knockout of the Year over Aaron Pico. Unlike Evloev, Murphy has been active: three fights in less than 12 months. Fighting at home in the O2 Arena, the psychological edge is in his favor.',
+      },
+    },
+    nivel_competicao: {
+      fighter1: {
+        nome: 'Evloev',
+        media_oponentes: 4,
+        media_oponentes_label: 'Very Good',
+        aproveitamento: '9W-0L (100%)',
+        contra_top5: '2W-0L',
+      },
+      fighter2: {
+        nome: 'Murphy',
+        media_oponentes: 3,
+        media_oponentes_label: 'Good',
+        aproveitamento: '9W-0L-1D (95%)',
+        contra_top5: '0W-0L',
+      },
+      oponentes_em_comum_count: { fighter1: 1, fighter2: 1 },
+      oponentes_em_comum_note: 'Dan Ige is the only common opponent. Evloev dominated completely (30-26, 30-27, 30-27) while Murphy won in a much closer fight (29-28 unanimous). The gap in dominance is telling.',
+    },
+    oponente_comum: {
+      oponente_nome: 'Dan Ige',
+      fighter1_result: {
+        resultado: 'Win by Unanimous Decision',
+        metodo: '30-26, 30-27, 30-27',
+        duracao: '3 rounds (15:00)',
+        contexto: 'Evloev dominated from the opening bell. Mixed takedowns with distance striking, never let Ige find his rhythm, and controlled the entire fight without a single moment of real danger.',
+        performance: 'Textbook performance. Superiority in every area: striking, wrestling, and control. Ige had no answer for the constant pressure.',
+        evento: 'UFC Fight Night 207',
+        data: 'Jun 2022',
+      },
+      fighter2_result: {
+        resultado: 'Win by Unanimous Decision',
+        metodo: '29-28, 29-28, 29-28',
+        duracao: '3 rounds (15:00)',
+        contexto: 'A much more competitive fight. Ige won the first round and put Murphy in uncomfortable positions. Murphy adjusted in rounds 2 and 3, finding the timing in his striking to pull ahead.',
+        performance: 'Murphy showed resilience and the ability to adjust, but also exposed vulnerabilities. Ige, who offered zero resistance against Evloev, managed to give Murphy real problems.',
+        evento: 'UFC 308',
+        data: 'Oct 2024',
+      },
+      insight: 'The comparison is concerning for Murphy. Against the same opponent, Evloev dominated overwhelmingly (30-26 on one scorecard) while Murphy needed adjustments and fought hard to win a 29-28 unanimous decision. It suggests a significant gap in control level.',
+    },
+    comparacao_estatistica: {
+      stats: [
+        { label: 'Sig. Strikes Per Minute', valueA: 3.99, valueB: 4.48, maxVal: 6, format: 'decimal' },
+        { label: 'Striking Accuracy (%)', valueA: 48, valueB: 53, maxVal: 100, format: 'percent' },
+        { label: 'Strikes Absorbed/Min', valueA: 2.66, valueB: 2.51, maxVal: 6, format: 'decimal', reverseWinner: true },
+        { label: 'Strike Defense (%)', valueA: 60, valueB: 61, maxVal: 100, format: 'percent' },
+        { label: 'Takedowns Per 15 Min', valueA: 1.65, valueB: 1.41, maxVal: 4, format: 'decimal' },
+        { label: 'Takedown Accuracy (%)', valueA: 35, valueB: 54, maxVal: 100, format: 'percent' },
+        { label: 'Takedown Defense (%)', valueA: 43, valueB: 51, maxVal: 100, format: 'percent' },
+        { label: 'Submissions Per 15 Min', valueA: 0.3, valueB: 0.5, maxVal: 3, format: 'decimal' },
+      ],
+      tale_of_tape: [
+        { label: 'Age', fighter1: '32 years old', fighter2: '34 years old', note: 'Evloev 2 years younger' },
+        { label: 'Height', fighter1: '5\'7" (1.70m)', fighter2: '5\'9" (1.75m)', note: 'Murphy 2 inches taller' },
+        { label: 'Reach', fighter1: '72.5" (184cm)', fighter2: '73.5" (187cm)', note: 'Murphy with 1-inch reach advantage' },
+        { label: 'Stance', fighter1: 'Orthodox', fighter2: 'Orthodox', note: null },
+        { label: 'Gym', fighter1: 'Dagestan, Russia', fighter2: 'Manchester Top Team, Manchester', note: null },
+        { label: 'UFC Debut', fighter1: 'April 2019', fighter2: 'September 2019', note: 'Nearly simultaneous' },
+      ],
+    },
+    perfil_habilidades: {
+      skills: [
+        { label: 'Offensive Wrestling', valueA: 92, valueB: 60, labelA: 'Excellent', labelB: 'Good', advantage: 'fighter1', advantage_note: 'Evloev is one of the best wrestlers at featherweight. 40 career UFC takedowns.' },
+        { label: 'Stand-up Striking', valueA: 65, valueB: 82, labelA: 'Good', labelB: 'Very Good', advantage: 'fighter2', advantage_note: 'Murphy has more volume, accuracy, and power on the feet. 8 career KOs.' },
+        { label: 'Takedown Defense', valueA: 55, valueB: 58, labelA: 'Good', labelB: 'Good', advantage: 'even', advantage_note: 'Both with takedown defense in the 43-51% range. Even playing field.' },
+        { label: 'Cardio & Endurance', valueA: 90, valueB: 80, labelA: 'Excellent', labelB: 'Very Good', advantage: 'fighter1', advantage_note: 'Evloev has never slowed down in any fight. Relentless pressure.' },
+        { label: 'Finishing Power', valueA: 45, valueB: 78, labelA: 'Average', labelB: 'Very Good', advantage: 'fighter2', advantage_note: 'Murphy has 8 KOs in 17 wins. Evloev has just 3 KOs in 19.' },
+        { label: 'Fight IQ & Adaptation', valueA: 88, valueB: 75, labelA: 'Very Good', labelB: 'Very Good', advantage: 'fighter1', advantage_note: 'Evloev adjusts his gameplan mid-fight. Murphy also adapts, as seen against Ige.' },
+      ],
+      insight: 'A classic matchup: the complete wrestler vs the dynamic striker. Evloev dominates in wrestling, cardio, and fight IQ, while Murphy holds the advantage in pure striking and finishing power. The key will be who dictates the pace.',
+    },
+    distribuicao_vitorias: {
+      fighter1: {
+        nome: 'Evloev',
+        ko_tko: { count: 3, percent: 16 },
+        submission: { count: 4, percent: 21 },
+        decision: { count: 12, percent: 63 },
+        total_wins: 19,
+      },
+      fighter2: {
+        nome: 'Murphy',
+        ko_tko: { count: 8, percent: 47 },
+        submission: { count: 0, percent: 0 },
+        decision: { count: 9, percent: 53 },
+        total_wins: 17,
+      },
+      insight: 'The numbers tell the story. Evloev is the quintessential decision fighter at 63% by points and zero finishes in the UFC. Murphy brings real power, with nearly half his wins by knockout. However, Murphy has never submitted anyone, which suggests that on the ground, Evloev will be in favorable territory.',
+    },
+    danger_zones: {
+      zones: [
+        {
+          rounds: 'R1-R2',
+          danger_level: 7,
+          danger_label: 'MURPHY ADVANTAGE',
+          color: 'green',
+          title: 'The Brit\'s Window of Opportunity',
+          description: 'If Murphy is going to win this fight, the first two rounds are his best chance. Evloev needs time to impose his wrestling. In the early rounds, Murphy is fresher, more explosive, and more dangerous. The Pico knockout came in R1. If Murphy lands something big early, it could shift the entire dynamic.',
+        },
+        {
+          rounds: 'R3',
+          danger_level: 6,
+          danger_label: 'PIVOTAL ROUND',
+          color: 'gold',
+          title: 'The Turning Point',
+          description: 'Round three is historically where Evloev begins to take full control. The wrestling accumulates damage and fatigue at this point. For Murphy, maintaining his takedown defense and volume in this round is critical. Whoever wins R3 likely defines the fight.',
+        },
+        {
+          rounds: 'R4-R5',
+          danger_level: 8,
+          danger_label: 'EVLOEV ADVANTAGE',
+          color: 'red',
+          title: 'The Russian\'s Territory',
+          description: 'The championship rounds are where Evloev shines. His cardio is impeccable, the pressure never stops, and his wrestling becomes even more effective against a tired opponent. Murphy has never fought 5 rounds against someone with Evloev\'s level of wrestling. If it gets here without a knockout, the Russian is the heavy favorite.',
+        },
+      ],
+    },
+    intangiveis: {
+      items: [
+        { icon: 'MapPin', title: 'Home Crowd Advantage', fighter: 'Murphy', risk_level: 'HUGE POSITIVE', risk_color: 'green', description: 'Murphy will fight at the O2 Arena in London, just miles from Manchester. The British crowd will be deafening and fully behind him. The home-field factor at UFC London is real.' },
+        { icon: 'Clock', title: '15-Month Layoff', fighter: 'Evloev', risk_level: 'MEDIUM RISK', risk_color: 'yellow', description: 'Evloev hasn\'t fought since December 2024. That\'s 15 months of inactivity, the longest stretch of his UFC career. Cage rust could affect his timing in the opening minutes.' },
+        { icon: 'Activity', title: 'Activity Level', fighter: 'Murphy', risk_level: 'POSITIVE', risk_color: 'green', description: 'Murphy fought three times in 2024-2025 and is active and sharp. While Evloev was on the shelf, Murphy was accumulating experience and confidence.' },
+        { icon: 'Brain', title: '5-Round Experience', fighter: 'Evloev', risk_level: 'LOW RISK', risk_color: 'yellow', description: 'Evloev has never fought 5 rounds in the UFC. All 9 fights were 3-rounders. Murphy already has main event experience against Emmett. This difference could matter.' },
+        { icon: 'Zap', title: 'Knockout Power', fighter: 'Murphy', risk_level: 'POSITIVE', risk_color: 'green', description: 'Murphy has real power to end the fight at any moment. The spinning elbow that knocked out Pico showed a diverse arsenal. Evloev has never faced anyone with Murphy\'s power.' },
+        { icon: 'Shield', title: 'Chin & Durability', fighter: 'Evloev', risk_level: 'POSITIVE', risk_color: 'green', description: 'Evloev has never been significantly hurt in 19 fights. His chin was tested against Diego Lopes, a dangerous striker, and he absorbed everything without issue.' },
+        { icon: 'TrendingUp', title: 'Peak Confidence', fighter: 'Murphy', risk_level: 'POSITIVE', risk_color: 'green', description: 'Murphy is coming off the most spectacular knockout of 2025. His confidence is through the roof. Combined with the home crowd support, his performance could reach another level.' },
+      ],
+    },
+    caminhos_vitoria: {
+      fighter1: {
+        nome: 'Evloev',
+        total_probability: 58,
+        scenarios: [
+          { name: 'Smothered by Control', probability: 35, method: 'Unanimous Decision', description: 'Evloev implements his standard gameplan: constant pressure, well-timed takedowns, clinch control against the cage. He accumulates rounds and wins a clear unanimous decision.' },
+          { name: 'Championship Round Takeover', probability: 15, method: 'Unanimous/Split Decision', description: 'Murphy competes well in the early rounds, but Evloev takes over in R3-R5 when his cardio and wrestling take their toll. Wins a tighter decision.' },
+          { name: 'Late Submission', probability: 8, method: 'Submission R4-R5', description: 'Rarer scenario but possible. With a tired Murphy in the later rounds, Evloev finds a submission during a grappling sequence.' },
+        ],
+      },
+      fighter2: {
+        nome: 'Murphy',
+        total_probability: 39,
+        scenarios: [
+          { name: 'Lightning Strike Knockout', probability: 15, method: 'KO/TKO R1-R2', description: 'Murphy lands something devastating in the early rounds before Evloev can impose his wrestling. A precise counter, spinning elbow, or knee could end it.' },
+          { name: 'Volume & Takedown Defense', probability: 14, method: 'Unanimous/Split Decision', description: 'Murphy keeps the fight standing, defending enough takedowns and winning the exchanges. The crowd support helps in close rounds with the judges.' },
+          { name: 'TKO by Accumulation', probability: 10, method: 'TKO R3-R4', description: 'Murphy hurts Evloev on the feet and accumulates damage. Cuts, swelling, or cumulative damage leads to a referee stoppage.' },
+        ],
+      },
+    },
+    previsao_final: {
+      winner_name: 'Movsar Evloev',
+      winner_side: 'fighter1',
+      predicted_method: 'Unanimous Decision',
+      confidence_score: 6,
+      confidence_label: 'MEDIUM',
+      explanation: 'Evloev has the tools to control this fight. His wrestling is Olympic-level, his cardio is endless, and he turns entire rounds into control exercises. Murphy is dangerous, especially in the early rounds and with the crowd behind him, but the level of opposition Evloev has already faced (Sterling, Allen, Lopes) is superior. Murphy\'s takedown defense sits around 51%, and against Evloev\'s wrestling, that might not be enough. I see Evloev controlling the middle and late rounds, but Murphy has real power to flip the script at any moment.',
+      x_factor: {
+        title: 'The O2 Arena Factor',
+        description: 'The British crowd could be Murphy\'s 11th man. The noise, the energy, and the pressure of fighting at home could give the Brit that extra boost that turns close rounds into winning rounds.',
+      },
+      upset_alert: {
+        title: 'The Elbow That Changes Everything',
+        description: 'Murphy showed against Pico that he can end fights spectacularly with unconventional techniques. If Evloev gets too comfortable in the clinch, an elbow or counter could end everything.',
+      },
+      probabilities: {
+        fighter1: { nome: 'Evloev', percent: 58 },
+        fighter2: { nome: 'Murphy', percent: 39 },
+        draw: 3,
+      },
+      value_picks: {
+        moneyline: { pick: 'Murphy (+210)', reasoning: 'At +210 odds, Murphy offers value. Undefeated, at home, with knockout power. The line should be closer to +170.' },
+        method: { pick: 'Fight goes to decision', reasoning: 'With 63% of Evloev\'s wins by decision and 53% of Murphy\'s, the probability of going to the judges is high.' },
+        over_under: { pick: 'Over 3.5 rounds', rounds: 3.5, reasoning: 'Evloev has never finished anyone in the UFC. Murphy has the chin and 5-round experience to go the distance.' },
+        best_value: 'Over 3.5 rounds is the best bet. Evloev favors long fights, and Murphy has the experience and chin to survive.',
+      },
+    },
+    o_que_observar: {
+      points: [
+        { num: 1, title: 'Murphy\'s Takedown Defense in the First 5 Minutes', icon: 'Shield', description: 'If Murphy stuffs the early takedowns and keeps the fight standing in R1, his confidence will soar and the dynamic shifts. Watch for his sprawls and ability to get back to his feet.' },
+        { num: 2, title: 'Evloev\'s Wrestling Timing', icon: 'Target', description: 'Evloev picks the right moments to shoot, usually after exchanges. If his timing is sharp despite the 15-month layoff, Murphy will have problems.' },
+        { num: 3, title: 'The O2 Arena Noise', icon: 'MapPin', description: 'Pay attention to how Murphy feeds off the crowd energy. In tough moments, the fans could lift him back up. Evloev needs to show composure in a completely hostile environment.' },
+        { num: 4, title: 'Murphy\'s Cardio in the Championship Rounds', icon: 'Activity', description: 'Murphy has fought 5 rounds before, but never against the physical pressure Evloev brings. If the takedown volume accumulates, his gas tank in R4-R5 will be decisive.' },
+        { num: 5, title: 'Murphy\'s Unconventional Techniques', icon: 'Zap', description: 'The spinning elbow against Pico was no accident. Watch for elbows in the clinch, knees on takedown entries, and creative counters. A single technique could end the fight.' },
+      ],
+    },
+    creator_kit: {
+      instagram: [
+        { slide_number: 1, title: 'TITLE ELIMINATOR', content: 'EVLOEV vs MURPHY\nUFC London | March 21\nO2 Arena\n\n19-0 vs 17-0-1\nSomeone\'s zero has to go.', color: 'red' },
+        { slide_number: 2, title: 'EVLOEV: THE MACHINE', content: '#1 ranked featherweight\n19-0 career record\n9-0 in UFC (all by decision)\n40 UFC takedowns\nNever been finished', color: 'red' },
+        { slide_number: 3, title: 'MURPHY: THE MIRACLE', content: '#3 ranked featherweight\n17-0-1 career record\nSurvived getting shot in the face in 2013\n2025 Knockout of the Year\nFighting at home in London', color: 'blue' },
+        { slide_number: 4, title: 'THE COMMON OPPONENT', content: 'Dan Ige\n\nEvloev: 30-26, 30-27, 30-27\nAbsolute domination\n\nMurphy: 29-28, 29-28, 29-28\nTight win\n\nThe difference says it all.', color: 'gold' },
+        { slide_number: 5, title: 'PREDICTION', content: 'EVLOEV by Unanimous Decision\n\nConfidence: MEDIUM\n58% Evloev / 39% Murphy\n\nBut watch out for the home crowd\nand Murphy\'s power.', color: 'gold' },
+      ],
+      twitter: [
+        { num: '1/5', text: 'Evloev vs Murphy is the most important featherweight fight of 2026. Two undefeated killers, a title eliminator, and someone\'s losing their zero at the O2 Arena. Thread:' },
+        { num: '2/5', text: 'Evloev (19-0): 9 UFC wins, ALL by decision. 40 takedowns. Never been finished. A round-grinding machine. But he\'s never fought 5 rounds in the UFC.' },
+        { num: '3/5', text: 'Murphy (17-0-1): Got SHOT IN THE FACE in 2013 and now he\'s #3 at featherweight. KO of the Year against Pico with a spinning elbow. Fighting at home. The crowd will be INSANE.' },
+        { num: '4/5', text: 'The detail nobody talks about: Against Dan Ige, Evloev dominated 30-26. Murphy won 29-28. Same opponent, completely different levels of dominance.' },
+        { num: '5/5', text: 'My pick: Evloev by decision, but with caveats. Murphy has the power to end it at any moment. Over 3.5 rounds is the best bet.' },
+      ],
+      video: [
+        { time: '0-10s', title: 'Hook', text: 'Two undefeated fighters. Zero combined losses. And someone\'s getting their first L on Saturday. Evloev vs Murphy is the biggest featherweight fight since Volkanovski vs Topuria.' },
+        { time: '10-25s', title: 'Context', text: 'Evloev is #1, a wrestling machine, 19-0. Murphy is #3, Knockout of the Year, fighting at home in London. The winner faces Volkanovski for the title.' },
+        { time: '25-40s', title: 'Analysis', text: 'Can Murphy keep it standing? If yes, he has the power to finish it. If not, Evloev will grind him out. Against Dan Ige, Evloev won 30-26. Murphy won 29-28.' },
+        { time: '40-55s', title: 'Prediction', text: 'My call: Evloev by unanimous decision, but Murphy has every tool for the upset. The home crowd, the power, the confidence. Don\'t sleep on this.' },
+        { time: '55-65s', title: 'CTA', text: 'Who do you think wins? Drop a comment and follow for more UFC London breakdowns.' },
+      ],
+      tiktok: [
+        { hook: 'This guy took a BULLET TO THE FACE and now he\'s the #3 featherweight in the UFC.', body: 'Lerone Murphy survived a shooting in Manchester in 2013. Now he faces undefeated Movsar Evloev in a title eliminator in London. 17-0-1. Knockout of the Year 2025. But Evloev is a MACHINE. 19-0, zero finishes against him.', cta: 'Comment EVLOEV or MURPHY!' },
+        { hook: 'This stat is TERRIFYING about the UFC London main event.', body: 'Evloev and Murphy both fought Dan Ige. Evloev won 30-26. THIRTY TO TWENTY-SIX. Murphy? 29-28. Close fight. Same opponent, completely different levels of dominance.', cta: 'Follow for the full breakdown!' },
+        { hook: 'The featherweight division gets a new #1 contender on Saturday.', body: 'Evloev vs Murphy. Two undefeated warriors. The winner faces Volkanovski. Evloev brings 40 UFC takedowns. Murphy brings the most beautiful knockout of 2025. And Murphy fights AT HOME in the O2 Arena.', cta: 'What\'s your pick? Drop it in the comments!' },
+      ],
+      headlines: [
+        'Evloev vs Murphy: The Most Important Featherweight Eliminator of 2026',
+        'Undefeated vs Undefeated: Why London Could Produce the Upset of the Year',
+        'The Manchester Miracle Tries to Dethrone the Russian Machine at the O2 Arena',
+        'Dan Ige Reveals Everything: The Stat That Separates Evloev and Murphy',
+        'UFC London: Can the Home Crowd Factor Decide the Title Eliminator?',
+      ],
+    },
+    betting_value: null,
+    radar_apostador: {
+      odds: {
+        fighter1_odds: '-250',
+        fighter2_odds: '+210',
+        fighter1_name: 'Movsar Evloev',
+        fighter2_name: 'Lerone Murphy',
+        source: 'Average across sportsbooks (March 2026)',
+      },
+      edges: [
+        { icon: 'Target', titulo: 'Ground Dominance', stat_headline: '40 UFC TAKEDOWNS, TOP 5 IN FEATHERWEIGHT HISTORY', contexto: 'Evloev is one of the best offensive wrestlers at featherweight. Consistent, relentless takedown volume.', implicacao_aposta: 'Favors Evloev by decision. His style is built to win on the scorecards.', edge_level: 'forte', fighter_side: 'fighter1' },
+        { icon: 'Zap', titulo: 'Murphy\'s Finishing Power', stat_headline: '47% OF WINS BY KO/TKO, INCLUDING 2025 KNOCKOUT OF THE YEAR', contexto: 'Murphy has real power and an unconventional arsenal. The Pico knockout proves he can finish from any position.', implicacao_aposta: 'Even as the underdog, Murphy inside the distance offers value.', edge_level: 'moderado', fighter_side: 'fighter2' },
+        { icon: 'Clock', titulo: 'Layoff vs Activity', stat_headline: 'EVLOEV: 15 MONTHS WITHOUT FIGHTING. MURPHY: 3 FIGHTS IN 12 MONTHS', contexto: 'Significant difference. Murphy is active and sharp, Evloev returning from a long layoff.', implicacao_aposta: 'Inactivity could affect timing in the early rounds.', edge_level: 'moderado', fighter_side: 'fighter2' },
+        { icon: 'BarChart3', titulo: 'Zero Main Events for Evloev', stat_headline: '9 UFC FIGHTS, ALL 3-ROUNDERS', contexto: 'Never been scheduled for a main event before. Murphy already fought 5 rounds against Emmett.', implicacao_aposta: 'Unknown territory regarding 5-round cardio.', edge_level: 'leve', fighter_side: 'neutral' },
+        { icon: 'MapPin', titulo: 'Home Crowd Factor in London', stat_headline: 'MURPHY AT THE O2 ARENA WITH 20,000 BRITS', contexto: 'British crowds are notoriously loud and partial at UFC London events.', implicacao_aposta: 'Could influence close rounds. Judges feel the energy.', edge_level: 'leve', fighter_side: 'fighter2' },
+      ],
+      value_picks: [
+        { tipo: 'Over/Under', pick: 'Over 3.5 Rounds', odds: '-165', confianca: 'alta', edge_vs_mercado: 'Evloev has never finished anyone in the UFC. Murphy has never been finished.', raciocinio: 'With 63% of Evloev\'s wins by decision and Murphy never having been finished, there\'s a strong trend toward a long fight.' },
+        { tipo: 'Method', pick: 'Goes to Decision', odds: '+110', confianca: 'media', raciocinio: 'Historically, Evloev\'s fights end in decisions. Murphy also has 53% by points. The combination favors the judges.' },
+        { tipo: 'Moneyline', pick: 'Murphy (+210)', odds: '+210', confianca: 'baixa', edge_vs_mercado: 'Undefeated, at home, with power. Generous line.', raciocinio: 'As an underdog at +210, Murphy offers value. Undefeated, at home, with knockout power. Evloev\'s layoff adds uncertainty.' },
+      ],
+      armadilha: {
+        titulo: 'Trap: Evloev by Finish',
+        descricao: 'Evloev has never finished anyone in the UFC. Zero KOs, zero submissions in 9 fights. Betting on him to finish is going against all historical evidence.',
+      },
+      disclaimer: 'Statistical analysis for informational purposes. Gamble responsibly.',
+    },
+  },
+};
+
+function PageContent() {
+  const searchParams = useSearchParams();
+  const lang = (searchParams.get('lang') === 'en' ? 'en' : 'pt') as Lang;
+  const analise = lang === 'en' ? analiseEN : analisePT;
+  return <FullAnalysisView analise={analise} lang={lang} />;
+}
+
 export default function Page() {
-  return <FullAnalysisView analise={analise} />;
+  return <Suspense><PageContent /></Suspense>;
 }

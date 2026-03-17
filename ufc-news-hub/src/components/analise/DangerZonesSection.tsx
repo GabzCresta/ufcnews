@@ -1,4 +1,5 @@
 import type { DangerZonesSectionData } from '@/types/analise';
+import { getLabels, type Lang } from '@/lib/i18n-labels';
 import { SectionHeader } from './SectionHeader';
 
 const colorMap = {
@@ -25,10 +26,11 @@ const colorMap = {
   },
 };
 
-export function DangerZonesSection({ data }: { data: DangerZonesSectionData }) {
+export function DangerZonesSection({ data, lang = 'pt' }: { data: DangerZonesSectionData; lang?: Lang }) {
+  const t = getLabels(lang);
   return (
     <section>
-      <SectionHeader number="08" title="Danger" accent="Zones" />
+      <SectionHeader number="08" title={t.danger_title} accent={t.danger_accent} />
 
       <div className="grid gap-6 md:grid-cols-3">
         {data.zones.map((zone, i) => {

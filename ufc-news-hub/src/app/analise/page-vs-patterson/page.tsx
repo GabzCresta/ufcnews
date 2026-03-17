@@ -1,7 +1,12 @@
+'use client';
+
+import { Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { FullAnalysisView } from '@/components/analise/FullAnalysisView';
 import type { FullSingleAnalise } from '@/types/analise';
+import type { Lang } from '@/lib/i18n-labels';
 
-const analise: FullSingleAnalise = {
+const analisePT: FullSingleAnalise = {
   id: 'page-vs-patterson',
   evento_id: null,
   slug: 'page-vs-patterson',
@@ -407,6 +412,13 @@ const analise: FullSingleAnalise = {
   },
 };
 
+function PageContent() {
+  const searchParams = useSearchParams();
+  const lang = (searchParams.get('lang') === 'en' ? 'en' : 'pt') as Lang;
+  const analise = analisePT; // TODO: add analiseEN
+  return <FullAnalysisView analise={analise} lang={lang} />;
+}
+
 export default function Page() {
-  return <FullAnalysisView analise={analise} />;
+  return <Suspense><PageContent /></Suspense>;
 }
