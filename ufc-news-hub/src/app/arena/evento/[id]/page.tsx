@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useMemo, use } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Check, ChevronRight, ChevronLeft, Trophy, Clock, HelpCircle, Pencil } from 'lucide-react';
+import { Check, ChevronRight, ChevronLeft, Trophy, Clock, HelpCircle, Pencil, Lock, UserPlus, LogIn } from 'lucide-react';
 import { useArenaAuth } from '@/hooks/useArenaAuth';
 import type { EventoComLutas, LutaComLutadores } from '@/types';
 
@@ -53,6 +53,32 @@ function metodoLabel(m: string): string {
 
 function getMaxRounds(luta: LutaComLutadores): number {
   return luta.tipo === 'main_event' || luta.tipo === 'co_main' || luta.is_titulo ? 5 : 3;
+}
+
+function isMainCard(tipo: string): boolean {
+  return tipo === 'main_event' || tipo === 'co_main' || tipo === 'card_principal';
+}
+
+function getLocalStorageKey(eventoId: string): string {
+  return `arena_picks_${eventoId}`;
+}
+
+function savePicksToLocal(eventoId: string, picks: Record<string, PickData>): void {
+  try {
+    localStorage.setItem(getLocalStorageKey(eventoId), JSON.stringify(picks));
+  } catch { /* quota exceeded or private mode */ }
+}
+
+function loadPicksFromLocal(eventoId: string): Record<string, PickData> | null {
+  try {
+    const raw = localStorage.getItem(getLocalStorageKey(eventoId));
+    if (!raw) return null;
+    return JSON.parse(raw) as Record<string, PickData>;
+  } catch { return null; }
+}
+
+function clearLocalPicks(eventoId: string): void {
+  try { localStorage.removeItem(getLocalStorageKey(eventoId)); } catch { /* silent */ }
 }
 
 function maxPontos(picks: Record<string, PickData>): number {
@@ -145,19 +171,19 @@ function SwipeCard({
   return (
     <div className="flex flex-col items-center w-full animate-fade-in">
       {/* Fight context */}
-      <div className="text-center mb-4 space-y-1">
-        <div className="flex items-center justify-center gap-2">
-          <span className={`text-[10px] font-display uppercase tracking-[0.2em] ${isMainEvent ? 'text-ufc-red' : 'text-white/30'}`}>
+      <div className="text-center mb-8 space-y-3">
+        <div className="flex items-center justify-center gap-3">
+          <h1 className={`text-xl sm:text-2xl font-display uppercase tracking-wide font-bold ${isMainEvent ? 'text-ufc-red' : 'text-white/60'}`}>
             {tipoLabel(luta.tipo)}
-          </span>
+          </h1>
           {luta.is_titulo && (
-            <span className="text-[9px] text-ufc-gold font-bold uppercase bg-ufc-gold/10 border border-ufc-gold/20 px-1.5 py-0.5 rounded-full flex items-center gap-1">
-              <Trophy className="w-2.5 h-2.5" /> Titulo
+            <span className="text-[10px] text-ufc-gold font-bold uppercase bg-ufc-gold/10 border border-ufc-gold/20 px-2 py-0.5 rounded-full flex items-center gap-1">
+              <Trophy className="w-3 h-3" /> Titulo
             </span>
           )}
         </div>
-        <div className="text-[10px] text-white/25">{luta.categoria_peso} · {rounds} rounds</div>
-        <div className="text-xs text-white/20">Luta {index + 1} de {total}</div>
+        <div className="text-sm sm:text-base text-white/50 font-medium">{luta.categoria_peso} · {rounds} rounds</div>
+        <div className="text-sm text-white/40 font-display tracking-wide">Luta {index + 1} de {total}</div>
       </div>
 
       {/* PHASE 1: Pick the winner */}
@@ -552,10 +578,75 @@ function EditScreen({
 }
 
 // ═══════════════════════════════════════════════════════════
+// LOGIN GATE — between main card and prelims
+// ═══════════════════════════════════════════════════════════
+
+function LoginGate({
+  eventoId,
+  picksCount,
+  mainCardTotal,
+  onLogin,
+}: {
+  eventoId: string;
+  picksCount: number;
+  mainCardTotal: number;
+  onLogin: () => void;
+}) {
+  return (
+    <div className="flex flex-col items-center w-full animate-fade-in max-w-sm mx-auto text-center space-y-6">
+      <div className="w-16 h-16 rounded-full bg-ufc-red/10 border border-ufc-red/20 flex items-center justify-center">
+        <Lock className="w-7 h-7 text-ufc-red" />
+      </div>
+
+      <div className="space-y-2">
+        <h2 className="font-display text-xl sm:text-2xl uppercase text-white">
+          Main Card Completo!
+        </h2>
+        <p className="text-sm text-white/40 leading-relaxed">
+          Voce fez <span className="text-ufc-red font-semibold">{picksCount} picks</span> no main card.
+          Para continuar com as <span className="text-white/60 font-medium">preliminares</span>, faca login ou crie sua conta.
+        </p>
+      </div>
+
+      <div className="w-full rounded-xl bg-ufc-gold/5 border border-ufc-gold/20 p-4">
+        <div className="text-[10px] font-display uppercase tracking-widest text-ufc-gold/60 mb-1">
+          Seus picks estao salvos
+        </div>
+        <div className="text-sm text-white/50">
+          {picksCount}/{mainCardTotal} lutas do main card
+        </div>
+      </div>
+
+      <div className="w-full space-y-3">
+        <Link
+          href={`/arena/registro?redirect=/arena/evento/${eventoId}`}
+          onClick={onLogin}
+          className="flex items-center justify-center gap-2 w-full py-3.5 bg-ufc-red hover:bg-ufc-redLight text-white font-display text-sm uppercase tracking-wide rounded-xl transition-all shadow-lg shadow-ufc-red/20"
+        >
+          <UserPlus className="w-4 h-4" />
+          Criar Conta Gratis
+        </Link>
+        <Link
+          href={`/arena/login?redirect=/arena/evento/${eventoId}`}
+          onClick={onLogin}
+          className="text-sm text-white/40 hover:text-white/60 transition-colors"
+        >
+          Ja tem conta? <span className="text-ufc-red">Entrar</span>
+        </Link>
+      </div>
+
+      <p className="text-[10px] text-white/20">
+        Leva menos de 30 segundos
+      </p>
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════
 // MAIN PAGE — 3 steps: Swipe → Summary → Edit
 // ═══════════════════════════════════════════════════════════
 
-type PageStep = 'swipe' | 'summary' | 'edit';
+type PageStep = 'swipe' | 'summary' | 'edit' | 'login-gate';
 
 export default function EventoArenaPage({ params }: PageProps) {
   const { id } = use(params);
@@ -580,9 +671,31 @@ export default function EventoArenaPage({ params }: PageProps) {
     fetchEvento();
   }, [id]);
 
-  // Load existing picks
+  // Load existing picks (API for logged in, localStorage for guests)
   useEffect(() => {
-    if (!isAuthenticated || !evento) return;
+    if (!evento) return;
+
+    // Guest: load from localStorage
+    if (!isAuthenticated) {
+      const localPicks = loadPicksFromLocal(id);
+      if (localPicks && Object.keys(localPicks).length > 0) {
+        setPicks(localPicks);
+        // Find where the user left off
+        const sorted = sortLutas(evento.lutas);
+        const firstMainCardIdx = sorted.findIndex(l => isMainCard(l.tipo));
+        const lastMainCardIdx = sorted.reduce((last, l, i) => isMainCard(l.tipo) ? i : last, -1);
+        const mainCardPicked = sorted.slice(firstMainCardIdx, lastMainCardIdx + 1).every(l => localPicks[l.id]?.vencedor_id);
+        if (mainCardPicked) {
+          // They completed main card, show login gate
+          setCurrentIndex(lastMainCardIdx + 1);
+          setStep('login-gate');
+        }
+      }
+      setInitialPicksLoaded(true);
+      return;
+    }
+
+    // Authenticated: load from API, merge localStorage picks, then clear local
     async function fetchPicks() {
       try {
         const res = await fetch(`/api/arena/previsoes?evento_id=${id}`);
@@ -602,18 +715,40 @@ export default function EventoArenaPage({ params }: PageProps) {
             round: typeof item.round_previsto === 'number' ? item.round_previsto : undefined,
           };
         }
+
+        // Merge localStorage picks (guest picks before login)
+        const localPicks = loadPicksFromLocal(id);
+        if (localPicks) {
+          for (const [lutaId, localPick] of Object.entries(localPicks)) {
+            if (!p[lutaId] && localPick.vencedor_id) {
+              p[lutaId] = localPick;
+              // Sync to API
+              void syncPickToApi(lutaId, localPick);
+            }
+          }
+          clearLocalPicks(id);
+        }
+
         setPicks(p);
-        if (evento && Object.keys(p).length === evento.lutas.length) {
+
+        // Find where user should resume
+        const sorted = sortLutas(evento!.lutas);
+        if (Object.keys(p).length === sorted.length) {
           setStep('summary');
+        } else {
+          // Find first unpicked fight
+          const firstUnpicked = sorted.findIndex(l => !p[l.id]?.vencedor_id);
+          if (firstUnpicked >= 0) setCurrentIndex(firstUnpicked);
         }
       } catch { /* silent */ }
       setInitialPicksLoaded(true);
     }
     fetchPicks();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, evento, id]);
 
-  // Save pick to API
-  const savePick = useCallback(async (lutaId: string, pick: PickData) => {
+  // Save pick to API (only when authenticated)
+  const syncPickToApi = async (lutaId: string, pick: PickData) => {
     try {
       await fetch('/api/arena/previsoes', {
         method: 'POST',
@@ -629,21 +764,43 @@ export default function EventoArenaPage({ params }: PageProps) {
         }),
       });
     } catch { /* silent */ }
-  }, []);
+  };
+
+  const savePick = useCallback((lutaId: string, pick: PickData) => {
+    if (isAuthenticated) {
+      void syncPickToApi(lutaId, pick);
+    } else {
+      // Save to localStorage for guests
+      setPicks(prev => {
+        const updated = { ...prev, [lutaId]: pick };
+        savePicksToLocal(id, updated);
+        return prev; // don't double-set, the caller already updates state
+      });
+      savePicksToLocal(id, { ...picks, [lutaId]: pick });
+    }
+  }, [isAuthenticated, id, picks]);
 
   const sortedLutas = useMemo(() => evento ? sortLutas(evento.lutas) : [], [evento]);
   const totalLutas = sortedLutas.length;
+
+  // Index of first prelim fight (where login gate triggers)
+  const firstPrelimIndex = useMemo(
+    () => sortedLutas.findIndex(l => !isMainCard(l.tipo)),
+    [sortedLutas]
+  );
+  const mainCardCount = firstPrelimIndex >= 0 ? firstPrelimIndex : totalLutas;
 
   // Swipe handlers
   const handlePickVencedor = useCallback((vencedorId: string) => {
     if (!sortedLutas[currentIndex]) return;
     const lutaId = sortedLutas[currentIndex].id;
-    setPicks(prev => ({
-      ...prev,
-      [lutaId]: { ...prev[lutaId], vencedor_id: vencedorId },
-    }));
-    void savePick(lutaId, { vencedor_id: vencedorId });
-  }, [currentIndex, sortedLutas, savePick]);
+    setPicks(prev => {
+      const updated = { ...prev, [lutaId]: { ...prev[lutaId], vencedor_id: vencedorId } };
+      if (!isAuthenticated) savePicksToLocal(id, updated);
+      return updated;
+    });
+    if (isAuthenticated) void syncPickToApi(lutaId, { vencedor_id: vencedorId });
+  }, [currentIndex, sortedLutas, isAuthenticated, id]);
 
   const handlePickDetail = useCallback((metodo?: string, round?: number) => {
     if (!sortedLutas[currentIndex]) return;
@@ -651,25 +808,36 @@ export default function EventoArenaPage({ params }: PageProps) {
     setPicks(prev => {
       const existing = prev[lutaId];
       if (!existing?.vencedor_id) return prev;
-      const updated = { ...existing, metodo, round };
-      void savePick(lutaId, updated);
-      return { ...prev, [lutaId]: updated };
+      const updated = { ...prev, [lutaId]: { ...existing, metodo, round } };
+      if (isAuthenticated) void syncPickToApi(lutaId, { ...existing, metodo, round });
+      else savePicksToLocal(id, updated);
+      return updated;
     });
-  }, [currentIndex, sortedLutas, savePick]);
+  }, [currentIndex, sortedLutas, isAuthenticated, id]);
 
   const handleNext = useCallback(() => {
-    if (currentIndex < totalLutas - 1) {
-      setCurrentIndex(prev => prev + 1);
-    } else {
+    const nextIndex = currentIndex + 1;
+    if (currentIndex >= totalLutas - 1) {
       setStep('summary');
+      return;
     }
-  }, [currentIndex, totalLutas]);
+    // Login gate: if next fight is a prelim and user is not authenticated
+    if (!isAuthenticated && firstPrelimIndex >= 0 && nextIndex >= firstPrelimIndex) {
+      setStep('login-gate');
+      return;
+    }
+    setCurrentIndex(nextIndex);
+  }, [currentIndex, totalLutas, isAuthenticated, firstPrelimIndex]);
 
   // Edit screen handler
   const handleEditPick = useCallback((lutaId: string, pick: PickData) => {
-    setPicks(prev => ({ ...prev, [lutaId]: pick }));
-    void savePick(lutaId, pick);
-  }, [savePick]);
+    setPicks(prev => {
+      const updated = { ...prev, [lutaId]: pick };
+      if (!isAuthenticated) savePicksToLocal(id, updated);
+      return updated;
+    });
+    if (isAuthenticated) void syncPickToApi(lutaId, pick);
+  }, [isAuthenticated, id]);
 
   // Loading
   if (isLoading || (isAuthenticated && !initialPicksLoaded)) {
@@ -712,6 +880,7 @@ export default function EventoArenaPage({ params }: PageProps) {
           <button
             onClick={() => {
               if (step === 'edit') setStep('summary');
+              else if (step === 'login-gate') { setStep('swipe'); setCurrentIndex(firstPrelimIndex - 1); }
               else if (step === 'summary') { setStep('swipe'); setCurrentIndex(totalLutas - 1); }
               else if (currentIndex > 0) setCurrentIndex(prev => prev - 1);
               else window.history.back();
@@ -719,15 +888,15 @@ export default function EventoArenaPage({ params }: PageProps) {
             className="flex items-center gap-1.5 text-sm text-white/50 hover:text-white transition-colors py-1 px-2 rounded-lg hover:bg-white/5"
           >
             <ChevronLeft className="w-4 h-4" />
-            {step === 'edit' ? 'Resumo' : step === 'summary' ? 'Voltar' : currentIndex > 0 ? 'Anterior' : 'Arena'}
+            {step === 'edit' ? 'Resumo' : step === 'login-gate' ? 'Voltar' : step === 'summary' ? 'Voltar' : currentIndex > 0 ? 'Anterior' : 'Home'}
           </button>
 
-          {step === 'swipe' && (
+          {step === 'swipe' && picksCount > 0 && (
             <button
               onClick={() => setStep('summary')}
               className="text-xs text-white/30 hover:text-white transition-colors py-1 px-2 rounded-lg hover:bg-white/5"
             >
-              {picksCount > 0 ? `Resumo (${picksCount}/${totalLutas})` : 'Pular'}
+              Resumo ({picksCount}/{totalLutas})
               <ChevronRight className="w-3.5 h-3.5 inline ml-1" />
             </button>
           )}
@@ -773,6 +942,14 @@ export default function EventoArenaPage({ params }: PageProps) {
               picks={picks}
               onUpdatePick={handleEditPick}
               onDone={() => setStep('summary')}
+            />
+          )}
+          {step === 'login-gate' && (
+            <LoginGate
+              eventoId={id}
+              picksCount={Object.values(picks).filter(p => p.vencedor_id).length}
+              mainCardTotal={mainCardCount}
+              onLogin={() => savePicksToLocal(id, picks)}
             />
           )}
         </div>

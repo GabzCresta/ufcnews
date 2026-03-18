@@ -334,7 +334,7 @@ function FightTicker({ lutas }: { lutas: Luta[] }) {
 
 function FightPreview({ luta }: { luta: Luta }) {
   return (
-    <div className="flex items-center justify-between py-3 border-b border-white/5 last:border-0">
+    <div className="flex items-center justify-between py-3 px-2 -mx-2 rounded-lg border-b border-white/5 last:border-0 hover:bg-white/5 hover:border-ufc-red/30 transition-colors cursor-pointer">
       <div className="flex items-center gap-3 flex-1 min-w-0">
         <div className="w-8 h-8 rounded-full bg-dark-card border border-dark-border flex items-center justify-center text-[10px] font-bold text-dark-textMuted overflow-hidden shrink-0">
           {luta.lutador1.imagem_url ? (
@@ -413,7 +413,7 @@ function HomeLanding({ evento }: { evento: Evento | null }) {
           </div>
 
           {/* How it works — 3 steps */}
-          <div className="grid grid-cols-3 gap-3 pt-4">
+          <div className="grid grid-cols-3 gap-3 pt-10">
             {[
               { num: '01', title: 'Preveja', desc: 'Quem vai vencer cada luta', color: 'text-ufc-red' },
               { num: '02', title: 'Pontue', desc: 'Acertos viram pontos e XP', color: 'text-ufc-gold' },
@@ -550,12 +550,12 @@ function HomeLogado({ evento }: { evento: Evento | null }) {
               <div className="text-[10px] text-white/30 mt-1">Compete contra todos os usuarios</div>
             </Link>
             <Link
-              href="/arena/ligas/criar"
+              href="/arena/ligas"
               className="rounded-xl border border-white/10 bg-black/40 backdrop-blur-md p-4 hover:border-ufc-gold/30 transition-all group text-center"
             >
               <Users className="w-6 h-6 text-ufc-gold mx-auto mb-2 group-hover:scale-110 transition-transform" />
               <div className="font-display text-sm uppercase text-white">Com Amigos</div>
-              <div className="text-[10px] text-white/30 mt-1">Crie uma liga e desafie amigos</div>
+              <div className="text-[10px] text-white/30 mt-1">Veja suas ligas ou crie uma nova</div>
             </Link>
           </div>
 
