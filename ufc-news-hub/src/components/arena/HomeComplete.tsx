@@ -6,7 +6,9 @@ import { Trophy, Share2, Pencil } from 'lucide-react';
 import { useArenaAuth } from '@/hooks/useArenaAuth';
 import { LiveRanking } from '@/components/arena/LiveRanking';
 import { MinhasLigas } from '@/components/arena/MinhasLigas';
-import { EventoNome, Countdown, OctagonTexture, type Evento } from '@/components/arena/shared';
+import { OctagonTexture, type Evento } from '@/components/arena/shared';
+import { EventHeader } from '@/components/arena/EventHeader';
+import { MAX_POR_LUTA } from '@/components/arena/picks-shared';
 
 interface HomeCompleteProps {
   evento: Evento | null;
@@ -17,8 +19,7 @@ export function HomeComplete({ evento, picks }: HomeCompleteProps) {
   const { usuario } = useArenaAuth();
   const [copied, setCopied] = useState(false);
   const totalPicks = Object.keys(picks).length;
-  // +100 acerto + 50 metodo + 50 round = 200 max per fight
-  const pontos = totalPicks * 200;
+  const pontos = totalPicks * MAX_POR_LUTA;
 
   const handleCopyLink = () => {
     const url = `${window.location.origin}/arena`;
@@ -34,23 +35,7 @@ export function HomeComplete({ evento, picks }: HomeCompleteProps) {
         <div className="max-w-lg mx-auto space-y-5">
 
           {evento ? (
-            <div className="rounded-xl bg-black/60 backdrop-blur-sm px-5 py-4 space-y-3">
-              <EventoNome nome={evento.nome} size="sm" />
-              {evento.local && <div className="text-xs text-white/50">{evento.local}</div>}
-              {evento.status === 'ao_vivo' ? (
-                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-ufc-red w-fit mx-auto">
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
-                  </span>
-                  <span className="text-xs font-bold text-white uppercase">Ao Vivo</span>
-                </div>
-              ) : (
-                <div className="flex justify-center">
-                  <Countdown targetDate={evento.data_evento} />
-                </div>
-              )}
-            </div>
+            <EventHeader evento={evento} size="sm" />
           ) : (
             <div className="text-center pt-8">
               <h2 className="font-display text-2xl text-white uppercase">Nenhum evento agendado</h2>

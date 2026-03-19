@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import { Zap, ChevronRight } from 'lucide-react';
 import { LiveRanking } from '@/components/arena/LiveRanking';
-import { EventoNome, Countdown, OctagonTexture, type Evento } from '@/components/arena/shared';
+import { OctagonTexture, type Evento } from '@/components/arena/shared';
+import { EventHeader } from '@/components/arena/EventHeader';
 
 interface HomeNewProps {
   evento: Evento | null;
@@ -18,13 +19,7 @@ export function HomeNew({ evento }: HomeNewProps) {
         <div className="max-w-lg mx-auto space-y-6">
 
           {evento ? (
-            <div className="rounded-xl bg-black/60 backdrop-blur-sm px-5 py-4 space-y-3">
-              <EventoNome nome={evento.nome} size="sm" />
-              {evento.local && <div className="text-xs text-white/50">{evento.local}</div>}
-              <div className="flex justify-center">
-                <Countdown targetDate={evento.data_evento} />
-              </div>
-            </div>
+            <EventHeader evento={evento} size="sm" />
           ) : (
             <div className="text-center pt-8">
               <h2 className="font-display text-3xl text-white uppercase">

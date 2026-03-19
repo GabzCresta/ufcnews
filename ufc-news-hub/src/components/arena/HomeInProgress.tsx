@@ -6,7 +6,8 @@ import { useArenaAuth } from '@/hooks/useArenaAuth';
 import { LiveRanking } from '@/components/arena/LiveRanking';
 import { MinhasLigas } from '@/components/arena/MinhasLigas';
 import { UserStats } from '@/components/arena/UserStats';
-import { EventoNome, Countdown, OctagonTexture, FightPreview, sortLutas, type Evento } from '@/components/arena/shared';
+import { OctagonTexture, FightPreview, sortLutas, type Evento } from '@/components/arena/shared';
+import { EventHeader } from '@/components/arena/EventHeader';
 
 interface HomeInProgressProps {
   evento: Evento | null;
@@ -29,23 +30,7 @@ export function HomeInProgress({ evento, picks, picksCount, totalLutas }: HomeIn
         <div className="max-w-lg mx-auto space-y-5">
 
           {evento ? (
-            <div className="rounded-xl bg-black/60 backdrop-blur-sm px-5 py-4 space-y-3">
-              <EventoNome nome={evento.nome} size="sm" />
-              {evento.local && <div className="text-xs text-white/50">{evento.local}</div>}
-              {evento.status === 'ao_vivo' ? (
-                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-ufc-red w-fit mx-auto">
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
-                  </span>
-                  <span className="text-xs font-bold text-white uppercase">Ao Vivo</span>
-                </div>
-              ) : (
-                <div className="flex justify-center">
-                  <Countdown targetDate={evento.data_evento} />
-                </div>
-              )}
-            </div>
+            <EventHeader evento={evento} size="sm" />
           ) : (
             <div className="text-center pt-8">
               <h2 className="font-display text-2xl text-white uppercase">Nenhum evento agendado</h2>
