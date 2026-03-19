@@ -66,16 +66,18 @@ export default function MeusPicksPage({ params }: PageProps) {
   const [evento, setEvento] = useState<EventoComLutas | null>(null);
   const [picks, setPicks] = useState<Record<string, PickData>>({});
   const [minhasLigas, setMinhasLigas] = useState<MinhaLiga[]>([]);
+  const [totalParticipantes, setTotalParticipantes] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
   // Load evento + picks in parallel
   useEffect(() => {
     async function load() {
       try {
-        const [eventoRes, picksRes, ligasRes] = await Promise.all([
+        const [eventoRes, picksRes, ligasRes, rankingRes] = await Promise.all([
           fetch(`/api/eventos/${id}`),
           isAuthenticated ? fetch(`/api/arena/previsoes?evento_id=${id}`) : Promise.resolve(null),
           isAuthenticated ? fetch('/api/arena/ligas?tipo=minhas&limit=10') : Promise.resolve(null),
+          fetch('/api/arena/analytics/ranking?limit=1'),
         ]);
 
         if (eventoRes.ok) {
@@ -105,6 +107,12 @@ export default function MeusPicksPage({ params }: PageProps) {
           const ligasData: unknown = await ligasRes.json();
           const ligasArr = (ligasData as { ligas?: MinhaLiga[] }).ligas ?? [];
           setMinhasLigas(ligasArr);
+        }
+
+        if (rankingRes.ok) {
+          const rankData: unknown = await rankingRes.json();
+          const tp = (rankData as { total_participantes?: number }).total_participantes;
+          if (tp) setTotalParticipantes(tp);
         }
       } catch { /* silent */ }
       setIsLoading(false);
@@ -231,6 +239,20 @@ export default function MeusPicksPage({ params }: PageProps) {
             )}
           </div>
         </div>
+
+        {/* Competition confirmation */}
+        {picksCount > 0 && totalParticipantes > 0 && (
+          <div className="px-4 mb-4 max-w-md mx-auto">
+            <div className="rounded-xl bg-ufc-red/5 border border-ufc-red/20 p-4 flex items-center gap-3">
+              <Users className="w-5 h-5 text-ufc-red shrink-0" />
+              <p className="text-sm text-white/60">
+                Voce esta competindo com{' '}
+                <span className="text-white font-semibold">{totalParticipantes} usuarios</span>{' '}
+                neste evento. Ranking atualiza ao vivo durante o card.
+              </p>
+            </div>
+          </div>
+        )}
 
         {/* Deadline + Ligas section */}
         <div className="px-4 mb-5 max-w-md mx-auto space-y-3">
