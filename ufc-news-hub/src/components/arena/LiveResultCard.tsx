@@ -23,19 +23,78 @@ function getTipoLabel(tipo: string): string {
   const labels: Record<string, string> = {
     main_event: 'MAIN EVENT',
     co_main: 'CO-MAIN EVENT',
-    card_principal: 'CARD PRINCIPAL',
+    card_principal: 'MAIN CARD',
     preliminar: 'PRELIMINAR',
     early_prelim: 'EARLY PRELIM',
   };
   return labels[tipo] ?? tipo.toUpperCase();
 }
 
-function getTipoBadgeClass(tipo: string): string {
-  if (tipo === 'main_event')
-    return 'bg-ufc-red/20 text-ufc-red border border-ufc-red/40 font-black tracking-widest';
-  if (tipo === 'co_main')
-    return 'bg-ufc-gold/15 text-ufc-gold border border-ufc-gold/40 font-bold tracking-wider';
-  return 'bg-dark-border/50 text-dark-textMuted border border-dark-border/30 font-medium tracking-wide';
+function getTipoBadgeStyle(tipo: string): { className: string; style?: React.CSSProperties } {
+  if (tipo === 'main_event') {
+    return {
+      className:
+        'rounded px-2 py-0.5 text-xs font-black uppercase tracking-widest bg-ufc-red/20 text-ufc-red border border-ufc-red/60',
+      style: { textShadow: '0 0 8px rgba(210, 10, 10, 0.8)' },
+    };
+  }
+  if (tipo === 'co_main') {
+    return {
+      className:
+        'rounded px-2 py-0.5 text-xs font-bold uppercase tracking-wider bg-ufc-gold/15 text-ufc-gold border border-ufc-gold/40',
+      style: { textShadow: '0 0 6px rgba(212, 175, 55, 0.6)' },
+    };
+  }
+  if (tipo === 'card_principal') {
+    return {
+      className:
+        'rounded px-2 py-0.5 text-xs font-semibold uppercase tracking-wide bg-white/10 text-white border border-white/20',
+    };
+  }
+  return {
+    className:
+      'rounded px-2 py-0.5 text-xs font-medium uppercase tracking-wide bg-white/5 text-white/40 border border-white/10',
+  };
+}
+
+// ═══════════════════════════════════════════════════════════════
+// Sub-components
+// ═══════════════════════════════════════════════════════════════
+
+function StatusBadgeLive() {
+  return (
+    <span className="flex items-center gap-1.5 rounded-full bg-ufc-red px-2.5 py-0.5 text-xs font-black uppercase tracking-widest text-white shadow-[0_0_12px_rgba(210,10,10,0.7)]">
+      <span className="relative flex h-2 w-2">
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
+        <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
+      </span>
+      AO VIVO
+    </span>
+  );
+}
+
+function StatusBadgeFinished() {
+  return (
+    <span className="rounded-full bg-green-500/20 px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider text-green-400 ring-1 ring-green-500/40 shadow-[0_0_8px_rgba(34,197,94,0.25)]">
+      FINALIZADA
+    </span>
+  );
+}
+
+function StatusBadgeNext() {
+  return (
+    <span className="rounded-full bg-amber-400/15 px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider text-amber-300 ring-1 ring-amber-400/30 shadow-[0_0_6px_rgba(251,191,36,0.2)]">
+      PROXIMA
+    </span>
+  );
+}
+
+function StatusBadgeScheduled() {
+  return (
+    <span className="rounded-full bg-white/5 px-2 py-0.5 text-xs font-medium uppercase tracking-wide text-white/30">
+      AGENDADA
+    </span>
+  );
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -59,12 +118,8 @@ export function LiveResultCard({
   const isScheduled = status === 'agendada';
   const isNext = status === 'proxima';
 
-  const winner_nome =
-    vencedor_id === lutador1_id
-      ? lutador1_nome
-      : vencedor_id === lutador2_id
-      ? lutador2_nome
-      : null;
+  const winner1 = isFinished && vencedor_id === lutador1_id;
+  const winner2 = isFinished && vencedor_id === lutador2_id;
 
   const pickName =
     userPick?.vencedor_previsto_id === lutador1_id
@@ -77,52 +132,62 @@ export function LiveResultCard({
   const pickSettled =
     userPick?.acertou_vencedor !== null && userPick?.acertou_vencedor !== undefined;
 
-  // ── Card wrapper classes per status ──────────────────────────
-  const wrapperClass = [
-    'relative overflow-hidden rounded-lg transition-all duration-300',
-    isLive
-      ? 'border-l-4 border-ufc-red bg-dark-card animate-glow-red-border shadow-[0_0_30px_rgba(210,10,10,0.25)]'
-      : isFinished
-      ? 'border-l-4 border-green-500 bg-dark-card shadow-md'
-      : isNext
-      ? 'border-l-4 border-white/30 bg-dark-card/80'
-      : isScheduled
-      ? 'border-l-4 border-transparent bg-dark-card/60 opacity-40'
-      : 'border-l-4 border-transparent bg-dark-card',
-  ]
-    .filter(Boolean)
-    .join(' ');
+  // ── Container style per status ────────────────────────────────
+  let wrapperClass: string;
+  let wrapperStyle: React.CSSProperties = {};
+
+  if (isLive) {
+    wrapperClass =
+      'relative overflow-hidden rounded-xl border border-ufc-red/50 bg-gradient-to-r from-red-950/80 to-black/60 backdrop-blur-md transition-all duration-300';
+    wrapperStyle = { boxShadow: '0 0 20px rgba(210,10,10,0.3), 0 0 40px rgba(210,10,10,0.1)' };
+  } else if (isFinished) {
+    wrapperClass =
+      'relative overflow-hidden rounded-xl border border-green-500/30 bg-gradient-to-r from-green-950/40 to-black/60 backdrop-blur-md transition-all duration-300';
+    wrapperStyle = { boxShadow: '0 0 12px rgba(34,197,94,0.12)' };
+  } else if (isNext) {
+    wrapperClass =
+      'relative overflow-hidden rounded-xl border border-white/20 bg-black/40 backdrop-blur-md transition-all duration-300';
+    wrapperStyle = { boxShadow: '0 0 10px rgba(255,255,255,0.04)' };
+  } else {
+    // agendada
+    wrapperClass =
+      'relative overflow-hidden rounded-xl border border-white/5 bg-black/20 opacity-50 transition-all duration-300';
+  }
 
   // ── Status badge ──────────────────────────────────────────────
   const statusBadge = isLive ? (
-    <span className="flex items-center gap-1.5 rounded-full bg-ufc-red px-2.5 py-0.5 text-xs font-black uppercase tracking-widest text-white shadow-[0_0_10px_rgba(210,10,10,0.6)]">
-      <span className="inline-block h-1.5 w-1.5 animate-ping rounded-full bg-white" />
-      AO VIVO
-    </span>
+    <StatusBadgeLive />
   ) : isFinished ? (
-    <span className="rounded-full bg-green-500/20 px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider text-green-400 ring-1 ring-green-500/30">
-      FINALIZADA
-    </span>
+    <StatusBadgeFinished />
   ) : isNext ? (
-    <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wider text-white/70 ring-1 ring-white/20">
-      PROXIMA
-    </span>
+    <StatusBadgeNext />
   ) : (
-    <span className="rounded-full bg-dark-border/60 px-2 py-0.5 text-xs font-medium uppercase tracking-wide text-dark-textMuted">
-      AGENDADA
-    </span>
+    <StatusBadgeScheduled />
   );
 
+  // ── Tipo badge ────────────────────────────────────────────────
+  const tipoBadgeConfig = getTipoBadgeStyle(tipo);
+
   return (
-    <div className={wrapperClass}>
-      {/* Live glow overlay */}
+    <div className={wrapperClass} style={wrapperStyle}>
+      {/* Live animated red sweep */}
       {isLive && (
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ufc-red/10 via-transparent to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ufc-red/8 via-transparent to-transparent" />
       )}
 
-      {/* Header: tipo badge + status */}
-      <div className="flex items-center justify-between border-b border-dark-border/60 bg-dark-bg/40 px-4 py-2">
-        <span className={`rounded px-2 py-0.5 text-xs uppercase ${getTipoBadgeClass(tipo)}`}>
+      {/* Header: tipo badge + status badge */}
+      <div
+        className={`flex items-center justify-between px-4 py-2 ${
+          isLive
+            ? 'border-b border-ufc-red/30 bg-black/30'
+            : isFinished
+            ? 'border-b border-green-500/15 bg-black/20'
+            : isNext
+            ? 'border-b border-white/10 bg-black/20'
+            : 'border-b border-white/5 bg-transparent'
+        }`}
+      >
+        <span className={tipoBadgeConfig.className} style={tipoBadgeConfig.style}>
           {getTipoLabel(tipo)}
         </span>
         {statusBadge}
@@ -132,24 +197,27 @@ export function LiveResultCard({
       <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 px-4 py-4">
         {/* Fighter 1 */}
         <div
-          className={`min-w-0 transition-opacity duration-300 ${
-            isFinished && vencedor_id === lutador2_id ? 'opacity-30' : 'opacity-100'
+          className={`min-w-0 transition-all duration-300 ${
+            isFinished && winner2 ? 'opacity-25 grayscale' : 'opacity-100'
           }`}
         >
           <p
-            className={`truncate font-display text-lg uppercase leading-tight tracking-wide ${
-              isFinished && vencedor_id === lutador1_id
-                ? 'text-green-400 drop-shadow-[0_0_8px_rgba(74,222,128,0.5)]'
+            className="truncate font-display text-lg uppercase leading-tight tracking-wide"
+            style={
+              winner1
+                ? { color: '#4ade80', textShadow: '0 0 10px rgba(34, 197, 94, 0.5)' }
                 : isLive
-                ? 'text-dark-text'
-                : 'text-dark-text'
-            }`}
+                ? { color: '#ffffff', textShadow: '0 0 10px rgba(210, 10, 10, 0.5)' }
+                : isNext
+                ? { color: '#ffffff' }
+                : { color: 'rgba(255,255,255,0.7)' }
+            }
           >
             {lutador1_nome}
           </p>
-          {isFinished && vencedor_id === lutador1_id && (
-            <span className="mt-1 inline-flex items-center gap-1 rounded bg-green-500/20 px-1.5 py-0.5 text-xs font-bold text-green-400 ring-1 ring-green-500/30">
-              <span>&#10003;</span> VENCEDOR
+          {winner1 && (
+            <span className="mt-1 inline-flex items-center gap-1 rounded bg-green-500/20 px-1.5 py-0.5 text-xs font-bold text-green-400 ring-1 ring-green-500/40 shadow-[0_0_6px_rgba(34,197,94,0.3)]">
+              &#10003; VENCEDOR
             </span>
           )}
         </div>
@@ -157,126 +225,156 @@ export function LiveResultCard({
         {/* Center: VS or Result */}
         <div className="flex flex-col items-center gap-0.5 px-2">
           {isFinished && metodo ? (
-            <div className="text-center animate-flash-result rounded px-2 py-1">
-              <p className="whitespace-nowrap text-xs font-black uppercase tracking-widest text-green-400">
-                {metodo.replace(/_/g, ' ')}
-              </p>
-              {round_final != null && (
-                <p className="text-xs font-semibold text-dark-textMuted">R{round_final}</p>
-              )}
+            <div className="text-center">
+              <div className="rounded-full bg-green-500/15 px-3 py-1 ring-1 ring-green-500/30 shadow-[0_0_8px_rgba(34,197,94,0.2)]">
+                <p
+                  className="whitespace-nowrap text-xs font-black uppercase tracking-widest"
+                  style={{ color: '#4ade80', textShadow: '0 0 6px rgba(34,197,94,0.4)' }}
+                >
+                  {metodo.replace(/_/g, ' ')}
+                </p>
+                {round_final != null && (
+                  <p className="text-center text-xs font-semibold text-green-400/60">
+                    R{round_final}
+                  </p>
+                )}
+              </div>
             </div>
           ) : isLive ? (
-            <div className="flex flex-col items-center gap-1">
-              <span className="font-display text-xl text-ufc-red">VS</span>
-              <span className="text-xs font-semibold uppercase tracking-widest text-ufc-red animate-pulse-red">
+            <div className="flex flex-col items-center gap-0.5">
+              <span
+                className="font-display text-xl"
+                style={{ color: '#D20A0A', textShadow: '0 0 12px rgba(210,10,10,0.8)' }}
+              >
+                ⚡VS⚡
+              </span>
+              <span className="animate-pulse text-xs font-black uppercase tracking-widest text-ufc-red">
                 live
               </span>
             </div>
+          ) : isNext ? (
+            <span className="font-display text-xl text-white/40">⚡VS⚡</span>
           ) : (
-            <span className="font-display text-xl text-dark-textMuted/50">VS</span>
+            <span className="font-display text-xl text-white/15">VS</span>
           )}
         </div>
 
         {/* Fighter 2 */}
         <div
-          className={`min-w-0 text-right transition-opacity duration-300 ${
-            isFinished && vencedor_id === lutador1_id ? 'opacity-30' : 'opacity-100'
+          className={`min-w-0 text-right transition-all duration-300 ${
+            isFinished && winner1 ? 'opacity-25 grayscale' : 'opacity-100'
           }`}
         >
           <p
-            className={`truncate font-display text-lg uppercase leading-tight tracking-wide ${
-              isFinished && vencedor_id === lutador2_id
-                ? 'text-green-400 drop-shadow-[0_0_8px_rgba(74,222,128,0.5)]'
-                : 'text-dark-text'
-            }`}
+            className="truncate font-display text-lg uppercase leading-tight tracking-wide"
+            style={
+              winner2
+                ? { color: '#4ade80', textShadow: '0 0 10px rgba(34, 197, 94, 0.5)' }
+                : isLive
+                ? { color: '#ffffff', textShadow: '0 0 10px rgba(210, 10, 10, 0.5)' }
+                : isNext
+                ? { color: '#ffffff' }
+                : { color: 'rgba(255,255,255,0.7)' }
+            }
           >
             {lutador2_nome}
           </p>
-          {isFinished && vencedor_id === lutador2_id && (
-            <span className="mt-1 inline-flex items-center gap-1 rounded bg-green-500/20 px-1.5 py-0.5 text-xs font-bold text-green-400 ring-1 ring-green-500/30">
-              <span>&#10003;</span> VENCEDOR
+          {winner2 && (
+            <span className="mt-1 inline-flex items-center gap-1 rounded bg-green-500/20 px-1.5 py-0.5 text-xs font-bold text-green-400 ring-1 ring-green-500/40 shadow-[0_0_6px_rgba(34,197,94,0.3)]">
+              &#10003; VENCEDOR
             </span>
           )}
         </div>
       </div>
 
+      {/* Divider */}
+      <div
+        className={`mx-4 border-t ${
+          isLive
+            ? 'border-ufc-red/20'
+            : isFinished
+            ? 'border-green-500/15'
+            : 'border-white/8'
+        }`}
+      />
+
       {/* User pick row */}
-      {userPick && pickName && (
+      {userPick && pickName ? (
         <div
-          className={`border-t px-4 py-2.5 text-sm ${
+          className={`px-4 py-2.5 ${
             !pickSettled
-              ? 'border-dark-border/30 bg-dark-bg/30'
+              ? 'bg-transparent'
               : pickCorrect
-              ? 'border-green-500/20 bg-green-500/10'
-              : 'border-red-500/20 bg-red-500/10'
+              ? 'bg-green-500/8'
+              : 'bg-red-500/8'
           }`}
         >
           <div className="flex items-center justify-between gap-2">
+            {/* Pick icon + label */}
             <div className="flex items-center gap-2 min-w-0">
               {pickSettled ? (
                 <span
-                  className={`flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full text-xs font-black ${
-                    pickCorrect ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
+                  className={`flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full text-xs font-black shadow-sm ${
+                    pickCorrect
+                      ? 'bg-green-500 text-white shadow-[0_0_6px_rgba(34,197,94,0.5)]'
+                      : 'bg-red-500 text-white shadow-[0_0_6px_rgba(239,68,68,0.5)]'
                   }`}
                 >
                   {pickCorrect ? '✓' : '✗'}
                 </span>
               ) : (
-                <span className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-dark-border/60 text-xs text-dark-textMuted">
+                <span className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-white/10 text-xs text-white/50">
                   ?
                 </span>
               )}
-              <span>
-                <span className="text-xs uppercase tracking-wide text-dark-textMuted">
-                  Seu pick:{' '}
-                </span>
+              <span className="min-w-0">
+                <span className="text-xs uppercase tracking-wide text-white/40">Seu pick: </span>
                 <span
-                  className={`font-semibold ${
+                  className="font-semibold"
+                  style={
                     !pickSettled
-                      ? 'text-dark-text'
+                      ? { color: 'rgba(255,255,255,0.85)' }
                       : pickCorrect
-                      ? 'text-green-400'
-                      : 'text-red-400'
-                  }`}
+                      ? { color: '#4ade80', textShadow: '0 0 6px rgba(34,197,94,0.4)' }
+                      : { color: '#f87171', textShadow: '0 0 6px rgba(239,68,68,0.4)' }
+                  }
                 >
                   {pickName}
                 </span>
               </span>
             </div>
 
-            {pickSettled && (
+            {/* Points badge */}
+            {pickSettled ? (
               <span
                 className={`flex-shrink-0 rounded-full px-2.5 py-0.5 text-xs font-black ${
                   pickCorrect
-                    ? 'bg-green-500/20 text-green-400 ring-1 ring-green-500/30'
-                    : 'bg-red-500/20 text-red-400 ring-1 ring-red-500/30'
+                    ? 'bg-green-500/20 text-green-400 ring-1 ring-green-500/40 shadow-[0_0_6px_rgba(34,197,94,0.25)]'
+                    : 'bg-red-500/20 text-red-400 ring-1 ring-red-500/40'
                 }`}
               >
                 {userPick.pontos_ganhos > 0 ? `+${userPick.pontos_ganhos} pts` : '0 pts'}
               </span>
-            )}
-
-            {!pickSettled && winner_nome == null && isLive && (
-              <span className="flex-shrink-0 text-xs font-semibold uppercase tracking-wide text-ufc-red animate-pulse-red">
+            ) : isLive ? (
+              <span className="flex-shrink-0 animate-pulse text-xs font-black uppercase tracking-widest text-ufc-red">
                 em andamento
               </span>
-            )}
+            ) : null}
           </div>
         </div>
-      )}
-
-      {/* No pick + not finished */}
-      {!userPick && !isFinished && (
+      ) : !userPick && !isFinished ? (
         <div
-          className={`border-t px-4 py-2 text-center text-xs ${
+          className={`px-4 py-2 text-center text-xs ${
             isLive
-              ? 'border-ufc-red/20 text-ufc-red font-semibold uppercase tracking-widest'
-              : 'border-dark-border/20 text-dark-textMuted'
+              ? 'font-bold uppercase tracking-widest text-ufc-red animate-pulse'
+              : isNext
+              ? 'font-semibold text-amber-300/60 uppercase tracking-wide'
+              : 'text-white/25'
           }`}
         >
           {isLive ? 'Em andamento' : isNext ? 'Proxima luta' : 'Aguardando'}
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

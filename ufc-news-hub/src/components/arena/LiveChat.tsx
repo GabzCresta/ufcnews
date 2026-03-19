@@ -46,12 +46,12 @@ export function LiveChat({ eventoId, ligaId, ligaNome }: LiveChatProps) {
   const [localMessages, setLocalMessages] = useState<ChatMessage[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const lastTimestampRef = useRef<string | null>(null);
 
+  // Stable SWR key — always fetch last 50, dedup in useEffect
   const chatUrl = activeTab === 'geral'
-    ? `/api/arena/live/chat?evento_id=${eventoId}&limit=50${lastTimestampRef.current ? `&after=${encodeURIComponent(lastTimestampRef.current)}` : ''}`
+    ? `/api/arena/live/chat?evento_id=${eventoId}&limit=50`
     : ligaId
-      ? `/api/arena/ligas/${ligaId}/chat?limit=50${lastTimestampRef.current ? `&after=${encodeURIComponent(lastTimestampRef.current)}` : ''}`
+      ? `/api/arena/ligas/${ligaId}/chat?limit=50`
       : null;
 
   const { data } = useSWR<ChatResponse>(
@@ -69,13 +69,10 @@ export function LiveChat({ eventoId, ligaId, ligaNome }: LiveChatProps) {
       const merged = [...prev, ...newMsgs];
       return merged.slice(-100);
     });
-    const lastMsg = data.mensagens[data.mensagens.length - 1];
-    if (lastMsg) lastTimestampRef.current = lastMsg.created_at;
   }, [data?.mensagens]);
 
   useEffect(() => {
     setLocalMessages([]);
-    lastTimestampRef.current = null;
   }, [activeTab]);
 
   useEffect(() => {
@@ -114,7 +111,6 @@ export function LiveChat({ eventoId, ligaId, ligaNome }: LiveChatProps) {
       if (res.ok) {
         const msg = await res.json() as ChatMessage;
         setLocalMessages(prev => [...prev, msg]);
-        lastTimestampRef.current = msg.created_at;
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
 
         setCooldown(true);

@@ -69,6 +69,7 @@ const config: Config = {
         'glow-red-border': 'glow-red-border 2s ease-in-out infinite',
         'flash-result': 'flash-result 1.5s ease-out',
         'slide-in-up': 'slide-in-up 0.4s ease-out',
+        'float-up': 'floatUp 2s ease-out forwards',
         'glow-pulse-border': 'glow-pulse-border 3s ease-in-out infinite',
         'ticker': 'ticker linear infinite',
       },
@@ -169,6 +170,11 @@ const config: Config = {
         'slide-in-up': {
           '0%': { transform: 'translateY(20px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        'floatUp': {
+          '0%': { transform: 'translateY(0) scale(1)', opacity: '1' },
+          '50%': { transform: 'translateY(-60px) scale(1.2)', opacity: '0.8' },
+          '100%': { transform: 'translateY(-120px) scale(0.8)', opacity: '0' },
         },
       },
     },

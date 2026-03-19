@@ -3,11 +3,12 @@
 import { useState, useRef, useMemo, useEffect } from 'react';
 import useSWR from 'swr';
 import useSWRImmutable from 'swr/immutable';
-import { Calendar, MapPin, ChevronRight, ArrowLeft, Trophy } from 'lucide-react';
+import { Calendar, MapPin, ChevronRight, ArrowLeft, Trophy, Clock, Check } from 'lucide-react';
 import { LiveResultCard } from '@/components/arena/LiveResultCard';
 import { LiveLeaderboard } from '@/components/arena/LiveLeaderboard';
 import { LiveCurrentFight } from '@/components/arena/LiveCurrentFight';
 import { LiveChat } from '@/components/arena/LiveChat';
+import { FloatingReactions } from '@/components/arena/FloatingReactions';
 import { useProximoEvento } from '@/hooks/useProximoEvento';
 
 // ═══════════════════════════════════════════════════════════════
@@ -81,7 +82,7 @@ const fetcher = (url: string) => fetch(url).then(r => {
 function useCountdown(targetDate: string | undefined) {
   const [timeLeft, setTimeLeft] = useState<string>('');
 
-  useState(() => {
+  useEffect(() => {
     if (!targetDate) return;
     function calc() {
       const diff = new Date(targetDate!).getTime() - Date.now();
@@ -94,7 +95,7 @@ function useCountdown(targetDate: string | undefined) {
     calc();
     const id = setInterval(calc, 60000);
     return () => clearInterval(id);
-  });
+  }, [targetDate]);
 
   return timeLeft;
 }
@@ -162,6 +163,18 @@ function EventResultView({
     return upcoming[0] ?? null;
   }, [data?.lutas]);
 
+  // Status-first sort: ao_vivo → agendada → finalizada (must be before early returns)
+  const sortedLutas = useMemo(() => {
+    if (!data?.lutas) return [];
+    return [...data.lutas].sort((a, b) => {
+      const statusOrder: Record<string, number> = { ao_vivo: 0, agendada: 1, finalizada: 2 };
+      const statusDiff = (statusOrder[a.status] ?? 1) - (statusOrder[b.status] ?? 1);
+      if (statusDiff !== 0) return statusDiff;
+      if (a.status === 'finalizada') return b.ordem - a.ordem;
+      return a.ordem - b.ordem;
+    });
+  }, [data?.lutas]);
+
   if (!data && !error) {
     return (
       <div className="flex min-h-[40vh] items-center justify-center">
@@ -186,9 +199,6 @@ function EventResultView({
   const totalLutas = lutas.length;
   const isLive = data.evento.status === 'ao_vivo';
   const isFinished = data.evento.status === 'finalizado';
-
-  // Ascending order by card position (natural card order)
-  const sortedLutas = [...lutas].sort((a, b) => a.ordem - b.ordem);
 
   return (
     <div
@@ -279,23 +289,90 @@ function EventResultView({
           {/* Current fight spotlight */}
           {currentFight && <LiveCurrentFight luta={currentFight} />}
 
-          {/* Fight result cards */}
-          <section className="space-y-3">
-            {sortedLutas.map((luta) => (
-              <LiveResultCard
-                key={luta.luta_id}
-                lutador1_nome={luta.lutador1_nome}
-                lutador2_nome={luta.lutador2_nome}
-                vencedor_id={luta.vencedor_id}
-                lutador1_id={luta.lutador1_id}
-                lutador2_id={luta.lutador2_id}
-                metodo={luta.metodo}
-                round_final={luta.round_final}
-                tipo={luta.tipo}
-                status={luta.status}
-                userPick={luta.userPick}
-              />
-            ))}
+          {/* Fight result cards — grouped by status */}
+          <section className="space-y-6">
+            {(() => {
+              const aoVivo = sortedLutas.filter(l => l.status === 'ao_vivo');
+              const proximas = sortedLutas.filter(l => l.status === 'agendada');
+              const finalizadas = sortedLutas.filter(l => l.status === 'finalizada');
+
+              return (
+                <>
+                  {aoVivo.length > 0 && (
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2">
+                        <span className="relative flex h-2.5 w-2.5">
+                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ufc-red opacity-75" />
+                          <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-ufc-red" />
+                        </span>
+                        <span className="text-sm font-display uppercase tracking-widest text-ufc-red">Ao Vivo</span>
+                      </div>
+                      {aoVivo.map(luta => (
+                        <LiveResultCard
+                          key={luta.luta_id}
+                          lutador1_nome={luta.lutador1_nome}
+                          lutador2_nome={luta.lutador2_nome}
+                          vencedor_id={luta.vencedor_id}
+                          lutador1_id={luta.lutador1_id}
+                          lutador2_id={luta.lutador2_id}
+                          metodo={luta.metodo}
+                          round_final={luta.round_final}
+                          tipo={luta.tipo}
+                          status={luta.status}
+                          userPick={luta.userPick}
+                        />
+                      ))}
+                    </div>
+                  )}
+                  {proximas.length > 0 && (
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2">
+                        <Clock className="w-4 h-4 text-amber-400" />
+                        <span className="text-sm font-display uppercase tracking-widest text-amber-400/70">Proximas</span>
+                      </div>
+                      {proximas.map(luta => (
+                        <LiveResultCard
+                          key={luta.luta_id}
+                          lutador1_nome={luta.lutador1_nome}
+                          lutador2_nome={luta.lutador2_nome}
+                          vencedor_id={luta.vencedor_id}
+                          lutador1_id={luta.lutador1_id}
+                          lutador2_id={luta.lutador2_id}
+                          metodo={luta.metodo}
+                          round_final={luta.round_final}
+                          tipo={luta.tipo}
+                          status={luta.status}
+                          userPick={luta.userPick}
+                        />
+                      ))}
+                    </div>
+                  )}
+                  {finalizadas.length > 0 && (
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-green-500" />
+                        <span className="text-sm font-display uppercase tracking-widest text-green-500/70">Finalizadas</span>
+                      </div>
+                      {finalizadas.map(luta => (
+                        <LiveResultCard
+                          key={luta.luta_id}
+                          lutador1_nome={luta.lutador1_nome}
+                          lutador2_nome={luta.lutador2_nome}
+                          vencedor_id={luta.vencedor_id}
+                          lutador1_id={luta.lutador1_id}
+                          lutador2_id={luta.lutador2_id}
+                          metodo={luta.metodo}
+                          round_final={luta.round_final}
+                          tipo={luta.tipo}
+                          status={luta.status}
+                          userPick={luta.userPick}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </>
+              );
+            })()}
           </section>
 
           {/* Leaderboard with header */}
@@ -310,8 +387,9 @@ function EventResultView({
           </section>
         </div>
 
-        {/* Right column: Chat sidebar */}
-        <div className="lg:col-span-1 mt-5 lg:mt-0 lg:sticky lg:top-4 lg:self-start">
+        {/* Right column: Chat sidebar + Reactions */}
+        <div className="lg:col-span-1 mt-5 lg:mt-0 lg:sticky lg:top-4 lg:self-start space-y-3">
+          <FloatingReactions />
           <LiveChat eventoId={eventoId} ligaId={liga?.id} ligaNome={liga?.nome} />
         </div>
       </div>
