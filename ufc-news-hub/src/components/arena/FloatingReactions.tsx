@@ -33,6 +33,12 @@ interface FloatingReaction {
   x: number;
 }
 
+interface RecentReaction {
+  id: string;
+  lutador_id: string;
+  username: string;
+}
+
 // ═══════════════════════════════════════════════════════════════
 // Fighter Avatar (with fallback)
 // ═══════════════════════════════════════════════════════════════
@@ -86,14 +92,14 @@ function FighterAvatar({
 // Main Component
 // ═══════════════════════════════════════════════════════════════
 
-export function FloatingReactions({ currentFight, eventoId, isAuthenticated, username }: FloatingReactionsProps) {
+export function FloatingReactions({ currentFight, eventoId: _eventoId, isAuthenticated, username }: FloatingReactionsProps) {
   const [reactions, setReactions] = useState<FloatingReaction[]>([]);
   const [counts, setCounts] = useState<Record<string, number>>({});
   const [cooldown, setCooldown] = useState(false);
   const [showLoginHint, setShowLoginHint] = useState(false);
   const nextIdRef = useRef(0);
   const timeoutsRef = useRef<Set<ReturnType<typeof setTimeout>>>(new Set());
-  const prevLutaIdRef = useRef<string | null>(null);
+  const seenIdsRef = useRef<Set<string>>(new Set());
 
   // Cleanup timeouts on unmount
   useEffect(() => {
@@ -102,62 +108,68 @@ export function FloatingReactions({ currentFight, eventoId, isAuthenticated, use
     };
   }, []);
 
-  // SSE connection
+  // Polling for counts + recent reactions (every 2s)
   useEffect(() => {
-    if (!eventoId) return;
+    if (!currentFight) return;
 
-    const es = new EventSource(`/api/arena/live/reactions/stream?evento_id=${eventoId}`);
+    let active = true;
 
-    es.addEventListener('counts', (e) => {
+    async function poll() {
+      if (!active || !currentFight) return;
       try {
-        const data = JSON.parse(e.data) as { luta_id: string; counts: Record<string, number> };
-        if (currentFight && data.luta_id === currentFight.luta_id) {
-          setCounts(data.counts);
+        const res = await fetch(`/api/arena/live/reactions?luta_id=${currentFight.luta_id}`);
+        if (!res.ok) return;
+        const data = await res.json() as {
+          counts: Record<string, number>;
+          recent: RecentReaction[];
+        };
+
+        if (!active) return;
+
+        // Update counts from server (source of truth)
+        setCounts(data.counts);
+
+        // Show floating animations for OTHER users' recent reactions
+        for (const r of data.recent) {
+          // Skip already-seen reactions
+          if (seenIdsRef.current.has(r.id)) continue;
+          seenIdsRef.current.add(r.id);
+
+          // Skip own reactions (already shown optimistically)
+          if (username && r.username === username) continue;
+
+          const isF1 = r.lutador_id === currentFight.lutador1_id;
+          const side: 'red' | 'blue' = isF1 ? 'red' : 'blue';
+          const foto = isF1 ? currentFight.lutador1_foto : currentFight.lutador2_foto;
+          const nome = isF1 ? currentFight.lutador1_nome : currentFight.lutador2_nome;
+
+          addFloatingReaction(foto, nome, side);
         }
-      } catch { /* ignore */ }
-    });
+      } catch {
+        // Network error, retry next cycle
+      }
+    }
 
-    es.addEventListener('reaction', (e) => {
-      try {
-        const data = JSON.parse(e.data) as { luta_id: string; lutador_id: string; username: string };
-        if (!currentFight || data.luta_id !== currentFight.luta_id) return;
+    // Initial fetch
+    poll();
 
-        // Dedup: skip own reactions (already applied optimistically)
-        if (username && data.username === username) return;
-
-        const isF1 = data.lutador_id === currentFight.lutador1_id;
-        const side: 'red' | 'blue' = isF1 ? 'red' : 'blue';
-        const foto = isF1 ? currentFight.lutador1_foto : currentFight.lutador2_foto;
-        const nome = isF1 ? currentFight.lutador1_nome : currentFight.lutador2_nome;
-
-        addFloatingReaction(foto, nome, side);
-
-        setCounts(prev => ({
-          ...prev,
-          [data.lutador_id]: (prev[data.lutador_id] || 0) + 1,
-        }));
-      } catch { /* ignore */ }
-    });
+    // Poll every 2s
+    const interval = setInterval(poll, 2000);
 
     return () => {
-      es.close();
+      active = false;
+      clearInterval(interval);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [eventoId, currentFight?.luta_id, username]);
+  }, [currentFight?.luta_id, username]);
 
   // Reset when fight changes
   useEffect(() => {
     if (!currentFight) return;
-    if (prevLutaIdRef.current && prevLutaIdRef.current !== currentFight.luta_id) {
-      setReactions([]);
-      setCounts({});
-      fetch(`/api/arena/live/reactions?luta_id=${currentFight.luta_id}`)
-        .then(r => r.json())
-        .then((data: { counts: Record<string, number> }) => setCounts(data.counts))
-        .catch(() => {});
-    }
-    prevLutaIdRef.current = currentFight.luta_id;
-  }, [currentFight]);
+    setReactions([]);
+    setCounts({});
+    seenIdsRef.current.clear();
+  }, [currentFight?.luta_id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const addFloatingReaction = useCallback((foto: string | null, nome: string, side: 'red' | 'blue') => {
     const id = nextIdRef.current++;
@@ -189,7 +201,7 @@ export function FloatingReactions({ currentFight, eventoId, isAuthenticated, use
     setCooldown(true);
     setTimeout(() => setCooldown(false), 500);
 
-    // Optimistic update
+    // Optimistic: animation + counter increment immediately
     addFloatingReaction(foto, nome, side);
     setCounts(prev => ({
       ...prev,

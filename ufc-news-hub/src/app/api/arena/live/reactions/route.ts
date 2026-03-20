@@ -3,8 +3,16 @@ import { query, queryOne } from '@/lib/db';
 import { getUsuarioAtual } from '@/lib/arena/auth';
 
 // ═══════════════════════════════════════════════════════════════
-// GET /api/arena/live/reactions?luta_id=X — Reaction counts
+// GET /api/arena/live/reactions?luta_id=X — Counts + recent reactions
+// Polled every 2s by client for real-time sync (SSE doesn't work on Vercel serverless)
 // ═══════════════════════════════════════════════════════════════
+
+interface RecentReaction {
+  id: string;
+  lutador_id: string;
+  username: string;
+  created_at: string;
+}
 
 export async function GET(request: NextRequest) {
   try {
@@ -15,21 +23,33 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'luta_id obrigatorio' }, { status: 400 });
     }
 
-    const rows = await query<{ lutador_id: string; count: number }>(
-      `SELECT lutador_id, COUNT(*)::int AS count
-       FROM reacoes_luta
-       WHERE luta_id = $1
-       GROUP BY lutador_id`,
-      [lutaId]
-    );
+    // Parallel: counts + recent reactions (last 3s for floating animations)
+    const [countRows, recentRows] = await Promise.all([
+      query<{ lutador_id: string; count: number }>(
+        `SELECT lutador_id, COUNT(*)::int AS count
+         FROM reacoes_luta
+         WHERE luta_id = $1
+         GROUP BY lutador_id`,
+        [lutaId]
+      ),
+      query<RecentReaction>(
+        `SELECT r.id, r.lutador_id, COALESCE(u.display_name, u.username) AS username, r.created_at
+         FROM reacoes_luta r
+         JOIN usuarios_arena u ON u.id = r.usuario_id
+         WHERE r.luta_id = $1 AND r.created_at > NOW() - INTERVAL '3 seconds'
+         ORDER BY r.created_at DESC
+         LIMIT 20`,
+        [lutaId]
+      ),
+    ]);
 
     const counts: Record<string, number> = {};
-    for (const row of rows) {
+    for (const row of countRows) {
       counts[row.lutador_id] = row.count;
     }
 
     return NextResponse.json(
-      { counts },
+      { counts, recent: recentRows },
       { headers: { 'Cache-Control': 'no-store' } }
     );
   } catch (error) {
