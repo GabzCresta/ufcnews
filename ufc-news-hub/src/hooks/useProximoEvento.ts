@@ -15,23 +15,30 @@ const fetcher = (url: string) => fetch(url).then(res => {
 });
 
 export function useProximoEvento() {
-  const { data, error, isLoading } = useSWR<ProximoEvento | null>(
+  const { data, error, isLoading, mutate } = useSWR<ProximoEvento | null>(
     '/api/eventos/proximo?include_live=true',
     fetcher,
     {
       revalidateOnFocus: true,
-      dedupingInterval: 15000,
+      dedupingInterval: 5000,
       refreshInterval: (latestData) => {
-        if (!latestData?.data_evento) return 300000; // 5min default
+        if (!latestData?.data_evento) return 300000;
 
         const isLive = latestData.status === 'ao_vivo';
-        if (isLive) return 30000; // 30s when live
+        if (isLive) return 15000; // 15s when live
 
-        // When event is < 2h away, refresh every 60s to catch the transition
         const msUntil = new Date(latestData.data_evento).getTime() - Date.now();
-        if (msUntil > 0 && msUntil < 2 * 60 * 60 * 1000) return 60000;
 
-        return 300000; // 5min otherwise
+        // Event time passed but still agendado — poll aggressively to catch transition
+        if (msUntil <= 0) return 10000;
+
+        // < 30 min away — poll every 15s
+        if (msUntil < 30 * 60 * 1000) return 15000;
+
+        // < 2h away — poll every 60s
+        if (msUntil < 2 * 60 * 60 * 1000) return 60000;
+
+        return 300000;
       },
       onError: () => {},
     }
@@ -44,5 +51,6 @@ export function useProximoEvento() {
     isLoading,
     error,
     isAoVivo,
+    refresh: mutate,
   };
 }

@@ -285,6 +285,7 @@ export interface EventoAtualLiga {
   id: string;
   nome: string;
   data: string;
+  status?: string;
   total_membros: number;
   membros_com_picks: number;
 }

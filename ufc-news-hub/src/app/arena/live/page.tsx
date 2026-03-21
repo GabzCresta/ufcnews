@@ -119,19 +119,24 @@ function EventResultView({
   const { isAuthenticated, usuario } = useArenaAuth();
 
   // Smart fetching: SWR polls while ao_vivo, caches forever when finalizado
-  const { data, error } = useSWR<LiveData>(
+  const { data, error, isValidating } = useSWR<LiveData>(
     `/api/arena/live?evento_id=${eventoId}`,
     fetcher,
     {
       refreshInterval: (latestData: LiveData | undefined) => {
-        // Stop polling when event is finalized — data is immutable
         if (latestData?.evento?.status === 'finalizado') return 0;
         return 15000; // 15s polling while live
       },
-      revalidateOnFocus: false,
-      dedupingInterval: 5000,
+      revalidateOnFocus: true,
+      dedupingInterval: 3000,
     }
   );
+
+  // Track last update time for visual feedback
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  useEffect(() => {
+    if (data) setLastUpdated(new Date());
+  }, [data?.lutas_finalizadas, data?.leaderboard]);
 
   // ── Ranking movement tracking ──
   const prevPositions = useRef<Map<string, number>>(new Map());
@@ -226,6 +231,14 @@ function EventResultView({
           </span>
           <span className="font-display text-lg uppercase text-white tracking-widest">Ao Vivo</span>
           <span className="text-white/60 text-sm">&middot; {lutas_finalizadas}/{totalLutas} lutas</span>
+          {isValidating && (
+            <span className="ml-1 h-1.5 w-1.5 rounded-full bg-white/50 animate-pulse" />
+          )}
+          {lastUpdated && (
+            <span className="text-white/40 text-xs ml-auto">
+              {lastUpdated.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+            </span>
+          )}
         </div>
       )}
 
@@ -446,6 +459,12 @@ export default function ArenaLivePage() {
       .catch(() => {});
   }, []);
 
+  // Detect if event time has passed — show live view even if status hasn't transitioned yet
+  const eventTimePassed = evento?.data_evento
+    ? new Date(evento.data_evento).getTime() <= Date.now()
+    : false;
+  const shouldShowLive = (isAoVivo || eventTimePassed) && evento;
+
   if (isLoading) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
@@ -465,8 +484,8 @@ export default function ArenaLivePage() {
     );
   }
 
-  // Live event happening now
-  if (isAoVivo && evento) {
+  // Live event happening now (or event time passed, waiting for status transition)
+  if (shouldShowLive) {
     return <EventResultView eventoId={evento.id} liga={liga} />;
   }
 

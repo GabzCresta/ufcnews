@@ -172,12 +172,18 @@ export async function GET(request: NextRequest) {
       total_previsoes: totalPrevisoesMap[luta.id] || 0,
     }));
 
+    // No cache when live — data changes every few seconds
+    const isLive = evento.status === 'ao_vivo';
+    const cacheHeader = isLive
+      ? 'no-store'
+      : 'public, s-maxage=120, stale-while-revalidate=30';
+
     return NextResponse.json({
       ...evento,
       lutas: lutasFormatadas,
     }, {
       headers: {
-        'Cache-Control': 'public, s-maxage=120, stale-while-revalidate=30',
+        'Cache-Control': cacheHeader,
       },
     });
   } catch (error) {

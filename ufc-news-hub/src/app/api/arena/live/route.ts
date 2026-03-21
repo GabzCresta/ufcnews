@@ -1,6 +1,97 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { query, queryOne } from '@/lib/db';
 import { getUsuarioAtual } from '@/lib/arena/auth';
+import { scrapeUFCResults, mapMethodToDB, matchFighterName } from '@/lib/scrape-results';
+import { processarPrevisoesLuta } from '@/lib/arena/pontuacao';
+
+// ═══════════════════════════════════════════════════════════════
+// Background auto-scrape throttle (max once per 90s per event)
+// ═══════════════════════════════════════════════════════════════
+const lastScrapeTime = new Map<string, number>();
+const SCRAPE_INTERVAL_MS = 90_000; // 90 seconds
+
+async function backgroundScrapeIfNeeded(eventoId: string, eventoNome: string, hasUnfinishedFights: boolean) {
+  if (!hasUnfinishedFights) return;
+
+  const now = Date.now();
+  const lastTime = lastScrapeTime.get(eventoId) ?? 0;
+  if (now - lastTime < SCRAPE_INTERVAL_MS) return;
+
+  // Mark as scraped immediately to prevent concurrent runs
+  lastScrapeTime.set(eventoId, now);
+
+  // Fire and forget — don't block the response
+  scrapeAndUpdateFights(eventoId, eventoNome).catch(err => {
+    console.error(`[live/auto-scrape] Error for ${eventoNome}:`, err);
+  });
+}
+
+async function scrapeAndUpdateFights(eventoId: string, eventoNome: string) {
+  const evento = await queryOne<{ ufc_slug: string | null }>(
+    'SELECT ufc_slug FROM eventos WHERE id = $1', [eventoId]
+  );
+
+  const scraped = await scrapeUFCResults(eventoNome, {
+    eventSlug: evento?.ufc_slug || undefined,
+  });
+
+  if (scraped.length === 0) return;
+
+  const lutas = await query<{
+    id: string; lutador1_id: string; lutador2_id: string;
+    lutador1_nome: string; lutador2_nome: string; status: string;
+  }>(
+    `SELECT l.id, l.lutador1_id, l.lutador2_id,
+            l1.nome as lutador1_nome, l2.nome as lutador2_nome, l.status
+     FROM lutas l
+     JOIN lutadores l1 ON l1.id = l.lutador1_id
+     JOIN lutadores l2 ON l2.id = l.lutador2_id
+     WHERE l.evento_id = $1 AND l.status != 'finalizada'`,
+    [eventoId]
+  );
+
+  let updated = 0;
+  for (const result of scraped) {
+    const matchedLuta = lutas.find(luta => {
+      const m1 = matchFighterName(result.lutador1_nome, luta.lutador1_nome) ||
+                  matchFighterName(result.lutador1_nome, luta.lutador2_nome);
+      const m2 = matchFighterName(result.lutador2_nome, luta.lutador1_nome) ||
+                  matchFighterName(result.lutador2_nome, luta.lutador2_nome);
+      return m1 && m2;
+    });
+
+    if (!matchedLuta) continue;
+
+    let vencedorId: string | null = null;
+    if (matchFighterName(result.vencedor_nome, matchedLuta.lutador1_nome)) {
+      vencedorId = matchedLuta.lutador1_id;
+    } else if (matchFighterName(result.vencedor_nome, matchedLuta.lutador2_nome)) {
+      vencedorId = matchedLuta.lutador2_id;
+    }
+
+    const metodo = mapMethodToDB(result.metodo);
+
+    await query(
+      `UPDATE lutas SET vencedor_id = $1, metodo = $2, round_final = $3,
+              tempo_final = $4, status = 'finalizada' WHERE id = $5`,
+      [vencedorId, metodo, result.round, result.tempo, matchedLuta.id]
+    );
+
+    updated++;
+    console.log(`[live/auto-scrape] ${matchedLuta.lutador1_nome} vs ${matchedLuta.lutador2_nome} → ${result.vencedor_nome}`);
+
+    // Process predictions for this fight
+    try {
+      await processarPrevisoesLuta(matchedLuta.id);
+    } catch (err) {
+      console.error(`[live/auto-scrape] Scoring error for luta ${matchedLuta.id}:`, err);
+    }
+  }
+
+  if (updated > 0) {
+    console.log(`[live/auto-scrape] ${updated} fights updated for ${eventoNome}`);
+  }
+}
 
 // ═══════════════════════════════════════════════════════════════
 // Types
@@ -181,6 +272,12 @@ export async function GET(request: NextRequest) {
 
     // Count finished fights
     const lutasFinalizadas = lutas.filter((l) => l.status === 'finalizada').length;
+
+    // Auto-scrape results in background when event is live and has unfinished fights
+    if (evento.status === 'ao_vivo') {
+      const hasUnfinished = lutasFinalizadas < lutas.length;
+      backgroundScrapeIfNeeded(eventoId, evento.nome, hasUnfinished);
+    }
 
     // Attach user pick to each fight
     const lutasComPick = lutas.map((luta) => ({

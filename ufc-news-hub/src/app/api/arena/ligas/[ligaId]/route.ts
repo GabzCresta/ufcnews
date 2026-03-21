@@ -101,11 +101,13 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       [ligaId]
     );
 
-    // Buscar evento atual (próximo agendado)
-    const eventoAtual = await queryOne<{ id: string; nome: string; data_evento: string }>(
-      `SELECT id, nome, data_evento FROM eventos
-       WHERE status = 'agendado' AND data_evento > NOW()
-       ORDER BY data_evento ASC LIMIT 1`
+    // Buscar evento atual (ao_vivo tem prioridade, depois próximo agendado)
+    const eventoAtual = await queryOne<{ id: string; nome: string; data_evento: string; status: string }>(
+      `SELECT id, nome, data_evento, status::text FROM eventos
+       WHERE status IN ('ao_vivo', 'agendado')
+         AND (status = 'ao_vivo' OR data_evento > NOW())
+       ORDER BY CASE WHEN status = 'ao_vivo' THEN 0 ELSE 1 END, data_evento ASC
+       LIMIT 1`
     );
 
     // Calcular status de picks por membro para o evento atual
@@ -254,6 +256,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
         id: eventoAtual.id,
         nome: eventoAtual.nome,
         data: eventoAtual.data_evento,
+        status: eventoAtual.status,
         total_membros: membros.length,
         membros_com_picks: membrosComPicks,
       } : null,
