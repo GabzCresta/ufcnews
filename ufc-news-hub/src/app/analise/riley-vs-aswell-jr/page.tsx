@@ -357,6 +357,34 @@ const analise: FullSingleAnalise = {
         'Aswell Jr. Aprendeu Com a Derrota, Mas Riley e Um Problema Diferente',
         'UFC Londres: A Luta de Prospects Que Pode Definir o Futuro do Peso-Pena',
         'O Texas Kid Contra o Muay Thai Britanico: Preview Riley vs Aswell Jr.',
+        'Riley -320 e o Favorito Mais Justificado do Card de Londres?',
+        '75% de KO Rate em Casa: Por Que Riley e a Aposta Mais Segura do Card',
+      ],
+      podcast: [
+        {
+          timestamp: '0:00-2:00',
+          title: 'O Prospect Mais Perigoso de Londres',
+          talking_points: [
+            'Riley e 12-0 com 75% de KO rate. Treina ao lado de Paddy Pimblett no Next Gen MMA Liverpool. Nocauteou Bogdan Grad em 30 segundos do R2 no debut UFC.',
+            'Aswell Jr. (2-1 UFC) e o tipo de oponente que nao pode ser subestimado. Perdeu o debut pra Oki, voltou e nocauteou Lucas Almeida no R1.',
+            'A dinamica: Riley e o favorito claro (-320) mas este e apenas seu segundo fight no UFC. A pressao de lutar em casa no O2 Arena pode ser positiva ou negativa.',
+          ],
+          discussion_questions: [
+            'Prospect invicto lutando em casa: isso ajuda ou pesa mais na pressao?',
+          ],
+        },
+        {
+          timestamp: '2:00-4:00',
+          title: 'Analise Tecnica e Apostas',
+          talking_points: [
+            'Riley tem vantagem em tudo no striking: velocidade, precisao, volume. Aswell absorve 3.85 strikes por minuto com apenas 45% de defesa. A combinacao e perigosa.',
+            'Melhor aposta: Riley por KO/TKO a -180. Under 2.5 rounds a -140. O cenario de finalizacao precoce e o mais provavel dado o historico de ambos.',
+            'Armadilha: Riley por decisao. Ele quase nunca vai pra decisao (17% das vitorias). Ou ele finaliza ou nao.',
+          ],
+          discussion_questions: [
+            'Aswell Jr. tem poder pra machucar Riley? Ou a diferenca tecnica e grande demais?',
+          ],
+        },
       ],
     },
 

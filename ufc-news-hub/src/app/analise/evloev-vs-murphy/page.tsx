@@ -436,30 +436,37 @@ const analise: FullSingleAnalise = {
     // ===========================
     creator_kit: {
       instagram: [
-        { slide_number: 1, title: 'ELIMINATORIA PELO TITULO', content: 'EVLOEV vs MURPHY\nUFC Londres | 21 de Marco\nO2 Arena\n\n19-0 vs 17-0-1\nAlguem vai perder o zero.', color: 'red' },
-        { slide_number: 2, title: 'EVLOEV: A MAQUINA', content: '#1 do ranking peso-pena\n19-0 na carreira\n9-0 no UFC (todas por decisao)\n40 takedowns no UFC\nNunca foi finalizado', color: 'red' },
-        { slide_number: 3, title: 'MURPHY: O MILAGRE', content: '#3 do ranking peso-pena\n17-0-1 na carreira\nSobreviveu a um tiro no rosto em 2013\nNocaute do Ano 2025\nLuta em casa em Londres', color: 'blue' },
-        { slide_number: 4, title: 'O OPONENTE COMUM', content: 'Dan Ige\n\nEvloev: 30-26, 30-27, 30-27\nDominio absoluto\n\nMurphy: 29-28, 29-28, 29-28\nVitoria apertada\n\nA diferenca diz muito.', color: 'gold' },
-        { slide_number: 5, title: 'PREVISAO', content: 'EVLOEV por Decisao Unanime\n\nConfianca: MEDIA\n58% Evloev / 39% Murphy\n\nMas cuidado com o fator casa\ne o poder de Murphy.', color: 'gold' },
+        { slide_number: 1, title: 'ELIMINATORIA PELO TITULO', content: 'EVLOEV vs MURPHY\nUFC Londres | 21 de Marco\nO2 Arena\n\n19-0 vs 17-0-1\nAlguem vai perder o zero.\nO vencedor enfrenta Volkanovski.', color: 'red' },
+        { slide_number: 2, title: 'EVLOEV: A MAQUINA', content: '#1 do ranking peso-pena\n19-0 na carreira\n9-0 no UFC (todas por decisao)\n40 takedowns no UFC\n6.24 tentativas de TD por 15 min\n81% de controle no clinch/chao\nNunca foi finalizado', color: 'red' },
+        { slide_number: 3, title: 'MURPHY: O MILAGRE', content: '#3 do ranking peso-pena\n17-0-1 na carreira\nSobreviveu a um tiro no rosto em 2013\nNocaute do Ano 2025 (cotovelo giratorio)\n47% das vitorias por KO/TKO\n9 vitorias seguidas no UFC\nLuta em casa em Londres', color: 'blue' },
+        { slide_number: 4, title: 'O OPONENTE COMUM', content: 'Dan Ige\n\nEvloev: 30-26, 30-27, 30-27\nDominio absoluto em 3 rounds\n\nMurphy: 29-28, 29-28, 29-28\nVitoria apertada por decisao\n\nMesmo oponente. Niveis diferentes.', color: 'gold' },
+        { slide_number: 5, title: 'CHAVE DA LUTA', content: 'WRESTLING vs STRIKING\n\nEvloev: 40 TDs no UFC\nMurphy: 51% defesa de TD\n\nSe vai ao chao = Evloev domina\nSe fica em pe = Murphy e letal\n\nR1-R2: territorio Murphy\nR3-R5: territorio Evloev', color: 'gold' },
+        { slide_number: 6, title: 'APOSTAS DE VALOR', content: 'MELHOR APOSTA:\nOver 3.5 Rounds (-165)\nEvloev nunca finalizou no UFC\nMurphy nunca foi finalizado\n\nVALOR:\nMurphy ML (+210)\nInvicto, em casa, com poder\n\nARMADILHA:\nEvloev por finalizacao\nNunca aconteceu em 9 lutas UFC', color: 'gold' },
+        { slide_number: 7, title: 'PREVISAO', content: 'EVLOEV por Decisao Unanime\n\nConfianca: MEDIA\n58% Evloev / 39% Murphy\n\nO wrestling vai decidir.\nMas o poder de Murphy\npode mudar tudo a qualquer segundo.', color: 'gold' },
       ],
       twitter: [
-        { num: '1/5', text: 'Evloev vs Murphy e a luta mais importante do peso-pena em 2026. Dois invictos, eliminatoria pelo titulo, e alguem vai perder o zero no O2 Arena. Thread:' },
-        { num: '2/5', text: 'Evloev (19-0): 9 vitorias no UFC, TODAS por decisao. 40 takedowns. Nunca finalizado. Uma maquina de moer rounds. Mas nunca lutou 5 rounds no UFC.' },
-        { num: '3/5', text: 'Murphy (17-0-1): Levou um tiro no rosto em 2013 e hoje e #3 do peso-pena. Nocaute do Ano contra Pico com cotovelo giratorio. Luta em casa. A torcida vai ser insana.' },
-        { num: '4/5', text: 'O detalhe que ninguem fala: contra Dan Ige, Evloev dominou 30-26. Murphy venceu 29-28. Mesmo oponente, niveis de dominio completamente diferentes.' },
-        { num: '5/5', text: 'Minha previsao: Evloev por decisao, mas com ressalvas. Murphy tem poder pra acabar a luta a qualquer momento. Over 3.5 rounds e a melhor aposta.' },
+        { num: '1/8', text: 'Evloev vs Murphy e a luta mais importante do peso-pena em 2026. Dois invictos, eliminatoria pelo titulo, e alguem vai perder o zero no O2 Arena. Thread completa:' },
+        { num: '2/8', text: 'Evloev (19-0): 9 vitorias no UFC, TODAS por decisao. 40 takedowns. 6.24 tentativas de TD por 15 min. 81% de controle no clinch. Uma maquina de moer rounds. Mas nunca lutou 5 rounds no UFC.' },
+        { num: '3/8', text: 'Murphy (17-0-1): Levou um tiro no rosto em 2013 e hoje e #3 do peso-pena. Nocaute do Ano contra Pico com cotovelo giratorio. 47% das vitorias por KO. 9 vitorias seguidas. Luta EM CASA.' },
+        { num: '4/8', text: 'O detalhe que ninguem fala: contra Dan Ige, Evloev dominou 30-26. Murphy venceu 29-28. Mesmo oponente, niveis de dominio completamente diferentes. Essa comparacao diz mais que qualquer estatistica.' },
+        { num: '5/8', text: 'A grande incognita: Evloev NUNCA lutou 5 rounds no UFC. Zero main events. Murphy ja fez 5 rounds contra Emmett. Se chegar ao R4-R5 apertado, quem tem mais experiencia nesse territorio?' },
+        { num: '6/8', text: 'Apostas de valor: Over 3.5 rounds (-165) e a aposta mais segura. Evloev nunca finalizou no UFC, Murphy nunca foi finalizado. Murphy ML (+210) tem valor se voce acredita no fator casa e no poder.' },
+        { num: '7/8', text: 'ARMADILHA: Evloev por finalizacao. Nunca aconteceu em 9 lutas UFC. Todas por decisao. Se voce esta apostando em Evloev por sub ou TKO, esta apostando em algo que nunca aconteceu.' },
+        { num: '8/8', text: 'Minha pick: Evloev por decisao unanime, 48-47 ou 49-46. O wrestling controla. Mas Murphy tem o fator X pra virar a qualquer momento. RT se Evloev, Like se Murphy, Comenta se acaba por KO.' },
       ],
       video: [
-        { time: '0-10s', title: 'Hook', text: 'Dois invictos. Zero derrotas combinadas. E alguem vai perder no sabado. Evloev vs Murphy e a luta mais importante do peso-pena desde Volkanovski vs Topuria.' },
-        { time: '10-25s', title: 'Contexto', text: 'Evloev e o #1, maquina de wrestling, 19-0. Murphy e o #3, nocaute do ano, luta em casa em Londres. O vencedor enfrenta Volkanovski pelo titulo.' },
-        { time: '25-40s', title: 'Analise', text: 'Murphy consegue manter em pe? Se sim, tem poder pra finalizar. Se nao, Evloev vai controlar. Contra Dan Ige, Evloev ganhou 30-26. Murphy ganhou 29-28.' },
-        { time: '40-55s', title: 'Previsao', text: 'Minha call: Evloev por decisao unanime, mas Murphy tem todas as ferramentas pro upset. O fator casa, o poder, a confianca. Nao durmam nessa.' },
-        { time: '55-65s', title: 'CTA', text: 'Quem voces acham que vence? Comenta e segue pra mais analises do UFC Londres.' },
+        { time: '0-10s', title: 'Hook', text: 'Dois invictos. Zero derrotas combinadas. Recorde historico do UFC. E alguem vai perder no sabado. Evloev vs Murphy e a luta mais importante do peso-pena desde Volkanovski vs Topuria.' },
+        { time: '10-25s', title: 'Contexto', text: 'Evloev e o #1, maquina de wrestling com 40 takedowns no UFC, 19-0. Murphy e o #3, nocaute do ano com cotovelo giratorio, 17-0-1, luta em casa em Londres. O vencedor enfrenta Volkanovski pelo titulo.' },
+        { time: '25-40s', title: 'Analise Tecnica', text: 'A pergunta central: Murphy consegue manter em pe? A defesa de takedown dele e 51%, e contra Evloev que tenta 6 takedowns por 15 minutos, vai ser testada de forma brutal. Contra Dan Ige, Evloev ganhou 30-26. Murphy ganhou 29-28. Mesmo oponente, dominio completamente diferente.' },
+        { time: '40-55s', title: 'Championship Rounds', text: 'A grande incognita. Evloev nunca lutou 5 rounds no UFC. Murphy ja fez contra Emmett. Se a luta estiver equilibrada no R3, os championship rounds favorecem quem ja esteve la. Mas o cardio de Evloev e inesgotavel.' },
+        { time: '55-70s', title: 'Previsao e Valor', text: 'Minha call: Evloev por decisao unanime. Mas Murphy a +210 tem valor real, invicto, em casa, com poder. Over 3.5 rounds e a aposta mais segura do card. Evloev nunca finalizou, Murphy nunca foi finalizado.' },
+        { time: '70-80s', title: 'CTA', text: 'Quem voces acham que vence? Comenta embaixo. Se gostou da analise, segue pra receber a cobertura completa do UFC Londres com todas as 13 lutas do card.' },
       ],
       tiktok: [
-        { hook: 'O cara levou um TIRO NO ROSTO e agora e #3 do peso-pena do UFC.', body: 'Lerone Murphy sobreviveu a um tiroteio em Manchester em 2013. Hoje, enfrenta o invicto Movsar Evloev numa eliminatoria pelo titulo em Londres. 17-0-1. Nocaute do Ano 2025. Mas Evloev e uma MAQUINA. 19-0, zero finalizacoes sofridas.', cta: 'Comenta EVLOEV ou MURPHY!' },
-        { hook: 'Essa estatistica ASSUSTA sobre o main event de Londres.', body: 'Evloev e Murphy enfrentaram Dan Ige. Evloev ganhou 30-26. TRINTA A VINTE E SEIS. Murphy? 29-28. Luta apertada. Mesmo oponente, dominio completamente diferente.', cta: 'Segue pra ver minha previsao completa!' },
-        { hook: 'O peso-pena do UFC vai ter um novo desafiante no sabado.', body: 'Evloev vs Murphy. Dois invictos. O vencedor enfrenta Volkanovski. Evloev traz 40 takedowns no UFC. Murphy traz o nocaute mais bonito de 2025. E Murphy luta EM CASA no O2 Arena.', cta: 'Qual e a sua pick? Comenta!' },
+        { hook: 'O cara levou um TIRO NO ROSTO e agora e #3 do peso-pena do UFC.', body: 'Lerone Murphy sobreviveu a um tiroteio em Manchester em 2013. Hoje, enfrenta o invicto Movsar Evloev numa eliminatoria pelo titulo em Londres. 17-0-1. Nocaute do Ano 2025. Mas Evloev e uma MAQUINA. 19-0, zero finalizacoes sofridas, 40 takedowns no UFC.', cta: 'Comenta EVLOEV ou MURPHY!' },
+        { hook: 'Essa estatistica ASSUSTA sobre o main event de Londres.', body: 'Evloev e Murphy enfrentaram Dan Ige. Evloev ganhou 30-26. TRINTA A VINTE E SEIS. Murphy? 29-28. Luta apertada. Mesmo oponente, dominio completamente diferente. Essa comparacao diz TUDO sobre o que vai acontecer sabado.', cta: 'Segue pra ver minha previsao completa!' },
+        { hook: 'O peso-pena do UFC vai ter um novo desafiante no sabado.', body: 'Evloev vs Murphy. Dois invictos. O vencedor enfrenta Volkanovski. Evloev traz 40 takedowns no UFC. Murphy traz o nocaute mais bonito de 2025. E Murphy luta EM CASA no O2 Arena com 20 mil britanicos.', cta: 'Qual e a sua pick? Comenta!' },
+        { hook: 'Murphy a +210 e a melhor aposta do card? Eu acho que sim.', body: 'Olha os fatos: Murphy e INVICTO. Luta em CASA em Londres. Tem o Nocaute do Ano 2025. 47% das vitorias por KO. E Evloev esta voltando de 15 MESES sem lutar. Nunca fez 5 rounds. A unica luta de 5 rounds de Murphy foi contra Emmett. Experiencia em championship rounds? Murphy tem. Evloev nao.', cta: 'Concorda ou discorda? Comenta!' },
       ],
       headlines: [
         'Evloev vs Murphy: A Eliminatoria Mais Importante do Peso-Pena em 2026',
@@ -467,6 +474,77 @@ const analise: FullSingleAnalise = {
         'O Milagre de Manchester Tenta Destronar a Maquina Russa no O2 Arena',
         'Dan Ige Revela Tudo: A Estatistica Que Separa Evloev e Murphy',
         'UFC Londres: O Fator Casa Pode Decidir a Eliminatoria pelo Titulo?',
+        '15 Meses Sem Lutar: A Ferrugem de Evloev Pode Custar o Titulo?',
+        'Murphy a +210: Por Que o Azarao Invicto Oferece o Melhor Valor do Card',
+      ],
+      podcast: [
+        {
+          timestamp: '0:00-2:00',
+          title: 'Abertura: O Contexto Historico',
+          talking_points: [
+            'Recorde historico do UFC: 36 vitorias combinadas sem derrota (19-0 + 17-0-1). Nunca dois lutadores com esse record se enfrentaram.',
+            'A historia de Murphy: sobreviveu a um tiroteio em Manchester em 2013, bala no rosto. Hoje e #3 do mundo. A resiliencia como narrativa central.',
+            'Evloev como a maquina silenciosa: nenhum highlight reel, nenhuma finalizacao no UFC, mas 9-0 com dominio absoluto. O lutador mais chato e mais eficiente do peso-pena.',
+            'O premio: o vencedor enfrenta Volkanovski pelo titulo. A pressao e real para ambos.',
+          ],
+          discussion_questions: [
+            'Voces acham que a historia de vida de Murphy (o tiroteio) afeta como ele lida com pressao dentro do octogono?',
+            'Evloev ser "chato de assistir" e uma vantagem ou desvantagem competitiva?',
+          ],
+        },
+        {
+          timestamp: '2:00-5:00',
+          title: 'Analise Tecnica: Wrestling vs Striking',
+          talking_points: [
+            'Os numeros de Evloev no chao: 40 takedowns no UFC, 6.24 tentativas por 15 minutos, 81% de controle no clinch e chao. E top 5 historico do peso-pena em volume de wrestling.',
+            'O poder de Murphy: 47% das vitorias por KO/TKO, incluindo o Nocaute do Ano 2025 contra Pico com cotovelo giratorio. Arsenal diversificado e timing elite.',
+            'A comparacao Dan Ige: Evloev dominou 30-26, Murphy venceu 29-28. Mesmo oponente, niveis de dominio completamente diferentes. Isso diz mais sobre o matchup do que qualquer outra estatistica.',
+            'Defesa de takedown de Murphy: 51%. Contra um wrestler que tenta 6 por luta, esse numero vai ser testado como nunca antes.',
+          ],
+          discussion_questions: [
+            'Se Murphy defender 60% dos takedowns no R1, isso muda a dinamica da luta inteira?',
+            'O cotovelo giratorio que nocauteou Pico funciona contra um wrestler que fecha distancia de forma diferente?',
+          ],
+        },
+        {
+          timestamp: '5:00-8:00',
+          title: 'Fatores Invisiveis e Red Flags',
+          talking_points: [
+            'O layoff de Evloev: 15 meses sem lutar. O periodo mais longo da carreira dele. Ferrugem e real, especialmente no timing do wrestling.',
+            'Atividade de Murphy: 3 lutas em 12 meses, incluindo o nocaute de Pico. Afiado, confiante, no ritmo. A diferenca de atividade e significativa.',
+            'O fator 5 rounds: Evloev NUNCA lutou um main event. Todas as 9 lutas UFC foram de 3 rounds. Murphy ja fez 5 rounds contra Emmett. Em caso de luta equilibrada, quem tem experiencia nesse territorio?',
+            'O O2 Arena: 20 mil britanicos. O barulho, a energia, a parcialidade. Nos cards de Londres, lutadores britanicos tem historico forte. O fator casa e mensuravel.',
+          ],
+          discussion_questions: [
+            'Voces acham que 15 meses parado afeta mais o striking ou o wrestling de um lutador?',
+          ],
+        },
+        {
+          timestamp: '8:00-10:00',
+          title: 'Previsao e Apostas de Valor',
+          talking_points: [
+            'Previsao: Evloev por decisao unanime, 58% de probabilidade. O wrestling vai controlar os rounds do meio e finais. Mas Murphy tem 39% de chance real, especialmente nos primeiros rounds.',
+            'Melhor aposta do card: Over 3.5 rounds (-165). Evloev nunca finalizou no UFC (9 decisoes em 9 lutas). Murphy nunca foi finalizado. A convergencia e forte.',
+            'Aposta de valor: Murphy ML a +210. Invicto, em casa, com poder genuino, contra um cara voltando de 15 meses parado que nunca fez 5 rounds. A linha deveria estar mais perto de +170.',
+            'Armadilha: Evloev por finalizacao. Nunca aconteceu em 9 lutas UFC. Apostar nisso e apostar contra toda a evidencia.',
+          ],
+          discussion_questions: [
+            'Se voces tivessem que apostar UMA coisa nessa luta, qual seria?',
+            'Murphy a +210 e valor real ou armadilha emocional por causa do hype?',
+          ],
+        },
+        {
+          timestamp: '10:00-12:00',
+          title: 'Encerramento e O Que Observar',
+          talking_points: [
+            'Os 5 momentos decisivos para observar: a primeira tentativa de takedown de Evloev, a defesa de Murphy nos primeiros 2 minutos, o volume de strikes no R2, o cardio de Evloev no R4, e qualquer tecnica nao-convencional de Murphy.',
+            'Se Murphy sobreviver o wrestling do R1 e R2 sem perder rounds claros, a dinamica muda completamente pro lado dele nos championship rounds.',
+            'Independente do resultado, o vencedor dessa luta vai ser o proximo desafiante ao titulo. Estamos assistindo historia sendo feita no peso-pena.',
+          ],
+          discussion_questions: [
+            'Quem voces querem ver contra Volkanovski: a maquina de wrestling ou o striker com poder de nocaute?',
+          ],
+        },
       ],
     },
 

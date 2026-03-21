@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import FighterImage from '@/components/ui/FighterImage';
 import { EventAnalysisCard, type EventFightCard } from './EventAnalysisCard';
+import { EventCreatorKitSection } from './event/EventCreatorKitSection';
+import type { EventCreatorKitData } from '@/types/event-creator-kit';
 
 export interface EventAnalysisData {
   evento_nome: string;
@@ -11,6 +13,7 @@ export interface EventAnalysisData {
   evento_local: string;
   main_card: EventFightCard[];
   prelims: EventFightCard[];
+  creator_kit?: EventCreatorKitData;
 }
 
 /* ────────────────────────────────────────────
@@ -209,6 +212,11 @@ export function EventAnalysisView({ data }: { data: EventAnalysisData }) {
               ))}
             </div>
           </section>
+        )}
+
+        {/* ──────── Creator Kit ──────── */}
+        {data.creator_kit && (
+          <EventCreatorKitSection data={data.creator_kit} />
         )}
 
         {/* ──────── Footer ──────── */}

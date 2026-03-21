@@ -348,7 +348,12 @@ const analise: PrelimsAnalise = {
         fighter2: { nome: 'Keita', percent: 36 },
         draw: 2,
       },
-      value_picks: undefined,
+      value_picks: {
+        moneyline: { pick: 'Wood (+190)', reasoning: 'Wood e underdog com 10-3 no UFC e 3 vitorias seguidas. Veterano com BJJ black belt e fight IQ superior. Keita nunca lutou no UFC e tem historico de problemas com peso. A +190, Wood oferece valor real.' },
+        method: { pick: 'Wood por Decisao', reasoning: 'Wood ganhou as ultimas 3 por decisao unanime. Sabe controlar ritmo e frustrar power punchers. Se Keita chegar drenado do corte de peso, o veteranismo de Wood prevalece nos rounds finais.' },
+        over_under: { pick: 'Over 2.5 Rounds', rounds: 2.5, reasoning: 'As ultimas 3 vitorias de Wood foram todas por decisao. Ele sabe fazer a luta chegar aos juizes. Keita tem poder pra acabar cedo, mas Wood tem queixo e experiencia pra sobreviver.' },
+        best_value: 'Wood ML a +190 e a melhor aposta de azarao nas prelims. Veterano de 13 lutas UFC contra estreante com problemas de peso.',
+      },
     },
   },
 };

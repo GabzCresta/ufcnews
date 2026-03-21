@@ -349,7 +349,12 @@ const analise: PrelimsAnalise = {
         fighter2: { nome: 'Franco', percent: 26 },
         draw: 2,
       },
-      value_picks: undefined,
+      value_picks: {
+        moneyline: { pick: 'Pinto (-900)', reasoning: 'Pinto e 11-0 com 73% de precisao de strikes e 2-0 no UFC com KOs dominantes. Franco e short-notice e nunca lutou no UFC. O preco e altissimo mas o risco e minimo.' },
+        method: { pick: 'Pinto por KO/TKO', reasoning: 'Pinto nocauteou Lane e Diniz no UFC. Franco tem 45% de defesa de strikes. A vantagem de alcance de Pinto (11cm mais alto) vai permitir dominar na distancia e buscar o finish.' },
+        over_under: { pick: 'Under 2.5 Rounds', rounds: 2.5, reasoning: 'As 2 lutas de Pinto no UFC terminaram por KO. Franco aceita em short-notice sem preparacao especifica. A finalizacao antes do R3 e altamente provavel.' },
+        best_value: 'Pinto por KO/TKO e a aposta mais segura. O preco nao oferece valor no moneyline, mas combinado com round (R1 ou R2) pode render.',
+      },
     },
   },
 };

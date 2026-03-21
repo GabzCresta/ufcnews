@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Instagram, MessageCircle, Video, Smartphone, Type, Copy, Check } from 'lucide-react';
+import { Instagram, MessageCircle, Video, Smartphone, Type, Copy, Check, Mic } from 'lucide-react';
 import type { CreatorKitSectionData } from '@/types/analise';
 import { SectionHeader } from './SectionHeader';
 
@@ -40,13 +40,14 @@ function HeadlineItem({ text }: { text: string }) {
 }
 
 export function CreatorKitSection({ data }: { data: CreatorKitSectionData }) {
-  const [activeTab, setActiveTab] = useState<'instagram' | 'twitter' | 'video' | 'tiktok' | 'headlines'>('instagram');
+  const [activeTab, setActiveTab] = useState<'instagram' | 'twitter' | 'video' | 'tiktok' | 'podcast' | 'headlines'>('instagram');
 
   const tabs = [
     { id: 'instagram' as const, label: 'Instagram Cards', Icon: Instagram },
     { id: 'twitter' as const, label: 'Twitter Thread', Icon: MessageCircle },
     { id: 'video' as const, label: 'Video Script', Icon: Video },
     { id: 'tiktok' as const, label: 'TikTok/Reels', Icon: Smartphone },
+    { id: 'podcast' as const, label: 'Podcast', Icon: Mic },
     { id: 'headlines' as const, label: 'Headlines', Icon: Type },
   ];
 
@@ -158,6 +159,42 @@ export function CreatorKitSection({ data }: { data: CreatorKitSectionData }) {
 
         {activeTab === 'tiktok' && !data.tiktok && (
           <p className="text-sm text-dark-textMuted">TikTok scripts nao disponiveis para esta analise.</p>
+        )}
+
+        {activeTab === 'podcast' && data.podcast && (
+          <div className="space-y-6">
+            <h3 className="font-display text-lg uppercase text-dark-text">Podcast Talking Points</h3>
+            <div className="space-y-4">
+              {data.podcast.map((segment, i) => (
+                <div key={i} className="rounded-lg border border-dark-border bg-dark-bg p-5">
+                  <div className="mb-3 flex items-center gap-3">
+                    <span className="rounded bg-ufc-red/20 px-2 py-1 text-xs font-bold text-ufc-red">{segment.timestamp}</span>
+                    <span className="font-display text-sm uppercase text-dark-text">{segment.title}</span>
+                  </div>
+                  <div className="space-y-2 mb-3">
+                    {segment.talking_points.map((point, j) => (
+                      <div key={j} className="flex items-start gap-2">
+                        <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-ufc-red" />
+                        <p className="text-sm text-dark-textMuted">{point}</p>
+                      </div>
+                    ))}
+                  </div>
+                  {segment.discussion_questions && segment.discussion_questions.length > 0 && (
+                    <div className="mt-3 rounded-lg bg-ufc-gold/5 border border-ufc-gold/20 p-3">
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-ufc-gold mb-2">Perguntas para Discussao</p>
+                      {segment.discussion_questions.map((q, k) => (
+                        <p key={k} className="text-xs text-dark-textMuted italic mb-1">{q}</p>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'podcast' && !data.podcast && (
+          <p className="text-sm text-dark-textMuted">Podcast talking points nao disponiveis para esta analise.</p>
         )}
 
         {activeTab === 'headlines' && data.headlines && (

@@ -480,12 +480,20 @@ export interface TikTokScript {
   cta: string;
 }
 
+export interface PodcastSegment {
+  timestamp: string;
+  title: string;
+  talking_points: string[];
+  discussion_questions?: string[];
+}
+
 export interface CreatorKitSectionData {
   instagram: InstagramSlide[];
   twitter: Tweet[];
   video: VideoScriptSection[];
   tiktok?: TikTokScript[];
   headlines?: string[];
+  podcast?: PodcastSegment[];
 }
 
 export interface BettingValueSectionData {

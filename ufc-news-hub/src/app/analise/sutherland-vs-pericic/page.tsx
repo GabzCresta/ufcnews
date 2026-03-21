@@ -349,7 +349,12 @@ const analise: PrelimsAnalise = {
         fighter2: { nome: 'Pericic', percent: 63 },
         draw: 2,
       },
-      value_picks: undefined,
+      value_picks: {
+        moneyline: { pick: 'Pericic (-275)', reasoning: 'Pericic treina no City Kickboxing com Adesanya e Volkanovski. Nivel de sparring incomparavel. Favorito justo mas o preco nao oferece muito valor.' },
+        method: { pick: 'Pericic por KO/TKO R1', reasoning: 'Ambos tem 100% de finish rate. Pericic e mais tecnico, mais rapido e tem melhor footwork. O KO no primeiro round e o cenario mais provavel nessa luta de peso pesado.' },
+        over_under: { pick: 'Under 1.5 Rounds', rounds: 1.5, reasoning: 'Dois pesos pesados com 100% de finalizacao nas vitorias. Nenhuma das vitorias combinadas foi pra decisao. Alguem vai dormir cedo.' },
+        best_value: 'Under 1.5 rounds e a aposta mais segura. Luta de pesos pesados finalizadores, os dois buscam o nocaute. Dificilmente chega ao R2.',
+      },
     },
   },
 };

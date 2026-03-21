@@ -348,7 +348,12 @@ const analise: PrelimsAnalise = {
         fighter2: { nome: 'Trocoli', percent: 30 },
         draw: 2,
       },
-      value_picks: undefined,
+      value_picks: {
+        moneyline: { pick: 'Kondratavicius (-800)', reasoning: 'Favorito massivo e justificado. 100% de finalizacoes, TKO em 66 segundos no DWCS. Trocoli 0-3 no UFC com 3 derrotas no R1. O preco e alto mas o risco e baixo.' },
+        method: { pick: 'Kondratavicius por KO/TKO R1', reasoning: 'Kondratavicius nunca precisou de mais de 1 round. Trocoli tem 38% de defesa de strikes e foi finalizado nas ultimas 3. A convergencia e total.' },
+        over_under: { pick: 'Under 1.5 Rounds', rounds: 1.5, reasoning: 'As ultimas 3 derrotas de Trocoli foram todas no R1 (Magomedov, Gore, Abdul-Malik). Kondratavicius finaliza no R1 sistematicamente. Probabilidade altissima de acabar cedo.' },
+        best_value: 'Kondratavicius por KO/TKO R1 e quase certo. O preco nao vai ser bom, mas combinado com Under 1.5 pode render.',
+      },
     },
   },
 };

@@ -348,7 +348,12 @@ const analise: PrelimsAnalise = {
         fighter2: { nome: 'Al-Selwady', percent: 60 },
         draw: 2,
       },
-      value_picks: undefined,
+      value_picks: {
+        moneyline: { pick: 'Al-Selwady (-135)', reasoning: 'Favorito leve com volume de striking superior (4.14/min). Multi-campeao regional com background diverso. O preco e justo pra uma luta equilibrada.' },
+        method: { pick: 'Al-Selwady por TKO R2', reasoning: 'Al-Selwady acumula dano com volume de strikes. Rock tem output baixo em pe e precisa do takedown pra ser perigoso. Se nao conseguir derrubar, o acumulo de dano leva ao TKO tardio.' },
+        over_under: { pick: 'Over 1.5 Rounds', rounds: 1.5, reasoning: 'Ambos perderam suas estreias e sao cautelosos. Rock vai tentar impor grappling, Al-Selwady vai manter em pe. A dinamica favorece uma luta que passa do R1.' },
+        best_value: 'Over 1.5 rounds e a aposta mais segura. Luta equilibrada entre dois caras buscando a primeira vitoria UFC, nenhum dos dois vai se arriscar cedo.',
+      },
     },
   },
 };

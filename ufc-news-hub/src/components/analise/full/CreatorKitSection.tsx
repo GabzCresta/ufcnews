@@ -196,7 +196,48 @@ function HeadlinesTab({ headlines }: { headlines: string[] }) {
 // Main Component
 // ═══════════════════════════════════════════════════════════════
 
-type TabId = 'instagram' | 'twitter' | 'video' | 'tiktok' | 'headlines';
+function PodcastTab({
+  segments,
+}: {
+  segments: { timestamp: string; title: string; talking_points: string[]; discussion_questions?: string[] }[];
+}) {
+  return (
+    <div className="space-y-4">
+      {segments.map((segment, i) => (
+        <div key={`podcast-${segment.timestamp}`} className="neu-card p-5">
+          <div className="flex items-center gap-3 mb-3">
+            <span className="bg-ufc-red/20 text-ufc-red text-xs font-bold px-2 py-1 rounded">
+              {segment.timestamp}
+            </span>
+            <h4 className="font-display text-sm uppercase text-dark-text">
+              {segment.title}
+            </h4>
+          </div>
+          <div className="space-y-2 mb-3">
+            {segment.talking_points.map((point, j) => (
+              <div key={j} className="flex items-start gap-2">
+                <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-ufc-red" />
+                <p className="text-sm text-dark-textMuted leading-relaxed">{point}</p>
+              </div>
+            ))}
+          </div>
+          {segment.discussion_questions && segment.discussion_questions.length > 0 && (
+            <div className="bg-ufc-gold/10 border border-ufc-gold/20 p-3 rounded-lg mt-3">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-ufc-gold mb-2">
+                Perguntas para Discussao
+              </p>
+              {segment.discussion_questions.map((q, k) => (
+                <p key={k} className="text-xs text-dark-textMuted italic mb-1">&ldquo;{q}&rdquo;</p>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+type TabId = 'instagram' | 'twitter' | 'video' | 'tiktok' | 'podcast' | 'headlines';
 
 interface TabDef {
   id: TabId;
@@ -211,6 +252,7 @@ export function CreatorKitSection({ data }: { data: CreatorKitSectionData }) {
     { id: 'twitter', label: 'Twitter/X' },
     { id: 'video', label: 'Video Script' },
     ...(data.tiktok ? [{ id: 'tiktok' as const, label: 'TikTok' }] : []),
+    ...(data.podcast ? [{ id: 'podcast' as const, label: 'Podcast' }] : []),
     ...(data.headlines ? [{ id: 'headlines' as const, label: 'Headlines' }] : []),
   ];
 
@@ -241,6 +283,9 @@ export function CreatorKitSection({ data }: { data: CreatorKitSectionData }) {
       {activeTab === 'video' && <VideoScriptTab sections={data.video} />}
       {activeTab === 'tiktok' && data.tiktok && (
         <TikTokTab scripts={data.tiktok} />
+      )}
+      {activeTab === 'podcast' && data.podcast && (
+        <PodcastTab segments={data.podcast} />
       )}
       {activeTab === 'headlines' && data.headlines && (
         <HeadlinesTab headlines={data.headlines} />

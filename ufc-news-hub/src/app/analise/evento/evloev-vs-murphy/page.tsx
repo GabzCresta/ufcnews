@@ -1,5 +1,6 @@
 import { EventAnalysisView, type EventAnalysisData } from '@/components/analise/EventAnalysisView';
 import { enrichEventWithPhotos } from '@/lib/enrich-event-photos';
+import type { EventCreatorKitData } from '@/types/event-creator-kit';
 
 export const dynamic = 'force-dynamic';
 
@@ -36,7 +37,7 @@ const eventData: EventAnalysisData = {
       categoria_peso: 'Peso Meio-Medio (170 lbs)',
       num_rounds: 3,
       predicted_winner: 'Sam Patterson',
-      predicted_method: 'Submissao R1-R2',
+      predicted_method: 'Decisao Unanime',
       confidence_label: 'MEDIA',
     },
     {
@@ -56,7 +57,7 @@ const eventData: EventAnalysisData = {
       categoria_peso: 'Peso Medio (185 lbs)',
       num_rounds: 3,
       predicted_winner: 'Christian Leroy Duncan',
-      predicted_method: 'Decisao Unanime',
+      predicted_method: 'KO/TKO R1-R2',
       confidence_label: 'MEDIA',
     },
     {
@@ -141,17 +142,230 @@ const eventData: EventAnalysisData = {
       predicted_method: 'Decisao Unanime',
       confidence_label: 'MEDIA',
     },
-    {
-      slug: 'mullins-vs-carolina',
-      fighter1: { nome: 'Melissa Mullins', record: '7-2-0' },
-      fighter2: { nome: 'Luana Carolina', record: '11-5-0' },
-      categoria_peso: 'Peso Galo Feminino (135 lbs)',
-      num_rounds: 3,
-      predicted_winner: 'Luana Carolina',
-      predicted_method: 'Decisao Unanime',
-      confidence_label: 'MEDIA',
-    },
   ],
+  creator_kit: {
+    instagram: {
+      meta: {
+        algorithm_tip: 'Carroseis com 7-10 slides geram 95% mais saves que posts estaticos. O Instagram re-exibe carroseis que nao foram swipados, dobrando o alcance. Slides com mix de imagem+video geram 2.33% de engagement.',
+        target_metric: '60%+ taxa de swipe, 3%+ taxa de save',
+        content_type: 'Carrossel de 10 slides (formato 4:5, 1080x1350px)',
+      },
+      carousel: [
+        { slide_number: 1, slide_type: 'hook', title: 'UFC LONDRES: ALGUEM PERDE O ZERO', content: '6 INVICTOS. 77 VITORIAS.\nZERO DERROTAS.\n\nE no final da noite,\nalguem sai com o primeiro L.\n\nSwipe pra conhecer as historias\npor tras do card mais selvagem de 2026.', visual_note: 'Background escuro, octogono desfocado. 6 rostos dos invictos em grid. Numero "0" gigante rachando ao meio.', color: 'red' },
+        { slide_number: 2, slide_type: 'content', title: 'A HISTORIA DE MURPHY', content: 'Manchester, 2013.\nLerone Murphy levou um tiro no rosto\ne sobreviveu.\n\nHoje e #3 do peso-pena.\n17-0-1. Nocaute do Ano 2025.\nLuta em casa no O2 Arena.\n\nContra Evloev (19-0),\na maquina que nunca perdeu.\n\nResiliencia vs Perfeicao.', visual_note: 'Foto impactante de Murphy. Timeline visual: 2013 (tiroteio) > 2025 (Nocaute do Ano) > 2026 (eliminatoria).', color: 'blue' },
+        { slide_number: 3, slide_type: 'stat', title: 'O DADO QUE NINGUEM FALA', content: 'Evloev e Murphy enfrentaram\no MESMO oponente: Dan Ige.\n\nEvloev: 30-26\n(dominio absoluto)\n\nMurphy: 29-28\n(vitoria por um fio)\n\nMesmo adversario.\nNiveis completamente diferentes.', visual_note: 'Infografico split-screen com scorecards visuais. Evloev com barra verde dominante, Murphy com barras equilibradas.', color: 'gold' },
+        { slide_number: 4, slide_type: 'content', title: 'O SPARRING PARTNER', content: 'Page contratou Patterson\ncomo sparring pra 3 camps:\n\nvs Holland (venceu)\nvs Garry (perdeu)\nvs Magomedov (venceu)\n\nPatterson conhece TUDO.\nCada habito. Cada reacao.\n\nAgora sao rivais.\nPage disse: "nao queria essa luta."\nPatterson: "com amor, melhor homem vence."', visual_note: 'Visual de "arquivo confidencial" com fotos de treino. Linha temporal dos 3 camps.', color: 'blue' },
+        { slide_number: 5, slide_type: 'content', title: 'OS 6 INVICTOS', content: 'Evloev: 19-0 (maquina de wrestling)\nMurphy: 17-0-1 (sobrevivente)\nRiley: 12-0 (75% KO rate)\nBaraniewski: 7-0 (todos no R1)\nCampbell: 8-0 (debut dos sonhos)\nPinto: 11-0 (portugues de Londres)\n\n77 vitorias combinadas.\nQuem perde o zero primeiro?', visual_note: 'Grid 2x3 com foto de cada invicto, record embaixo, fundo escuro premium.', color: 'gold' },
+        { slide_number: 6, slide_type: 'content', title: 'O DARK HORSE', content: 'CHRISTIAN LEROY DUNCAN\n\n2 KOs seguidos com bonus.\nSpinning back elbow em Anders.\nKO brutal em Marco Tulio.\n\n77% das vitorias por nocaute.\n30 anos. Luta em casa.\n\nContra Dolidze (#11), que vem\nda pior derrota da carreira.\n\nO britanico MAIS perigoso do card.', visual_note: 'Foto de Duncan celebrando KO. Graficos de KO rate. Ambiente explosivo.', color: 'blue' },
+        { slide_number: 7, slide_type: 'content', title: 'O FATOR LONDRES', content: '7 britanicos no card:\n\nMurphy (main event)\nRiley (co-main)\nPatterson | Duncan\nCampbell | Wood | Dyer\n\n20.000 pessoas no O2 Arena.\n\nQuando o UFC vai pra Londres,\nos britanicos SEMPRE entregam.\nA energia muda tudo.', visual_note: 'Mapa UK com pins, O2 Arena ao fundo, bandeira britanica sutil.', color: 'red' },
+        { slide_number: 8, slide_type: 'stat', title: 'NOCAUTES RAPIDOS', content: 'Baraniewski: 20 SEGUNDOS (DWCS)\nRiley: 30 SEGUNDOS (debut UFC)\nDuncan: R1 e R2 (ultimos 2)\n\n3 das 6 lutas do main card\ndevem acabar nos primeiros rounds.\n\nSe voce piscar, perde.', visual_note: 'Relogio visual com os tempos de finalizacao marcados. Efeito urgencia.', color: 'red' },
+        { slide_number: 9, slide_type: 'prediction', title: 'NOSSAS PREVISOES', content: 'Evloev por Decisao\nRiley por KO R1-R2\nPatterson por Decisao\nBaraniewski por KO R1\nDuncan por KO R1-R2\nCampbell por KO R1-R2\n\n4 de 6 lutas do main card\ndevem acabar por nocaute.\n\nLink da analise completa na bio.', visual_note: 'Layout clean, nomes com icones de metodo. Design de "fight card" estilizado.', color: 'red' },
+        { slide_number: 10, slide_type: 'cta', title: 'SALVA PRA CONSULTAR', content: 'Esse card e AMANHA.\n\nSalva esse post pra consultar\ndurante o evento.\n\nAnalise completa de todas as\n13 lutas no link da bio:\nstats, narrativas, previsoes.\n\nComenta qual luta voce\nesta mais ansioso pra ver.', visual_note: 'Screenshot do site. CTA bold. Emojis de salvar/bookmark visuais.', color: 'gold' },
+      ],
+      caption: 'UFC Londres amanha: 6 lutadores invictos, 77 vitorias combinadas, e alguem vai perder o zero.\n\nMurphy sobreviveu a um tiroteio em 2013. Hoje e #3 do peso-pena e luta em casa contra a maquina Evloev (19-0). Patterson treinou com Page em 3 camps e agora sao rivais. Duncan vem de 2 KOs com bonus e e o dark horse do card.\n\nAs historias por tras desse card sao INSANAS. Swipe pra conhecer todas.\n\nSalva pra consultar amanha durante o evento.',
+      hashtags: ['UFC', 'UFCLondon', 'EvloevMurphy', 'MMA', 'UFCFightNight', 'UFCLondres', 'MMABrasil', 'FightNight', 'O2Arena', 'MMAAnalysis'],
+      best_posting_time: 'Sexta 18h-20h (pre-fight hype) ou Sabado 12h (dia do evento)',
+    },
+    tiktok: {
+      meta: {
+        algorithm_tip: 'Em 2026, voce precisa de 70%+ de taxa de retencao pra viralizar. Hook nos primeiros 3 segundos. Rewatches valem mais que likes. Mude algo a cada 3-5 segundos. Videos de 60-180s estao superando os de 15s.',
+        target_metric: '70%+ retencao, 5%+ taxa de save/share',
+        content_type: '4 scripts de 45-90 segundos (angulos narrativos diferentes)',
+      },
+      scripts: [
+        {
+          script_number: 1,
+          angle: 'Storytelling: A Historia de Murphy',
+          hook_3s: 'O cara levou um TIRO NO ROSTO e agora e top 3 do mundo.',
+          body: 'Manchester, 2013. Lerone Murphy estava no lugar errado, na hora errada. Levou um tiro no rosto. Os medicos disseram que ele teve sorte de estar vivo. Treze anos depois, Murphy e 17-0-1 no MMA. #3 do peso-pena do UFC. Nocaute do Ano 2025 com um cotovelo giratorio que deixou o mundo inteiro de boca aberta. E amanha ele luta EM CASA, no O2 Arena em Londres, contra Movsar Evloev, que e 19-0 e nunca perdeu um round sequer. Eliminatoria pelo titulo. O cara que sobreviveu a uma bala contra a maquina perfeita.',
+          twist_or_loop: 'Terminar com: "E o mais louco? Esse nem e a luta mais interessante do card." Corte seco. Gera curiosidade pro proximo video.',
+          cta: 'Comenta MURPHY ou EVLOEV. Segue pra ver a luta que e AINDA mais doida.',
+          estimated_duration: '60-75s',
+        },
+        {
+          script_number: 2,
+          angle: 'Drama: O Sparring Partner Vira Rival',
+          hook_3s: 'Esse cara vai lutar contra o cara que TREINOU pra ele vencer.',
+          body: 'Michael Page precisava de alguem pra simular adversarios altos e com grappling. Chamou Sam Patterson pra ser sparring. Patterson ajudou Page a vencer Kevin Holland. Ajudou a preparar contra Ian Garry. Ajudou contra Shara Magomedov. Tres camps. Meses de treino juntos. Patterson viu Page por dentro. Sabe cada habito, cada reacao, cada abertura. E agora o UFC colocou os dois pra se enfrentar. Page disse que nao queria essa luta. Patterson disse: "com amor e respeito, melhor homem vence." Amanha, um deles vai perder. E o outro vai saber exatamente por que.',
+          cta: 'A familiaridade ajuda ou atrapalha? Comenta!',
+          estimated_duration: '50-65s',
+        },
+        {
+          script_number: 3,
+          angle: 'Dados Surpreendentes: Os 6 Invictos',
+          hook_3s: 'Esse card tem SEIS lutadores que NUNCA perderam.',
+          body: 'UFC Londres amanha. Seis lutadores invictos no mesmo card. Evloev 19-0. Murphy 17-0-1. Riley 12-0 com 75% de nocaute. Baraniewski 7-0, todas no PRIMEIRO round, incluindo um nocaute de 20 SEGUNDOS. Campbell 8-0, fazendo o debut. Pinto 11-0. Sao 77 vitorias combinadas e ZERO derrotas. Mas pelo menos dois deles vao sair de Londres com a primeira derrota da carreira. Nunca um Fight Night teve tantos invictos. Quem perde o zero primeiro?',
+          twist_or_loop: 'No final, mostrar os 6 rostos e ir apagando um por um como "eliminacao". Ultimo frame: "Quem sobrevive?" Gera rewatch pra ver de novo.',
+          cta: 'Comenta qual invicto voce acha que perde!',
+          estimated_duration: '50-60s',
+        },
+        {
+          script_number: 4,
+          angle: 'Hot Take: O Card Mais Explosivo do Ano',
+          hook_3s: 'Tres lutas desse card vao acabar em MENOS de 2 minutos.',
+          body: 'Baraniewski nocauteou em 20 segundos no DWCS. Riley nocauteou em 30 segundos no debut. Duncan tem 2 KOs com bonus nos primeiros rounds. Esses tres vao enfrentar caras que estao vindo de derrotas. Lane perdeu as ultimas 2 no R1. Aswell foi nocauteado na estreia. Dolidze foi destruido por Hernandez. Se voce olhar pro banheiro durante as prelims, vai perder pelo menos uma luta. Esse card e FEITO pra finishes rapidos. 4 de 6 lutas do main card devem acabar antes do R3.',
+          cta: 'Voce vai assistir ao vivo ou vai assistir os highlights depois? Comenta!',
+          estimated_duration: '45-55s',
+        },
+      ],
+    },
+    youtube: {
+      meta: {
+        algorithm_tip: 'CTR entre 8-15% em search e o benchmark. Thumbnail com rosto + emocao + 4 palavras max. Retencao >50% nos primeiros 30 segundos. Open loops a cada 25% do video pra manter atencao.',
+        target_metric: '10%+ CTR, 50%+ retencao em 30s, 40%+ retencao total',
+        content_type: 'Video de 10-12 minutos com timestamps, B-roll e pattern interrupts',
+      },
+      title_options: [
+        'UFC Londres: Ele Levou um TIRO e Agora Luta Pelo Titulo (Card Completo)',
+        'O Sparring Partner Virou Rival: As Historias LOUCAS do UFC Londres',
+        'UFC Londres: 6 Invictos, 77 Vitorias, e Alguem Vai Perder',
+      ],
+      thumbnail: {
+        headline: 'QUEM PERDE O ZERO?',
+        subtext: '6 invictos',
+        visual_concept: 'Split face Evloev/Murphy com expressoes intensas. "?" gigante vermelho no meio. Texto "QUEM PERDE O ZERO?" em amarelo bold. Os 4 outros invictos menores embaixo. Formato 1280x720.',
+      },
+      description: 'As historias mais insanas do UFC Londres: Murphy sobreviveu a um tiroteio e agora luta pelo titulo. Patterson era sparring do Page e agora sao rivais. Duncan esta nocauteando todo mundo. E o card tem 6 lutadores invictos.\n\nAnalise completa de todas as 13 lutas com narrativas, dados e previsoes.\n\nTimestamps abaixo.',
+      script_sections: [
+        { timestamp: '0:00', title: 'Hook: A Pergunta', text: 'Seis lutadores invictos. Setenta e sete vitorias. Zero derrotas. E amanha a noite, alguem vai sair do O2 Arena com a primeira derrota da carreira. Nesse video eu vou contar as historias por tras de cada luta desse card e te dizer quem eu acho que perde o zero.', retention_note: 'Open loop: promete revelar quem perde. Nao entregar ate o final.', b_roll: 'Montagem rapida: 6 invictos com records aparecendo, crowd do O2 Arena, som de buzina de luta.' },
+        { timestamp: '0:30', title: 'A Historia de Murphy', text: 'Em 2013, Lerone Murphy estava em Manchester quando levou um tiro no rosto. Os medicos disseram que ele teve sorte de sobreviver. Treze anos depois, ele e o #3 do peso-pena do UFC, invicto em 17 lutas, e produziu o Nocaute do Ano 2025 com um cotovelo giratorio que paralisou Aaron Pico. Amanha ele luta EM CASA contra a maquina mais perfeita do peso-pena.', b_roll: 'Fotos de Manchester, highlights Murphy, cotovelo em Pico em slow-motion, crowd britanica.' },
+        { timestamp: '2:00', title: 'A Maquina: Evloev', text: 'Movsar Evloev e 19-0. Nove lutas no UFC, nove vitorias por decisao. Quarenta takedowns. Oitenta e um por cento de controle no chao. Ele nunca faz highlight reel. Nunca nocauteia. Ele simplesmente te sufoca por 15 ou 25 minutos ate os juizes levantarem a mao dele. A estatistica que separa os dois: contra Dan Ige, Evloev dominou 30-26. Murphy ganhou apertado, 29-28. Mesmo oponente, mundos diferentes.', retention_note: 'Pattern interrupt: graficos comparativos Dan Ige na tela.', b_roll: 'Evloev wrestling highlights, scorecards visuais Dan Ige, graficos de controle.' },
+        { timestamp: '3:30', title: 'O Sparring Partner', text: 'Essa e a historia mais louca do card. Sam Patterson foi contratado por Michael Page como sparring partner para 3 camps. Holland, Garry, Magomedov. Meses treinando juntos. Patterson viu cada habito, cada reacao, cada abertura de MVP. E agora o UFC colocou os dois pra lutar. Page disse que nao queria. Patterson disse "com amor, melhor homem vence." E aqui vai o detalhe: toda vez que Page enfrenta um grappler de elite, como Garry ou Storley, ele perde por decisao. Patterson e BJJ black belt.', retention_note: 'Open loop: "e tem mais um dado sobre Page que e assustador, mas vou guardar pra daqui a pouco."', b_roll: 'Page striking highlights, Garry takedown, Patterson submissions, fotos de treino.' },
+        { timestamp: '5:30', title: 'Os Nocauteadores', text: 'Tres lutas desse card devem acabar em menos de 2 minutos. Riley, 12-0, nocauteou no debut em 30 segundos. Baraniewski, 7-0, nocauteou em 20 segundos no DWCS. Duncan, 2 KOs seguidos com bonus, incluindo um spinning back elbow que parece de filme. Os tres enfrentam caras que estao em momento ruim. Se voce piscar, perde.', b_roll: 'Montagem rapida dos 3 KOs mais recentes de cada um. Countdown visual.' },
+        { timestamp: '7:00', title: 'O Dark Horse: Duncan', text: 'Christian Leroy Duncan merece um spotlight. 77% das vitorias por KO. Spinning back elbow em Eryk Anders no primeiro round. KO brutal em Marco Tulio no segundo. Dois bonus de Performance of the Night seguidos. Ele enfrenta Dolidze, #11 do ranking, que venceu Holland e Vettori, mas vem da PIOR derrota da carreira, destruido por Hernandez. Duncan tem 30 anos, luta em casa, e esta no pico. Dolidze tem 37 e 7 meses parado.', b_roll: 'Duncan spinning back elbow em slow-mo, Dolidze sendo finalizado por Hernandez, tale of tape.' },
+        { timestamp: '8:30', title: 'Prelims e O Que Observar', text: 'Wood vs Keita e a prelim mais perigosa. Keita e favorito pesado mas falhou no peso na primeira tentativa. Wood e veterano com 10-3 no UFC e minha pick de surpresa. Pinto, o portugues de Londres, e 11-0 contra um short-notice. E Kondratavicius contra Trocoli, que e 0-3 com 3 derrotas no R1. Vai ser rapido.', retention_note: 'Entregar o dado prometido sobre Page: "ele nunca foi submetido em 27 lutas. Patterson sabe disso. Por isso vai buscar decisao, nao finalizacao."', b_roll: 'Quick montage de cada prelim, 2-3 segundos cada.' },
+        { timestamp: '10:00', title: 'Previsoes e Encerramento', text: 'Minhas picks pra todas as 13 lutas estao na tela agora. O card mais selvagem de 2026 e amanha. Seis invictos, pelo menos dois vao perder. Me diz nos comentarios: qual luta voce esta mais ansioso pra ver e qual pick voce acha que eu errei. Analise completa de 15 secoes por luta no link da descricao. Se gostou, like e subscribe. Vamos ver quantas eu acerto.', b_roll: 'Tela com todas as picks, graficos de probabilidade, poster do evento.' },
+      ],
+      tags: ['UFC', 'UFC Londres', 'Evloev vs Murphy', 'UFC Fight Night', 'MMA', 'UFC London 2026', 'MMA Analysis', 'Fight Preview', 'UFC Predictions', 'Lerone Murphy', 'Movsar Evloev', 'Michael Page'],
+    },
+    twitter: {
+      meta: {
+        algorithm_tip: 'Replies valem 150x mais que likes no algoritmo do X. Threads geram 3x mais engagement. Links externos reduzem alcance 50-90%. Texto puro supera video em 30%. Os primeiros 30-60 minutos sao criticos.',
+        target_metric: '5%+ taxa de reply, 2x+ retweets vs likes',
+        content_type: 'Thread de 10 tweets + 3 tweets avulsos virais + 1 enquete',
+      },
+      thread: [
+        { num: '1/10', text: 'UFC Londres amanha: 6 invictos, 77 vitorias, zero derrotas. Pelo menos 2 vao perder o zero. As historias por tras desse card sao INSANAS. Thread:', tweet_type: 'hook', engagement_note: 'Prometa historias, nao picks. Gera curiosidade.' },
+        { num: '2/10', text: 'Murphy levou um TIRO NO ROSTO em 2013 em Manchester. Sobreviveu. Hoje e #3 do peso-pena, 17-0-1, Nocaute do Ano 2025 com cotovelo giratorio. Amanha luta em CASA contra Evloev (19-0). A resiliencia contra a perfeicao.', tweet_type: 'content', engagement_note: 'A historia de Murphy e a mais compartilhavel do card.' },
+        { num: '3/10', text: 'O dado que NINGUEM fala sobre o main event: Evloev e Murphy enfrentaram Dan Ige. Evloev: 30-26 (dominio total). Murphy: 29-28 (por um fio). Mesmo oponente. Mundos diferentes.', tweet_type: 'content' },
+        { num: '4/10', text: 'A luta mais DOIDA do card: Patterson foi sparring do Page em 3 camps. Treinou COM ele pra Holland, Garry e Magomedov. Conhece cada habito, cada reacao. Agora sao rivais. Page disse que nao queria. Patterson: "com amor, melhor homem vence."', tweet_type: 'content', engagement_note: 'Narrativa de drama pessoal gera mais replies que dados.' },
+        { num: '5/10', text: 'Hot take: Christian Leroy Duncan e o lutador mais perigoso desse card e ninguem ta falando dele. 77% KO rate. 2 nocautes com bonus seguidos. Spinning back elbow no Anders. KO brutal no Tulio. 30 anos, em casa. ASSISTAM.', tweet_type: 'hot_take', engagement_note: 'Hot take sobre alguem que nao e o main event gera debate.' },
+        { num: '6/10', text: 'Tres lutas que devem acabar em MENOS de 2 minutos: Riley (nocauteou em 30s no debut), Baraniewski (20 SEGUNDOS no DWCS), e Duncan (2 KOs no R1-R2). Se voce piscar, perde.', tweet_type: 'content' },
+        { num: '7/10', text: 'O card tem 7 britanicos e o O2 Arena vai ter 20 mil pessoas. Quando o UFC vai pra Londres, a energia e diferente de QUALQUER outro lugar. Pergunte pro Paddy Pimblett. O fator casa e real e mensuravel.', tweet_type: 'content' },
+        { num: '8/10', text: 'Previsoes rapidas do main card:\n\nEvloev por Decisao\nRiley por KO R1-R2\nPatterson por Decisao\nBaraniewski por KO R1\nDuncan por KO R1-R2\nCampbell por KO R1-R2\n\n4 de 6 devem acabar por nocaute.', tweet_type: 'content' },
+        { num: '9/10', text: 'Luta cancelada: Mullins vs Carolina foi removida. Carolina pesou 144lbs (8 ACIMA do limite de 136). A comissao cancelou mesmo com Mullins aceitando lutar. Card agora tem 13 lutas.', tweet_type: 'content' },
+        { num: '10/10', text: 'Qual luta desse card voce esta MAIS ansioso pra ver? Responde com a luta e por que. Vamos debater antes de amanha.', tweet_type: 'cta', engagement_note: 'Perguntar "qual voce quer ver" gera mais replies que "qual voce acha que ganha".' },
+      ],
+      standalone_tweets: [
+        'Lerone Murphy levou um tiro no rosto em 2013 e sobreviveu. Amanha ele luta pelo titulo do UFC em casa, em Londres, invicto em 17 lutas. Se isso nao e a melhor historia do esporte, eu nao sei o que e.',
+        'Sam Patterson treinou com Michael Page em 3 camps do UFC. Agora sao rivais. Patterson conhece cada habito, cada reacao, cada abertura de MVP. Page disse que nao queria essa luta. Amanha eles se enfrentam no O2 Arena. Drama real.',
+        'UFC Londres amanha tem 6 lutadores invictos com 77 vitorias combinadas. Nunca um Fight Night teve tantos invictos. Pelo menos 2 vao perder o zero. Qual voce acha que perde?',
+      ],
+      poll_suggestion: {
+        question: 'Qual e a MELHOR historia do UFC Londres?',
+        options: ['Murphy: sobreviveu a tiroteio', 'Page vs Patterson: sparring virou luta', 'Duncan: 2 KOs com bonus seguidos', 'Os 6 invictos do card'],
+      },
+    },
+    podcast: {
+      meta: {
+        algorithm_tip: 'Timestamps e momentos clipaveis aumentam discovery. Perguntas provocativas geram comentarios. A abertura (cold open) deve prender nos primeiros 30 segundos. Show notes com SEO geram trafico organico.',
+        target_metric: '70%+ retencao do episodio, 3+ momentos clipaveis pra cortes',
+        content_type: 'Episodio de 30-40 minutos com 6 segmentos narrativos',
+      },
+      episode_title: 'UFC Londres: O Sobrevivente, O Sparring Partner, e 6 Invictos',
+      episode_description: 'As historias por tras do card mais selvagem de 2026. Murphy que levou um tiro e luta pelo titulo em casa. Patterson que era sparring do Page e agora e rival. Duncan que esta nocauteando todo mundo. E 6 lutadores invictos com 77 vitorias combinadas. Narrativas, analise e previsoes pra cada luta.',
+      cold_open: 'Em 2013, um cara de Manchester levou um tiro no rosto e os medicos disseram que ele teve sorte de estar vivo. Treze anos depois, esse cara e #3 do peso-pena do UFC, nunca perdeu uma luta profissional, e amanha vai lutar pelo titulo em casa. O nome dele e Lerone Murphy. E essa e apenas UMA das historias desse card.',
+      segments: [
+        {
+          timestamp: '0:00-5:00',
+          title: 'A Historia de Murphy: Do Tiroteio ao Titulo',
+          talking_points: [
+            'Manchester, 2013. Murphy estava no lugar errado, na hora errada. Bala no rosto. Recuperacao longa. A decisao de voltar a lutar como forma de terapia e proposito.',
+            'A trajetoria: 17-0-1 no MMA. O empate contra Khama Worthy no debut UFC. Depois disso, 9 vitorias seguidas sem olhar pra tras.',
+            'O Nocaute do Ano 2025: cotovelo giratorio em Aaron Pico que parou o mundo. A tecnica, o timing, a execucao. Replay frame a frame.',
+            'Amanha: eliminatoria pelo titulo contra Evloev (19-0) no O2 Arena em Londres. O cara que sobreviveu a uma bala agora precisa sobreviver a maquina de wrestling mais eficiente do peso-pena.',
+          ],
+          quotable_moment: 'Murphy levou um tiro no rosto e continuou vivendo. Voce acha que 25 minutos contra um wrestler vao assustar esse cara? Essa e a mentalidade dele.',
+          discussion_questions: [
+            'A historia de vida de Murphy afeta a forma como ele lida com pressao dentro do octogono?',
+            'Se Murphy vencer, e a melhor historia do UFC em anos?',
+          ],
+        },
+        {
+          timestamp: '5:00-10:00',
+          title: 'A Maquina vs O Milagre: Analise Tecnica',
+          talking_points: [
+            'Evloev como anti-heroi: 19-0, nunca finalizado, nunca abalado, mas tambem nunca fez highlight. 9 decisoes em 9 lutas. Ele e a personificacao da eficiencia sobre o espetaculo.',
+            'A comparacao Dan Ige que revela tudo: Evloev dominou 30-26, Murphy venceu 29-28. Mesmo oponente, niveis de dominio completamente diferentes. O que isso nos diz.',
+            'A grande incognita: Evloev nunca lutou 5 rounds no UFC. Murphy ja fez 5 rounds contra Emmett. Os championship rounds sao territorio desconhecido pra maquina.',
+            'O layoff de 15 meses de Evloev vs a atividade de Murphy (3 lutas em 12 meses). A ferrugem e real ou Evloev e bom demais pra isso importar?',
+          ],
+          quotable_moment: 'Evloev e o tipo de lutador que voce respeita mas nao paga pay-per-view pra assistir. Murphy e o oposto. E amanha um deles vai provar que o estilo dele e melhor.',
+          hot_take: 'Se Murphy vencer, ninguem deveria ficar surpreso. Invicto, em casa, com o nocaute do ano, contra um cara voltando de 15 meses parado que nunca fez 5 rounds. Isso nao e upset. E narrativa.',
+          discussion_questions: [
+            'O estilo "chato mas eficiente" de Evloev pode ser sua fraqueza contra alguem com poder real?',
+          ],
+        },
+        {
+          timestamp: '10:00-15:00',
+          title: 'O Sparring Partner Que Virou Rival',
+          talking_points: [
+            'A historia completa: Page contratou Patterson como sparring pra simular adversarios altos com grappling. Holland, Garry, Magomedov. Tres camps juntos.',
+            'O que Patterson sabe que ninguem mais sabe: como Page reage quando levado pro clinch, como ele defende (ou nao defende) takedowns, onde ficam as aberturas no striking unortodoxo.',
+            'O padrao de Page contra grapplers: perdeu pra Storley (Bellator, decisao), perdeu pra Garry (UFC 303, decisao). Toda vez que MVP enfrenta um grappler, perde por controle. Patterson e BJJ black belt.',
+            'O lado humano: Page disse publicamente que nao queria essa luta. Patterson aceitou e disse "com amor e respeito, melhor homem vence." A amizade que morre no octogono.',
+          ],
+          quotable_moment: 'Patterson sabe mais sobre o jogo de Page do que qualquer outro oponente que MVP ja enfrentou. Isso e informacao privilegiada que nenhuma estatistica captura.',
+          discussion_questions: [
+            'Ter treinado junto e vantagem real ou os dois se conhecem igualmente?',
+            'O fato de Page nao querer essa luta muda a mentalidade dele no dia?',
+          ],
+        },
+        {
+          timestamp: '15:00-22:00',
+          title: 'Os Nocauteadores e o Dark Horse',
+          talking_points: [
+            'Luke Riley: 12-0, 75% KO rate, nocauteou no debut em 30 segundos. Treina com Paddy Pimblett no Next Gen Liverpool. A proxima estrela do peso-pena britanico.',
+            'Iwo Baraniewski: o homem de 20 segundos. 7-0 com TODOS os finishes no R1. Contra Lane, o gigante de 1,98m da NFL que esta em queda livre.',
+            'O spotlight em Duncan: 77% KO rate, 2 bonus de Performance seguidos. Spinning back elbow em Anders, KO brutal em Marco Tulio. O britanico mais perigoso do card que ninguem esta falando.',
+            'Dolidze como adversario: ja venceu Holland e Vettori, mas vem destruido. 37 anos, 7 meses parado, vindo da pior derrota da carreira contra Hernandez. O blueprint pra vencer Duncan existe (Rodrigues usou wrestling no UFC 304), mas Dolidze tem condicao?',
+          ],
+          quotable_moment: 'Se voce piscar, perde pelo menos 3 lutas desse card. Riley, Baraniewski e Duncan nao sabem o que e decisao.',
+          discussion_questions: [
+            'Duncan e o prospect mais subestimado do UFC ou ja ta no radar de todo mundo?',
+            'Desses 3 nocauteadores, qual tem mais chance de ser surpreendido?',
+          ],
+        },
+        {
+          timestamp: '22:00-28:00',
+          title: 'Prelims, Previsoes e O Que Observar',
+          talking_points: [
+            'Prelims que valem assistir: Wood vs Keita (veterano vs estreante explosivo), Pinto vs Franco (invicto portugues de Londres), Kondratavicius vs Trocoli (o favorito -800).',
+            'Todas as 13 previsoes do card: Evloev UD, Riley KO, Patterson UD, Baraniewski KO, Duncan KO, Campbell KO, Jones UD, Wood UD, Pericic KO, Kondratavicius KO, Pinto TKO, Al-Selwady TKO, Dyer UD.',
+            'Os 5 momentos decisivos pra observar: primeira tentativa de takedown de Evloev, como Murphy reage nos primeiros 2 minutos, se Patterson consegue fechar distancia no Page, a primeira troca de Baraniewski com Lane, e se Duncan conecta cedo contra Dolidze.',
+            'O fator Londres: 7 britanicos no card, 20 mil no O2 Arena. Historicamente, lutadores britanicos performam acima da media em casa.',
+          ],
+          discussion_questions: [
+            'Qual e a SUA luta mais esperada do card? Responde nos comentarios.',
+            'Qual das minhas previsoes voces mais discordam?',
+          ],
+        },
+        {
+          timestamp: '28:00-32:00',
+          title: 'Encerramento: Por Que Esse Card Importa',
+          talking_points: [
+            'O que faz esse card especial nao sao so os numeros. Sao as historias. Murphy sobrevivendo a um tiroteio. Patterson traindo o amigo/parceiro. Duncan em ascensao meteoritica. 6 invictos que nunca sentiram o gosto da derrota.',
+            'Depois do evento: recap completo com accuracy audit. Quantas picks acertamos, quais erramos, e por que. Transparencia total.',
+            'O vencedor de Evloev vs Murphy luta pelo titulo. O peso-pena vai mudar amanha a noite. Estejam la.',
+          ],
+          quotable_moment: 'Treze lutas, treze historias, treze picks. Se eu errar o main event, voces nao vao me deixar esquecer. E eu nao vou fugir. Vamos la, Londres.',
+          discussion_questions: [
+            'Qual historia desse card voces acham que vai ser a mais falada depois do evento?',
+          ],
+        },
+      ],
+    },
+  } as EventCreatorKitData,
 };
 
 export default async function EventoEvloevVsMurphyPage() {

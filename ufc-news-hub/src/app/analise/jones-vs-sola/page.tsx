@@ -349,7 +349,12 @@ const analise: PrelimsAnalise = {
         fighter2: { nome: 'Sola', percent: 44 },
         draw: 2,
       },
-      value_picks: undefined,
+      value_picks: {
+        moneyline: { pick: 'Jones (-120)', reasoning: 'Jones tem wrestling superior e experiencia no octogono (3-2 no UFC). Leve favorito, preco justo. Sola e perigoso mas nunca enfrentou esse nivel de wrestling.' },
+        method: { pick: 'Jones por Decisao', reasoning: 'Jones tende a lutas que vao a distancia quando o wrestling funciona. Sola tem queixo forte e nao sera facilmente finalizado. Decisao e o cenario mais provavel.' },
+        over_under: { pick: 'Over 2.5 Rounds', rounds: 2.5, reasoning: 'Luta equilibrada com estilos contrastantes. Jones quer controlar, Sola quer trocar. A dinamica favorece uma luta que vai longe.' },
+        best_value: 'Over 2.5 rounds e a aposta mais segura. Ambos sao duros e o equilibrio da luta sugere ida aos juizes.',
+      },
     },
   },
 };

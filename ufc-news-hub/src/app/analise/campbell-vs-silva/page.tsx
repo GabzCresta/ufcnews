@@ -360,6 +360,34 @@ const analise: FullSingleAnalise = {
         'O Debut em Casa: 8-0 e Torcida de Liverpool no O2 Arena',
         'Danny Silva Quer Estragar a Festa da Pantera Rosa em Londres',
         'UFC Londres: O Prospect do Contender Series Contra o Veterano do Octogono',
+        '8-0 Com 63% de KO Rate: A Pantera Rosa e Real ou Hype?',
+        'Campbell -220: O Debut Mais Esperado do Card de Londres',
+      ],
+      podcast: [
+        {
+          timestamp: '0:00-2:00',
+          title: 'A Pantera Rosa de Liverpool',
+          talking_points: [
+            'Campbell e 8-0 com 63% de KO rate e 5 titulos amadores. Ganhou o contrato no Contender Series com TKO no R1 contra Demba Seck. Treina no Next Gen MMA Liverpool.',
+            'Silva (10-2, 2-1 UFC) nao e qualquer oponente. Venceu duas decisoes divididas no UFC. Sabe competir. Mas vem de derrota pra Vallejos.',
+            'O cenario do debut em casa: 20 mil britanicos no O2 Arena, torcida de Liverpool em peso. A energia pode ser positiva ou negativa pra um debutante de 23 anos.',
+          ],
+          discussion_questions: [
+            'Debuts no UFC com torcida em casa: historicamente, funciona ou pesa mais?',
+          ],
+        },
+        {
+          timestamp: '2:00-4:00',
+          title: 'Apostas e Previsao',
+          talking_points: [
+            'Campbell -220 e favorito justificado pelo poder e juventude. Mas debuts sao imprevisiveis e Silva tem experiencia no octogono.',
+            'Melhor aposta: Campbell KO/TKO a -110. Under 2.5 rounds se voce acredita no poder. Silva ML a +170 tem valor como azarao se voce desconfia de debutantes.',
+            'Armadilha: apostar pesado em qualquer debutante do DWCS. O historico de debutantes e misto demais pra ter confianca alta.',
+          ],
+          discussion_questions: [
+            'Silva ja sobreviveu 3 lutas no UFC. A compostura dele pode frustrar o debutante?',
+          ],
+        },
       ],
     },
 

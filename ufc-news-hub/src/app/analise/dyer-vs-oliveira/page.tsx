@@ -348,7 +348,12 @@ const analise: PrelimsAnalise = {
         fighter2: { nome: 'Oliveira', percent: 43 },
         draw: 2,
       },
-      value_picks: undefined,
+      value_picks: {
+        moneyline: { pick: 'Dyer (-500)', reasoning: 'Dyer e favorita massiva com 7.67 strikes/min contra 1.40 de Oliveira. O volume e tecnica de Muay Thai sao incomparaveis. O preco e alto mas justificado.' },
+        method: { pick: 'Dyer por Decisao', reasoning: 'Dyer tende a lutas de volume. Oliveira e dura e tem 66% de precisao de takedown pra sobreviver. A dinamica favorece ida aos juizes com Dyer dominando nos pontos.' },
+        over_under: { pick: 'Over 2.5 Rounds', rounds: 2.5, reasoning: 'Oliveira e dura e tem experiencia de 3 rounds. Dyer domina no volume mas pode nao ter poder pra finalizar. Decisao e o cenario mais provavel.' },
+        best_value: 'Over 2.5 rounds combinado com Dyer por decisao. O volume de Dyer vai dominar mas Oliveira e resistente o suficiente pra sobreviver.',
+      },
     },
   },
 };

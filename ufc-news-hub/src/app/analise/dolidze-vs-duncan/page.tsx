@@ -22,7 +22,7 @@ const analise: FullSingleAnalise = {
   },
   fight_prediction: {
     predictedWinner: 'fighter2',
-    predictedMethod: 'Decisao Unanime',
+    predictedMethod: 'KO/TKO R1-R2',
     confidence: 'MEDIA',
     fighter1Scenarios: [],
     fighter2Scenarios: [],
@@ -309,9 +309,9 @@ const analise: FullSingleAnalise = {
         nome: 'Duncan',
         total_probability: 58,
         scenarios: [
-          { name: 'Nocaute Explosivo', probability: 25, method: 'KO/TKO R1-R2', description: 'Duncan usa a envergadura de 201cm para conectar de longa distancia. Com dois nocautes consecutivos e confianca no pico, pode encerrar a luta cedo.' },
-          { name: 'Volume e Distancia', probability: 20, method: 'Decisao Unanime', description: 'Duncan usa a envergadura para manter distancia, defende takedowns suficientes e vence nos pontos com volume de strikes e movimentacao.' },
-          { name: 'TKO por Acumulo', probability: 13, method: 'TKO R2-R3', description: 'Duncan machuca Dolidze no striking e acumula dano ao longo dos rounds. O cardio de Dolidze falha e o arbitro para a luta.' },
+          { name: 'Nocaute Explosivo', probability: 28, method: 'KO/TKO R1-R2', description: 'Duncan usa a envergadura de 201cm para conectar de longa distancia. Com dois nocautes consecutivos (spinning back elbow em Anders, KO em Marco Tulio), a confianca e a precisao estao no pico. Dolidze, vindo de uma derrota devastadora, pode hesitar e pagar caro.' },
+          { name: 'TKO por Acumulo', probability: 17, method: 'TKO R2-R3', description: 'Duncan machuca Dolidze no striking e acumula dano ao longo dos rounds. O cardio de Dolidze, que falhou no R4 contra Hernandez, pode ceder mais cedo contra a pressao e a torcida de Londres.' },
+          { name: 'Volume e Distancia', probability: 13, method: 'Decisao Unanime', description: 'Duncan usa a envergadura para manter distancia, defende takedowns suficientes e vence nos pontos com volume de strikes e movimentacao. Cenario menos provavel dado o historico recente de finalizacoes.' },
         ],
       },
     },
@@ -319,17 +319,17 @@ const analise: FullSingleAnalise = {
     previsao_final: {
       winner_name: 'Christian Leroy Duncan',
       winner_side: 'fighter2',
-      predicted_method: 'Decisao Unanime',
-      confidence_score: 5,
+      predicted_method: 'KO/TKO R1-R2',
+      confidence_score: 6,
       confidence_label: 'MEDIA',
-      explanation: 'Essa e uma luta equilibrada com estilos contrastantes. Duncan tem a vantagem de juventude (7 anos mais novo), envergadura (3 polegadas a mais), momentum (3 vitorias seguidas) e torcida em casa. Dolidze traz experiencia contra elite e wrestling superior. A chave sera a defesa de takedown de Duncan: se ele mantiver em pe, a envergadura e o volume vao dominar. Se Dolidze levar ao chao, pode controlar. Prevejo Duncan mantendo distancia suficiente para vencer nos pontos, mas e uma luta que pode ir para qualquer lado.',
+      explanation: 'Duncan esta no melhor momento da carreira: 3 vitorias seguidas com 2 KOs consecutivos que renderam bonus de Performance of the Night (spinning back elbow em Anders R1, KO brutal em Marco Tulio R2). Do outro lado, Dolidze vem da pior derrota da carreira, completamente dominado por Hernandez no UFC Vegas 109 antes de ser finalizado no R4. Aos 37 anos, voltando 7 meses depois de uma surra, Dolidze enfrenta um adversario explosivo com envergadura de 201cm e a torcida de Londres empurrando. Sim, Dolidze tem wrestling de elite e poderia explorar a defesa de takedown de Duncan (58%), como Rodrigues fez no UFC 304. Mas a velocidade explosiva de Duncan nos primeiros minutos, combinada com a confianca de quem vem nocauteando todo mundo, e demais para um Dolidze desgastado.',
       x_factor: {
-        title: 'O Primeiro Teste Real de Duncan',
-        description: 'Duncan nunca enfrentou ninguem do nivel de Dolidze. O georgiano, #11 do ranking, ja derrotou Vettori, Holland e Smith. Se Duncan sentir a pressao do salto de qualidade, pode hesitar nas trocas e abrir espaco para o wrestling de Dolidze.',
+        title: 'A Confianca de Quem Nocauteia',
+        description: 'Duncan vem de dois nocautes espetaculares seguidos com bonus. Esse tipo de confianca muda a forma como um lutador entra no octogono. Ele vai entrar agressivo, buscando o finish cedo, e contra um Dolidze que foi dominado na ultima luta, a pressao psicologica e enorme.',
       },
       upset_alert: {
         title: 'O Wrestling do Georgiano',
-        description: 'Dolidze media 2.10 takedowns por 15 min e Duncan tem apenas 58% de defesa. Se o georgiano implementar o plano de wrestling desde o inicio, pode controlar a luta inteira no chao.',
+        description: 'Dolidze media 2.10 takedowns por 15 min e Duncan tem apenas 58% de defesa. Rodrigues provou no UFC 304 que o caminho pra vencer Duncan e o wrestling. Se Dolidze implementar o plano desde o R1 e sobreviver o striking inicial, pode controlar a luta no chao.',
       },
       probabilities: {
         fighter1: { nome: 'Dolidze', percent: 40 },
@@ -350,26 +350,36 @@ const analise: FullSingleAnalise = {
 
     creator_kit: {
       instagram: [
-        { slide_number: 1, title: 'TESTE DE FOGO NO PESO-MEDIO', content: 'DOLIDZE vs DUNCAN\nUFC Londres | Peso Medio\n\n15-4 vs 13-2\nO veterano georgiano\nvs o britanico em ascensao', color: 'red' },
-        { slide_number: 2, title: 'DOLIDZE: O IRREGULADOR', content: '15-4 na carreira\n#11 Peso-Medio\nVenceu Holland (TKO R1) e Vettori (UD)\n37 anos, Sambo/Wrestling\nExperiencia contra elite', color: 'red' },
-        { slide_number: 3, title: 'DUNCAN: CLD EM ASCENSAO', content: '13-2 na carreira\n3 vitorias consecutivas\n2 nocautes seguidos (Anders, Silva)\n201cm de envergadura\n30 anos, luta em casa', color: 'blue' },
-        { slide_number: 4, title: 'PREVISAO', content: 'DUNCAN por Decisao Unanime\n\nConfianca: MEDIA\n58% Duncan / 40% Dolidze\n\nA envergadura e o momentum\nfavorecem CLD.', color: 'gold' },
+        { slide_number: 1, title: 'TESTE DE FOGO NO PESO-MEDIO', content: 'DOLIDZE vs DUNCAN\nUFC Londres | Peso Medio\n\n15-4 vs 13-2\nO veterano georgiano #11\nvs o britanico em ascensao\nO primeiro teste real de CLD.', color: 'red' },
+        { slide_number: 2, title: 'DOLIDZE: O VETERANO', content: '15-4 na carreira | #11 MW\nVenceu Holland (TKO R1)\nVenceu Vettori (UD 5 rounds)\nSambo + ADCC champion\n37 anos | 2.10 TDs por 15 min\nMas: destruido por Hernandez (sub R4)\nA pior derrota da carreira.', color: 'red' },
+        { slide_number: 3, title: 'DUNCAN: CLD EM ASCENSAO', content: '13-2 na carreira\n77% das vitorias por KO (10 em 13)\n3 vitorias consecutivas\n2 KOs seguidos + bonus POTN\nAnders: spinning back elbow R1\nMarco Tulio: KO brutal R2\n201cm envergadura | Luta em casa', color: 'blue' },
+        { slide_number: 4, title: 'O BLUEPRINT PRA VENCER CLD', content: 'As 2 derrotas de Duncan:\n\nPetrosyan: volume + leg kicks\nRodrigues: TAKEDOWNS + ground control\n\nDolidze tem o wrestling pra\nreplicar Rodrigues.\nMas tem o gas e a motivacao\ndepois de ser destruido?', color: 'gold' },
+        { slide_number: 5, title: 'MOMENTUM vs EXPERIENCIA', content: 'DUNCAN:\n3W seguidas | 2 KOs + bonus\nConfianca no pico\nTorcida em casa\n\nDOLIDZE:\nDestruido por Hernandez (sub R4)\n37 anos | 7 meses parado\nVem da pior noite da carreira\n\nO momentum decide.', color: 'gold' },
+        { slide_number: 6, title: 'APOSTAS DE VALOR', content: 'MELHOR APOSTA:\nDuncan KO/TKO (+110)\n2 KOs seguidos com bonus\nDolidze vulneravel\n\nVALOR AZARAO:\nDolidze ML (+340)\nWrestling de elite, ja venceu melhor\n\nARMADILHA:\nOver 2.5 rounds\nDuncan esta finalizando rapido', color: 'gold' },
+        { slide_number: 7, title: 'PREVISAO', content: 'DUNCAN por KO/TKO R1-R2\n\nConfianca: MEDIA\n58% Duncan / 40% Dolidze\n\nA explosividade de CLD\ne demais pra um Dolidze\ndesgastado e envelhecido.', color: 'gold' },
       ],
       twitter: [
-        { num: '1/4', text: 'Dolidze vs Duncan e o teste que CLD precisa. Dolidze venceu Holland (TKO) e Vettori (decisao). Duncan vem de 2 nocautes seguidos e luta em casa. Quem leva?' },
-        { num: '2/4', text: 'A chave: Duncan tem 201cm de envergadura e 58% de defesa de takedown. Dolidze media 2.10 TDs por 15 min. Se Duncan manter em pe, domina. Se Dolidze levar ao chao, controla.' },
-        { num: '3/4', text: 'O fator que ninguem fala: Duncan NUNCA enfrentou alguem do nivel de Dolidze. Todos os oponentes dele no UFC eram sem ranking. Esse e o primeiro teste real.' },
-        { num: '4/4', text: 'Previsao: Duncan por decisao. A envergadura, juventude e momentum favorecem CLD. Mas Dolidze e perigoso demais pra ignorar.' },
+        { num: '1/8', text: 'Dolidze vs Duncan e o maior teste da carreira de CLD. Dolidze venceu Holland (TKO R1) e Vettori (UD 5 rounds). Duncan vem de 2 KOs seguidos com bonus. Thread completa:' },
+        { num: '2/8', text: 'Duncan (13-2): 77% das vitorias por KO. Spinning back elbow em Anders no R1. KO brutal em Marco Tulio no R2. Dois bonus de Performance consecutivos. A confianca esta no teto.' },
+        { num: '3/8', text: 'Dolidze (15-4): ADCC champion, sambo background, 2.10 TDs por 15 min. JA venceu Holland e Vettori. Mas a ultima luta foi DESTRUIDOR. Hernandez dominou do R1 ao R4 ate finalizar.' },
+        { num: '4/8', text: 'O blueprint pra vencer Duncan existe: Rodrigues usou takedowns e ground control no UFC 304. Duncan tem 58% de TDD. Dolidze tem wrestling SUPERIOR ao Rodrigues. MAS tem motivacao depois daquela surra?' },
+        { num: '5/8', text: 'O fator idade e inatividade: Dolidze tem 37 anos e 7 meses sem lutar desde a derrota devastadora. Duncan tem 30 e esta no pico. A diferenca de energia e momentum nao pode ser subestimada.' },
+        { num: '6/8', text: 'Odds atualizadas: Duncan -450, Dolidze +340. O mercado fala claro. Duncan favorito massivo. MAS Dolidze como azarao pesado a +340 tem valor se voce acredita no wrestling.' },
+        { num: '7/8', text: 'Apostas: Duncan KO/TKO a +110 e a melhor. Under 2.5 a +100 tem valor. Dolidze ML a +340 e alta recompensa se o wrestling funcionar. ARMADILHA: Duncan por decisao (ele ta nocauteando todo mundo).' },
+        { num: '8/8', text: 'Minha pick: Duncan por KO/TKO no R1 ou R2. A explosividade, a confianca e a torcida vao ser demais pra Dolidze. Mas o wrestling e real. Nao e 70-30. E 58-40. RT Duncan, Like Dolidze!' },
       ],
       video: [
-        { time: '0-10s', title: 'Hook', text: 'Christian Leroy Duncan nunca enfrentou ninguem que venceu Kevin Holland e Marvin Vettori. Esse teste e diferente.' },
-        { time: '10-25s', title: 'Contexto', text: 'Dolidze, 37 anos, ex-top 10, sambo e wrestling. Duncan, 30 anos, 3 vitorias seguidas, 2 nocautes, 201cm de envergadura. Veterano vs juventude em Londres.' },
-        { time: '25-40s', title: 'Analise', text: 'Se ficar em pe, Duncan domina com envergadura. Se Dolidze levar ao chao, controla. A defesa de takedown de Duncan (58%) e a variavel chave.' },
-        { time: '40-55s', title: 'Previsao', text: 'Duncan por decisao. O momentum, a torcida e a envergadura favorecem CLD. Mas Dolidze pode surpreender com o wrestling.' },
+        { time: '0-10s', title: 'Hook', text: 'CLD nunca enfrentou ninguem que venceu Kevin Holland e Marvin Vettori. Mas Dolidze vem da PIOR derrota da carreira. Quem prevalece: o momentum ou a experiencia?' },
+        { time: '10-25s', title: 'Contexto', text: 'Duncan, 30 anos, 3 vitorias seguidas, 2 KOs com bonus, 201cm de envergadura, luta em casa. Dolidze, 37 anos, #11 do ranking, ADCC champion, destruido por Hernandez no R4 ha 7 meses.' },
+        { time: '25-40s', title: 'Analise Tecnica', text: 'O blueprint existe: Rodrigues venceu Duncan no UFC 304 com takedowns e ground control. Dolidze tem wrestling superior a Rodrigues. Mas Duncan tem 58% de TDD e e explosivo nos primeiros minutos. O timing dos primeiros takedowns decide tudo.' },
+        { time: '40-55s', title: 'Previsao', text: 'Duncan por KO/TKO nos primeiros 2 rounds. A explosividade, a confianca de 2 KOs com bonus, e um Dolidze desgastado. Mas o wrestling e um risco real. 58% Duncan, 40% Dolidze.' },
+        { time: '55-65s', title: 'B-Roll', text: 'Sugestoes: spinning back elbow de Duncan em Anders, replay do KO de Marco Tulio, Hernandez dominando Dolidze no R4, tale of tape com envergadura, graficos de KO rate de Duncan, timeline de 7 meses de inatividade.' },
+        { time: '65-75s', title: 'CTA', text: 'O momentum de CLD e forte o suficiente pra superar um wrestler de elite? Comenta embaixo e segue pra cobertura completa do card de Londres.' },
       ],
       tiktok: [
-        { hook: 'Esse cara NUNCA enfrentou ninguem do nivel do oponente de sabado.', body: 'CLD tem 3 vitorias seguidas, 2 nocautes, e luta em casa em Londres. Mas Roman Dolidze venceu Kevin Holland e Marvin Vettori. O primeiro teste real de Duncan. Sera que ele aguenta?', cta: 'Duncan ou Dolidze? Comenta!' },
-        { hook: '201cm de envergadura contra o melhor wrestling que CLD ja enfrentou.', body: 'Duncan tem 3 polegadas a mais de envergadura que Dolidze. Mas Dolidze media 2.10 takedowns por 15 min. Se levar ao chao, Duncan esta em perigo. Se manter em pe, Duncan domina. Simples assim.', cta: 'Em pe ou no chao? Onde vai ser decidido? Comenta!' },
+        { hook: 'Esse cara NUNCA enfrentou ninguem do nivel do oponente de sabado.', body: 'CLD tem 3 vitorias seguidas, 2 nocautes com bonus. Mas Roman Dolidze venceu Kevin Holland por TKO e Marvin Vettori por decisao em 5 rounds. O #11 do ranking. ADCC champion. O primeiro teste de verdade. Sera que CLD aguenta?', cta: 'Duncan ou Dolidze? Comenta!' },
+        { hook: '201cm de envergadura contra o melhor wrestling que CLD ja enfrentou.', body: 'Duncan tem 3 polegadas a mais de envergadura que Dolidze. Mas Dolidze media 2.10 takedowns por 15 min e tem background de sambo e ADCC. O blueprint existe: Rodrigues venceu Duncan com takedowns no UFC 304. Dolidze tem wrestling MELHOR que Rodrigues.', cta: 'Em pe ou no chao? Onde vai ser decidido? Comenta!' },
+        { hook: 'A PIOR derrota da carreira de Dolidze pode ser a melhor coisa pra Duncan.', body: 'Dolidze foi DESTRUIDO por Hernandez. Submissao no R4 depois de ser dominado do R1 ao R3. Aos 37 anos. 7 meses sem lutar. Agora enfrenta um striker explosivo de 30 anos com 2 KOs seguidos e a torcida inteira de Londres. A motivacao importa. E Dolidze pode nao ter mais.', cta: 'Dolidze ainda tem gas? Comenta!' },
       ],
       headlines: [
         'Dolidze vs Duncan: O Primeiro Teste Real Para CLD no UFC',
@@ -377,6 +387,58 @@ const analise: FullSingleAnalise = {
         'O Wrestler Georgiano Contra o Striker Britanico: Preview do Peso-Medio',
         'Duncan em Casa, Dolidze com Experiencia: Quem Leva o Duelo de Estilos?',
         'UFC Londres: A Envergadura de Duncan e Suficiente Para Neutralizar Dolidze?',
+        'Depois da Surra de Hernandez: Dolidze Tem Motivacao Para Mais Uma?',
+        'CLD e Favorito -450 Mas o Blueprint Pra Vence-lo Existe',
+      ],
+      podcast: [
+        {
+          timestamp: '0:00-2:00',
+          title: 'O Teste Que CLD Precisava',
+          talking_points: [
+            'Duncan vem de 2 KOs com bonus (spinning back elbow em Anders R1, KO em Marco Tulio R2). O momentum e real. Mas todos os oponentes eram sem ranking.',
+            'Dolidze e o primeiro adversario de elite: #11 do ranking, venceu Holland por TKO e Vettori em 5 rounds. Experiencia contra o top 15 e real.',
+            'O contexto da derrota de Dolidze: destruido por Hernandez no UFC Vegas 109, submissao no R4 apos dominio total. A pior noite da carreira aos 37 anos.',
+          ],
+          discussion_questions: [
+            'Uma derrota devastadora como a de Dolidze muda permanentemente um lutador ou ele pode voltar?',
+          ],
+        },
+        {
+          timestamp: '2:00-4:00',
+          title: 'O Blueprint: Wrestling vs Striking',
+          talking_points: [
+            'Rodrigues provou no UFC 304 que takedowns e ground control vencem Duncan. Dolidze tem wrestling SUPERIOR com background de sambo e ADCC.',
+            'Duncan tem 58% de defesa de takedown e 77% das vitorias por KO. Se manter em pe, e letal. A envergadura de 201cm permite conectar de longa distancia.',
+            'A chave e o R1: se Duncan conectar cedo (como fez nas ultimas 2), acabou. Se Dolidze sobreviver e levar ao chao, controla.',
+          ],
+          discussion_questions: [
+            'O wrestling de Dolidze e melhor que o de Rodrigues. Mas ele esta em condicao de implementar?',
+          ],
+        },
+        {
+          timestamp: '4:00-6:00',
+          title: 'Fatores Invisiveis',
+          talking_points: [
+            'Idade e inatividade: Dolidze tem 37 anos, 7 meses parado, vindo da pior derrota. Duncan tem 30, 3 lutas em 12 meses, no pico.',
+            'O O2 Arena: Duncan luta em casa com 20 mil britanicos. A energia extra em rounds apertados e real.',
+            'A confianca de quem nocauteia: Duncan nao esta tentando vencer por pontos. Ele esta buscando o finish. Essa mentalidade muda tudo.',
+          ],
+          discussion_questions: [
+            'Se Duncan nao conseguir o KO nos 2 primeiros rounds, a luta muda completamente pro lado de Dolidze?',
+          ],
+        },
+        {
+          timestamp: '6:00-8:00',
+          title: 'Previsao e Apostas',
+          talking_points: [
+            'Previsao: Duncan por KO/TKO R1-R2 (58% Duncan, 40% Dolidze). A explosividade e demais pra um Dolidze desgastado.',
+            'Melhor aposta: Duncan KO/TKO a +110. Under 2.5 rounds a +100. Ambos com valor forte dado o historico recente.',
+            'Valor azarao: Dolidze ML a +340. Se voce acredita no wrestling, a recompensa e enorme. Ele ja provou que pode vencer nomes superiores a Duncan.',
+          ],
+          discussion_questions: [
+            'Dolidze a +340 e a melhor aposta de azarao do card ou e armadilha?',
+          ],
+        },
       ],
     },
 
@@ -384,8 +446,8 @@ const analise: FullSingleAnalise = {
 
     radar_apostador: {
       odds: {
-        fighter1_odds: '+120',
-        fighter2_odds: '-140',
+        fighter1_odds: '+340',
+        fighter2_odds: '-450',
         fighter1_name: 'Roman Dolidze',
         fighter2_name: 'Christian Leroy Duncan',
         source: 'Media de casas de apostas (marco 2026)',
@@ -398,9 +460,9 @@ const analise: FullSingleAnalise = {
         { icon: 'MapPin', titulo: 'Fator Casa de Duncan', stat_headline: 'CLD LUTA EM LONDRES COM TORCIDA BRITANICA', contexto: 'Duncan lutando em casa com apoio total da torcida. Energia extra em momentos decisivos.', implicacao_aposta: 'Pode influenciar rounds apertados. Juizes sentem a pressao da arena.', edge_level: 'leve', fighter_side: 'fighter2' },
       ],
       value_picks: [
-        { tipo: 'Moneyline', pick: 'Dolidze (+120)', odds: '+120', confianca: 'baixa', edge_vs_mercado: 'Dolidze como azarao leve tem valor. Ja derrotou nomes superiores a Duncan.', raciocinio: 'O wrestling e experiencia de Dolidze podem ser demais para Duncan. Como azarao a +120, o valor e razoavel.' },
-        { tipo: 'Over/Under', pick: 'Over 1.5 Rounds', odds: '-180', confianca: 'media', raciocinio: 'Dolidze tem tendencia a lutas mais longas quando usa wrestling. Duncan tem nocautes rapidos mas contra oponentes inferiores.' },
-        { tipo: 'Metodo', pick: 'Duncan por KO/TKO', odds: '+150', confianca: 'baixa', raciocinio: 'Se Duncan manter em pe e usar a envergadura, o nocaute e possivel. Mas e o cenario mais arriscado dado o wrestling de Dolidze.' },
+        { tipo: 'Metodo', pick: 'Duncan por KO/TKO', odds: '+110', confianca: 'alta', raciocinio: 'Duncan vem de 2 KOs consecutivos com bonus. Dolidze vem destruido da derrota pra Hernandez, aos 37 anos. A explosividade de CLD nos primeiros minutos e a aposta mais solida do card.' },
+        { tipo: 'Over/Under', pick: 'Under 2.5 Rounds', odds: '+100', confianca: 'media', raciocinio: 'Se Duncan conectar cedo como fez contra Anders (R1) e Marco Tulio (R2), a luta nao vai longe. Dolidze tambem ja mostrou que pode ser parado (Hernandez R4).' },
+        { tipo: 'Moneyline', pick: 'Dolidze (+340)', odds: '+340', confianca: 'baixa', edge_vs_mercado: 'Dolidze como azarao pesado. O valor e ENORME se voce acredita que o wrestling dele pode neutralizar Duncan como Rodrigues fez. Ja venceu Vettori e Holland.', raciocinio: 'Dolidze tem wrestling de elite e pode expor a fraqueza de Duncan no chao. Mas a derrota devastadora pra Hernandez e a idade pesam muito.' },
       ],
       armadilha: {
         titulo: 'Armadilha: Superestimar o Momentum de Duncan',

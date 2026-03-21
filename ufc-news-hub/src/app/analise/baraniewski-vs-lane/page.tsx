@@ -362,6 +362,34 @@ const analise: FullSingleAnalise = {
         'Austen Lane Desce de Peso e Busca Renascimento no Meio-Pesado',
         'UFC Londres: A Diferenca de 15cm de Altura Vai Importar?',
         'O Prospect Polones Mais Explosivo do UFC Enfrenta Seu Maior Teste Fisico',
+        '7-0 Com Todos os Finishes no R1: Baraniewski e o Prospect Mais Assustador do UFC?',
+        'Da NFL ao Octogono: Lane Tem 15cm a Mais Mas 2 Derrotas no R1 Seguidas',
+      ],
+      podcast: [
+        {
+          timestamp: '0:00-2:00',
+          title: 'O Homem dos 20 Segundos',
+          talking_points: [
+            'Baraniewski e 7-0 com TODOS os finishes no primeiro round. O nocaute de 20 segundos no DWCS contra Mahamed Aly e um dos mais rapidos da historia do programa.',
+            'O debut contra Ibo Aslan terminou em 89 segundos. 75% de precisao de strikes no UFC. O poder e real.',
+            'Lane e o teste fisico mais extremo: 1,98m, 203cm de envergadura (6 polegadas a mais), ex-defensive end da NFL. Mas 2 derrotas no R1 seguidas.',
+          ],
+          discussion_questions: [
+            'Baraniewski pode manter esse ritmo de finalizacoes no R1 conforme os oponentes melhoram?',
+          ],
+        },
+        {
+          timestamp: '2:00-4:00',
+          title: 'Apostas e O Que Observar',
+          talking_points: [
+            'Melhor aposta: Baraniewski KO/TKO R1 a -200 e Under 1.5 rounds a -180. As ultimas 4 lutas combinadas terminaram no R1 ou R2.',
+            'O unico argumento pro Lane e o tamanho. Se voce acredita que 15cm e 6 polegadas de envergadura podem manter Baraniewski longe, Lane a +350 tem valor extremo.',
+            'O que observar: a primeira troca de golpes. Se Baraniewski fechar distancia e conectar, acabou. Se Lane usar o jab e manter longe, a luta muda.',
+          ],
+          discussion_questions: [
+            'Lane descendo de peso pela primeira vez: isso melhora a velocidade ou drena a energia?',
+          ],
+        },
       ],
     },
 
