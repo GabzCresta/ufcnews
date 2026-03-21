@@ -76,19 +76,11 @@ function formatDate(dateStr: string) {
 }
 
 export default function CardMonitorPage() {
-  const { authFetch, isAuthenticated } = useAdminAuth();
+  const { authFetch } = useAdminAuth();
   const [logs, setLogs] = useState<MonitorLog[]>([]);
   const [loading, setLoading] = useState(true);
   const [checking, setChecking] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [syncResult, setSyncResult] = useState<{
-    added: string[];
-    removed: string[];
-    updated: string[];
-    reordered: boolean;
-    picksInvalidated: number;
-    errors: string[];
-  } | null>(null);
 
   const fetchLogs = useCallback(async () => {
     try {
@@ -105,19 +97,18 @@ export default function CardMonitorPage() {
   }, [authFetch]);
 
   useEffect(() => {
-    if (isAuthenticated) fetchLogs();
-  }, [fetchLogs, isAuthenticated]);
+    fetchLogs();
+  }, [fetchLogs]);
 
   const runManualCheck = async () => {
     setChecking(true);
     try {
       const res = await authFetch('/api/cron/card-monitor');
-      const data = await res.json() as { error?: string; sync?: typeof syncResult };
+      const data = await res.json();
       if (data.error) {
         setError(data.error);
       } else {
         setError(null);
-        if (data.sync) setSyncResult(data.sync);
         await fetchLogs();
       }
     } catch (err) {
@@ -192,45 +183,6 @@ export default function CardMonitorPage() {
         {error && (
           <div className="mb-6 rounded-xl bg-red-400/5 border border-red-400/20 p-4">
             <p className="text-sm text-red-400">{error}</p>
-          </div>
-        )}
-
-        {/* Sync Results */}
-        {syncResult && (
-          <div className="mb-6 rounded-xl bg-[#111] border border-emerald-400/30 p-5">
-            <h3 className="font-display text-sm uppercase tracking-wider text-emerald-400 mb-3">Resultado da Sincronizacao</h3>
-            <div className="space-y-2">
-              {syncResult.added.map((f, i) => (
-                <div key={`add-${i}`} className="flex items-center gap-2">
-                  <Plus className="h-4 w-4 text-emerald-400" />
-                  <span className="text-xs text-emerald-300">{f}</span>
-                </div>
-              ))}
-              {syncResult.removed.map((f, i) => (
-                <div key={`rm-${i}`} className="flex items-center gap-2">
-                  <Minus className="h-4 w-4 text-red-400" />
-                  <span className="text-xs text-red-300">{f}</span>
-                </div>
-              ))}
-              {syncResult.updated.map((f, i) => (
-                <div key={`up-${i}`} className="flex items-center gap-2">
-                  <ArrowLeftRight className="h-4 w-4 text-yellow-400" />
-                  <span className="text-xs text-yellow-300">{f}</span>
-                </div>
-              ))}
-              {syncResult.added.length === 0 && syncResult.removed.length === 0 && syncResult.updated.length === 0 && (
-                <p className="text-xs text-neutral-400">Lutas ja estavam sincronizadas.</p>
-              )}
-              {syncResult.picksInvalidated > 0 && (
-                <p className="text-xs text-yellow-400 mt-2">{syncResult.picksInvalidated} previsao(oes) invalidada(s)</p>
-              )}
-              {syncResult.errors.map((e, i) => (
-                <p key={`err-${i}`} className="text-xs text-red-400">{e}</p>
-              ))}
-              {syncResult.reordered && (
-                <p className="text-xs text-neutral-500 mt-1">Ordem das lutas atualizada conforme UFC.com</p>
-              )}
-            </div>
           </div>
         )}
 
