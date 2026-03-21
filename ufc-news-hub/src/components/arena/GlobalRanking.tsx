@@ -7,12 +7,8 @@ interface RankingEntry {
   id: string;
   username: string;
   display_name: string | null;
-  pontos: number;
+  pontos_totais: number;
   taxa_acerto: number;
-}
-
-interface RankingData {
-  ranking: RankingEntry[];
 }
 
 function positionColor(pos: number): string {
@@ -24,7 +20,7 @@ function positionColor(pos: number): string {
 
 export function GlobalRanking() {
   const { usuario } = useArenaAuth();
-  const [data, setData] = useState<RankingData | null>(null);
+  const [data, setData] = useState<RankingEntry[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -34,8 +30,10 @@ export function GlobalRanking() {
         setIsLoading(true);
         const res = await fetch('/api/arena/analytics/ranking');
         if (!res.ok) throw new Error('Erro ao buscar ranking');
-        const json = await res.json();
-        setData(json);
+        const json: unknown = await res.json();
+        // API returns flat array (legacy) or { ranking: [...] } (new format)
+        const entries = Array.isArray(json) ? json as RankingEntry[] : (json as { ranking: RankingEntry[] }).ranking;
+        setData(entries);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Erro desconhecido');
       } finally {
@@ -66,7 +64,7 @@ export function GlobalRanking() {
     );
   }
 
-  if (!data || data.ranking.length === 0) {
+  if (!data || data.length === 0) {
     return (
       <div className="neu-card p-6 text-center text-dark-text text-sm">
         Nenhum dado de ranking disponivel ainda.
@@ -77,7 +75,7 @@ export function GlobalRanking() {
   return (
     <div className="neu-card p-4">
       <ul className="space-y-1">
-        {data.ranking.map((entry, index) => {
+        {data.map((entry, index) => {
           const pos = index + 1;
           const isCurrentUser = usuario?.id === entry.id;
           return (
@@ -95,7 +93,7 @@ export function GlobalRanking() {
                 {isCurrentUser && <span className="text-ufc-red text-xs ml-1">(voce)</span>}
               </span>
               <span className="text-white font-mono text-xs flex-shrink-0">
-                {entry.pontos.toLocaleString('pt-BR')} pts
+                {entry.pontos_totais.toLocaleString('pt-BR')} pts
               </span>
               <span className="text-dark-text font-mono text-xs flex-shrink-0 w-14 text-right">
                 {Math.round(entry.taxa_acerto)}%

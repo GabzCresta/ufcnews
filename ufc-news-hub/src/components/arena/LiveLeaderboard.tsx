@@ -10,6 +10,7 @@ interface LeaderboardEntry {
 interface LiveLeaderboardProps {
   leaderboard: LeaderboardEntry[];
   meuUsuarioId: string | null;
+  movimentos?: Record<string, number>;
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -30,17 +31,17 @@ function getPositionStyle(position: number): {
 // Component
 // ═══════════════════════════════════════════════════════════════
 
-export function LiveLeaderboard({ leaderboard, meuUsuarioId }: LiveLeaderboardProps) {
+export function LiveLeaderboard({ leaderboard, meuUsuarioId, movimentos }: LiveLeaderboardProps) {
   if (leaderboard.length === 0) {
     return (
-      <div className="neu-card rounded-lg p-4 text-center text-sm text-dark-textMuted">
+      <div className="rounded-lg border border-dark-border/40 bg-black/40 backdrop-blur-md p-4 text-center text-sm text-dark-textMuted">
         Nenhuma pontuacao registrada ainda.
       </div>
     );
   }
 
   return (
-    <div className="neu-card overflow-hidden rounded-lg">
+    <div className="overflow-hidden rounded-lg border border-dark-border/40 bg-black/40 backdrop-blur-md">
       {/* Title */}
       <div className="border-b border-dark-border px-4 py-3">
         <h3 className="font-display text-sm uppercase tracking-wide text-dark-text">
@@ -79,6 +80,14 @@ export function LiveLeaderboard({ leaderboard, meuUsuarioId }: LiveLeaderboardPr
                   }`}
                 >
                   {entry.display_name ?? entry.username}
+                  {movimentos?.[entry.usuario_id] != null && movimentos[entry.usuario_id] !== 0 && (
+                    <span className={`text-xs font-bold ml-1 ${
+                      movimentos[entry.usuario_id] > 0 ? 'text-green-400' : 'text-red-400'
+                    }`}>
+                      {movimentos[entry.usuario_id] > 0 ? '↑' : '↓'}
+                      {Math.abs(movimentos[entry.usuario_id])}
+                    </span>
+                  )}
                   {isMe && (
                     <span className="ml-1 text-xs font-normal text-dark-textMuted">
                       (voce)
@@ -91,7 +100,7 @@ export function LiveLeaderboard({ leaderboard, meuUsuarioId }: LiveLeaderboardPr
               </div>
 
               {/* Points */}
-              <span className="shrink-0 text-sm font-bold tabular-nums text-ufc-gold">
+              <span className="shrink-0 text-sm font-bold tabular-nums text-yellow-400">
                 {entry.pontos_totais} pts
               </span>
             </li>

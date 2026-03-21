@@ -1,11 +1,13 @@
 import type { OQueObservarSectionData } from '@/types/analise';
+import { getLabels, type Lang } from '@/lib/i18n-labels';
 import { SectionHeader } from './SectionHeader';
 import { resolveIcon } from './icon-resolver';
 
-export function OQueObservarSection({ data }: { data: OQueObservarSectionData }) {
+export function OQueObservarSection({ data, lang = 'pt' }: { data: OQueObservarSectionData; lang?: Lang }) {
+  const t = getLabels(lang);
   return (
     <section>
-      <SectionHeader number="12" title="O Que" accent="Observar" />
+      <SectionHeader number="12" title={t.observar_title} accent={t.observar_accent} />
 
       <div className="space-y-4">
         {data.points.map((item) => {

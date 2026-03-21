@@ -44,7 +44,7 @@ export function UserAvatar({ usuario, onLogout }: UserAvatarProps) {
     return (
       <Link
         href="/arena/login"
-        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-ufc-red hover:bg-ufc-redLight text-white font-medium text-sm transition-colors"
+        className="flex items-center gap-2 px-4 py-2 rounded-lg border border-ufc-red/60 text-ufc-red hover:bg-ufc-red/10 font-medium text-sm transition-colors"
       >
         <User className="w-4 h-4" />
         <span>Login</span>

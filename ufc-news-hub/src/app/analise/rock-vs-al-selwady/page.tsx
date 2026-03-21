@@ -1,7 +1,12 @@
+'use client';
+
+import { Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { PrelimsAnalysisView } from '@/components/analise/PrelimsAnalysisView';
 import type { PrelimsAnalise } from '@/types/analise';
+import type { Lang } from '@/lib/i18n-labels';
 
-const analise: PrelimsAnalise = {
+const analisePT: PrelimsAnalise = {
   id: 'rock-vs-al-selwady',
   evento_id: null,
   slug: 'rock-vs-al-selwady',
@@ -358,6 +363,73 @@ const analise: PrelimsAnalise = {
   },
 };
 
+const analiseEN: PrelimsAnalise = {
+  ...analisePT, evento_data: 'March 21, 2026', evento_local: 'The O2 Arena, London, United Kingdom', categoria_peso: 'Lightweight (155 lbs)',
+  fight_prediction: { ...analisePT.fight_prediction, confidence: 'MEDIUM' },
+  prelims_analysis: {
+    hero: { ...analisePT.prelims_analysis.hero, evento_data: 'March 21, 2026', categoria_peso: 'Lightweight (155 lbs)' },
+    comparacao_estatistica: { stats: [
+      { label: 'Sig. Strikes Per Minute', valueA: 2.10, valueB: 4.85, maxVal: 7, format: 'decimal', note: 'Al-Selwady has more than double the strike volume, Rock relies on grappling' },
+      { label: 'Striking Accuracy (%)', valueA: 35, valueB: 48, maxVal: 100, format: 'percent', note: 'Rock lands just 35% of strikes, indicating inferior striking' },
+      { label: 'Strikes Absorbed/Min', valueA: 4.20, valueB: 3.90, maxVal: 7, format: 'decimal', reverseWinner: true, note: 'Rock absorbed many strikes in the loss to Aliev, lacking stand-up defense' },
+      { label: 'Strike Defense (%)', valueA: 42, valueB: 50, maxVal: 100, format: 'percent' },
+      { label: 'Takedowns Per 15 Min', valueA: 2.80, valueB: 0.90, maxVal: 5, format: 'decimal', note: 'Rock needs takedowns to impose his world-class jiu-jitsu' },
+      { label: 'Takedown Accuracy (%)', valueA: 38, valueB: 40, maxVal: 100, format: 'percent' },
+      { label: 'Takedown Defense (%)', valueA: 72, valueB: 75, maxVal: 100, format: 'percent', note: 'Al-Selwady defends takedowns well, could frustrate Rock\'s gameplan' },
+    ], tale_of_tape: [
+      { label: 'Age', fighter1: '32 years old', fighter2: '30 years old', note: null },
+      { label: 'Height', fighter1: '5\'11" (1.80m)', fighter2: '5\'8" (1.73m)', note: 'Rock has a 7cm height advantage' },
+      { label: 'Reach', fighter1: '73" (185cm)', fighter2: '69" (175cm)', note: 'Rock has 4 inches more reach' },
+      { label: 'Stance', fighter1: 'Southpaw', fighter2: 'Orthodox', note: 'Southpaw vs orthodox dynamic' },
+      { label: 'Gym', fighter1: 'Next Generation MMA / Liverpool, England', fighter2: 'Fortis MMA / Dallas, USA', note: null },
+    ] },
+    historico_lutas: {
+      fighter1: { nome: 'Rock', recent_fights: [
+        { date: 'Nov 2025', opponent: 'Nurullo Aliev', result: 'L', method: 'Unanimous Decision (30-27 x3)', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'UFC debut dominated by Aliev. Couldn\'t impose his grappling and was outclassed on the feet for 3 rounds.' },
+        { date: 'May 2025', opponent: 'Attila Korkmaz', result: 'W', method: 'Split Decision', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'Split decision win at Oktagon MMA 71, showed the ability to fight 3 full rounds.' },
+        { date: 'Jun 2024', opponent: 'Jaroslav Pokorny', result: 'W', method: 'Sub R1 (RNC)', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'Technical rear-naked choke submission in the first round at Oktagon MMA 58.' },
+        { date: 'Apr 2024', opponent: 'Stefano Catacoli', result: 'W', method: 'Sub R1 (RNC)', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'Another rear-naked choke in the first round at Oktagon MMA 56.' },
+        { date: 'Jul 2023', opponent: 'Jan Malach', result: 'W', method: 'Sub R1 (RNC)', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'Rear-naked choke at Oktagon MMA 45, third consecutive submission.' },
+      ] },
+      fighter2: { nome: 'Al-Selwady', recent_fights: [
+        { date: 'Mar 2024', opponent: 'Loik Radzhabov', result: 'L', method: 'KO R3 (0:49)', opponent_rank: 'N/R', quality_score: 3, quality_label: 'Good', note: 'Knocked out early in the third round on his UFC debut. Fight was competitive until the fatal blow. Been inactive since with two canceled bouts.' },
+        { date: 'Aug 2023', opponent: 'George Hardwick', result: 'W', method: 'Unanimous Decision', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'Unanimous decision win on DWCS, earned UFC contract by beating a strong prospect.' },
+        { date: 'Feb 2023', opponent: 'Micheal Murphy', result: 'W', method: 'Unanimous Decision', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'Unanimous decision win in a 5-round fight at Fury FC 75.' },
+        { date: 'Sep 2022', opponent: 'Chris Pecero', result: 'W', method: 'TKO R1', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'First-round TKO at Fury FC 69, finish by punches.' },
+        { date: 'Feb 2022', opponent: 'Nick Compton', result: 'W', method: 'Unanimous Decision', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'Unanimous decision at Fury FC 58, part of 5-fight win streak before DWCS.' },
+      ] },
+    },
+    perfil_habilidades: { skills: [
+      { label: 'Stand-up Striking', valueA: 38, valueB: 75, labelA: 'Average', labelB: 'Very Good', advantage: 'fighter2', advantage_note: 'Al-Selwady comes from kickboxing with all Jordanian national titles. Rock is limited on the feet, just 35% accuracy.' },
+      { label: 'Knockout Power', valueA: 30, valueB: 78, labelA: 'Poor', labelB: 'Very Good', advantage: 'fighter2', advantage_note: 'Al-Selwady has 8 KOs in 15 wins (53%). Rock has just 2 career KOs, his game isn\'t based on power.' },
+      { label: 'Jiu-Jitsu & Submissions', valueA: 92, valueB: 40, labelA: 'Excellent', labelB: 'Average', advantage: 'fighter1', advantage_note: 'Rock is a jiu-jitsu specialist with 9 submissions, including 7 by RNC or variation. World-class grappling.' },
+      { label: 'Wrestling & Takedowns', valueA: 55, valueB: 50, labelA: 'Good', labelB: 'Average', advantage: 'fighter1', advantage_note: 'Rock needs the takedown to win. Has high volume of attempts but just 38% accuracy. Everything depends on getting it to the ground.' },
+      { label: 'Cardio & Pace', valueA: 65, valueB: 58, labelA: 'Good', labelB: 'Good', advantage: 'fighter1', advantage_note: 'Rock maintains constant pressure seeking the clinch. Al-Selwady was KO\'d in R3 by Radzhabov, possible sign of late fatigue.' },
+      { label: 'UFC Experience', valueA: 30, valueB: 50, labelA: 'Poor', labelB: 'Average', advantage: 'fighter2', advantage_note: 'Al-Selwady has 1 UFC fight (0W-1L) but much more professional experience (15-4). Rock also lost his only octagon fight dominantly.' },
+    ], insight: 'A classic striker vs grappler matchup. Al-Selwady wants to keep it standing where he has an overwhelming advantage. Rock desperately needs the takedown to use his world-class jiu-jitsu. If Rock gets a grip, he\'s too dangerous on the ground. If Al-Selwady maintains distance, he can dominate on the feet.' },
+    distribuicao_vitorias: {
+      fighter1: { nome: 'Rock', ko_tko: { count: 2, percent: 17 }, submission: { count: 9, percent: 75 }, decision: { count: 1, percent: 8 }, total_wins: 12 },
+      fighter2: { nome: 'Al-Selwady', ko_tko: { count: 8, percent: 53 }, submission: { count: 2, percent: 13 }, decision: { count: 5, percent: 34 }, total_wins: 15 },
+      insight: 'Completely opposite profiles. Rock wins 75% by submission, a pure submission specialist. Al-Selwady wins 53% by knockout, a natural striker. If Rock gets the takedown, the submission is likely coming. If Al-Selwady keeps distance, the knockout is a matter of time.',
+    },
+    previsao_final: {
+      winner_name: 'Al-Selwady', winner_side: 'fighter2', predicted_method: 'KO/TKO R2', confidence_score: 6, confidence_label: 'MEDIUM',
+      explanation: 'Al-Selwady has a clear striking advantage with significantly superior volume, accuracy, and knockout power. Rock was completely dominated on the feet in his UFC debut against Aliev, showing that his transition from pure grappling to high-level MMA isn\'t complete yet. Al-Selwady has 75% takedown defense, which complicates Rock\'s gameplan. However, Rock\'s jiu-jitsu is genuinely elite and a single takedown can change everything. Rock fights at home on British soil, which gives him extra confidence.',
+      x_factor: { title: 'Rock\'s world-class jiu-jitsu', description: 'With 9 career submissions, 7 of them by RNC or variation, Rock is probably the best grappler in the division. If he gets a grip and takes it down, Al-Selwady is in real danger. A single takedown can decide the fight.' },
+      upset_alert: { title: 'Rock could surprise with the home factor', description: 'Rock fights at home in the O2 Arena in London and the British crowd will push the Brit. If he can survive the initial striking and impose the clinch against the cage, his jiu-jitsu could be decisive. Al-Selwady was KO\'d in R3 before.' },
+      probabilities: { fighter1: { nome: 'Rock', percent: 38 }, fighter2: { nome: 'Al-Selwady', percent: 60 }, draw: 2 },
+      value_picks: undefined,
+    },
+  },
+};
+
+function PageContent() {
+  const searchParams = useSearchParams();
+  const lang = (searchParams.get('lang') === 'en' ? 'en' : 'pt') as Lang;
+  const analise = lang === 'en' ? analiseEN : analisePT;
+  return <PrelimsAnalysisView analise={analise} lang={lang} />;
+}
+
 export default function Page() {
-  return <PrelimsAnalysisView analise={analise} />;
+  return <Suspense><PageContent /></Suspense>;
 }

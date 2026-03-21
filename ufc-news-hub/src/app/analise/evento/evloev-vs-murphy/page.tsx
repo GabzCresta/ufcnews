@@ -1,10 +1,11 @@
 import { EventAnalysisView, type EventAnalysisData } from '@/components/analise/EventAnalysisView';
 import { enrichEventWithPhotos } from '@/lib/enrich-event-photos';
 import type { EventCreatorKitData } from '@/types/event-creator-kit';
+import type { Lang } from '@/lib/i18n-labels';
 
 export const dynamic = 'force-dynamic';
 
-const eventData: EventAnalysisData = {
+const eventDataPT: EventAnalysisData = {
   evento_nome: 'UFC Fight Night: Evloev vs Murphy',
   evento_data: '21 de Marco, 2026',
   evento_local: 'The O2 Arena, Londres, Reino Unido',
@@ -368,7 +369,155 @@ const eventData: EventAnalysisData = {
   } as EventCreatorKitData,
 };
 
-export default async function EventoEvloevVsMurphyPage() {
-  const enrichedData = await enrichEventWithPhotos(eventData);
-  return <EventAnalysisView data={enrichedData} />;
+const eventDataEN: EventAnalysisData = {
+  evento_nome: 'UFC Fight Night: Evloev vs Murphy',
+  evento_data: 'March 21, 2026',
+  evento_local: 'The O2 Arena, London, United Kingdom',
+  main_card: [
+    {
+      slug: 'evloev-vs-murphy',
+      fighter1: { nome: 'Movsar Evloev', record: '19-0-0' },
+      fighter2: { nome: 'Lerone Murphy', record: '17-0-1' },
+      categoria_peso: 'Featherweight (145 lbs)',
+      num_rounds: 5,
+      predicted_winner: 'Movsar Evloev',
+      predicted_method: 'Unanimous Decision',
+      confidence_label: 'MEDIUM',
+      is_main_event: true,
+    },
+    {
+      slug: 'riley-vs-aswell-jr',
+      fighter1: { nome: 'Luke Riley', record: '12-0-0' },
+      fighter2: { nome: 'Michael Aswell Jr.', record: '11-3-0' },
+      categoria_peso: 'Featherweight (145 lbs)',
+      num_rounds: 3,
+      predicted_winner: 'Luke Riley',
+      predicted_method: 'KO/TKO R1-R2',
+      confidence_label: 'MEDIUM-HIGH',
+    },
+    {
+      slug: 'page-vs-patterson',
+      fighter1: { nome: 'Michael Page', record: '24-3-0' },
+      fighter2: { nome: 'Sam Patterson', record: '14-2-1' },
+      categoria_peso: 'Welterweight (170 lbs)',
+      num_rounds: 3,
+      predicted_winner: 'Sam Patterson',
+      predicted_method: 'Unanimous Decision',
+      confidence_label: 'MEDIUM',
+    },
+    {
+      slug: 'baraniewski-vs-lane',
+      fighter1: { nome: 'Iwo Baraniewski', record: '7-0-0' },
+      fighter2: { nome: 'Austen Lane', record: '13-7-0' },
+      categoria_peso: 'Light Heavyweight (205 lbs)',
+      num_rounds: 3,
+      predicted_winner: 'Iwo Baraniewski',
+      predicted_method: 'KO/TKO R1',
+      confidence_label: 'MEDIUM-HIGH',
+    },
+    {
+      slug: 'dolidze-vs-duncan',
+      fighter1: { nome: 'Roman Dolidze', record: '15-4-0' },
+      fighter2: { nome: 'Christian Leroy Duncan', record: '13-2-0' },
+      categoria_peso: 'Middleweight (185 lbs)',
+      num_rounds: 3,
+      predicted_winner: 'Christian Leroy Duncan',
+      predicted_method: 'KO/TKO R1-R2',
+      confidence_label: 'MEDIUM',
+    },
+    {
+      slug: 'campbell-vs-silva',
+      fighter1: { nome: 'Kurtis Campbell', record: '8-0-0' },
+      fighter2: { nome: 'Danny Silva', record: '10-2-0' },
+      categoria_peso: 'Featherweight (145 lbs)',
+      num_rounds: 3,
+      predicted_winner: 'Kurtis Campbell',
+      predicted_method: 'KO/TKO R1-R2',
+      confidence_label: 'MEDIUM',
+    },
+  ],
+  prelims: [
+    {
+      slug: 'jones-vs-sola',
+      fighter1: { nome: 'Mason Jones', record: '17-2-0' },
+      fighter2: { nome: 'Axel Sola', record: '11-0-1' },
+      categoria_peso: 'Lightweight (155 lbs)',
+      num_rounds: 3,
+      predicted_winner: 'Mason Jones',
+      predicted_method: 'Unanimous Decision',
+      confidence_label: 'MEDIUM',
+    },
+    {
+      slug: 'wood-vs-keita',
+      fighter1: { nome: 'Nathaniel Wood', record: '22-6-0' },
+      fighter2: { nome: 'Losene Keita', record: '16-1-0' },
+      categoria_peso: 'Featherweight (145 lbs)',
+      num_rounds: 3,
+      predicted_winner: 'Nathaniel Wood',
+      predicted_method: 'Unanimous Decision',
+      confidence_label: 'MEDIUM',
+    },
+    {
+      slug: 'sutherland-vs-pericic',
+      fighter1: { nome: 'Louie Sutherland', record: '10-4-0' },
+      fighter2: { nome: 'Brando Pericic', record: '5-1-0' },
+      categoria_peso: 'Heavyweight (265 lbs)',
+      num_rounds: 3,
+      predicted_winner: 'Brando Pericic',
+      predicted_method: 'KO/TKO R1',
+      confidence_label: 'MEDIUM',
+    },
+    {
+      slug: 'kondratavicius-vs-trocoli',
+      fighter1: { nome: 'Mantas Kondratavicius', record: '8-1-0' },
+      fighter2: { nome: 'Antonio Trocoli', record: '12-6-0' },
+      categoria_peso: 'Middleweight (185 lbs)',
+      num_rounds: 3,
+      predicted_winner: 'Mantas Kondratavicius',
+      predicted_method: 'KO/TKO R1',
+      confidence_label: 'MEDIUM-HIGH',
+    },
+    {
+      slug: 'pinto-vs-franco',
+      fighter1: { nome: 'Mario Pinto', record: '11-0-0' },
+      fighter2: { nome: 'Felipe Franco', record: '10-1-0' },
+      categoria_peso: 'Heavyweight (265 lbs)',
+      num_rounds: 3,
+      predicted_winner: 'Mario Pinto',
+      predicted_method: 'TKO R2',
+      confidence_label: 'MEDIUM-HIGH',
+    },
+    {
+      slug: 'rock-vs-al-selwady',
+      fighter1: { nome: 'Shem Rock', record: '12-2-1' },
+      fighter2: { nome: 'Abdul-Kareem Al-Selwady', record: '15-4-0' },
+      categoria_peso: 'Lightweight (155 lbs)',
+      num_rounds: 3,
+      predicted_winner: 'Abdul-Kareem Al-Selwady',
+      predicted_method: 'KO/TKO R2',
+      confidence_label: 'MEDIUM',
+    },
+    {
+      slug: 'dyer-vs-oliveira',
+      fighter1: { nome: 'Shanelle Dyer', record: '6-1-0' },
+      fighter2: { nome: 'Ravena Oliveira', record: '7-3-1' },
+      categoria_peso: "Women's Strawweight (115 lbs)",
+      num_rounds: 3,
+      predicted_winner: 'Shanelle Dyer',
+      predicted_method: 'Unanimous Decision',
+      confidence_label: 'MEDIUM',
+    },
+  ],
+};
+
+export default async function EventoEvloevVsMurphyPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ lang?: string }>;
+}) {
+  const params = await searchParams;
+  const lang = (params.lang === 'en' ? 'en' : 'pt') as Lang;
+  const data = lang === 'en' ? eventDataEN : eventDataPT;
+  const enrichedData = await enrichEventWithPhotos(data);
+  return <EventAnalysisView data={enrichedData} lang={lang} />;
 }

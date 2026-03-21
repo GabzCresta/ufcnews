@@ -1,7 +1,8 @@
 import type { NarrativaSectionData, FuturoCenario } from '@/types/analise';
+import { getLabels, type Lang } from '@/lib/i18n-labels';
 import { SectionHeader } from './SectionHeader';
 
-function FuturoCard({ cenario, side }: { cenario: FuturoCenario; side: 'fighter1' | 'fighter2' }) {
+function FuturoCard({ cenario, side, nextFightLabel }: { cenario: FuturoCenario; side: 'fighter1' | 'fighter2'; nextFightLabel: string }) {
   const isRed = side === 'fighter1';
   const borderGlow = isRed
     ? 'border-ufc-red/40 hover:border-ufc-red/70 hover:shadow-[0_0_30px_rgba(210,10,10,0.15)]'
@@ -46,17 +47,18 @@ function FuturoCard({ cenario, side }: { cenario: FuturoCenario; side: 'fighter1
 
       {/* Next fight card */}
       <div className={`mt-6 rounded-lg ${accentBg} border border-dashed ${isRed ? 'border-ufc-red/20' : 'border-blue-400/20'} p-4`}>
-        <p className="text-[10px] font-bold uppercase tracking-widest text-dark-textMuted mb-1">Proxima Luta Provavel</p>
+        <p className="text-[10px] font-bold uppercase tracking-widest text-dark-textMuted mb-1">{nextFightLabel}</p>
         <p className={`text-sm font-bold ${accentText}`}>{cenario.proxima_luta}</p>
       </div>
     </div>
   );
 }
 
-export function NarrativaSection({ data, fighter1Name, fighter2Name }: { data: NarrativaSectionData; fighter1Name?: string; fighter2Name?: string }) {
+export function NarrativaSection({ data, fighter1Name, fighter2Name, lang = 'pt' }: { data: NarrativaSectionData; fighter1Name?: string; fighter2Name?: string; lang?: Lang }) {
+  const t = getLabels(lang);
   return (
     <section>
-      <SectionHeader number="01" title="O Contexto Que Ninguem" accent="Te Conta" />
+      <SectionHeader number="01" title={t.narrativa_title} accent={t.narrativa_accent} />
 
       <div className="rounded-lg border border-dark-border bg-dark-card p-6 md:p-8">
         <div
@@ -69,9 +71,9 @@ export function NarrativaSection({ data, fighter1Name, fighter2Name }: { data: N
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-dark-border">
-                  <th className="py-3 px-4 text-left font-display uppercase tracking-wider text-dark-textMuted">Dimensao</th>
-                  <th className="py-3 px-4 text-left font-display uppercase tracking-wider text-ufc-red">{fighter1Name || 'Lutador 1'}</th>
-                  <th className="py-3 px-4 text-left font-display uppercase tracking-wider text-blue-400">{fighter2Name || 'Lutador 2'}</th>
+                  <th className="py-3 px-4 text-left font-display uppercase tracking-wider text-dark-textMuted">{t.dimensao}</th>
+                  <th className="py-3 px-4 text-left font-display uppercase tracking-wider text-ufc-red">{fighter1Name || t.lutador_fallback_1}</th>
+                  <th className="py-3 px-4 text-left font-display uppercase tracking-wider text-blue-400">{fighter2Name || t.lutador_fallback_2}</th>
                 </tr>
               </thead>
               <tbody className="text-gray-200">
@@ -93,14 +95,14 @@ export function NarrativaSection({ data, fighter1Name, fighter2Name }: { data: N
         <div className="mt-8">
           <div className="mb-6 text-center">
             <p className="font-display text-2xl uppercase tracking-wider text-dark-text">
-              Dois Destinos<span className="text-ufc-gold">,</span> Uma Luta
+              {t.dois_destinos}<span className="text-ufc-gold">,</span> {t.uma_luta}
             </p>
             <p className="mt-1 text-sm text-dark-textMuted">O que muda no universo do MMA dependendo de quem vence</p>
           </div>
 
           <div className="grid gap-6 lg:grid-cols-2">
-            <FuturoCard cenario={data.prognostico.fighter1_vence} side="fighter1" />
-            <FuturoCard cenario={data.prognostico.fighter2_vence} side="fighter2" />
+            <FuturoCard cenario={data.prognostico.fighter1_vence} side="fighter1" nextFightLabel={t.proxima_luta} />
+            <FuturoCard cenario={data.prognostico.fighter2_vence} side="fighter2" nextFightLabel={t.proxima_luta} />
           </div>
         </div>
       )}

@@ -1,12 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useMemo, useEffect } from 'react';
 import useSWR from 'swr';
 import useSWRImmutable from 'swr/immutable';
-import { Calendar, MapPin, ChevronRight, ArrowLeft } from 'lucide-react';
+import { Calendar, MapPin, ChevronRight, ArrowLeft, Trophy } from 'lucide-react';
 import { LiveResultCard } from '@/components/arena/LiveResultCard';
 import { LiveLeaderboard } from '@/components/arena/LiveLeaderboard';
+import { LiveCurrentFight } from '@/components/arena/LiveCurrentFight';
+import { LiveChat } from '@/components/arena/LiveChat';
+import { FloatingReactions } from '@/components/arena/FloatingReactions';
 import { useProximoEvento } from '@/hooks/useProximoEvento';
+import { useArenaAuth } from '@/hooks/useArenaAuth';
 
 // ═══════════════════════════════════════════════════════════════
 // Types
@@ -30,6 +34,8 @@ interface Luta {
   lutador1_nome: string;
   lutador2_id: string;
   lutador2_nome: string;
+  lutador1_foto: string | null;
+  lutador2_foto: string | null;
   userPick: UserPick | null;
 }
 
@@ -79,7 +85,7 @@ const fetcher = (url: string) => fetch(url).then(r => {
 function useCountdown(targetDate: string | undefined) {
   const [timeLeft, setTimeLeft] = useState<string>('');
 
-  useState(() => {
+  useEffect(() => {
     if (!targetDate) return;
     function calc() {
       const diff = new Date(targetDate!).getTime() - Date.now();
@@ -92,7 +98,7 @@ function useCountdown(targetDate: string | undefined) {
     calc();
     const id = setInterval(calc, 60000);
     return () => clearInterval(id);
-  });
+  }, [targetDate]);
 
   return timeLeft;
 }
@@ -104,10 +110,14 @@ function useCountdown(targetDate: string | undefined) {
 function EventResultView({
   eventoId,
   onBack,
+  liga,
 }: {
   eventoId: string;
   onBack?: () => void;
+  liga: { id: string; nome: string } | null;
 }) {
+  const { isAuthenticated, usuario } = useArenaAuth();
+
   // Smart fetching: SWR polls while ao_vivo, caches forever when finalizado
   const { data, error } = useSWR<LiveData>(
     `/api/arena/live?evento_id=${eventoId}`,
@@ -122,6 +132,52 @@ function EventResultView({
       dedupingInterval: 5000,
     }
   );
+
+  // ── Ranking movement tracking ──
+  const prevPositions = useRef<Map<string, number>>(new Map());
+  const [movimentos, setMovimentos] = useState<Record<string, number>>({});
+
+  useEffect(() => {
+    if (!data?.leaderboard) return;
+    const newMovimentos: Record<string, number> = {};
+    data.leaderboard.forEach((entry, i) => {
+      const pos = i + 1;
+      const prev = prevPositions.current.get(entry.usuario_id);
+      if (prev !== undefined && prev !== pos) {
+        newMovimentos[entry.usuario_id] = prev - pos;
+      }
+    });
+    const newMap = new Map<string, number>();
+    data.leaderboard.forEach((entry, i) => newMap.set(entry.usuario_id, i + 1));
+    prevPositions.current = newMap;
+    if (Object.keys(newMovimentos).length > 0) setMovimentos(newMovimentos);
+  }, [data?.leaderboard]);
+
+  // ── Current fight selection ──
+  // ordem no banco: 14=first prelim (happens first), 1=main event (happens last)
+  const currentFight = useMemo(() => {
+    if (!data?.lutas) return null;
+    // 1. If a fight is live, show it
+    const live = data.lutas.find(l => l.status === 'ao_vivo');
+    if (live) return live;
+    // 2. Show the most recently finished fight (lowest ordem = latest chronologically)
+    const finished = [...data.lutas]
+      .filter(l => l.status === 'finalizada')
+      .sort((a, b) => a.ordem - b.ordem);
+    if (finished.length > 0) return finished[0];
+    // 3. Show the next upcoming fight (highest ordem = next chronologically)
+    const upcoming = [...data.lutas]
+      .filter(l => l.status !== 'finalizada')
+      .sort((a, b) => b.ordem - a.ordem);
+    return upcoming[0] ?? null;
+  }, [data?.lutas]);
+
+  // Chronological order: prelims first (high ordem) → main event last (ordem=1)
+  // API already returns ORDER BY ordem DESC, just enforce it here
+  const sortedLutas = useMemo(() => {
+    if (!data?.lutas) return [];
+    return [...data.lutas].sort((a, b) => b.ordem - a.ordem);
+  }, [data?.lutas]);
 
   if (!data && !error) {
     return (
@@ -148,100 +204,131 @@ function EventResultView({
   const isLive = data.evento.status === 'ao_vivo';
   const isFinished = data.evento.status === 'finalizado';
 
-  const sortedLutas = [...lutas].sort((a, b) => {
-    const aFinished = a.status === 'finalizada' ? 0 : 1;
-    const bFinished = b.status === 'finalizada' ? 0 : 1;
-    if (aFinished !== bFinished) return aFinished - bFinished;
-    return b.ordem - a.ordem;
-  });
-
   return (
-    <div className="mx-auto max-w-2xl space-y-6 px-4 py-6">
+    <div className="mx-auto max-w-6xl px-4 py-6">
       {/* Back button (when viewing a past event) */}
       {onBack && (
         <button
           onClick={onBack}
-          className="flex items-center gap-1.5 text-sm text-dark-textMuted hover:text-dark-text transition-colors"
+          className="mb-4 flex items-center gap-1.5 text-sm text-dark-textMuted hover:text-dark-text transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Voltar
         </button>
       )}
 
-      {/* Event header */}
-      <div className="neu-card rounded-xl p-5">
-        <div className="flex items-start justify-between gap-3">
-          <div className="min-w-0">
-            <h1 className="font-display text-2xl uppercase leading-tight text-dark-text">
-              {data.evento.nome}
-            </h1>
-            {data.evento.local_evento && (
-              <p className="mt-1 text-sm text-dark-textMuted">
-                {data.evento.local_evento}
-              </p>
-            )}
+      {/* AO VIVO banner */}
+      {isLive && (
+        <div className="flex items-center justify-center gap-2 py-2 bg-ufc-red rounded-xl mb-4">
+          <span className="relative flex h-3 w-3">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
+            <span className="relative inline-flex h-3 w-3 rounded-full bg-white" />
+          </span>
+          <span className="font-display text-lg uppercase text-white tracking-widest">Ao Vivo</span>
+          <span className="text-white/60 text-sm">&middot; {lutas_finalizadas}/{totalLutas} lutas</span>
+        </div>
+      )}
+
+      {/* 2-column grid: content + chat sidebar */}
+      <div className="lg:grid lg:grid-cols-3 lg:gap-6">
+        {/* Left column: event content */}
+        <div className="lg:col-span-2 space-y-5">
+          {/* Event header */}
+          <div className="neu-card rounded-xl p-5">
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <h1 className="font-display text-2xl uppercase leading-tight text-dark-text">
+                  {data.evento.nome}
+                </h1>
+                {data.evento.local_evento && (
+                  <p className="mt-1 text-sm text-dark-textMuted">
+                    {data.evento.local_evento}
+                  </p>
+                )}
+              </div>
+              {/* Status badge */}
+              {isLive ? (
+                <div className="flex shrink-0 items-center gap-2 rounded-full bg-ufc-red/10 px-3 py-1.5">
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ufc-red opacity-75" />
+                    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-ufc-red" />
+                  </span>
+                  <span className="font-display text-sm font-bold uppercase tracking-widest text-ufc-red">
+                    Ao Vivo
+                  </span>
+                </div>
+              ) : isFinished ? (
+                <div className="flex shrink-0 items-center gap-2 rounded-full bg-green-500/10 px-3 py-1.5">
+                  <span className="font-display text-sm font-bold uppercase tracking-widest text-green-400">
+                    Finalizado
+                  </span>
+                </div>
+              ) : null}
+            </div>
+
+            {/* Progress bar */}
+            <div className="mt-4">
+              <div className="mb-1.5 flex items-center justify-between text-xs text-dark-textMuted">
+                <span>
+                  {lutas_finalizadas}/{totalLutas} lutas finalizadas
+                </span>
+              </div>
+              <div className="neu-inset h-2 rounded-full overflow-hidden">
+                <div
+                  className="h-full rounded-full bg-ufc-red transition-all duration-700"
+                  style={{
+                    width: totalLutas > 0 ? `${(lutas_finalizadas / totalLutas) * 100}%` : '0%',
+                  }}
+                />
+              </div>
+            </div>
           </div>
-          {/* Status badge */}
-          {isLive ? (
-            <div className="flex shrink-0 items-center gap-2 rounded-full bg-ufc-red/10 px-3 py-1.5">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ufc-red opacity-75" />
-                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-ufc-red" />
-              </span>
-              <span className="font-display text-sm font-bold uppercase tracking-widest text-ufc-red">
-                Ao Vivo
-              </span>
+
+          {/* Current fight spotlight */}
+          {currentFight && <LiveCurrentFight luta={currentFight} />}
+
+          {/* Fight cards — chronological order (prelims first → main event last) */}
+          <section className="space-y-3">
+            {sortedLutas.map(luta => (
+              <LiveResultCard
+                key={luta.luta_id}
+                lutador1_nome={luta.lutador1_nome}
+                lutador2_nome={luta.lutador2_nome}
+                vencedor_id={luta.vencedor_id}
+                lutador1_id={luta.lutador1_id}
+                lutador2_id={luta.lutador2_id}
+                metodo={luta.metodo}
+                round_final={luta.round_final}
+                tipo={luta.tipo}
+                status={luta.status}
+                userPick={luta.userPick}
+              />
+            ))}
+          </section>
+
+          {/* Leaderboard with header */}
+          <section>
+            <div className="flex items-center gap-2 mb-3">
+              <Trophy className="w-5 h-5 text-ufc-red" />
+              <h2 className="font-display text-lg uppercase tracking-wide text-dark-text">
+                Ranking <span className="text-ufc-red">Ao Vivo</span>
+              </h2>
             </div>
-          ) : isFinished ? (
-            <div className="flex shrink-0 items-center gap-2 rounded-full bg-green-500/10 px-3 py-1.5">
-              <span className="font-display text-sm font-bold uppercase tracking-widest text-green-400">
-                Finalizado
-              </span>
-            </div>
-          ) : null}
+            <LiveLeaderboard leaderboard={leaderboard} meuUsuarioId={usuario_id} movimentos={movimentos} />
+          </section>
         </div>
 
-        {/* Progress bar */}
-        <div className="mt-4">
-          <div className="mb-1.5 flex items-center justify-between text-xs text-dark-textMuted">
-            <span>
-              {lutas_finalizadas}/{totalLutas} lutas finalizadas
-            </span>
-          </div>
-          <div className="neu-inset h-2 rounded-full overflow-hidden">
-            <div
-              className="h-full rounded-full bg-ufc-red transition-all duration-700"
-              style={{
-                width: totalLutas > 0 ? `${(lutas_finalizadas / totalLutas) * 100}%` : '0%',
-              }}
-            />
-          </div>
+        {/* Right column: Chat sidebar + Reactions */}
+        <div className="lg:col-span-1 mt-5 lg:mt-0 lg:sticky lg:top-4 lg:self-start space-y-3">
+          <FloatingReactions
+            currentFight={currentFight}
+            eventoId={eventoId}
+            isAuthenticated={isAuthenticated}
+            username={usuario?.username}
+          />
+          <LiveChat eventoId={eventoId} ligaId={liga?.id} ligaNome={liga?.nome} />
         </div>
       </div>
-
-      {/* Fight result cards */}
-      <section className="space-y-3">
-        {sortedLutas.map((luta) => (
-          <LiveResultCard
-            key={luta.luta_id}
-            lutador1_nome={luta.lutador1_nome}
-            lutador2_nome={luta.lutador2_nome}
-            vencedor_id={luta.vencedor_id}
-            lutador1_id={luta.lutador1_id}
-            lutador2_id={luta.lutador2_id}
-            metodo={luta.metodo}
-            round_final={luta.round_final}
-            tipo={luta.tipo}
-            status={luta.status}
-            userPick={luta.userPick}
-          />
-        ))}
-      </section>
-
-      {/* Leaderboard */}
-      <section>
-        <LiveLeaderboard leaderboard={leaderboard} meuUsuarioId={usuario_id} />
-      </section>
     </div>
   );
 }
@@ -347,6 +434,18 @@ export default function ArenaLivePage() {
   const { evento, isAoVivo, isLoading } = useProximoEvento();
   const [selectedEventoId, setSelectedEventoId] = useState<string | null>(null);
 
+  // Fetch user's active liga for chat tab support
+  const [liga, setLiga] = useState<{ id: string; nome: string } | null>(null);
+
+  useEffect(() => {
+    fetch('/api/arena/ligas?tipo=minhas&limit=1')
+      .then(r => r.ok ? r.json() : null)
+      .then((d: { ligas?: Array<{ id: string; nome: string }> } | null) => {
+        if (d?.ligas?.[0]) setLiga(d.ligas[0]);
+      })
+      .catch(() => {});
+  }, []);
+
   if (isLoading) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
@@ -361,13 +460,14 @@ export default function ArenaLivePage() {
       <EventResultView
         eventoId={selectedEventoId}
         onBack={() => setSelectedEventoId(null)}
+        liga={liga}
       />
     );
   }
 
   // Live event happening now
   if (isAoVivo && evento) {
-    return <EventResultView eventoId={evento.id} />;
+    return <EventResultView eventoId={evento.id} liga={liga} />;
   }
 
   // No live event → show countdown + recent events

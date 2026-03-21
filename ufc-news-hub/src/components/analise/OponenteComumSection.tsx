@@ -1,8 +1,9 @@
 import { Eye } from 'lucide-react';
 import type { OponenteComumSectionData } from '@/types/analise';
+import type { Lang } from '@/lib/i18n-labels';
 import { SectionHeader } from './SectionHeader';
 
-export function OponenteComumSection({ data }: { data: OponenteComumSectionData }) {
+export function OponenteComumSection({ data, lang = 'pt' }: { data: OponenteComumSectionData; lang?: Lang }) {
   return (
     <section>
       <SectionHeader number="04" title="Spotlight:" accent={data.oponente_nome} />
