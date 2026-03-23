@@ -302,7 +302,7 @@ function EventResultView({
 
           {/* Fight cards — chronological order (prelims first → main event last) */}
           <section className="space-y-3">
-            {sortedLutas.map(luta => (
+            {sortedLutas.filter(l => !currentFight || l.luta_id !== currentFight.luta_id).map(luta => (
               <LiveResultCard
                 key={luta.luta_id}
                 lutador1_nome={luta.lutador1_nome}
