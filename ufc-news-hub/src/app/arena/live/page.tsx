@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useMemo, useEffect } from 'react';
+import { useState, useRef, useMemo, useEffect, useCallback } from 'react';
 import useSWR from 'swr';
 import useSWRImmutable from 'swr/immutable';
 import { Calendar, MapPin, ChevronRight, ArrowLeft, Trophy } from 'lucide-react';
@@ -8,6 +8,48 @@ import { LiveResultCard } from '@/components/arena/LiveResultCard';
 import { LiveLeaderboard } from '@/components/arena/LiveLeaderboard';
 import { LiveCurrentFight } from '@/components/arena/LiveCurrentFight';
 import { LiveChat } from '@/components/arena/LiveChat';
+
+// ═══════════════════════════════════════════════════════════════
+// Pick Result Overlay — GTA style
+// ═══════════════════════════════════════════════════════════════
+
+function PickResultOverlay({ type, onDone }: { type: 'win' | 'lose'; onDone: () => void }) {
+  useEffect(() => {
+    const timer = setTimeout(onDone, 2500);
+    return () => clearTimeout(timer);
+  }, [onDone]);
+
+  if (type === 'win') {
+    return (
+      <div className="fixed inset-0 z-[100] flex items-center justify-center pointer-events-none animate-fade-in">
+        {/* Green radial glow */}
+        <div className="absolute inset-0 bg-gradient-radial from-green-500/20 via-transparent to-transparent" />
+        <div className="text-center animate-pick-result-bounce">
+          <p className="font-display text-5xl sm:text-7xl uppercase tracking-widest text-green-400 drop-shadow-[0_0_40px_rgba(34,197,94,0.8)]">
+            Você é
+          </p>
+          <p className="font-display text-6xl sm:text-8xl uppercase tracking-widest text-green-300 mt-2 animate-pulse drop-shadow-[0_0_60px_rgba(34,197,94,1)]">
+            FODAAAAAAAAAA
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center pointer-events-none animate-fade-in">
+      {/* Red desaturated overlay like GTA Wasted */}
+      <div className="absolute inset-0 bg-black/60" />
+      <div className="absolute inset-0 bg-red-900/20 mix-blend-multiply" />
+      <div className="text-center animate-pick-result-slide">
+        <p className="font-display text-5xl sm:text-8xl uppercase tracking-[0.3em] text-red-500 drop-shadow-[0_0_50px_rgba(210,10,10,0.9)]"
+           style={{ textShadow: '0 0 30px rgba(210,10,10,0.8), 0 0 60px rgba(210,10,10,0.4), 0 4px 0 rgba(0,0,0,0.5)' }}>
+          Vai perder em!
+        </p>
+      </div>
+    </div>
+  );
+}
 import { FloatingReactions } from '@/components/arena/FloatingReactions';
 import { useProximoEvento } from '@/hooks/useProximoEvento';
 import { useArenaAuth } from '@/hooks/useArenaAuth';
@@ -138,6 +180,24 @@ function EventResultView({
     if (data) setLastUpdated(new Date());
   }, [data?.lutas_finalizadas, data?.leaderboard]);
 
+  // ── Pick result overlay (GTA style) ──
+  const [pickOverlay, setPickOverlay] = useState<'win' | 'lose' | null>(null);
+  const settledPicksRef = useRef<Set<string>>(new Set());
+  const dismissOverlay = useCallback(() => setPickOverlay(null), []);
+
+  useEffect(() => {
+    if (!data?.lutas) return;
+    for (const luta of data.lutas) {
+      if (!luta.userPick || luta.userPick.acertou_vencedor === null) continue;
+      // Already seen this result
+      if (settledPicksRef.current.has(luta.luta_id)) continue;
+      settledPicksRef.current.add(luta.luta_id);
+      // Show overlay
+      setPickOverlay(luta.userPick.acertou_vencedor ? 'win' : 'lose');
+      break; // one at a time
+    }
+  }, [data?.lutas]);
+
   // ── Ranking movement tracking ──
   const prevPositions = useRef<Map<string, number>>(new Map());
   const [movimentos, setMovimentos] = useState<Record<string, number>>({});
@@ -211,6 +271,9 @@ function EventResultView({
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-6">
+      {/* GTA-style pick result overlay */}
+      {pickOverlay && <PickResultOverlay type={pickOverlay} onDone={dismissOverlay} />}
+
       {/* Back button (when viewing a past event) */}
       {onBack && (
         <button
@@ -339,7 +402,7 @@ function EventResultView({
             isAuthenticated={isAuthenticated}
             username={usuario?.username}
           />
-          <LiveChat eventoId={eventoId} ligaId={liga?.id} ligaNome={liga?.nome} />
+          <LiveChat eventoId={eventoId} ligaId={liga?.id} ligaNome={liga?.nome} currentUserId={usuario?.id} />
         </div>
       </div>
     </div>

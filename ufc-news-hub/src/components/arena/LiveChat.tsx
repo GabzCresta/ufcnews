@@ -23,6 +23,7 @@ interface LiveChatProps {
   eventoId: string;
   ligaId?: string;
   ligaNome?: string;
+  currentUserId?: string;
 }
 
 const fetcher = (url: string) => fetch(url).then(r => {
@@ -38,7 +39,7 @@ function timeAgo(dateStr: string): string {
   return `${Math.floor(mins / 60)}h`;
 }
 
-export function LiveChat({ eventoId, ligaId, ligaNome }: LiveChatProps) {
+export function LiveChat({ eventoId, ligaId, ligaNome, currentUserId }: LiveChatProps) {
   const [activeTab, setActiveTab] = useState<'geral' | 'liga'>('geral');
   const [input, setInput] = useState('');
   const [isSending, setIsSending] = useState(false);
@@ -170,18 +171,34 @@ export function LiveChat({ eventoId, ligaId, ligaNome }: LiveChatProps) {
             Nenhuma mensagem ainda. Comece a conversa!
           </div>
         )}
-        {localMessages.map(msg => (
-          <div key={msg.id} className="flex items-start gap-2">
-            <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-[8px] font-bold text-white/30 shrink-0 mt-0.5">
-              {(msg.display_name ?? msg.username).slice(0, 2).toUpperCase()}
+        {localMessages.map(msg => {
+          const isMe = currentUserId && msg.usuario_id === currentUserId;
+          return (
+            <div key={msg.id} className={`flex items-end gap-2 ${isMe ? 'flex-row-reverse' : ''}`}>
+              {!isMe && (
+                <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-[8px] font-bold text-white/30 shrink-0">
+                  {(msg.display_name ?? msg.username).slice(0, 2).toUpperCase()}
+                </div>
+              )}
+              <div className={`max-w-[75%] rounded-2xl px-3 py-2 ${
+                isMe
+                  ? 'bg-ufc-red/20 border border-ufc-red/30 rounded-br-sm'
+                  : 'bg-white/5 border border-white/10 rounded-bl-sm'
+              }`}>
+                {!isMe && (
+                  <div className="flex items-center gap-1.5 mb-0.5">
+                    <span className="text-[10px] font-semibold text-white/60">{msg.display_name ?? msg.username}</span>
+                    <span className="text-[10px] text-white/20">{timeAgo(msg.created_at)}</span>
+                  </div>
+                )}
+                <p className={`text-sm break-words ${isMe ? 'text-white/80' : 'text-white/60'}`}>{msg.mensagem}</p>
+                {isMe && (
+                  <p className="text-[10px] text-white/20 text-right mt-0.5">{timeAgo(msg.created_at)}</p>
+                )}
+              </div>
             </div>
-            <div className="min-w-0 flex-1">
-              <span className="text-xs font-semibold text-white/70">{msg.display_name ?? msg.username}</span>
-              <span className="text-xs text-white/20 ml-1.5">{timeAgo(msg.created_at)}</span>
-              <p className="text-sm text-white/60 break-words">{msg.mensagem}</p>
-            </div>
-          </div>
-        ))}
+          );
+        })}
         <div ref={messagesEndRef} />
       </div>
 
