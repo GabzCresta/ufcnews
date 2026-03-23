@@ -1,16 +1,13 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { queryOne } from '@/lib/db';
+import { requireAdmin } from '@/lib/admin-sessions';
 import { generateFullAnalysis, generateSlug } from '@/lib/generate-analysis';
 
 export const maxDuration = 300; // 5 minutes for premium analysis
 
-export async function POST(request: Request) {
-  // Auth check (disabled for now — re-enable with CRON_SECRET when in production)
-  // const url = new URL(request.url);
-  // const secret = url.searchParams.get('secret');
-  // if (secret !== process.env.CRON_SECRET) {
-  //   return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  // }
+export async function POST(request: NextRequest) {
+  const authError = requireAdmin(request);
+  if (authError) return authError;
 
   try {
     const body = await request.json();

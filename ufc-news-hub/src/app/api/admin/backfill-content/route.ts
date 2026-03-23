@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Pool } from 'pg';
+import { query } from '@/lib/db';
+import { requireAdmin } from '@/lib/admin-sessions';
 import { scrapeArticleContent } from '@/lib/article-scraper';
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
 
 /**
  * POST /api/admin/backfill-content
@@ -12,21 +9,22 @@ const pool = new Pool({
  * Optional query param: ?limit=10 (default 20)
  */
 export async function POST(req: NextRequest) {
+  const authError = requireAdmin(req);
+  if (authError) return authError;
+
   const limit = parseInt(req.nextUrl.searchParams.get('limit') || '20', 10);
 
   try {
     // Find articles with empty or very short content
-    const result = await pool.query(
-      `SELECT id, titulo, fonte_url, fonte_nome 
-       FROM noticias 
+    const articles = await query<{ id: string; titulo: string; fonte_url: string; fonte_nome: string }>(
+      `SELECT id, titulo, fonte_url, fonte_nome
+       FROM noticias
        WHERE (conteudo_completo IS NULL OR length(conteudo_completo) < 50)
          AND fonte_url IS NOT NULL
        ORDER BY publicado_em DESC
        LIMIT $1`,
       [limit]
     );
-
-    const articles = result.rows;
     console.log(`[backfill] Found ${articles.length} articles with empty content`);
 
     let updated = 0;
@@ -39,7 +37,7 @@ export async function POST(req: NextRequest) {
       const content = await scrapeArticleContent(article.fonte_url);
 
       if (content && content.length > 50) {
-        await pool.query(
+        await query(
           `UPDATE noticias SET conteudo_completo = $1 WHERE id = $2`,
           [content, article.id]
         );
@@ -76,23 +74,26 @@ export async function POST(req: NextRequest) {
  * GET /api/admin/backfill-content
  * Returns count of articles with empty content.
  */
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const authError = requireAdmin(request);
+  if (authError) return authError;
+
   try {
-    const result = await pool.query(
+    const countResult = await query<{ total: string }>(
       `SELECT count(*) as total FROM noticias WHERE (conteudo_completo IS NULL OR length(conteudo_completo) < 50)`
     );
 
-    const bySource = await pool.query(
-      `SELECT fonte_nome, count(*) as count 
-       FROM noticias 
+    const bySource = await query<{ fonte_nome: string; count: string }>(
+      `SELECT fonte_nome, count(*) as count
+       FROM noticias
        WHERE (conteudo_completo IS NULL OR length(conteudo_completo) < 50)
        GROUP BY fonte_nome
        ORDER BY count DESC`
     );
 
     return NextResponse.json({
-      emptyArticles: parseInt(result.rows[0].total, 10),
-      bySource: bySource.rows,
+      emptyArticles: parseInt(countResult[0]?.total ?? '0', 10),
+      bySource,
     });
   } catch (error) {
     return NextResponse.json(

@@ -1,6 +1,7 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { query } from '@/lib/db';
 import { classifyNews } from '@/lib/keyword-classifier';
+import { requireAdmin } from '@/lib/admin-sessions';
 
 interface NewsRow {
   id: string;
@@ -46,7 +47,10 @@ function calculateSimilarity(title1: string, title2: string): number {
   return intersection.size / union.size;
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  const authError = requireAdmin(request);
+  if (authError) return authError;
+
   try {
     const { searchParams } = new URL(request.url);
     const action = searchParams.get('action') || 'all';

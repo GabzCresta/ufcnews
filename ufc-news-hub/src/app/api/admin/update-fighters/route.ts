@@ -1,5 +1,6 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { query } from '@/lib/db';
+import { requireAdmin } from '@/lib/admin-sessions';
 import * as cheerio from 'cheerio';
 
 const UFC_BASE_URL = 'https://www.ufc.com';
@@ -94,7 +95,10 @@ async function fetchFighterData(nome: string): Promise<{
   }
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  const authError = requireAdmin(request);
+  if (authError) return authError;
+
   try {
     const { searchParams } = new URL(request.url);
     const limitParam = searchParams.get('limit') || '20';

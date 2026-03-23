@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { requireAdmin } from '@/lib/admin-sessions';
 
 const LEVELS: Record<number, { title: string; xpRequired: number }> = {
   1: { title: 'Trainee', xpRequired: 0 },
@@ -15,7 +16,9 @@ const LEVELS: Record<number, { title: string; xpRequired: number }> = {
  * - Clamps XP to level ceiling for agents at max (L4)
  * - Fixes xpToNextLevel field
  */
-export async function POST(_req: NextRequest) {
+export async function POST(request: NextRequest) {
+  const authError = requireAdmin(request);
+  if (authError) return authError;
   try {
     const agents = await prisma.agent.findMany({ where: { firedAt: null } });
     const fixes: Array<{ id: string; name: string; action: string; from: string; to: string }> = [];

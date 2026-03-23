@@ -14,13 +14,17 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Informe usuario_id ou username' }, { status: 400 });
     }
 
-    // Find user
-    const findField = usuario_id ? 'id' : 'username';
+    // Find user (explicit SQL branches to avoid column name interpolation)
     const findValue = usuario_id ?? username;
-    const users = await query<{ id: string; username: string }>(
-      `SELECT id, username FROM usuarios_arena WHERE ${findField} = $1`,
-      [findValue]
-    );
+    const users = usuario_id
+      ? await query<{ id: string; username: string }>(
+          `SELECT id, username FROM usuarios_arena WHERE id = $1`,
+          [findValue]
+        )
+      : await query<{ id: string; username: string }>(
+          `SELECT id, username FROM usuarios_arena WHERE username = $1`,
+          [findValue]
+        );
 
     if (users.length === 0) {
       return NextResponse.json({ error: 'Usuario nao encontrado' }, { status: 404 });

@@ -1,13 +1,60 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createToken, validateToken } from '@/lib/admin-sessions';
 
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'ufc-admin-2024';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+
+// ═══════════════════════════════════════
+// Rate limiter: max 5 attempts per IP per 15 min window
+// ═══════════════════════════════════════
+const LOGIN_WINDOW_MS = 15 * 60 * 1000;
+const MAX_ATTEMPTS = 5;
+const loginAttempts = new Map<string, { count: number; resetAt: number }>();
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const entry = loginAttempts.get(ip);
+
+  if (!entry || now > entry.resetAt) {
+    loginAttempts.set(ip, { count: 1, resetAt: now + LOGIN_WINDOW_MS });
+    return true;
+  }
+
+  if (entry.count >= MAX_ATTEMPTS) return false;
+  entry.count++;
+  return true;
+}
+
+// Cleanup stale entries every 30 min
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, entry] of loginAttempts) {
+    if (now > entry.resetAt) loginAttempts.delete(ip);
+  }
+}, 30 * 60 * 1000);
 
 // POST /api/admin/auth — Login
 export async function POST(request: NextRequest) {
   try {
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+      || request.headers.get('x-real-ip')
+      || 'unknown';
+
+    if (!checkRateLimit(ip)) {
+      return NextResponse.json(
+        { error: 'Muitas tentativas. Tente novamente em 15 minutos.' },
+        { status: 429 }
+      );
+    }
+
     const body = await request.json();
     const { password } = body;
+
+    if (!ADMIN_PASSWORD) {
+      return NextResponse.json(
+        { error: 'Configuracao de seguranca ausente.' },
+        { status: 503 }
+      );
+    }
 
     if (!password || password !== ADMIN_PASSWORD) {
       return NextResponse.json(
@@ -16,6 +63,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Reset rate limit on successful login
+    loginAttempts.delete(ip);
     const token = createToken();
 
     return NextResponse.json({ token });

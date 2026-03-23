@@ -4,7 +4,10 @@ import { pool } from '@/lib/db';
 export async function POST(request: Request) {
   const url = new URL(request.url);
   const secret = url.searchParams.get('secret');
-  const expectedSecret = process.env.CRON_SECRET || 'ufc-news-cron-secret';
+  const expectedSecret = process.env.CRON_SECRET;
+  if (!expectedSecret) {
+    return NextResponse.json({ error: 'CRON_SECRET not configured' }, { status: 503 });
+  }
 
   if (secret !== expectedSecret) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });

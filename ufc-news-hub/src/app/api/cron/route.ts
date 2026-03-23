@@ -76,7 +76,7 @@ async function runSync(baseUrl: string) {
       );
       if (daysUntil <= 2 && daysUntil >= 0 && !alreadyExists) {
         console.log(`[CRON] Event "${nextEvent.nome}" is ${daysUntil.toFixed(1)} days away — generating analysis...`);
-        const analysisResponse = await fetch(`${baseUrl}/api/analises/generate?secret=${process.env.CRON_SECRET || 'ufc-news-cron-secret'}`, {
+        const analysisResponse = await fetch(`${baseUrl}/api/analises/generate?secret=${process.env.CRON_SECRET}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ evento_id: nextEvent.id }),
@@ -151,7 +151,10 @@ export async function GET(_request: Request) {
 export async function POST(request: Request) {
   const url = new URL(request.url);
   const secret = url.searchParams.get('secret');
-  const expectedSecret = process.env.CRON_SECRET || 'ufc-news-cron-secret';
+  const expectedSecret = process.env.CRON_SECRET;
+  if (!expectedSecret) {
+    return NextResponse.json({ error: 'CRON_SECRET not configured' }, { status: 503 });
+  }
 
   if (secret !== expectedSecret) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });

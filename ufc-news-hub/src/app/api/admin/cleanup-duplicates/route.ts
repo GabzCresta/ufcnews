@@ -1,5 +1,6 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { query } from '@/lib/db';
+import { requireAdmin } from '@/lib/admin-sessions';
 
 interface DuplicateFight {
   evento_id: string;
@@ -8,7 +9,9 @@ interface DuplicateFight {
   count: string;
 }
 
-export async function POST() {
+export async function POST(request: NextRequest) {
+  const authError = requireAdmin(request);
+  if (authError) return authError;
   try {
     // Find duplicate fights (same evento_id, lutador1_id, lutador2_id)
     const duplicates = await query<DuplicateFight>(

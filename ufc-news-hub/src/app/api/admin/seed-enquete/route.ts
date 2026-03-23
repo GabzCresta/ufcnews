@@ -1,7 +1,10 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { query, queryOne } from '@/lib/db';
+import { requireAdmin } from '@/lib/admin-sessions';
 
-export async function POST() {
+export async function POST(request: NextRequest) {
+  const authError = requireAdmin(request);
+  if (authError) return authError;
   try {
     // 1. Get next upcoming event
     const evento = await queryOne<{ id: string; nome: string }>(
