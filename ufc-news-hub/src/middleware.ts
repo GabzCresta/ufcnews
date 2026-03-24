@@ -1,11 +1,10 @@
-import { NextResponse, type NextRequest } from 'next/server';
+import createMiddleware from 'next-intl/middleware';
+import { routing } from './i18n/routing';
 
-// Auth is handled at the API route level via requireAdmin()
-// Middleware passes through all requests
-export function middleware(_request: NextRequest) {
-  return NextResponse.next();
-}
+export default createMiddleware(routing);
 
 export const config = {
-  matcher: [],
+  matcher: [
+    '/((?!api|admin|_next|.*\\..*|manifest\\.json|sw\\.js|icons).*)',
+  ],
 };
