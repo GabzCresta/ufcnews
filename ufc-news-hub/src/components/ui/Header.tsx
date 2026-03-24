@@ -1,22 +1,24 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { Link, usePathname } from '@/i18n/routing';
 import { Home, Newspaper, BarChart3, Target, Calendar, Menu, X, Users } from 'lucide-react';
-
-const mainNav = [
-  { href: '/', label: 'Home', icon: Home },
-  { href: '/noticias', label: 'Noticias', icon: Newspaper },
-  { href: '/fighters', label: 'Lutadores', icon: Users },
-  { href: '/analises', label: 'Análises', icon: BarChart3 },
-  { href: '/arena', label: 'Arena', icon: Target },
-  { href: '/calendario', label: 'Calendario', icon: Calendar },
-];
+import { LocaleSwitcher } from './LocaleSwitcher';
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const t = useTranslations('nav');
+
+  const mainNav = [
+    { href: '/' as const, label: t('home'), icon: Home },
+    { href: '/noticias' as const, label: t('noticias'), icon: Newspaper },
+    { href: '/lutadores' as const, label: t('lutadores'), icon: Users },
+    { href: '/analises' as const, label: t('analises'), icon: BarChart3 },
+    { href: '/arena' as const, label: t('arena'), icon: Target },
+    { href: '/calendario' as const, label: t('calendario'), icon: Calendar },
+  ];
 
   useEffect(() => {
     setMobileMenuOpen(false);
@@ -48,7 +50,6 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                prefetch={true}
                 className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-all neu-button ${
                   isActive(item.href)
                     ? 'bg-ufc-red/10 text-ufc-red'
@@ -62,9 +63,9 @@ export function Header() {
           })}
         </nav>
 
-        {/* Right side */}
-        <div className="flex items-center gap-4">
-          {/* Mobile menu button */}
+        {/* Right side: LocaleSwitcher + Mobile menu */}
+        <div className="flex items-center gap-3">
+          <LocaleSwitcher />
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden p-2 text-dark-textMuted hover:text-dark-text neu-button"
@@ -88,7 +89,6 @@ export function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  prefetch={true}
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
                     isActive(item.href)
                       ? 'bg-ufc-red/10 text-ufc-red'
