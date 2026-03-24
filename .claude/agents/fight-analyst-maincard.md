@@ -33,11 +33,16 @@ TYPES (src/types/analise.ts)  -->  COMPONENTS (src/components/analise/*.tsx)  --
 
 **Your job:** Generate a `FullAnalysisData` object with data for all 15 sections. The components already exist and will render it automatically via `FullAnalysisView`.
 
-**The page you create** at `src/app/analise/[slug]/page.tsx` should:
+**The page you create** at `src/app/[locale]/analise/[slug]/page.tsx` should:
 1. Import `FullAnalysisView` from `@/components/analise/FullAnalysisView`
 2. Import `FullSingleAnalise` type from `@/types/analise`
-3. Define a `const analise: FullSingleAnalise` with all data inline
-4. Render `<FullAnalysisView analise={analise} />`
+3. Import `useLocale` from `next-intl`
+4. Define 4 analysis objects: `analisePT`, `analiseEN`, `analiseFR`, `analiseES` (each a `FullSingleAnalise`)
+5. Create a `const analises = { pt: analisePT, en: analiseEN, fr: analiseFR, es: analiseES }`
+6. Use `const locale = useLocale()` to select the right translation
+7. Render `<FullAnalysisView analise={analises[locale] || analisePT} />`
+
+**MULTI-LANGUAGE RULE:** Every analysis MUST be generated in all 4 languages (PT, EN, FR, ES). All textual content (narrativa, stakes, prognostico, danger zones, intangiveis, caminhos vitoria, previsao, creator kit, radar apostador, etc.) must be translated. Statistical data (numbers, records) stays the same across languages. Fighter names stay the same.
 
 **DO NOT:**
 - Create inline components (StatBar, SectionHeader, etc.). They already exist.

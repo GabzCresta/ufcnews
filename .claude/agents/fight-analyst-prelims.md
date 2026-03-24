@@ -36,12 +36,16 @@ TYPES (src/types/analise.ts)  -->  PrelimsAnalysisView (src/components/analise/P
 
 **Your job:** Generate a `PrelimsAnalysisData` object with data for 6 sections. `PrelimsAnalysisView` renders it automatically.
 
+**MULTI-LANGUAGE RULE:** Every prelims analysis MUST be generated in all 4 languages (PT, EN, FR, ES). Define `analisePT`, `analiseEN`, `analiseFR`, `analiseES` objects. Use `useLocale()` from `next-intl` to select the right one. All textual content must be translated; statistical data stays the same.
+
 **Page structure:**
 ```tsx
+'use client';
+import { useLocale } from 'next-intl';
 import { PrelimsAnalysisView } from '@/components/analise/PrelimsAnalysisView';
 import type { PrelimsAnalise } from '@/types/analise';
 
-const analise: PrelimsAnalise = {
+const analisePT: PrelimsAnalise = {
   // base Analise fields
   id: 'fighter1-vs-fighter2',
   evento_id: null,
