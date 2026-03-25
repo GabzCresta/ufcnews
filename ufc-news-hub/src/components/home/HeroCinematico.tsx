@@ -5,6 +5,7 @@ import { Link } from '@/i18n/routing';
 import useSWR from 'swr';
 import FighterImage from '@/components/ui/FighterImage';
 import { cn } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
 
 // ═══════════════════════════════════════════════════════
 // Types
@@ -192,6 +193,7 @@ function FighterPhoto({
 }
 
 function CountdownTimer({ targetDate }: { targetDate: string }) {
+  const t = useTranslations('home');
   const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
 
   useEffect(() => {
@@ -205,16 +207,16 @@ function CountdownTimer({ targetDate }: { targetDate: string }) {
   if (!timeLeft) {
     return (
       <div className="text-center font-display text-xl text-ufc-red glow-red">
-        EVENTO EM ANDAMENTO!
+        {t('event_live')}
       </div>
     );
   }
 
   const units: { value: number; label: string }[] = [
-    { value: timeLeft.days, label: 'DIAS' },
-    { value: timeLeft.hours, label: 'HORAS' },
-    { value: timeLeft.minutes, label: 'MIN' },
-    { value: timeLeft.seconds, label: 'SEG' },
+    { value: timeLeft.days, label: t('days') },
+    { value: timeLeft.hours, label: t('hours') },
+    { value: timeLeft.minutes, label: t('min') },
+    { value: timeLeft.seconds, label: t('sec') },
   ];
 
   return (
@@ -251,6 +253,7 @@ function CountdownTimer({ targetDate }: { targetDate: string }) {
 // ═══════════════════════════════════════════════════════
 
 export default function HeroCinematico() {
+  const t = useTranslations('home');
   const { data, error, isLoading } = useSWR<EventoProximoAPI>(
     '/api/eventos/proximo',
     fetcher,
@@ -271,7 +274,7 @@ export default function HeroCinematico() {
         className="relative flex w-full items-center justify-center py-16"
         style={{ background: 'radial-gradient(ellipse at center, #1a1a2e 0%, #0d0d15 70%)' }}
       >
-        <p className="text-lg text-dark-textMuted">Nenhum evento agendado</p>
+        <p className="text-lg text-dark-textMuted">{t('no_event')}</p>
       </div>
     );
   }
@@ -284,7 +287,7 @@ export default function HeroCinematico() {
         className="relative flex w-full items-center justify-center py-16"
         style={{ background: 'radial-gradient(ellipse at center, #1a1a2e 0%, #0d0d15 70%)' }}
       >
-        <p className="text-lg text-dark-textMuted">Card ainda nao definido</p>
+        <p className="text-lg text-dark-textMuted">{t('card_not_defined')}</p>
       </div>
     );
   }
@@ -461,7 +464,7 @@ export default function HeroCinematico() {
               href={`/calendario/evento/${data.id}`}
               className="neu-button border border-ufc-red/60 px-6 py-3 font-display text-lg uppercase tracking-wider text-white transition-all duration-300 hover:text-ufc-gold hover:shadow-[0_0_20px_rgba(210,10,10,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ufc-red focus-visible:ring-offset-2 focus-visible:ring-offset-dark-bg"
             >
-              Ver Card Completo
+              {t('see_full_card')}
             </Link>
           </div>
         </div>

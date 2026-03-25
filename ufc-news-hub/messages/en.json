@@ -24,7 +24,17 @@
     "cta_lutadores": "FIGHTERS",
     "cta_lutadores_subtitle": "Full profiles",
     "cta_calendario": "CALENDAR",
-    "cta_calendario_subtitle": "Upcoming events"
+    "cta_calendario_subtitle": "Upcoming events",
+    "event_live": "EVENT IN PROGRESS!",
+    "days": "DAYS",
+    "hours": "HOURS",
+    "min": "MIN",
+    "sec": "SEC",
+    "no_event": "No event scheduled",
+    "card_not_defined": "Card not yet defined",
+    "see_full_card": "See Full Card",
+    "who_wins": "WHO WINS THE MAIN EVENT?",
+    "see_analysis": "See fight card analysis"
   },
   "errors": {
     "something_wrong": "Something went wrong",
