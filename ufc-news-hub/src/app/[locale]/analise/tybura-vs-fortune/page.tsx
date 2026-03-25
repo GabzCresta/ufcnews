@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense } from 'react';
+import { useLocale } from 'next-intl';
 import { PrelimsAnalysisView } from '@/components/analise/PrelimsAnalysisView';
 import type { PrelimsAnalise } from '@/types/analise';
 
@@ -446,11 +446,188 @@ const analiseEN: PrelimsAnalise = {
   },
 };
 
-function PageContent() {
-  const analise = analisePT;
-  return <PrelimsAnalysisView analise={analise} />;
-}
+const analiseFR: PrelimsAnalise = {
+  ...analisePT,
+  evento_data: '28 mars 2026',
+  evento_local: 'Climate Pledge Arena, Seattle, Washington',
+  categoria_peso: 'Poids Lourd (265 lbs)',
+  fight_prediction: {
+    ...analisePT.fight_prediction,
+    predictedMethod: 'Decision Unanime',
+    confidence: 'MOYENNE',
+  },
+  prelims_analysis: {
+    hero: {
+      ...analisePT.prelims_analysis.hero,
+      evento_data: '28 mars 2026',
+      categoria_peso: 'Poids Lourd (265 lbs)',
+    },
+    comparacao_estatistica: {
+      stats: [
+        { label: 'Coups Sign. par Minute', valueA: 3.55, valueB: 3.20, maxVal: 7, format: 'decimal', note: 'Tybura a un volume legerement superieur, constant sur 23 combats UFC' },
+        { label: 'Precision des Coups (%)', valueA: 48, valueB: 45, maxVal: 100, format: 'percent', note: 'Precision similaire, les deux connectent pres de la moitie de leurs coups' },
+        { label: 'Coups Encaisses/Min', valueA: 3.40, valueB: 3.10, maxVal: 7, format: 'decimal', reverseWinner: true, note: 'Chiffres estimes pour Fortune bases sur le circuit regional et le Bellator' },
+        { label: 'Defense de Coups (%)', valueA: 55, valueB: 50, maxVal: 100, format: 'percent', note: 'Tybura a une defense de coups au-dessus de la moyenne des poids lourds' },
+        { label: 'Takedowns par 15 Min', valueA: 1.39, valueB: 2.50, maxVal: 5, format: 'decimal', note: 'Fortune, ancien lutteur NCAA Division II, cherche plus de mises au sol' },
+        { label: 'Precision de Takedown (%)', valueA: 33, valueB: 42, maxVal: 100, format: 'percent', note: 'Fortune convertit plus de takedowns, reflet de son parcours en lutte' },
+        { label: 'Defense de Takedown (%)', valueA: 79, valueB: 65, maxVal: 100, format: 'percent', note: 'Tybura possede l\'une des meilleures defenses de takedown de l\'histoire de la division (top 5 historique)' },
+      ],
+      tale_of_tape: [
+        { label: 'Age', fighter1: '40 ans', fighter2: '35 ans', note: '5 ans d\'ecart, facteur pertinent dans la division la plus lourde' },
+        { label: 'Taille', fighter1: '1,91m (6\'3")', fighter2: '1,88m (6\'2")', note: null },
+        { label: 'Allonge', fighter1: '198cm (78")', fighter2: '196cm (77")', note: 'Tybura a un leger avantage d\'allonge' },
+        { label: 'Garde', fighter1: 'Orthodoxe', fighter2: 'Orthodoxe', note: null },
+        { label: 'Salle', fighter1: 'S4 Fight Club / Lodz, Pologne', fighter2: 'Tempe, Arizona (ex-Blackzilians)', note: null },
+      ],
+    },
+    historico_lutas: {
+      fighter1: {
+        nome: 'Tybura',
+        recent_fights: [
+          { date: 'Sep 2025', opponent: 'Ante Delija', result: 'L', method: 'KO R1', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Moyen', note: 'Mis KO au premier round a Paris. Defaite inquietante contre un nouveau venu de la division.' },
+          { date: 'Mar 2025', opponent: 'Mick Parkin', result: 'W', method: 'Decision Unanime', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Moyen', note: 'Victoire solide aux points a Londres contre un espoir britannique prometteur.' },
+          { date: 'Nov 2024', opponent: 'Jhonata Diniz', result: 'W', method: 'TKO R2', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Moyen', note: 'Arret medical a la fin du deuxieme round apres des coudes au sol a l\'UFC 309.' },
+          { date: 'Aou 2024', opponent: 'Serghei Spivac', result: 'L', method: 'Sub R1 (Armbar)', opponent_rank: '#12 HW', quality_score: 3, quality_label: 'Bon', note: 'Soumis rapidement par armbar. Deuxieme combat entre eux, Spivac l\'a emporte cette fois.' },
+          { date: 'Mar 2024', opponent: 'Tai Tuivasa', result: 'W', method: 'Sub R1 (RNC)', opponent_rank: '#14 HW', quality_score: 3, quality_label: 'Bon', note: 'A soumis Tuivasa par etranglement arriere au premier round, montrant un JJB affute.' },
+        ],
+      },
+      fighter2: {
+        nome: 'Fortune',
+        recent_fights: [
+          { date: '2025', opponent: 'Demoreo Dennis', result: 'W', method: 'TKO R1', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Faible', note: 'Fin rapide au premier round sur le circuit regional avant de signer avec l\'UFC.' },
+          { date: '2025', opponent: 'Tony Lopez', result: 'W', method: 'TKO R1', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Faible', note: 'Encore une fin rapide en regional, restant actif avant ses debuts a l\'UFC.' },
+          { date: '2025', opponent: 'Myron Dennis', result: 'W', method: 'Sub R1', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Faible', note: 'Soumission au premier round, domination totale contre un adversaire regional.' },
+          { date: '2024', opponent: 'Denis Goltsov', result: 'W', method: 'Decision Unanime', opponent_rank: 'N/R', quality_score: 3, quality_label: 'Bon', note: 'Victoire aux points au PFL contre un veteran russe poids lourd. Test de niveau superieur.' },
+          { date: '2022', opponent: 'Daniel James', result: 'W', method: 'TKO R1', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Moyen', note: 'KO rapide au Bellator, poursuivant sa serie de finitions.' },
+        ],
+      },
+    },
+    perfil_habilidades: {
+      skills: [
+        { label: 'Frappe Debout', valueA: 68, valueB: 60, labelA: 'Bon', labelB: 'Bon', advantage: 'fighter1', advantage_note: 'Tybura a 3.55 SLpM avec 48% de precision a l\'UFC, teste contre les meilleurs poids lourds du monde. Fortune a de la puissance, mais n\'a jamais affronte de frappeurs d\'elite.' },
+        { label: 'Puissance de KO', valueA: 62, valueB: 72, labelA: 'Bon', labelB: 'Bon', advantage: 'fighter2', advantage_note: 'Fortune a 65% de victoires par KO/TKO (11 KO en 17 victoires). Tybura a 10 KO en 27 victoires (37%). Fortune frappe plus fort.' },
+        { label: 'Lutte', valueA: 60, valueB: 78, labelA: 'Bon', labelB: 'Tres Bon', advantage: 'fighter2', advantage_note: 'Fortune a ete champion NCAA Division II et a represente l\'equipe nationale americaine de lutte. Tybura compense avec 79% de defense de takedown a l\'UFC.' },
+        { label: 'Jiu-Jitsu et Soumissions', valueA: 72, valueB: 45, labelA: 'Bon', labelB: 'Moyen', advantage: 'fighter1', advantage_note: 'Tybura a 7 victoires par soumission, dont une finition recente de Tuivasa. Ceinture noire de judo avec des transitions dangereuses. Fortune n\'a qu\'1 soumission en carriere.' },
+        { label: 'Defense Generale', valueA: 70, valueB: 55, labelA: 'Bon', labelB: 'Bon', advantage: 'fighter1', advantage_note: 'Tybura a 55% de defense de coups et 79% de defense de takedown. A survecu face a Aspinall, Gane, Blaydes. Fortune a ete mis KO par Timothy Johnson et soumis.' },
+        { label: 'Experience dans l\'Octogone', valueA: 90, valueB: 30, labelA: 'Excellent', labelB: 'Faible', advantage: 'fighter1', advantage_note: 'Tybura a 23 combats UFC depuis 2016, dont des affrontements contre des champions et le top 5. Fortune fait ses grands debuts dans l\'Octogone a 35 ans.' },
+      ],
+      insight: 'Tybura est le veteran complet avec pres d\'une decennie a l\'UFC, un jiu-jitsu dangereux et une defense de takedown d\'elite. Fortune apporte une lutte de niveau olympique, une puissance de KO et un athletisme remarquable, mais n\'a jamais mis les pieds dans l\'Octogone. La grande question : la lutte de Fortune fonctionnera-t-elle contre la defense de takedown historique de Tybura ? Et si le combat reste debout, l\'experience du Polonais sera-t-elle decisive ?',
+    },
+    distribuicao_vitorias: {
+      fighter1: { nome: 'Tybura', ko_tko: { count: 10, percent: 37 }, submission: { count: 7, percent: 26 }, decision: { count: 10, percent: 37 }, total_wins: 27 },
+      fighter2: { nome: 'Fortune', ko_tko: { count: 11, percent: 65 }, submission: { count: 1, percent: 6 }, decision: { count: 5, percent: 29 }, total_wins: 17 },
+      insight: 'Tybura est l\'un des combattants les plus equilibres de la division, avec des victoires reparties equitablement entre KO (37%), soumission (26%) et decision (37%). Il peut gagner de n\'importe quelle maniere. Fortune est un finisseur ne : 65% de victoires par KO. S\'il connecte proprement, le combat peut s\'arreter. Cependant, quand Fortune n\'obtient pas le KO, il a tendance a aller a la decision, ce qui favorise l\'experience et le QI de combat de Tybura.',
+    },
+    previsao_final: {
+      winner_name: 'Tybura',
+      winner_side: 'fighter1',
+      predicted_method: 'Decision Unanime',
+      confidence_score: 5,
+      confidence_label: 'MOYENNE',
+      explanation: 'Tybura a un avantage massif d\'experience a l\'UFC, avec 23 combats contre l\'elite de la division. Sa defense de takedown de 79% devrait neutraliser la lutte de Fortune, et son jiu-jitsu offre un danger constant si le combat va au sol. Fortune apporte une puissance explosive et de l\'athletisme, mais debuter a l\'UFC a 35 ans contre un top 8 classe est un test brutal. Le Polonais a montre qu\'il sait gerer la puissance (a soumis Tuivasa) et devrait utiliser le jab, la distance et l\'experience pour gagner aux points. Cependant, la defaite recente par KO contre Delija souleve des questions sur le menton de Tybura a 40 ans, et Fortune a des mains lourdes.',
+      x_factor: { title: 'La defense de takedown de Tybura contre la lutte de Fortune', description: 'Tybura possede la 5e meilleure defense de takedown de l\'histoire des poids lourds UFC (79%). Fortune a construit sa carriere sur la lutte, avec un titre NCAA Division II. Si Tybura defend les mises au sol, le combat reste sur son terrain. Si Fortune le met au sol, le jeu change completement.' },
+      upset_alert: { title: 'Fortune a la puissance pour mettre KO n\'importe qui', description: 'Avec 65% de victoires par KO/TKO, Fortune n\'a pas besoin de beaucoup d\'occasions. Tybura a ete mis KO par Delija en septembre 2025, et a 40 ans, sa capacite a encaisser les coups pourrait diminuer. Un overhand droit ou un uppercut dans le clinch pourrait mettre fin a la soiree rapidement.' },
+      probabilities: { fighter1: { nome: 'Tybura', percent: 55 }, fighter2: { nome: 'Fortune', percent: 43 }, draw: 2 },
+      value_picks: undefined,
+    },
+  },
+};
+
+const analiseES: PrelimsAnalise = {
+  ...analisePT,
+  evento_data: '28 de marzo, 2026',
+  evento_local: 'Climate Pledge Arena, Seattle, Washington',
+  categoria_peso: 'Peso Pesado (265 lbs)',
+  fight_prediction: {
+    ...analisePT.fight_prediction,
+    predictedMethod: 'Decision Unanime',
+    confidence: 'MEDIA',
+  },
+  prelims_analysis: {
+    hero: {
+      ...analisePT.prelims_analysis.hero,
+      evento_data: '28 de marzo, 2026',
+      categoria_peso: 'Peso Pesado (265 lbs)',
+    },
+    comparacao_estatistica: {
+      stats: [
+        { label: 'Golpes Sign. por Minuto', valueA: 3.55, valueB: 3.20, maxVal: 7, format: 'decimal', note: 'Tybura tiene un volumen ligeramente superior, consistente en 23 peleas en UFC' },
+        { label: 'Precision de Golpes (%)', valueA: 48, valueB: 45, maxVal: 100, format: 'percent', note: 'Precision similar, ambos conectan casi la mitad de sus golpes' },
+        { label: 'Golpes Recibidos/Min', valueA: 3.40, valueB: 3.10, maxVal: 7, format: 'decimal', reverseWinner: true, note: 'Numeros estimados para Fortune basados en el circuito regional y Bellator' },
+        { label: 'Defensa de Golpes (%)', valueA: 55, valueB: 50, maxVal: 100, format: 'percent', note: 'Tybura tiene una defensa de golpes por encima del promedio de los peso pesado' },
+        { label: 'Derribos por 15 Min', valueA: 1.39, valueB: 2.50, maxVal: 5, format: 'decimal', note: 'Fortune, ex-luchador NCAA Division II, busca mas derribos' },
+        { label: 'Precision de Derribo (%)', valueA: 33, valueB: 42, maxVal: 100, format: 'percent', note: 'Fortune convierte mas derribos, reflejo de su trayectoria en lucha' },
+        { label: 'Defensa de Derribo (%)', valueA: 79, valueB: 65, maxVal: 100, format: 'percent', note: 'Tybura tiene una de las mejores defensas de derribo en la historia de la division (top 5 historico)' },
+      ],
+      tale_of_tape: [
+        { label: 'Edad', fighter1: '40 anos', fighter2: '35 anos', note: '5 anos de diferencia, factor relevante en la division mas pesada' },
+        { label: 'Altura', fighter1: '1,91m (6\'3")', fighter2: '1,88m (6\'2")', note: null },
+        { label: 'Envergadura', fighter1: '198cm (78")', fighter2: '196cm (77")', note: 'Tybura tiene una ligera ventaja de alcance' },
+        { label: 'Guardia', fighter1: 'Ortodoxa', fighter2: 'Ortodoxa', note: null },
+        { label: 'Gimnasio', fighter1: 'S4 Fight Club / Lodz, Polonia', fighter2: 'Tempe, Arizona (ex-Blackzilians)', note: null },
+      ],
+    },
+    historico_lutas: {
+      fighter1: {
+        nome: 'Tybura',
+        recent_fights: [
+          { date: 'Sep 2025', opponent: 'Ante Delija', result: 'L', method: 'KO R1', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Noqueado en el primer round en Paris. Derrota preocupante contra un recien llegado a la division.' },
+          { date: 'Mar 2025', opponent: 'Mick Parkin', result: 'W', method: 'Decision Unanime', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Victoria solida por puntos en Londres contra un prospecto britanico prometedor.' },
+          { date: 'Nov 2024', opponent: 'Jhonata Diniz', result: 'W', method: 'TKO R2', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Detencion medica al final del segundo round tras codazos en el suelo en UFC 309.' },
+          { date: 'Ago 2024', opponent: 'Serghei Spivac', result: 'L', method: 'Sub R1 (Armbar)', opponent_rank: '#12 HW', quality_score: 3, quality_label: 'Bueno', note: 'Sometido rapidamente por armbar. Segunda pelea entre ambos, Spivac gano esta vez.' },
+          { date: 'Mar 2024', opponent: 'Tai Tuivasa', result: 'W', method: 'Sub R1 (RNC)', opponent_rank: '#14 HW', quality_score: 3, quality_label: 'Bueno', note: 'Sometio a Tuivasa con estrangulamiento trasero en el primer round, mostrando un JJB afilado.' },
+        ],
+      },
+      fighter2: {
+        nome: 'Fortune',
+        recent_fights: [
+          { date: '2025', opponent: 'Demoreo Dennis', result: 'W', method: 'TKO R1', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Malo', note: 'Finalizacion rapida en el primer round en el circuito regional antes de firmar con UFC.' },
+          { date: '2025', opponent: 'Tony Lopez', result: 'W', method: 'TKO R1', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Malo', note: 'Otra finalizacion rapida en regional, manteniendose activo antes del debut en UFC.' },
+          { date: '2025', opponent: 'Myron Dennis', result: 'W', method: 'Sub R1', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Malo', note: 'Sumision en el primer round, dominio total contra un oponente regional.' },
+          { date: '2024', opponent: 'Denis Goltsov', result: 'W', method: 'Decision Unanime', opponent_rank: 'N/R', quality_score: 3, quality_label: 'Bueno', note: 'Victoria por puntos en PFL contra un veterano ruso peso pesado. Prueba de nivel superior.' },
+          { date: '2022', opponent: 'Daniel James', result: 'W', method: 'TKO R1', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Nocaut rapido en Bellator, continuando su racha de finalizaciones.' },
+        ],
+      },
+    },
+    perfil_habilidades: {
+      skills: [
+        { label: 'Golpeo de Pie', valueA: 68, valueB: 60, labelA: 'Bueno', labelB: 'Bueno', advantage: 'fighter1', advantage_note: 'Tybura tiene 3.55 SLpM con 48% de precision en UFC, probado contra los mejores peso pesado del mundo. Fortune tiene poder, pero nunca ha enfrentado golpeadores de elite.' },
+        { label: 'Poder de Nocaut', valueA: 62, valueB: 72, labelA: 'Bueno', labelB: 'Bueno', advantage: 'fighter2', advantage_note: 'Fortune tiene 65% de victorias por KO/TKO (11 nocauts en 17 victorias). Tybura tiene 10 KOs en 27 victorias (37%). Fortune golpea mas fuerte.' },
+        { label: 'Lucha', valueA: 60, valueB: 78, labelA: 'Bueno', labelB: 'Muy Bueno', advantage: 'fighter2', advantage_note: 'Fortune fue campeon NCAA Division II y compitio por el equipo nacional de EE.UU. Tybura compensa con 79% de defensa de derribo en UFC.' },
+        { label: 'Jiu-Jitsu y Sumisiones', valueA: 72, valueB: 45, labelA: 'Bueno', labelB: 'Medio', advantage: 'fighter1', advantage_note: 'Tybura tiene 7 victorias por sumision, incluyendo una finalizacion reciente de Tuivasa. Cinturon negro de judo con transiciones peligrosas. Fortune tiene solo 1 sumision en su carrera.' },
+        { label: 'Defensa General', valueA: 70, valueB: 55, labelA: 'Bueno', labelB: 'Bueno', advantage: 'fighter1', advantage_note: 'Tybura tiene 55% de defensa de golpes y 79% de defensa de derribo. Sobrevivio contra Aspinall, Gane, Blaydes. Fortune fue noqueado por Timothy Johnson y sometido.' },
+        { label: 'Experiencia en el Octagono', valueA: 90, valueB: 30, labelA: 'Excelente', labelB: 'Malo', advantage: 'fighter1', advantage_note: 'Tybura tiene 23 peleas en UFC desde 2016, incluyendo combates contra campeones y top 5. Fortune hace su debut absoluto en el Octagono a los 35 anos.' },
+      ],
+      insight: 'Tybura es el veterano completo con casi una decada en UFC, jiu-jitsu peligroso y defensa de derribo de elite. Fortune trae lucha de nivel olimpico, poder de nocaut y atletismo, pero nunca ha pisado el Octagono. La gran pregunta: funcionara la lucha de Fortune contra la defensa de derribo historica de Tybura? Y si la pelea se mantiene de pie, sera la experiencia del polaco el factor decisivo?',
+    },
+    distribuicao_vitorias: {
+      fighter1: { nome: 'Tybura', ko_tko: { count: 10, percent: 37 }, submission: { count: 7, percent: 26 }, decision: { count: 10, percent: 37 }, total_wins: 27 },
+      fighter2: { nome: 'Fortune', ko_tko: { count: 11, percent: 65 }, submission: { count: 1, percent: 6 }, decision: { count: 5, percent: 29 }, total_wins: 17 },
+      insight: 'Tybura es uno de los peleadores mas equilibrados de la division, con victorias repartidas equitativamente entre KO (37%), sumision (26%) y decision (37%). Puede ganar de cualquier manera. Fortune es un finalizador nato: 65% de victorias por nocaut. Si conecta limpio, la pelea puede terminar. Sin embargo, cuando Fortune no consigue el KO, tiende a ir a decision, lo que favorece la experiencia y el coeficiente de pelea de Tybura.',
+    },
+    previsao_final: {
+      winner_name: 'Tybura',
+      winner_side: 'fighter1',
+      predicted_method: 'Decision Unanime',
+      confidence_score: 5,
+      confidence_label: 'MEDIA',
+      explanation: 'Tybura tiene una ventaja masiva de experiencia en UFC, con 23 peleas contra la elite de la division. Su defensa de derribo del 79% deberia neutralizar la lucha de Fortune, y su jiu-jitsu ofrece peligro constante si la pelea va al suelo. Fortune trae poder explosivo y atletismo, pero debutar en UFC a los 35 anos contra un top 8 clasificado es una prueba brutal. El polaco ya ha demostrado que sabe manejar el poder (sometio a Tuivasa) y deberia usar el jab, la distancia y la experiencia para ganar por puntos. Sin embargo, la derrota reciente por KO contra Delija genera dudas sobre la mandibula de Tybura a los 40 anos, y Fortune tiene manos pesadas.',
+      x_factor: { title: 'La defensa de derribo de Tybura contra la lucha de Fortune', description: 'Tybura tiene la 5a mejor defensa de derribo en la historia de los peso pesado de UFC (79%). Fortune construyo su carrera en la lucha, con un titulo NCAA Division II. Si Tybura defiende los derribos, la pelea se queda en su territorio. Si Fortune lo derriba, el juego cambia completamente.' },
+      upset_alert: { title: 'Fortune tiene poder para noquear a cualquiera', description: 'Con 65% de victorias por KO/TKO, Fortune no necesita muchas oportunidades. Tybura fue noqueado por Delija en septiembre de 2025, y a los 40 anos, su capacidad para absorber dano podria estar disminuyendo. Un overhand derecho o un uppercut en el clinch podria terminar la noche temprano.' },
+      probabilities: { fighter1: { nome: 'Tybura', percent: 55 }, fighter2: { nome: 'Fortune', percent: 43 }, draw: 2 },
+      value_picks: undefined,
+    },
+  },
+};
+
+const analises: Record<string, PrelimsAnalise> = {
+  pt: analisePT,
+  en: analiseEN,
+  fr: analiseFR,
+  es: analiseES,
+};
 
 export default function Page() {
-  return <Suspense><PageContent /></Suspense>;
+  const locale = useLocale();
+  return <PrelimsAnalysisView analise={analises[locale] || analisePT} />;
 }

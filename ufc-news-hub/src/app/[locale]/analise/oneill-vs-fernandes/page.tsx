@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense } from 'react';
+import { useLocale } from 'next-intl';
 import { PrelimsAnalysisView } from '@/components/analise/PrelimsAnalysisView';
 import type { PrelimsAnalise } from '@/types/analise';
 
@@ -329,7 +329,7 @@ const analisePT: PrelimsAnalise = {
         decision: { count: 5, percent: 46 },
         total_wins: 11,
       },
-      insight: "O'Neill vence 50% por decisao, 30% por KO/TKO e 20% por finalizacao. Perfil equilibrado com capacidade de finalizar ou ir aos pontos. Fernandes tem distribuicao parecida: 46% por decisao, 27% por KO e 27% por submissao. A brasileira e ligeiramente mais versátil nas finalizacoes, enquanto O'Neill e mais perigosa na trocacao pura.",
+      insight: "O'Neill vence 50% por decisao, 30% por KO/TKO e 20% por finalizacao. Perfil equilibrado com capacidade de finalizar ou ir aos pontos. Fernandes tem distribuicao parecida: 46% por decisao, 27% por KO e 27% por submissao. A brasileira e ligeiramente mais versatil nas finalizacoes, enquanto O'Neill e mais perigosa na trocacao pura.",
     },
 
     previsao_final: {
@@ -358,21 +358,74 @@ const analisePT: PrelimsAnalise = {
 };
 
 const analiseEN: PrelimsAnalise = {
-  ...analisePT,
+  id: 'oneill-vs-fernandes',
+  evento_id: null,
+  slug: 'oneill-vs-fernandes',
+  titulo: "O'Neill vs Fernandes",
+  subtitulo: null,
+  lutador1_id: null,
+  lutador2_id: null,
+  artigo_conteudo: '',
+  tactical_breakdown: {
+    stats: [],
+    radarData: [],
+    taleOfTape: {
+      fighter1: { altura: '', envergadura: '', idade: 0, academia: '' },
+      fighter2: { altura: '', envergadura: '', idade: 0, academia: '' },
+    },
+    pathsToVictory: { fighter1: [], fighter2: [] },
+    dangerZones: [],
+  },
+  fight_prediction: {
+    predictedWinner: 'fighter1',
+    predictedMethod: 'Unanimous Decision',
+    confidence: 'MEDIUM',
+    fighter1Scenarios: [],
+    fighter2Scenarios: [],
+    keyFactors: [],
+    xFactor: { title: '', description: '' },
+  },
+  fighter1_info: {
+    nome: "Casey O'Neill",
+    record: '10-2-0',
+    ultimasLutas: [],
+  },
+  fighter2_info: {
+    nome: 'Gabriella Fernandes',
+    record: '11-3-0',
+    ultimasLutas: [],
+  },
+  evento_nome: 'UFC Fight Night: Adesanya vs Pyfer',
   evento_data: 'March 28, 2026',
   evento_local: 'Climate Pledge Arena, Seattle, Washington',
   categoria_peso: "Women's Flyweight (125 lbs)",
-  fight_prediction: {
-    ...analisePT.fight_prediction,
-    predictedMethod: 'Unanimous Decision',
-    confidence: 'MEDIUM',
-  },
+  num_rounds: 3,
+  is_titulo: false,
+  broadcast: null,
+  status: 'published',
+  analysis_type: 'prelims',
+  created_at: new Date().toISOString(),
+  updated_at: new Date().toISOString(),
+
   prelims_analysis: {
     hero: {
-      ...analisePT.prelims_analysis.hero,
+      evento_nome: 'UFC Fight Night: Adesanya vs Pyfer',
       evento_data: 'March 28, 2026',
       categoria_peso: "Women's Flyweight (125 lbs)",
+      num_rounds: 3,
+      is_titulo: false,
+      fighter1: {
+        nome: "O'Neill",
+        record: '10-2-0',
+        ranking: '#12 Flyweight',
+      },
+      fighter2: {
+        nome: 'Fernandes',
+        record: '11-3-0',
+        ranking: undefined,
+      },
     },
+
     comparacao_estatistica: {
       stats: [
         {
@@ -439,6 +492,7 @@ const analiseEN: PrelimsAnalise = {
         { label: 'Gym', fighter1: 'Xtreme Couture / Gold Coast, Australia', fighter2: 'MMA Masters / Miami, USA', note: null },
       ],
     },
+
     historico_lutas: {
       fighter1: {
         nome: "O'Neill",
@@ -551,6 +605,7 @@ const analiseEN: PrelimsAnalise = {
         ],
       },
     },
+
     perfil_habilidades: {
       skills: [
         {
@@ -605,11 +660,12 @@ const analiseEN: PrelimsAnalise = {
           labelA: 'Good',
           labelB: 'Good',
           advantage: 'fighter1',
-          advantage_note: "O'Neill has 7 UFC fights (5W-2D) against higher-caliber opponents like Maia (#6) and Lipski (#15). Fernandes has 5 fights (3W-2L) against unranked opponents. Very different competition levels.",
+          advantage_note: "O'Neill has 7 UFC fights (5W-2L) against higher-caliber opponents like Maia (#6) and Lipski (#15). Fernandes has 5 fights (3W-2L) against unranked opponents. Very different competition levels.",
         },
       ],
       insight: "O'Neill is the more complete and tested fighter in this matchup. Her strike volume is impressive and she has faced high-level competition including a former title challenger. Fernandes is on a good run with 3 straight wins and has shown clear improvement, especially in takedown defense and offensive grappling. The key for Fernandes is using her southpaw stance to disrupt the Australian's rhythm and take the fight to the ground when possible.",
     },
+
     distribuicao_vitorias: {
       fighter1: {
         nome: "O'Neill",
@@ -627,6 +683,7 @@ const analiseEN: PrelimsAnalise = {
       },
       insight: "O'Neill wins 50% by decision, 30% by KO/TKO and 20% by submission. A balanced profile capable of finishing or going the distance. Fernandes has a similar breakdown: 46% by decision, 27% by KO, 27% by submission. The Brazilian is slightly more versatile in finishes, while O'Neill is more dangerous in pure striking.",
     },
+
     previsao_final: {
       winner_name: "O'Neill",
       winner_side: 'fighter1',
@@ -652,11 +709,713 @@ const analiseEN: PrelimsAnalise = {
   },
 };
 
-function PageContent() {
-  const analise = analisePT;
-  return <PrelimsAnalysisView analise={analise} />;
-}
+const analiseFR: PrelimsAnalise = {
+  id: 'oneill-vs-fernandes',
+  evento_id: null,
+  slug: 'oneill-vs-fernandes',
+  titulo: "O'Neill vs Fernandes",
+  subtitulo: null,
+  lutador1_id: null,
+  lutador2_id: null,
+  artigo_conteudo: '',
+  tactical_breakdown: {
+    stats: [],
+    radarData: [],
+    taleOfTape: {
+      fighter1: { altura: '', envergadura: '', idade: 0, academia: '' },
+      fighter2: { altura: '', envergadura: '', idade: 0, academia: '' },
+    },
+    pathsToVictory: { fighter1: [], fighter2: [] },
+    dangerZones: [],
+  },
+  fight_prediction: {
+    predictedWinner: 'fighter1',
+    predictedMethod: 'Decision Unanime',
+    confidence: 'MOYENNE',
+    fighter1Scenarios: [],
+    fighter2Scenarios: [],
+    keyFactors: [],
+    xFactor: { title: '', description: '' },
+  },
+  fighter1_info: {
+    nome: "Casey O'Neill",
+    record: '10-2-0',
+    ultimasLutas: [],
+  },
+  fighter2_info: {
+    nome: 'Gabriella Fernandes',
+    record: '11-3-0',
+    ultimasLutas: [],
+  },
+  evento_nome: 'UFC Fight Night: Adesanya vs Pyfer',
+  evento_data: '28 mars 2026',
+  evento_local: 'Climate Pledge Arena, Seattle, Washington',
+  categoria_peso: 'Poids Mouche Feminin (125 lbs)',
+  num_rounds: 3,
+  is_titulo: false,
+  broadcast: null,
+  status: 'published',
+  analysis_type: 'prelims',
+  created_at: new Date().toISOString(),
+  updated_at: new Date().toISOString(),
+
+  prelims_analysis: {
+    hero: {
+      evento_nome: 'UFC Fight Night: Adesanya vs Pyfer',
+      evento_data: '28 mars 2026',
+      categoria_peso: 'Poids Mouche Feminin (125 lbs)',
+      num_rounds: 3,
+      is_titulo: false,
+      fighter1: {
+        nome: "O'Neill",
+        record: '10-2-0',
+        ranking: '#12 Poids Mouche',
+      },
+      fighter2: {
+        nome: 'Fernandes',
+        record: '11-3-0',
+        ranking: undefined,
+      },
+    },
+
+    comparacao_estatistica: {
+      stats: [
+        {
+          label: 'Coups Sig. Par Minute',
+          valueA: 8.41,
+          valueB: 3.46,
+          maxVal: 10,
+          format: 'decimal',
+          note: "O'Neill a un volume de frappes absurde, plus du double de Fernandes. Des chiffres impressionnants pour la division feminine.",
+        },
+        {
+          label: 'Precision des Frappes (%)',
+          valueA: 54,
+          valueB: 48,
+          maxVal: 100,
+          format: 'percent',
+          note: "O'Neill touche plus de la moitie de ses coups, une precision au-dessus de la moyenne avec un volume eleve.",
+        },
+        {
+          label: 'Frappes Encaissees/Min',
+          valueA: 6.30,
+          valueB: 4.00,
+          maxVal: 8,
+          format: 'decimal',
+          reverseWinner: true,
+          note: "O'Neill encaisse beaucoup de coups, un reflet de son style agressif d'echanges constants.",
+        },
+        {
+          label: 'Defense de Frappes (%)',
+          valueA: 56,
+          valueB: 52,
+          maxVal: 100,
+          format: 'percent',
+        },
+        {
+          label: 'Takedowns Par 15 Min',
+          valueA: 1.77,
+          valueB: 0.56,
+          maxVal: 5,
+          format: 'decimal',
+          note: "O'Neill cherche davantage le sol, avec pres de 2 tentatives par round. Fernandes initie rarement des takedowns.",
+        },
+        {
+          label: 'Precision de Takedown (%)',
+          valueA: 38,
+          valueB: 18,
+          maxVal: 100,
+          format: 'percent',
+        },
+        {
+          label: 'Defense de Takedown (%)',
+          valueA: 66,
+          valueB: 68,
+          maxVal: 100,
+          format: 'percent',
+          note: 'Defense de takedown similaire. Fernandes a enormement progresse dans ce domaine lors de ses derniers combats.',
+        },
+      ],
+      tale_of_tape: [
+        { label: 'Age', fighter1: '28 ans', fighter2: '32 ans', note: "O'Neill a l'avantage de la jeunesse" },
+        { label: 'Taille', fighter1: '1,68m (5\'6")', fighter2: '1,68m (5\'6")', note: null },
+        { label: 'Allonge', fighter1: '175cm (69")', fighter2: '168cm (66")', note: "O'Neill a 3 pouces d'avantage en allonge" },
+        { label: 'Garde', fighter1: 'Orthodoxe', fighter2: 'Gaucher', note: 'Orthodoxe vs Gaucher ajoute de la complexite tactique' },
+        { label: 'Equipe', fighter1: 'Xtreme Couture / Gold Coast, Australie', fighter2: 'MMA Masters / Miami, USA', note: null },
+      ],
+    },
+
+    historico_lutas: {
+      fighter1: {
+        nome: "O'Neill",
+        recent_fights: [
+          {
+            date: 'Aout 2024',
+            opponent: 'Luana Santos',
+            result: 'W',
+            method: 'Decision Unanime',
+            opponent_rank: 'N/R',
+            quality_score: 2,
+            quality_label: 'Moyen',
+            note: 'Domination totale avec 113 frappes contre 46, cartes de score unanimes 30-27. Retour solide apres une defaite.',
+          },
+          {
+            date: 'Dec 2023',
+            opponent: 'Ariane Lipski',
+            result: 'L',
+            method: 'Sub R2 (cle de bras)',
+            opponent_rank: '#15 FLW',
+            quality_score: 3,
+            quality_label: 'Bon',
+            note: 'Soumise par une cle de bras rapide au deuxieme round. Exposee au sol contre une Bresilienne experimentee.',
+          },
+          {
+            date: 'Mars 2023',
+            opponent: 'Jennifer Maia',
+            result: 'L',
+            method: 'Decision Unanime',
+            opponent_rank: '#6 FLW',
+            quality_score: 4,
+            quality_label: 'Tres Bon',
+            note: "Premiere defaite en carriere contre une ancienne challengeuse au titre. Surpassee tactiquement par la veterane.",
+          },
+          {
+            date: 'Fev 2022',
+            opponent: 'Roxanne Modafferi',
+            result: 'W',
+            method: 'Decision Partagee',
+            opponent_rank: '#12 FLW',
+            quality_score: 3,
+            quality_label: 'Bon',
+            note: 'Victoire serree contre une veterane a l\'UFC 271. A montre de la maturite dans un combat difficile.',
+          },
+          {
+            date: 'Oct 2021',
+            opponent: 'Antonina Shevchenko',
+            result: 'W',
+            method: 'TKO R2 (poings et coudes)',
+            opponent_rank: 'N/R',
+            quality_score: 2,
+            quality_label: 'Moyen',
+            note: 'Performance de la Soiree. A termine avec des poings et coudes au deuxieme round, montrant son agressivite.',
+          },
+        ],
+      },
+      fighter2: {
+        nome: 'Fernandes',
+        recent_fights: [
+          {
+            date: 'Aout 2025',
+            opponent: 'Julija Stoliarenko',
+            result: 'W',
+            method: 'Decision Unanime',
+            opponent_rank: 'N/R',
+            quality_score: 2,
+            quality_label: 'Moyen',
+            note: 'A defendu les 6 tentatives de takedown, place des coups au corps puissants et un genou decisif au R3.',
+          },
+          {
+            date: 'Nov 2024',
+            opponent: 'Wang Cong',
+            result: 'W',
+            method: 'Sub R2 (etranglement arriere)',
+            opponent_rank: 'N/R',
+            quality_score: 2,
+            quality_label: 'Moyen',
+            note: 'A termine avec un etranglement arriere a 3:49 du deuxieme round. A montre une evolution dans le grappling offensif.',
+          },
+          {
+            date: 'Juin 2024',
+            opponent: 'Carli Judice',
+            result: 'W',
+            method: 'Decision Partagee',
+            opponent_rank: 'N/R',
+            quality_score: 1,
+            quality_label: 'Faible',
+            note: 'Victoire serree par decision partagee. Premiere victoire UFC apres deux defaites consecutives.',
+          },
+          {
+            date: 'Juin 2023',
+            opponent: 'Tereza Bleda',
+            result: 'L',
+            method: 'Decision Unanime',
+            opponent_rank: 'N/R',
+            quality_score: 2,
+            quality_label: 'Moyen',
+            note: 'Deuxieme defaite consecutive a l\'UFC. Surpassee en grappling et gestion de la distance.',
+          },
+          {
+            date: 'Fev 2023',
+            opponent: 'Jasmine Jasudavicius',
+            result: 'L',
+            method: 'Decision Unanime',
+            opponent_rank: 'N/R',
+            quality_score: 2,
+            quality_label: 'Moyen',
+            note: 'Debut UFC avec une defaite. A souffert des takedowns et du controle en clinch de la Canadienne.',
+          },
+        ],
+      },
+    },
+
+    perfil_habilidades: {
+      skills: [
+        {
+          label: 'Frappes Debout',
+          valueA: 78,
+          valueB: 62,
+          labelA: 'Tres Bon',
+          labelB: 'Bon',
+          advantage: 'fighter1',
+          advantage_note: "O'Neill a un volume absurde de 8.41 SLpM avec 54% de precision. Fernandes est competente mais ne peut pas suivre ce rythme. L'Australienne a aussi termine des combats debout avec des poings et des coudes.",
+        },
+        {
+          label: 'Puissance de Finition',
+          valueA: 68,
+          valueB: 55,
+          labelA: 'Bon',
+          labelB: 'Bon',
+          advantage: 'fighter1',
+          advantage_note: "O'Neill a 3 KOs et 2 soumissions, dont une Performance de la Soiree contre Shevchenko. Fernandes a une puissance plus discrete, terminant par points ou soumission.",
+        },
+        {
+          label: 'Lutte & Grappling',
+          valueA: 62,
+          valueB: 60,
+          labelA: 'Bon',
+          labelB: 'Bon',
+          advantage: 'even',
+          advantage_note: "O'Neill tente plus de takedowns (1.77/15min) mais a ete soumise par Lipski au sol. Fernandes a des soumissions dangereuses (etranglement arriere sur Wang Cong) et a ameliore sa defense de takedown a 68%.",
+        },
+        {
+          label: 'Defense Generale',
+          valueA: 55,
+          valueB: 52,
+          labelA: 'Bon',
+          labelB: 'Moyen',
+          advantage: 'even',
+          advantage_note: "Les deux encaissent trop de coups. O'Neill prend 6.30 SApM et Fernandes 4.00. O'Neill a une defense de frappes legerement meilleure (56% vs 52%) mais le volume qu'elle encaisse est preoccupant.",
+        },
+        {
+          label: 'Cardio & Rythme',
+          valueA: 72,
+          valueB: 65,
+          labelA: 'Bon',
+          labelB: 'Bon',
+          advantage: 'fighter1',
+          advantage_note: "O'Neill maintient un volume de frappes extremement eleve pendant tout le combat, comme demontre contre Santos (113 frappes). Fernandes a un rythme plus modere et conservateur.",
+        },
+        {
+          label: 'Experience UFC',
+          valueA: 70,
+          valueB: 58,
+          labelA: 'Bon',
+          labelB: 'Bon',
+          advantage: 'fighter1',
+          advantage_note: "O'Neill a 7 combats UFC (5V-2D) contre des adversaires de calibre superieur comme Maia (#6) et Lipski (#15). Fernandes a 5 combats (3V-2D) contre des adversaires non classees. Des niveaux de competition tres differents.",
+        },
+      ],
+      insight: "O'Neill est la combattante la plus complete et la plus testee dans ce duel. Son volume de frappes est impressionnant et elle a affronte une competition de haut niveau, y compris une ancienne challengeuse au titre. Fernandes est en bonne forme avec 3 victoires consecutives et a montre une nette progression, surtout en defense de takedown et en grappling offensif. La cle pour Fernandes est d'utiliser sa garde gaucher pour perturber le rythme de l'Australienne et amener le combat au sol quand c'est possible.",
+    },
+
+    distribuicao_vitorias: {
+      fighter1: {
+        nome: "O'Neill",
+        ko_tko: { count: 3, percent: 30 },
+        submission: { count: 2, percent: 20 },
+        decision: { count: 5, percent: 50 },
+        total_wins: 10,
+      },
+      fighter2: {
+        nome: 'Fernandes',
+        ko_tko: { count: 3, percent: 27 },
+        submission: { count: 3, percent: 27 },
+        decision: { count: 5, percent: 46 },
+        total_wins: 11,
+      },
+      insight: "O'Neill gagne 50% par decision, 30% par KO/TKO et 20% par soumission. Un profil equilibre capable de finir ou d'aller a la distance. Fernandes a une repartition similaire : 46% par decision, 27% par KO, 27% par soumission. La Bresilienne est legerement plus polyvalente dans les finitions, tandis qu'O'Neill est plus dangereuse en frappe pure.",
+    },
+
+    previsao_final: {
+      winner_name: "O'Neill",
+      winner_side: 'fighter1',
+      predicted_method: 'Decision Unanime',
+      confidence_score: 6,
+      confidence_label: 'MOYENNE',
+      explanation: "Casey O'Neill devrait remporter ce combat grace a son volume massif de frappes et au niveau de competition superieur qu'elle a deja affronte. Avec 8.41 frappes significatives par minute et 54% de precision, l'Australienne mettra Fernandes sous pression constamment. O'Neill a combattu Jennifer Maia (ancienne challengeuse au titre) et Roxanne Modafferi (veterane classee), des experiences que Fernandes n'a pas. La Bresilienne est en bonne forme avec 3 victoires consecutives, mais toutes contre des adversaires non classees. Le point preoccupant pour O'Neill est sa defense : elle encaisse 6.30 frappes par minute, et la garde gaucher de Fernandes pourrait poser des problemes. Si Fernandes arrive a amener le combat au sol et utiliser son jiu-jitsu, comme elle l'a fait contre Wang Cong, elle a un chemin vers la victoire.",
+      x_factor: {
+        title: "Le volume implacable d'O'Neill",
+        description: "Avec plus de 8 frappes significatives par minute, O'Neill cree un rythme que peu de combattantes de la division peuvent suivre. Contre Santos, c'etait 113 frappes totales. Ce type de pression constante epuise les adversaires et accumule des points sur les cartes de score. Si Fernandes ne trouve pas de reponse a ce volume dans les premieres minutes, le combat pourrait devenir a sens unique.",
+      },
+      upset_alert: {
+        title: 'La garde gaucher et le jiu-jitsu de Fernandes',
+        description: "Fernandes combat en garde gaucher, ce qui historiquement pose des problemes aux combattantes orthodoxes qui comptent sur le volume. De plus, la Bresilienne a soumis Wang Cong avec un etranglement arriere et O'Neill a precedemment ete soumise par Lipski via cle de bras. Si Fernandes arrive a orienter le plan de jeu vers le grappling, la vulnerabilite d'O'Neill au sol pourrait etre exploitee.",
+      },
+      probabilities: {
+        fighter1: { nome: "O'Neill", percent: 58 },
+        fighter2: { nome: 'Fernandes', percent: 40 },
+        draw: 2,
+      },
+      value_picks: undefined,
+    },
+  },
+};
+
+const analiseES: PrelimsAnalise = {
+  id: 'oneill-vs-fernandes',
+  evento_id: null,
+  slug: 'oneill-vs-fernandes',
+  titulo: "O'Neill vs Fernandes",
+  subtitulo: null,
+  lutador1_id: null,
+  lutador2_id: null,
+  artigo_conteudo: '',
+  tactical_breakdown: {
+    stats: [],
+    radarData: [],
+    taleOfTape: {
+      fighter1: { altura: '', envergadura: '', idade: 0, academia: '' },
+      fighter2: { altura: '', envergadura: '', idade: 0, academia: '' },
+    },
+    pathsToVictory: { fighter1: [], fighter2: [] },
+    dangerZones: [],
+  },
+  fight_prediction: {
+    predictedWinner: 'fighter1',
+    predictedMethod: 'Decision Unanime',
+    confidence: 'MEDIA',
+    fighter1Scenarios: [],
+    fighter2Scenarios: [],
+    keyFactors: [],
+    xFactor: { title: '', description: '' },
+  },
+  fighter1_info: {
+    nome: "Casey O'Neill",
+    record: '10-2-0',
+    ultimasLutas: [],
+  },
+  fighter2_info: {
+    nome: 'Gabriella Fernandes',
+    record: '11-3-0',
+    ultimasLutas: [],
+  },
+  evento_nome: 'UFC Fight Night: Adesanya vs Pyfer',
+  evento_data: '28 de marzo, 2026',
+  evento_local: 'Climate Pledge Arena, Seattle, Washington',
+  categoria_peso: 'Peso Mosca Femenino (125 lbs)',
+  num_rounds: 3,
+  is_titulo: false,
+  broadcast: null,
+  status: 'published',
+  analysis_type: 'prelims',
+  created_at: new Date().toISOString(),
+  updated_at: new Date().toISOString(),
+
+  prelims_analysis: {
+    hero: {
+      evento_nome: 'UFC Fight Night: Adesanya vs Pyfer',
+      evento_data: '28 de marzo, 2026',
+      categoria_peso: 'Peso Mosca Femenino (125 lbs)',
+      num_rounds: 3,
+      is_titulo: false,
+      fighter1: {
+        nome: "O'Neill",
+        record: '10-2-0',
+        ranking: '#12 Peso Mosca',
+      },
+      fighter2: {
+        nome: 'Fernandes',
+        record: '11-3-0',
+        ranking: undefined,
+      },
+    },
+
+    comparacao_estatistica: {
+      stats: [
+        {
+          label: 'Golpes Sig. Por Minuto',
+          valueA: 8.41,
+          valueB: 3.46,
+          maxVal: 10,
+          format: 'decimal',
+          note: "O'Neill tiene un volumen absurdo de golpes, mas del doble que Fernandes. Numeros impresionantes para la division femenina.",
+        },
+        {
+          label: 'Precision de Golpes (%)',
+          valueA: 54,
+          valueB: 48,
+          maxVal: 100,
+          format: 'percent',
+          note: "O'Neill conecta mas de la mitad de sus golpes, precision por encima del promedio con alto volumen.",
+        },
+        {
+          label: 'Golpes Absorbidos/Min',
+          valueA: 6.30,
+          valueB: 4.00,
+          maxVal: 8,
+          format: 'decimal',
+          reverseWinner: true,
+          note: "O'Neill absorbe muchos golpes, reflejo de su estilo agresivo de intercambio constante.",
+        },
+        {
+          label: 'Defensa de Golpes (%)',
+          valueA: 56,
+          valueB: 52,
+          maxVal: 100,
+          format: 'percent',
+        },
+        {
+          label: 'Derribos Por 15 Min',
+          valueA: 1.77,
+          valueB: 0.56,
+          maxVal: 5,
+          format: 'decimal',
+          note: "O'Neill busca mas el suelo, con casi 2 intentos por asalto. Fernandes raramente inicia derribos.",
+        },
+        {
+          label: 'Precision de Derribo (%)',
+          valueA: 38,
+          valueB: 18,
+          maxVal: 100,
+          format: 'percent',
+        },
+        {
+          label: 'Defensa de Derribo (%)',
+          valueA: 66,
+          valueB: 68,
+          maxVal: 100,
+          format: 'percent',
+          note: 'Defensa de derribo similar. Fernandes ha mejorado mucho en este aspecto en sus ultimas peleas.',
+        },
+      ],
+      tale_of_tape: [
+        { label: 'Edad', fighter1: '28 anos', fighter2: '32 anos', note: "O'Neill tiene la ventaja de la juventud" },
+        { label: 'Altura', fighter1: '1,68m (5\'6")', fighter2: '1,68m (5\'6")', note: null },
+        { label: 'Envergadura', fighter1: '175cm (69")', fighter2: '168cm (66")', note: "O'Neill tiene 3 pulgadas de ventaja en alcance" },
+        { label: 'Guardia', fighter1: 'Ortodoxa', fighter2: 'Zurda', note: 'Ortodoxa vs Zurda anade complejidad tactica' },
+        { label: 'Equipo', fighter1: 'Xtreme Couture / Gold Coast, Australia', fighter2: 'MMA Masters / Miami, EE.UU.', note: null },
+      ],
+    },
+
+    historico_lutas: {
+      fighter1: {
+        nome: "O'Neill",
+        recent_fights: [
+          {
+            date: 'Ago 2024',
+            opponent: 'Luana Santos',
+            result: 'W',
+            method: 'Decision Unanime',
+            opponent_rank: 'N/R',
+            quality_score: 2,
+            quality_label: 'Medio',
+            note: 'Dominio total con 113 golpes contra 46, tarjetas unanimes 30-27. Retorno solido tras una derrota.',
+          },
+          {
+            date: 'Dic 2023',
+            opponent: 'Ariane Lipski',
+            result: 'L',
+            method: 'Sub R2 (llave de brazo)',
+            opponent_rank: '#15 FLW',
+            quality_score: 3,
+            quality_label: 'Bueno',
+            note: 'Sometida con una llave de brazo rapida en el segundo asalto. Expuesta en el suelo contra una brasilena experimentada.',
+          },
+          {
+            date: 'Mar 2023',
+            opponent: 'Jennifer Maia',
+            result: 'L',
+            method: 'Decision Unanime',
+            opponent_rank: '#6 FLW',
+            quality_score: 4,
+            quality_label: 'Muy Bueno',
+            note: 'Primera derrota en su carrera contra una ex-retadora al titulo. Superada tacticamente por la veterana.',
+          },
+          {
+            date: 'Feb 2022',
+            opponent: 'Roxanne Modafferi',
+            result: 'W',
+            method: 'Decision Dividida',
+            opponent_rank: '#12 FLW',
+            quality_score: 3,
+            quality_label: 'Bueno',
+            note: 'Victoria ajustada contra una veterana en UFC 271. Mostro madurez en una pelea dificil.',
+          },
+          {
+            date: 'Oct 2021',
+            opponent: 'Antonina Shevchenko',
+            result: 'W',
+            method: 'TKO R2 (punos y codos)',
+            opponent_rank: 'N/R',
+            quality_score: 2,
+            quality_label: 'Medio',
+            note: 'Actuacion de la Noche. Termino con punos y codos en el segundo asalto, mostrando agresividad.',
+          },
+        ],
+      },
+      fighter2: {
+        nome: 'Fernandes',
+        recent_fights: [
+          {
+            date: 'Ago 2025',
+            opponent: 'Julija Stoliarenko',
+            result: 'W',
+            method: 'Decision Unanime',
+            opponent_rank: 'N/R',
+            quality_score: 2,
+            quality_label: 'Medio',
+            note: 'Defendio los 6 intentos de derribo, conecto golpes al cuerpo fuertes y una rodilla decisiva en el R3.',
+          },
+          {
+            date: 'Nov 2024',
+            opponent: 'Wang Cong',
+            result: 'W',
+            method: 'Sub R2 (estrangulamiento trasero)',
+            opponent_rank: 'N/R',
+            quality_score: 2,
+            quality_label: 'Medio',
+            note: 'Termino con un estrangulamiento trasero a las 3:49 del segundo asalto. Mostro evolucion en el grappling ofensivo.',
+          },
+          {
+            date: 'Jun 2024',
+            opponent: 'Carli Judice',
+            result: 'W',
+            method: 'Decision Dividida',
+            opponent_rank: 'N/R',
+            quality_score: 1,
+            quality_label: 'Malo',
+            note: 'Victoria ajustada por decision dividida. Primera victoria en UFC tras dos derrotas consecutivas.',
+          },
+          {
+            date: 'Jun 2023',
+            opponent: 'Tereza Bleda',
+            result: 'L',
+            method: 'Decision Unanime',
+            opponent_rank: 'N/R',
+            quality_score: 2,
+            quality_label: 'Medio',
+            note: 'Segunda derrota seguida en UFC. Superada en grappling y control de distancia.',
+          },
+          {
+            date: 'Feb 2023',
+            opponent: 'Jasmine Jasudavicius',
+            result: 'L',
+            method: 'Decision Unanime',
+            opponent_rank: 'N/R',
+            quality_score: 2,
+            quality_label: 'Medio',
+            note: 'Debut en UFC con derrota. Sufrio con los derribos y el control en clinch de la canadiense.',
+          },
+        ],
+      },
+    },
+
+    perfil_habilidades: {
+      skills: [
+        {
+          label: 'Golpeo de Pie',
+          valueA: 78,
+          valueB: 62,
+          labelA: 'Muy Bueno',
+          labelB: 'Bueno',
+          advantage: 'fighter1',
+          advantage_note: "O'Neill tiene un volumen absurdo de 8.41 SLpM con 54% de precision. Fernandes es competente pero no puede igualar ese ritmo. La australiana tambien ha terminado peleas de pie con punos y codos.",
+        },
+        {
+          label: 'Poder de Finalizacion',
+          valueA: 68,
+          valueB: 55,
+          labelA: 'Bueno',
+          labelB: 'Bueno',
+          advantage: 'fighter1',
+          advantage_note: "O'Neill tiene 3 KOs y 2 sumisiones, incluyendo Actuacion de la Noche contra Shevchenko. Fernandes tiene un poder mas discreto, finalizando por puntos o sumision.",
+        },
+        {
+          label: 'Lucha & Grappling',
+          valueA: 62,
+          valueB: 60,
+          labelA: 'Bueno',
+          labelB: 'Bueno',
+          advantage: 'even',
+          advantage_note: "O'Neill intenta mas derribos (1.77/15min) pero fue sometida por Lipski en el suelo. Fernandes tiene sumisiones peligrosas (estrangulamiento trasero a Wang Cong) y mejoro su defensa de derribo al 68%.",
+        },
+        {
+          label: 'Defensa General',
+          valueA: 55,
+          valueB: 52,
+          labelA: 'Bueno',
+          labelB: 'Medio',
+          advantage: 'even',
+          advantage_note: "Ambas absorben demasiados golpes. O'Neill recibe 6.30 SApM y Fernandes 4.00. O'Neill tiene defensa de golpes ligeramente mejor (56% vs 52%) pero el volumen que absorbe es preocupante.",
+        },
+        {
+          label: 'Cardio y Ritmo',
+          valueA: 72,
+          valueB: 65,
+          labelA: 'Bueno',
+          labelB: 'Bueno',
+          advantage: 'fighter1',
+          advantage_note: "O'Neill mantiene un volumen de golpes extremadamente alto durante toda la pelea, como demostro contra Santos (113 golpes). Fernandes tiene un ritmo mas moderado y conservador.",
+        },
+        {
+          label: 'Experiencia UFC',
+          valueA: 70,
+          valueB: 58,
+          labelA: 'Bueno',
+          labelB: 'Bueno',
+          advantage: 'fighter1',
+          advantage_note: "O'Neill tiene 7 peleas en UFC (5V-2D) contra oponentes de calibre superior como Maia (#6) y Lipski (#15). Fernandes tiene 5 peleas (3V-2D) contra oponentes sin ranking. Niveles de competicion muy diferentes.",
+        },
+      ],
+      insight: "O'Neill es la peleadora mas completa y mas probada en este enfrentamiento. Su volumen de golpes es impresionante y ha enfrentado competicion de alto nivel, incluyendo una ex-retadora al titulo. Fernandes viene en buena racha con 3 victorias consecutivas y ha mostrado una evolucion clara, especialmente en defensa de derribo y grappling ofensivo. La clave para Fernandes es usar su guardia zurda para desestabilizar el ritmo de la australiana y llevar la pelea al suelo cuando sea posible.",
+    },
+
+    distribuicao_vitorias: {
+      fighter1: {
+        nome: "O'Neill",
+        ko_tko: { count: 3, percent: 30 },
+        submission: { count: 2, percent: 20 },
+        decision: { count: 5, percent: 50 },
+        total_wins: 10,
+      },
+      fighter2: {
+        nome: 'Fernandes',
+        ko_tko: { count: 3, percent: 27 },
+        submission: { count: 3, percent: 27 },
+        decision: { count: 5, percent: 46 },
+        total_wins: 11,
+      },
+      insight: "O'Neill gana 50% por decision, 30% por KO/TKO y 20% por sumision. Un perfil equilibrado capaz de finalizar o ir a la distancia. Fernandes tiene una distribucion similar: 46% por decision, 27% por KO, 27% por sumision. La brasilena es ligeramente mas versatil en las finalizaciones, mientras que O'Neill es mas peligrosa en el golpeo puro.",
+    },
+
+    previsao_final: {
+      winner_name: "O'Neill",
+      winner_side: 'fighter1',
+      predicted_method: 'Decision Unanime',
+      confidence_score: 6,
+      confidence_label: 'MEDIA',
+      explanation: "Casey O'Neill deberia ganar esta pelea por el volumen masivo de golpes y el nivel de competicion superior que ya ha enfrentado. Con 8.41 golpes significativos por minuto y 54% de precision, la australiana presionara a Fernandes constantemente. O'Neill ya ha peleado contra Jennifer Maia (ex-retadora al titulo) y Roxanne Modafferi (veterana ranqueada), experiencias que Fernandes no tiene. La brasilena viene en buena racha con 3 victorias consecutivas, pero todas contra oponentes sin ranking. El factor preocupante para O'Neill es la defensa: absorbe 6.30 golpes por minuto, y la guardia zurda de Fernandes puede causar problemas. Si Fernandes logra llevar la pelea al suelo y usar su jiu-jitsu, como hizo contra Wang Cong, tiene un camino hacia la victoria.",
+      x_factor: {
+        title: "El volumen implacable de O'Neill",
+        description: "Con mas de 8 golpes significativos por minuto, O'Neill crea un ritmo que pocas peleadoras de la division pueden igualar. Contra Santos, fueron 113 golpes totales. Este tipo de presion constante desgasta y acumula puntos en las tarjetas. Si Fernandes no encuentra una respuesta a este volumen en los primeros minutos, la pelea podria volverse unilateral.",
+      },
+      upset_alert: {
+        title: 'La guardia zurda y el jiu-jitsu de Fernandes',
+        description: "Fernandes pelea desde guardia zurda, lo que historicamente causa problemas a peleadoras ortodoxas que dependen del volumen. Ademas, la brasilena sometio a Wang Cong con estrangulamiento trasero y O'Neill ya fue sometida por Lipski con llave de brazo. Si Fernandes logra cambiar el plan de juego hacia el grappling, la vulnerabilidad de O'Neill en el suelo podria ser explotada.",
+      },
+      probabilities: {
+        fighter1: { nome: "O'Neill", percent: 58 },
+        fighter2: { nome: 'Fernandes', percent: 40 },
+        draw: 2,
+      },
+      value_picks: undefined,
+    },
+  },
+};
+
+const analises: Record<string, PrelimsAnalise> = { pt: analisePT, en: analiseEN, fr: analiseFR, es: analiseES };
 
 export default function Page() {
-  return <Suspense><PageContent /></Suspense>;
+  const locale = useLocale();
+  return <PrelimsAnalysisView analise={analises[locale] || analisePT} />;
 }
