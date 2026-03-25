@@ -1,7 +1,6 @@
 'use client';
 
 import { Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
 import { PrelimsAnalysisView } from '@/components/analise/PrelimsAnalysisView';
 import type { PrelimsAnalise } from '@/types/analise';
 
@@ -360,9 +359,7 @@ const analisePT: PrelimsAnalise = {
 };
 
 function PageContent() {
-  const searchParams = useSearchParams();
-  const lang = (searchParams.get('lang')) || 'pt';
-  const analise = lang === 'pt' ? analisePT : analisePT;
+  const analise = analisePT;
   return <PrelimsAnalysisView analise={analise} />;
 }
 

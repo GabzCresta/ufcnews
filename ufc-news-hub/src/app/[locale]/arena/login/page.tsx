@@ -153,6 +153,7 @@ function LoginContent() {
 
           {/* Botao Google */}
           <div className="slide-up-fade" style={{ animationDelay: '250ms' }}>
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
             <a
               href="/api/arena/auth/google"
               className="flex items-center justify-center gap-3 w-full rounded-xl

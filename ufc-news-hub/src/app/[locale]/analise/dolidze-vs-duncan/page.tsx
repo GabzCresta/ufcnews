@@ -1,7 +1,6 @@
 'use client';
 
 import { Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
 import { FullAnalysisView } from '@/components/analise/FullAnalysisView';
 import type { FullSingleAnalise } from '@/types/analise';
 
@@ -623,9 +622,7 @@ const analiseEN: FullSingleAnalise = {
 };
 
 function PageContent() {
-  const searchParams = useSearchParams();
-  const lang = (searchParams.get('lang') === 'en' ? 'en' : 'pt');
-  const analise = lang === 'en' ? analiseEN : analisePT;
+  const analise = analisePT;
   return <FullAnalysisView analise={analise} />;
 }
 

@@ -516,8 +516,7 @@ export default async function EventoEvloevVsMurphyPage({
   searchParams: Promise<{ lang?: string }>;
 }) {
   const params = await searchParams;
-  const lang = (params.lang === 'en' ? 'en' : 'pt');
-  const data = lang === 'en' ? eventDataEN : eventDataPT;
+  const data = eventDataPT;
   const enrichedData = await enrichEventWithPhotos(data);
   return <EventAnalysisView data={enrichedData} />;
 }
