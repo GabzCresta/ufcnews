@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { Trophy, Pencil } from 'lucide-react';
 import { type PickData, maxPontos, metodoLabel } from '@/components/arena/picks-shared';
 import { sobrenome } from '@/components/arena/shared';

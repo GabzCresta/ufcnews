@@ -2,7 +2,7 @@
 
 import { use, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { CategoryBadge } from '@/components/ui/CategoryBadge';
 import { TimeAgo } from '@/components/ui/TimeAgo';

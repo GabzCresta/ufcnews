@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { Header } from '@/components/ui/Header';
 import { TacticalBreakdown } from '@/components/houston/TacticalBreakdown';
 import { FightPrediction } from '@/components/houston/FightPrediction';

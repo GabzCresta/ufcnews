@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { ChevronRight, Trophy, HelpCircle } from 'lucide-react';
 import { type PickData, METODOS, getMaxRounds, tipoLabel } from '@/components/arena/picks-shared';
 import { sobrenome } from '@/components/arena/shared';

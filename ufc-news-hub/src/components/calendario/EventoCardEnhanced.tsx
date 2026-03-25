@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { format, isPast, isToday, isTomorrow, differenceInDays } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import LivePulse from './LivePulse';

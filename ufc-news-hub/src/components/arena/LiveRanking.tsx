@@ -1,7 +1,7 @@
 'use client';
 
 import useSWR from 'swr';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { Trophy, ChevronRight } from 'lucide-react';
 
 interface RankingUser {

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { ChevronLeft, ChevronRight, Home, BarChart3, Target, Calendar } from 'lucide-react';
 import { useReels } from '@/hooks/useReels';
 import { ReelSlide } from './ReelSlide';

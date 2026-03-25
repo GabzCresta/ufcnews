@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { Header } from '@/components/ui/Header';
 import { TacticalBreakdownDynamic } from '@/components/analise/TacticalBreakdownDynamic';
 import { FightPredictionDynamic } from '@/components/analise/FightPredictionDynamic';

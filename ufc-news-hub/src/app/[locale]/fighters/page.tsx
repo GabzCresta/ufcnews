@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import FighterImage from '@/components/ui/FighterImage';
 import { Header } from '@/components/ui/Header';
 import { Search, Filter, Users, X } from 'lucide-react';

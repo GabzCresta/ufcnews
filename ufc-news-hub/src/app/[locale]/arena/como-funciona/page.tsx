@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { PONTUACAO_CONFIG, NIVEL_CONFIG, CONQUISTAS_DEFINICOES } from '@/types/arena';
 
 export default function ComoFuncionaPage() {

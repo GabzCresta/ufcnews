@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { Zap, ChevronRight } from 'lucide-react';
 import { useArenaAuth } from '@/hooks/useArenaAuth';
 import { LiveRanking } from '@/components/arena/LiveRanking';

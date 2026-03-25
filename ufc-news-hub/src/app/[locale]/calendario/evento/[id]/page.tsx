@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, use } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { Header } from '@/components/ui/Header';
 import FighterFaceOff from '@/components/calendario/FighterFaceOff';
 import FightCardSection from '@/components/calendario/FightCardSection';

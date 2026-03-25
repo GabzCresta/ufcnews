@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import type { FullSingleAnalise } from '@/types/analise';
 import { HeroSection } from './HeroSection';
 import { NarrativaSection } from './NarrativaSection';

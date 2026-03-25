@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, use } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { Trophy, Target, TrendingUp, Flame, Zap, Lock, Scale, Star, Share2, Calendar } from 'lucide-react';
 
 import { useArenaAuth } from '@/hooks/useArenaAuth';

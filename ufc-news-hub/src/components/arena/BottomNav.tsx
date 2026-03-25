@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { usePathname } from 'next/navigation';
 import { Home, Swords, Radio, Trophy, User } from 'lucide-react';
 

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { Header } from '@/components/ui/Header';
 import { useArenaAuth } from '@/hooks/useArenaAuth';
 import { NIVEL_CONFIG } from '@/types/arena';

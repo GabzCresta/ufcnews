@@ -1,7 +1,7 @@
 'use client';
 
 import { Octagon } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 
 interface OctagonPortalLayoutProps {
   children: React.ReactNode;

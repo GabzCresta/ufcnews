@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import useSWR from 'swr';
 import { Newspaper, Target, BarChart3, Users, Calendar, type LucideIcon } from 'lucide-react';
 import type { ContadorCategorias } from '@/types';

@@ -2,7 +2,7 @@
 
 import { use, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { Trophy, Loader2, CheckCircle2, XCircle } from 'lucide-react';
 
 import { useArenaAuth } from '@/hooks/useArenaAuth';

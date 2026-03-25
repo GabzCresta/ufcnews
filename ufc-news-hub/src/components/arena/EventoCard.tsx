@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import Image from 'next/image';
 import { Evento } from '@/types';
 import { Countdown } from '@/components/calendario/Countdown';

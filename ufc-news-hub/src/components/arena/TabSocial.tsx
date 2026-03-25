@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { Trophy, Users, Activity } from 'lucide-react';
 import { useArenaAuth } from '@/hooks/useArenaAuth';
 

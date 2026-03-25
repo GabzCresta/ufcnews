@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, use } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { Trophy, Target, Clock, Share2, ChevronLeft, Users, Lock } from 'lucide-react';
 import { useArenaAuth } from '@/hooks/useArenaAuth';
 import type { EventoComLutas, LutaComLutadores } from '@/types';

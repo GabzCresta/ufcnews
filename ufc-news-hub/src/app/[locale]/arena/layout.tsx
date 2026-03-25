@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { Target, Trophy } from 'lucide-react';
 import { Header } from '@/components/ui/Header';
 import { UserAvatar } from '@/components/arena/UserAvatar';

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import {
   ArrowRight, BarChart3, Brain, CheckCircle2, ChevronDown, ChevronUp,
   Clock, Database, FileText, Globe, Layers, Mic, Monitor, MousePointerClick,

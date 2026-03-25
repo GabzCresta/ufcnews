@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useMemo, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import FighterImage from '@/components/ui/FighterImage';
 import { Header } from '@/components/ui/Header';
 import { Comparador } from '@/components/lutadores/Comparador';

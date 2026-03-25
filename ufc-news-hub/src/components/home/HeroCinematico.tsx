@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import useSWR from 'swr';
 import FighterImage from '@/components/ui/FighterImage';
 import { cn } from '@/lib/utils';

@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useState } from 'react';
 import { NIVEL_CONFIG, type MembroLiga } from '@/types/arena';

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import Image from 'next/image';
 import { User, Trophy, History, ImageIcon, LogOut } from 'lucide-react';
 import { UsuarioArena, NivelUsuario, NIVEL_CONFIG } from '@/types/arena';

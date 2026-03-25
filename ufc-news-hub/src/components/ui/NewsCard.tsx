@@ -2,7 +2,7 @@
 
 import { memo } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { cn, isNewNews } from '@/lib/utils';
 import { Noticia } from '@/types';
 import { CategoryBadge } from './CategoryBadge';

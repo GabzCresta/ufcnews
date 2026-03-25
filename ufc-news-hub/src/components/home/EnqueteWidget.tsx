@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import useSWR from 'swr';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { useEnquete } from '@/hooks/useEnquete';
 import { useArenaAuth } from '@/hooks/useArenaAuth';
 import { EnqueteVotacao } from './EnqueteVotacao';
