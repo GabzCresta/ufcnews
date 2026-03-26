@@ -15,6 +15,7 @@ import { NarrativeThreadsSection } from './sections/NarrativeThreadsSection';
 import { ReplayGuideSection } from './sections/ReplayGuideSection';
 import { DivisionImpactSection } from './sections/DivisionImpactSection';
 import { RecapCreatorKitSection } from './sections/RecapCreatorKitSection';
+import { EventCreatorKitSection } from '../analise/event/EventCreatorKitSection';
 import { ModelAutopsySection } from './sections/ModelAutopsySection';
 
 // ═══════════════════════════════════════════════════════════
@@ -581,8 +582,15 @@ export function RecapView({ data }: { data: RecapData }) {
           ))}
         </div>
 
-        {/* ──────── POST-FIGHT CREATOR KIT ──────── */}
-        {data.creator_kit && (
+        {/* ──────── POST-FIGHT CREATOR KIT (Premium) ──────── */}
+        {data.event_creator_kit && (
+          <div>
+            <EventCreatorKitSection data={data.event_creator_kit} />
+          </div>
+        )}
+
+        {/* ──────── POST-FIGHT CREATOR KIT (Legacy) ──────── */}
+        {data.creator_kit && !data.event_creator_kit && (
           <>
             <SectionDivider accent>Creator Kit</SectionDivider>
             <RecapCreatorKitSection data={data.creator_kit} />

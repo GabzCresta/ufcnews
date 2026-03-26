@@ -401,6 +401,204 @@ export default function EnterprisePage() {
         </div>
       </section>
 
+      {/* ──────── THE ALTERNATIVE: COST COMPARISON ──────── */}
+      <section className="relative overflow-hidden bg-neutral-100">
+        <div className="relative mx-auto max-w-4xl px-6 py-16 md:py-24">
+          <div className="text-center mb-12">
+            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-ufc-red/70 mb-3">The Alternative</p>
+            <h2 className="font-display text-2xl uppercase text-neutral-900 md:text-4xl">
+              One Freelance Article Costs More<br />Than <span className="text-ufc-red">Everything We Deliver</span>
+            </h2>
+          </div>
+
+          {/* Single Article vs Our Monthly */}
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 mb-8">
+            {/* Freelancer Side */}
+            <div className="rounded-2xl bg-white border border-neutral-200 p-6 shadow-sm">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-4">One Freelance Article</p>
+              <p className="font-display text-4xl text-neutral-900">$200 <span className="text-lg text-neutral-400">- $750</span></p>
+              <p className="text-xs text-neutral-500 mt-2 mb-6">Average rate for a single sports analysis article from a freelance writer</p>
+              <div className="space-y-3 pt-4 border-t border-neutral-100">
+                <div className="flex items-start gap-2">
+                  <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-neutral-300" />
+                  <span className="text-xs text-neutral-500">One article, one fight</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-neutral-300" />
+                  <span className="text-xs text-neutral-500">No creator kit or social media formatting</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-neutral-300" />
+                  <span className="text-xs text-neutral-500">No prediction tracking or accuracy audit</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-neutral-300" />
+                  <span className="text-xs text-neutral-500">No post-event recap</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-neutral-300" />
+                  <span className="text-xs text-neutral-500">No dashboard or card monitoring</span>
+                </div>
+              </div>
+              <p className="text-[10px] text-neutral-400 mt-4">Sources: Editorial Freelancers Association, Freedom With Writing, The Athletic</p>
+            </div>
+
+            {/* Our Service Side */}
+            <div className="rounded-2xl bg-white border-2 border-ufc-red/30 p-6 shadow-md">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-ufc-red mb-4">Our Professional Plan (Monthly)</p>
+              <p className="font-display text-4xl text-neutral-900">$199<span className="text-lg text-neutral-400">/mo</span></p>
+              <p className="text-xs text-neutral-500 mt-2 mb-6">Everything below, every card, every month</p>
+              <div className="space-y-3 pt-4 border-t border-ufc-red/10">
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                  <span className="text-xs text-neutral-700 font-medium">14 fight analyses per card (pre-fight)</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                  <span className="text-xs text-neutral-700 font-medium">Post-event recap with accuracy audit</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                  <span className="text-xs text-neutral-700 font-medium">Creator kit for 5 platforms (IG, X, YT, TikTok, Podcast)</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                  <span className="text-xs text-neutral-700 font-medium">Dashboard + card change alerts</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                  <span className="text-xs text-neutral-700 font-medium">Custom branding + dedicated support</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <p className="text-sm text-neutral-700">
+              A single freelance article about <span className="font-semibold">one fight</span> costs as much as our entire monthly service covering <span className="font-semibold text-ufc-red">every fight on the card</span>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ──────── ELEVATE YOUR CONTENT ──────── */}
+      <section className="mx-auto max-w-4xl px-6 py-16 md:py-24">
+        <div className="text-center mb-12">
+          <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-ufc-red/70 mb-3">For Creators</p>
+          <h2 className="font-display text-2xl uppercase text-neutral-900 md:text-4xl">
+            This Is How You <span className="text-ufc-red">Level Up</span>
+          </h2>
+          <p className="mx-auto mt-3 max-w-xl text-sm text-neutral-500">
+            Your audience can tell the difference between opinion and intelligence. This is the tool that makes that difference.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <div className="rounded-xl bg-white border border-neutral-200 p-6 shadow-sm text-center">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-ufc-red/10 mb-4">
+              <TrendingUp className="h-6 w-6 text-ufc-red" />
+            </div>
+            <p className="font-display text-sm uppercase text-neutral-900 mb-2">Go From Opinion to Authority</p>
+            <p className="text-xs text-neutral-600 leading-relaxed">
+              Anyone can say &ldquo;I think Evloev wins.&rdquo; Only you can say &ldquo;Evloev has 40 takedowns in 9 UFC fights, and against their common opponent Dan Ige, he won 30-26 while Murphy won 29-28.&rdquo; Data makes you the expert your audience trusts.
+            </p>
+          </div>
+
+          <div className="rounded-xl bg-white border border-neutral-200 p-6 shadow-sm text-center">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-ufc-red/10 mb-4">
+              <Globe className="h-6 w-6 text-ufc-red" />
+            </div>
+            <p className="font-display text-sm uppercase text-neutral-900 mb-2">Cover Every Fight, Every Week</p>
+            <p className="text-xs text-neutral-600 leading-relaxed">
+              Your competitors cover the main event. You cover all 14 fights with the same depth. More fights covered means more searchable content, more keywords indexed, and more people finding you. Scale is the unfair advantage.
+            </p>
+          </div>
+
+          <div className="rounded-xl bg-white border border-neutral-200 p-6 shadow-sm text-center">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-ufc-red/10 mb-4">
+              <Sparkles className="h-6 w-6 text-ufc-red" />
+            </div>
+            <p className="font-display text-sm uppercase text-neutral-900 mb-2">Publish Instantly, Not Eventually</p>
+            <p className="text-xs text-neutral-600 leading-relaxed">
+              Pre-fight analysis 3-4 days before the event. Post-event recap within 6 hours. Creator kit formatted for 5 platforms. While others are still researching, you&apos;re already posting. Speed wins in algorithm-driven platforms.
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-8 rounded-2xl bg-neutral-900 p-6 md:p-8 text-center">
+          <p className="text-xs text-ufc-red font-bold uppercase tracking-wider mb-2">The Bottom Line</p>
+          <p className="text-lg text-white font-medium md:text-xl">
+            You didn&apos;t start creating content to spend 15 hours researching stats.
+          </p>
+          <p className="text-sm text-neutral-400 mt-2 max-w-lg mx-auto">
+            You started because you love the sport and have something to say. We handle the research, the data, the formatting. You handle the voice, the personality, the audience. That&apos;s how you grow.
+          </p>
+        </div>
+      </section>
+
+      {/* ──────── YOUR DASHBOARD ──────── */}
+      <section className="mx-auto max-w-4xl px-6 py-16 md:py-24">
+        <div className="text-center mb-12">
+          <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-ufc-red/70 mb-3">Your Dashboard</p>
+          <h2 className="font-display text-2xl uppercase text-neutral-900 md:text-4xl">
+            Everything In <span className="text-ufc-red">One Place</span>
+          </h2>
+          <p className="mx-auto mt-3 max-w-xl text-xs text-neutral-500">
+            Every subscriber gets a personal dashboard to oversee all deliverables, track card changes, and access content the moment it&apos;s ready.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="rounded-xl bg-white border border-neutral-200 p-5 shadow-sm">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-ufc-red/10">
+                <Monitor className="h-4 w-4 text-ufc-red" />
+              </div>
+              <p className="text-sm text-neutral-900 font-medium">Content Hub</p>
+            </div>
+            <p className="text-xs text-neutral-600 leading-relaxed">
+              Access all pre-fight analyses, post-event recaps, and creator kits from a single dashboard. Filter by event, date, or weight class. Every deliverable organized and ready to use.
+            </p>
+          </div>
+
+          <div className="rounded-xl bg-white border border-neutral-200 p-5 shadow-sm">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-ufc-red/10">
+                <Shield className="h-4 w-4 text-ufc-red" />
+              </div>
+              <p className="text-sm text-neutral-900 font-medium">Card Monitor & Alerts</p>
+            </div>
+            <p className="text-xs text-neutral-600 leading-relaxed">
+              Automated monitoring of UFC card changes. When a fight is cancelled, an opponent changes, or a bout is added, you get an email alert immediately. No more scrambling to update your content.
+            </p>
+          </div>
+
+          <div className="rounded-xl bg-white border border-neutral-200 p-5 shadow-sm">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-ufc-red/10">
+                <Target className="h-4 w-4 text-ufc-red" />
+              </div>
+              <p className="text-sm text-neutral-900 font-medium">Prediction Tracking</p>
+            </div>
+            <p className="text-xs text-neutral-600 leading-relaxed">
+              Track our prediction accuracy across every event. See which picks hit, which missed, and why. Full transparency with a public accuracy audit after every card.
+            </p>
+          </div>
+
+          <div className="rounded-xl bg-white border border-neutral-200 p-5 shadow-sm">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-ufc-red/10">
+                <Clock className="h-4 w-4 text-ufc-red" />
+              </div>
+              <p className="text-sm text-neutral-900 font-medium">Delivery Schedule</p>
+            </div>
+            <p className="text-xs text-neutral-600 leading-relaxed">
+              Pre-fight analysis delivered 3-4 days before the event. Post-event recap within 6 hours. Creator kit ready to publish the moment content drops. Your dashboard shows delivery status in real time.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* ──────── PRICING ──────── */}
       <section className="relative overflow-hidden bg-neutral-100">
         <div className="relative mx-auto max-w-4xl px-6 py-16 md:py-24">
@@ -409,16 +607,27 @@ export default function EnterprisePage() {
             <h2 className="font-display text-2xl uppercase text-neutral-900 md:text-4xl">
               Built For <span className="text-ufc-red">Serious</span> Combat Sports Media
             </h2>
+            <p className="mx-auto mt-3 max-w-lg text-xs text-neutral-500">
+              All plans include a personal dashboard, card change alerts, and prediction tracking.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {/* Tier 1 */}
+            {/* Tier 1 - Starter */}
             <div className="rounded-2xl bg-white border border-neutral-200 p-6 shadow-sm">
               <p className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">Starter</p>
-              <p className="font-display text-3xl text-neutral-900 mt-2">$149<span className="text-sm text-neutral-400">/mo</span></p>
-              <p className="text-[10px] text-neutral-500 mt-1">Per event coverage</p>
+              <p className="font-display text-3xl text-neutral-900 mt-2">$79<span className="text-sm text-neutral-400">/mo</span></p>
+              <p className="text-[10px] text-neutral-500 mt-1">Main card coverage</p>
               <div className="mt-6 space-y-2">
-                {['Main card analysis (6 fights)', 'Post-event recap', 'Creator kit (3 platforms)', 'Prediction tracking'].map((f) => (
+                {[
+                  'Main card analysis (6 fights)',
+                  'Post-event recap (basic)',
+                  'Creator kit (3 platforms: IG, X, YT)',
+                  'Prediction tracking',
+                  'Personal dashboard',
+                  'Card change alerts (email)',
+                  'Email support (48h response)',
+                ].map((f) => (
                   <div key={f} className="flex items-start gap-2">
                     <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 mt-0.5 flex-shrink-0" />
                     <span className="text-xs text-neutral-600">{f}</span>
@@ -427,16 +636,27 @@ export default function EnterprisePage() {
               </div>
             </div>
 
-            {/* Tier 2 - Featured */}
+            {/* Tier 2 - Professional (TARGET) */}
             <div className="rounded-2xl bg-white border-2 border-ufc-red/40 p-6 shadow-md relative">
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-ufc-red px-3 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white">
-                Most Popular
+                Best Value
               </div>
               <p className="text-[10px] font-bold uppercase tracking-wider text-ufc-red">Professional</p>
-              <p className="font-display text-3xl text-neutral-900 mt-2">$349<span className="text-sm text-neutral-400">/mo</span></p>
+              <p className="font-display text-3xl text-neutral-900 mt-2">$199<span className="text-sm text-neutral-400">/mo</span></p>
               <p className="text-[10px] text-neutral-500 mt-1">Full card coverage</p>
               <div className="mt-6 space-y-2">
-                {['Full card analysis (14 fights)', 'Post-event recap + Creator Kit', 'All 5 platforms (IG, X, YT, TikTok, Podcast)', 'Narrative threads + Replay guide', 'Division impact report', 'Model autopsy with confidence data', 'White-label ready'].map((f) => (
+                {[
+                  'Full card analysis (14 fights)',
+                  'Post-event recap + Model autopsy',
+                  'Creator kit (all 5 platforms)',
+                  'Narrative threads + Replay guide',
+                  'Division impact report',
+                  'Prediction tracking + accuracy audit',
+                  'Personal dashboard',
+                  'Card change alerts (email)',
+                  'Custom branding (your name, your voice)',
+                  'Email support (24h response)',
+                ].map((f) => (
                   <div key={f} className="flex items-start gap-2">
                     <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 mt-0.5 flex-shrink-0" />
                     <span className="text-xs text-neutral-600">{f}</span>
@@ -445,13 +665,21 @@ export default function EnterprisePage() {
               </div>
             </div>
 
-            {/* Tier 3 */}
+            {/* Tier 3 - All-Access (ANCHOR) */}
             <div className="rounded-2xl bg-white border border-amber-300 p-6 shadow-sm">
-              <p className="text-[10px] font-bold uppercase tracking-wider text-amber-600">Enterprise</p>
-              <p className="font-display text-3xl text-neutral-900 mt-2">Custom</p>
-              <p className="text-[10px] text-neutral-500 mt-1">API access + custom integrations</p>
+              <p className="text-[10px] font-bold uppercase tracking-wider text-amber-600">All-Access</p>
+              <p className="font-display text-3xl text-neutral-900 mt-2">$449<span className="text-sm text-neutral-400">/mo</span></p>
+              <p className="text-[10px] text-neutral-500 mt-1">Full card + strategy consulting</p>
               <div className="mt-6 space-y-2">
-                {['Everything in Professional', 'API access to all data', 'Custom branding + domain', 'Embedded widgets for your site', 'Prediction engine white-label', 'Priority delivery schedule', 'Dedicated support'].map((f) => (
+                {[
+                  'Everything in Professional',
+                  'On-demand fighter analysis (any fighter, any time)',
+                  'Monthly strategy call (30-45 min)',
+                  'Content performance audit (your metrics)',
+                  'Personalized algorithm recommendations',
+                  'Priority card change alerts',
+                  'Dedicated support (Slack or WhatsApp)',
+                ].map((f) => (
                   <div key={f} className="flex items-start gap-2">
                     <CheckCircle2 className="h-3.5 w-3.5 text-amber-500 mt-0.5 flex-shrink-0" />
                     <span className="text-xs text-neutral-600">{f}</span>
@@ -459,6 +687,16 @@ export default function EnterprisePage() {
                 ))}
               </div>
             </div>
+          </div>
+
+          {/* Pricing Context */}
+          <div className="mt-8 text-center">
+            <p className="text-xs text-neutral-500">
+              A freelance sports writer charges $200-750 per article. Our Professional plan covers 14 fights + recap + creator kit for $199/mo.
+            </p>
+            <p className="text-[10px] text-neutral-400 mt-1">
+              That&apos;s 98% less than doing it yourself. Cancel anytime.
+            </p>
           </div>
         </div>
       </section>

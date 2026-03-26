@@ -1,218 +1,219 @@
 'use client';
 
 import { useState } from 'react';
-import { Instagram, MessageCircle, Video, Smartphone, Type, Copy, Check, Mic } from 'lucide-react';
+import { Instagram, MessageCircle, Video, Smartphone, Mic, Type, Copy, Check } from 'lucide-react';
 import type { CreatorKitSectionData } from '@/types/analise';
-import { useTranslations } from 'next-intl';
+import { getLabels, type Lang } from '@/lib/i18n-labels';
 import { SectionHeader } from './SectionHeader';
 
-const slideColorMap = {
-  red: 'from-ufc-red/20 to-dark-bg border-ufc-red/30',
-  blue: 'from-blue-400/20 to-dark-bg border-blue-400/30',
-  gold: 'from-ufc-gold/20 to-dark-bg border-ufc-gold/30',
-};
+// ═══════════════════════════════════════════════════════
+// Platform config
+// ═══════════════════════════════════════════════════════
 
-const slideTitleColor = {
-  red: 'text-ufc-red',
-  blue: 'text-blue-400',
-  gold: 'text-ufc-gold',
-};
+type TabId = 'instagram' | 'twitter' | 'video' | 'tiktok' | 'podcast' | 'headlines';
 
-function HeadlineItem({ text }: { text: string }) {
+const platforms: { id: TabId; label: string; Icon: typeof Instagram; gradient: string; color: string }[] = [
+  { id: 'instagram', label: 'Instagram', Icon: Instagram, gradient: 'from-[#833AB4] via-[#FD1D1D] to-[#F77737]', color: 'text-[#E1306C]' },
+  { id: 'twitter', label: 'Twitter/X', Icon: MessageCircle, gradient: 'from-[#1DA1F2] to-[#0d8ecf]', color: 'text-[#1DA1F2]' },
+  { id: 'video', label: 'YouTube', Icon: Video, gradient: 'from-[#FF0000] to-[#CC0000]', color: 'text-[#FF0000]' },
+  { id: 'tiktok', label: 'TikTok', Icon: Smartphone, gradient: 'from-[#00F2EA] to-[#FF0050]', color: 'text-[#00F2EA]' },
+  { id: 'podcast', label: 'Podcast', Icon: Mic, gradient: 'from-[#8B5CF6] to-[#6D28D9]', color: 'text-[#8B5CF6]' },
+  { id: 'headlines', label: 'Headlines', Icon: Type, gradient: 'from-amber-400 to-yellow-300', color: 'text-amber-400' },
+];
+
+// ═══════════════════════════════════════════════════════
+// Copy button
+// ═══════════════════════════════════════════════════════
+
+function CopyBtn({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   return (
-    <div className="flex items-center justify-between gap-3 rounded-lg border border-dark-border bg-dark-bg p-4">
-      <p className="text-sm font-semibold text-dark-text">{text}</p>
-      <button
-        onClick={handleCopy}
-        className="flex-shrink-0 rounded-lg border border-dark-border bg-dark-card px-3 py-1.5 text-xs text-dark-textMuted hover:text-dark-text transition-colors"
-      >
-        {copied ? <Check className="h-3.5 w-3.5 text-green-400" /> : <Copy className="h-3.5 w-3.5" />}
-      </button>
-    </div>
+    <button
+      onClick={() => { navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 2000); }}
+      className="p-1.5 rounded-lg text-white/20 hover:text-white/50 transition-colors"
+    >
+      {copied ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
+    </button>
   );
 }
 
-export function CreatorKitSection({ data}: { data: CreatorKitSectionData }) {
-  const t = useTranslations('analise');
-  const [activeTab, setActiveTab] = useState<'instagram' | 'twitter' | 'video' | 'tiktok' | 'podcast' | 'headlines'>('instagram');
+// ═══════════════════════════════════════════════════════
+// Slide colors
+// ═══════════════════════════════════════════════════════
 
-  const tabs = [
-    { id: 'instagram' as const, label: 'Instagram Cards', Icon: Instagram },
-    { id: 'twitter' as const, label: 'Twitter Thread', Icon: MessageCircle },
-    { id: 'video' as const, label: 'Video Script', Icon: Video },
-    { id: 'tiktok' as const, label: 'TikTok/Reels', Icon: Smartphone },
-    { id: 'podcast' as const, label: 'Podcast', Icon: Mic },
-    { id: 'headlines' as const, label: 'Headlines', Icon: Type },
-  ];
+const slideGradient: Record<string, string> = {
+  red: 'from-ufc-red/15 to-transparent border-ufc-red/15',
+  blue: 'from-blue-400/15 to-transparent border-blue-400/15',
+  gold: 'from-amber-400/10 to-transparent border-amber-400/15',
+  white: 'from-white/5 to-transparent border-white/10',
+};
+
+// ═══════════════════════════════════════════════════════
+// Main component
+// ═══════════════════════════════════════════════════════
+
+export function CreatorKitSection({ data, lang = 'pt' }: { data: CreatorKitSectionData; lang?: Lang }) {
+  const t = getLabels(lang);
+  const [activeTab, setActiveTab] = useState<TabId>('instagram');
+
+  const activePlatform = platforms.find(p => p.id === activeTab)!;
+
+  // Filter tabs based on available data
+  const availableTabs = platforms.filter(p => {
+    if (p.id === 'tiktok') return !!data.tiktok;
+    if (p.id === 'podcast') return !!data.podcast;
+    if (p.id === 'headlines') return !!data.headlines;
+    return true;
+  });
 
   return (
     <section>
-      <SectionHeader number="13" title={t('creator_title')} accent={t('creator_accent')} />
+      <SectionHeader number="13" title={t.creator_title} accent={t.creator_accent} />
 
-      {/* Tabs */}
-      <div className="mb-6 flex gap-2 flex-wrap">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition-all ${
-              activeTab === tab.id
-                ? 'bg-ufc-red text-white'
-                : 'bg-dark-card text-dark-textMuted hover:text-dark-text border border-dark-border'
-            }`}
-          >
-            <tab.Icon className="h-4 w-4" />
-            {tab.label}
-          </button>
-        ))}
+      {/* Tab navigation — gradient active state */}
+      <div className="flex gap-1.5 rounded-xl bg-white/[0.02] border border-white/[0.04] p-1.5 mb-8 overflow-x-auto">
+        {availableTabs.map((tab) => {
+          const isActive = activeTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-medium transition-all whitespace-nowrap ${
+                isActive
+                  ? `bg-gradient-to-r ${tab.gradient} text-white shadow-md`
+                  : 'text-white/30 hover:text-white/60'
+              }`}
+            >
+              <tab.Icon size={14} />
+              {tab.label}
+            </button>
+          );
+        })}
       </div>
 
-      {/* Tab Content */}
-      <div className="rounded-lg border border-dark-border bg-dark-card p-6 md:p-8">
-        {activeTab === 'instagram' && (
-          <div className="space-y-6">
-            <h3 className="font-display text-lg uppercase text-dark-text">Instagram Cards</h3>
-            <div className="grid gap-4 md:grid-cols-3">
-              {data.instagram.map((slide) => {
-                const colorClass = slideColorMap[slide.color] || slideColorMap.red;
-                const titleClass = slideTitleColor[slide.color] || slideTitleColor.red;
-                return (
-                  <div key={slide.slide_number} className={`rounded-lg bg-gradient-to-br border p-5 ${colorClass}`}>
-                    <p className={`font-display text-lg uppercase mb-2 ${titleClass}`}>SLIDE {slide.slide_number}</p>
-                    <p className="text-sm text-dark-text font-bold mb-2">{slide.title}</p>
-                    <p className="text-xs text-dark-textMuted whitespace-pre-line">{slide.content}</p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
+      {/* Gradient border wrapper */}
+      <div className={`p-[1px] rounded-2xl bg-gradient-to-br ${activePlatform.gradient}`}>
+        <div className="rounded-2xl bg-[#0c0c0c] p-6 md:p-8">
 
-        {activeTab === 'twitter' && (
-          <div className="space-y-6">
-            <h3 className="font-display text-lg uppercase text-dark-text">Twitter Thread ({data.twitter.length} tweets)</h3>
-            <div className="space-y-4">
-              {data.twitter.map((tweet) => (
-                <div key={tweet.num} className="rounded-lg border border-dark-border bg-dark-bg p-4">
-                  <div className="mb-2 flex items-center gap-2">
-                    <MessageCircle className="h-4 w-4 text-blue-400" />
-                    <span className="text-xs font-bold text-blue-400">{tweet.num}</span>
+          {/* ═══ INSTAGRAM ═══ */}
+          {activeTab === 'instagram' && (
+            <div>
+              <div className="flex gap-3 overflow-x-auto pb-4 snap-x">
+                {data.instagram.map((slide) => (
+                  <div key={slide.slide_number} className={`min-w-[250px] max-w-[270px] flex-shrink-0 snap-start rounded-xl bg-gradient-to-b ${slideGradient[slide.color] || slideGradient.red} border p-5`}>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-[9px] uppercase tracking-wider text-white/25">Slide {slide.slide_number}</span>
+                      <CopyBtn text={`${slide.title}\n\n${slide.content}`} />
+                    </div>
+                    <p className="font-display text-sm uppercase text-white/90 mb-2">{slide.title}</p>
+                    <p className="text-[11px] text-white/40 whitespace-pre-line leading-relaxed">{slide.content}</p>
                   </div>
-                  <p className="text-sm text-dark-textMuted whitespace-pre-line">{tweet.text}</p>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* ═══ TWITTER ═══ */}
+          {activeTab === 'twitter' && (
+            <div className="space-y-2">
+              {data.twitter.map((tweet) => (
+                <div key={tweet.num} className="flex items-start justify-between gap-3 py-3 border-b border-white/[0.04] last:border-b-0">
+                  <div className="flex-1">
+                    <span className="text-[10px] text-[#1DA1F2] font-medium mr-2">{tweet.num}</span>
+                    <span className="text-sm text-white/60">{tweet.text}</span>
+                    <span className={`ml-2 text-[9px] ${tweet.text.length > 280 ? 'text-red-400' : 'text-white/15'}`}>{tweet.text.length}/280</span>
+                  </div>
+                  <CopyBtn text={tweet.text} />
                 </div>
               ))}
             </div>
-          </div>
-        )}
+          )}
 
-        {activeTab === 'video' && (
-          <div className="space-y-6">
-            <h3 className="font-display text-lg uppercase text-dark-text">Video Script (60 segundos)</h3>
+          {/* ═══ VIDEO ═══ */}
+          {activeTab === 'video' && (
             <div className="space-y-4">
               {data.video.map((section) => (
-                <div key={section.time} className="rounded-lg border border-dark-border bg-dark-bg p-4">
-                  <div className="mb-2 flex items-center gap-3">
-                    <span className="rounded bg-ufc-red/20 px-2 py-1 text-xs font-bold text-ufc-red">{section.time}</span>
-                    <span className="font-display text-sm uppercase text-dark-text">{section.title}</span>
+                <div key={section.time} className="flex gap-4">
+                  <div className="flex-shrink-0">
+                    <span className="text-[10px] font-bold text-[#FF0000] bg-[#FF0000]/10 rounded px-2 py-1">{section.time}</span>
                   </div>
-                  <p className="text-sm italic text-dark-textMuted">{section.text}</p>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-xs font-bold uppercase text-white/60">{section.title}</span>
+                      <CopyBtn text={section.text} />
+                    </div>
+                    <p className="text-sm text-white/40 italic leading-relaxed">&ldquo;{section.text}&rdquo;</p>
+                  </div>
                 </div>
               ))}
             </div>
-          </div>
-        )}
+          )}
 
-        {activeTab === 'tiktok' && data.tiktok && (
-          <div className="space-y-6">
-            <h3 className="font-display text-lg uppercase text-dark-text">TikTok/Reels Scripts</h3>
-            <div className="space-y-4">
+          {/* ═══ TIKTOK ═══ */}
+          {activeTab === 'tiktok' && data.tiktok && (
+            <div className="space-y-6">
               {data.tiktok.map((script, i) => (
-                <div key={i} className="rounded-lg border border-dark-border bg-dark-bg p-5">
-                  <div className="mb-3">
-                    <span className="rounded bg-ufc-red/20 px-2 py-1 text-xs font-bold text-ufc-red">Script {i + 1}</span>
+                <div key={i}>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[10px] font-bold text-[#00F2EA] bg-[#00F2EA]/10 rounded px-2 py-1">Script {i + 1}</span>
+                    <CopyBtn text={`HOOK: ${script.hook}\n\n${script.body}\n\nCTA: ${script.cta}`} />
                   </div>
-                  <div className="space-y-3">
-                    <div>
-                      <p className="text-[10px] font-bold uppercase tracking-wider text-ufc-gold mb-1">Hook (3s)</p>
-                      <p className="text-sm font-bold text-dark-text">{script.hook}</p>
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-bold uppercase tracking-wider text-dark-textMuted mb-1">Corpo</p>
-                      <p className="text-sm text-dark-textMuted">{script.body}</p>
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-bold uppercase tracking-wider text-green-400 mb-1">CTA</p>
-                      <p className="text-sm text-green-400">{script.cta}</p>
-                    </div>
+                  <div className="border-l-2 border-[#FF0050] pl-4 mb-2">
+                    <p className="text-[9px] uppercase tracking-wider text-[#FF0050] mb-1">Hook</p>
+                    <p className="text-sm font-bold text-white/80">{script.hook}</p>
+                  </div>
+                  <p className="text-sm text-white/40 leading-relaxed mb-2">{script.body}</p>
+                  <div className="border-l-2 border-[#00F2EA] pl-4">
+                    <p className="text-[9px] uppercase tracking-wider text-[#00F2EA] mb-1">CTA</p>
+                    <p className="text-sm text-white/60">{script.cta}</p>
                   </div>
                 </div>
               ))}
             </div>
-          </div>
-        )}
+          )}
 
-        {activeTab === 'tiktok' && !data.tiktok && (
-          <p className="text-sm text-dark-textMuted">TikTok scripts nao disponiveis para esta analise.</p>
-        )}
-
-        {activeTab === 'podcast' && data.podcast && (
-          <div className="space-y-6">
-            <h3 className="font-display text-lg uppercase text-dark-text">Podcast Talking Points</h3>
+          {/* ═══ PODCAST ═══ */}
+          {activeTab === 'podcast' && data.podcast && (
             <div className="space-y-4">
               {data.podcast.map((segment, i) => (
-                <div key={i} className="rounded-lg border border-dark-border bg-dark-bg p-5">
-                  <div className="mb-3 flex items-center gap-3">
-                    <span className="rounded bg-ufc-red/20 px-2 py-1 text-xs font-bold text-ufc-red">{segment.timestamp}</span>
-                    <span className="font-display text-sm uppercase text-dark-text">{segment.title}</span>
+                <div key={i} className="py-4 border-b border-white/[0.04] last:border-b-0">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="text-[10px] font-bold text-[#8B5CF6] bg-[#8B5CF6]/10 rounded px-2 py-1">{segment.timestamp}</span>
+                    <span className="text-xs font-bold uppercase text-white/60">{segment.title}</span>
                   </div>
-                  <div className="space-y-2 mb-3">
+                  <div className="space-y-1.5 pl-1">
                     {segment.talking_points.map((point, j) => (
                       <div key={j} className="flex items-start gap-2">
-                        <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-ufc-red" />
-                        <p className="text-sm text-dark-textMuted">{point}</p>
+                        <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-[#8B5CF6]/50" />
+                        <p className="text-xs text-white/40 leading-relaxed">{point}</p>
                       </div>
                     ))}
                   </div>
                   {segment.discussion_questions && segment.discussion_questions.length > 0 && (
-                    <div className="mt-3 rounded-lg bg-ufc-gold/5 border border-ufc-gold/20 p-3">
-                      <p className="text-[10px] font-bold uppercase tracking-wider text-ufc-gold mb-2">Perguntas para Discussao</p>
+                    <div className="mt-3 pl-1">
                       {segment.discussion_questions.map((q, k) => (
-                        <p key={k} className="text-xs text-dark-textMuted italic mb-1">{q}</p>
+                        <p key={k} className="text-[11px] text-[#8B5CF6]/50 italic">&ldquo;{q}&rdquo;</p>
                       ))}
                     </div>
                   )}
                 </div>
               ))}
             </div>
-          </div>
-        )}
+          )}
 
-        {activeTab === 'podcast' && !data.podcast && (
-          <p className="text-sm text-dark-textMuted">Podcast talking points nao disponiveis para esta analise.</p>
-        )}
-
-        {activeTab === 'headlines' && data.headlines && (
-          <div className="space-y-6">
-            <h3 className="font-display text-lg uppercase text-dark-text">Headlines Prontas</h3>
-            <div className="space-y-3">
+          {/* ═══ HEADLINES ═══ */}
+          {activeTab === 'headlines' && data.headlines && (
+            <div className="space-y-2">
               {data.headlines.map((headline, i) => (
-                <HeadlineItem key={i} text={headline} />
+                <div key={i} className="flex items-center justify-between py-3 border-b border-white/[0.04] last:border-b-0">
+                  <p className="text-sm text-white/60">{headline}</p>
+                  <CopyBtn text={headline} />
+                </div>
               ))}
             </div>
-          </div>
-        )}
+          )}
 
-        {activeTab === 'headlines' && !data.headlines && (
-          <p className="text-sm text-dark-textMuted">Headlines nao disponiveis para esta analise.</p>
-        )}
+        </div>
       </div>
     </section>
   );

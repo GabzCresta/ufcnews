@@ -18,6 +18,7 @@ import { RadarApostadorSection } from './RadarApostadorSection';
 
 interface FullAnalysisViewProps {
   analise: FullSingleAnalise;
+  lang?: string;
 }
 
 export function FullAnalysisView({ analise }: FullAnalysisViewProps) {
@@ -26,25 +27,25 @@ export function FullAnalysisView({ analise }: FullAnalysisViewProps) {
   const f2Name = fa.hero.fighter2.sobrenome;
 
   return (
-    <main>
+    <main className="min-h-screen bg-[#0A0A0A]">
       {/* Breadcrumb */}
-      <div className="container mx-auto px-4 pt-6">
-        <div className="mb-6 flex items-center gap-2 text-sm text-dark-textMuted">
+      <div className="mx-auto max-w-5xl px-4 pt-6">
+        <div className="mb-6 flex items-center gap-2 text-xs text-white/30">
           <Link href="/" className="hover:text-ufc-red transition-colors">Home</Link>
-          <span>/</span>
+          <span className="text-white/10">/</span>
           <Link href="/analises" className="hover:text-ufc-red transition-colors">Analises</Link>
-          <span>/</span>
-          <span className="text-dark-text">{fa.hero.evento_nome}</span>
+          <span className="text-white/10">/</span>
+          <span className="text-white/50">{f1Name} vs {f2Name}</span>
         </div>
       </div>
 
       {/* Hero (full-bleed, no section number) */}
-      <div className="container mx-auto px-4">
+      <div className="mx-auto max-w-5xl px-4">
         <HeroSection data={fa.hero} />
       </div>
 
       {/* Sections with consistent spacing */}
-      <div className="container mx-auto px-4 space-y-16 py-12">
+      <div className="mx-auto max-w-5xl px-4 space-y-20 py-16">
         {/* 01 - Narrativa */}
         <section>
           <NarrativaSection
@@ -132,6 +133,13 @@ export function FullAnalysisView({ analise }: FullAnalysisViewProps) {
         <section>
           {fa.radar_apostador && <RadarApostadorSection data={fa.radar_apostador} />}
         </section>
+        {/* Footer */}
+        <div className="pt-8 text-center">
+          <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent mb-6" />
+          <p className="text-[10px] text-white/20 uppercase tracking-widest">
+            Combat Sports Intelligence Engine
+          </p>
+        </div>
       </div>
     </main>
   );

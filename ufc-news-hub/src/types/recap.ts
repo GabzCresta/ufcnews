@@ -25,6 +25,9 @@ export interface RecapFightResult {
 
   // Bonus
   bonus?: 'FOTN' | 'POTN';
+
+  // Optional editorial note
+  recap_note?: string;
 }
 
 export interface RecapHeadline {
@@ -199,6 +202,8 @@ export interface RecapKeyMoment {
 // Main RecapData
 // ═══════════════════════════════════════════════════════════
 
+import type { EventCreatorKitData } from './event-creator-kit';
+
 export interface RecapData {
   evento_nome: string;
   evento_data: string;
@@ -240,4 +245,5 @@ export interface RecapData {
   model_autopsy?: RecapModelAutopsy;
   division_impacts?: RecapDivisionImpact[];
   replay_guide?: RecapReplayFight[];
+  event_creator_kit?: EventCreatorKitData;
 }

@@ -1,7 +1,6 @@
 import type { OQueObservarSectionData } from '@/types/analise';
 import { useTranslations } from 'next-intl';
 import { SectionHeader } from './SectionHeader';
-import { resolveIcon } from './icon-resolver';
 
 export function OQueObservarSection({ data}: { data: OQueObservarSectionData }) {
   const t = useTranslations('analise');
@@ -9,23 +8,16 @@ export function OQueObservarSection({ data}: { data: OQueObservarSectionData }) 
     <section>
       <SectionHeader number="12" title={t('observar_title')} accent={t('observar_accent')} />
 
-      <div className="space-y-4">
-        {data.points.map((item) => {
-          const Icon = resolveIcon(item.icon);
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
+        {data.points.map((item, i) => {
+          const isLast = data.points.length % 2 !== 0 && i === data.points.length - 1;
           return (
-            <div key={item.num} className="flex gap-4 rounded-lg border border-dark-border bg-dark-card p-5 md:p-6">
-              <div className="flex-shrink-0">
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-ufc-red/10">
-                  <span className="font-display text-xl text-ufc-red">{item.num}</span>
-                </div>
+            <div key={item.num} className={`${isLast ? 'md:col-span-2 md:max-w-[50%]' : ''}`}>
+              <div className="flex items-baseline gap-3 mb-2">
+                <span className="font-display text-2xl text-white/10">{String(item.num).padStart(2, '0')}</span>
+                <h4 className="text-sm font-bold text-white/75">{item.title}</h4>
               </div>
-              <div className="flex-1">
-                <div className="mb-2 flex items-center gap-2">
-                  <Icon className="h-4 w-4 text-ufc-gold" />
-                  <h4 className="font-display text-sm uppercase text-dark-text">{item.title}</h4>
-                </div>
-                <p className="text-sm text-gray-200">{item.description}</p>
-              </div>
+              <p className="text-xs text-white/35 leading-relaxed pl-10">{item.description}</p>
             </div>
           );
         })}

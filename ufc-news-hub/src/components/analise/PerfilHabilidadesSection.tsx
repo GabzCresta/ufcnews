@@ -1,55 +1,52 @@
-import { BarChart3 } from 'lucide-react';
 import type { PerfilHabilidadesSectionData, SkillBarData } from '@/types/analise';
-import { useTranslations } from 'next-intl';
+import { getLabels, type Lang } from '@/lib/i18n-labels';
 import { SectionHeader } from './SectionHeader';
 
-function valueToLabel(value: number): string {
-  if (value >= 90) return 'Excelente';
-  if (value >= 75) return 'Muito Bom';
-  if (value >= 55) return 'Bom';
-  if (value >= 35) return 'Medio';
-  return 'Ruim';
-}
-
-function labelColor(label: string): string {
-  switch (label) {
-    case 'Excelente': return 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30';
-    case 'Muito Bom': return 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30';
-    case 'Bom': return 'bg-green-500/20 text-green-400 border-green-500/30';
-    case 'Medio': return 'bg-yellow-600/20 text-yellow-600 border-yellow-600/30';
-    case 'Ruim': return 'bg-red-500/20 text-red-400 border-red-500/30';
-    default: return 'bg-dark-border text-dark-textMuted border-dark-border';
-  }
-}
-
-function SkillRow({ skill, fighter1Name, fighter2Name }: { skill: SkillBarData; fighter1Name: string; fighter2Name: string }) {
-  const lA = skill.labelA || valueToLabel(skill.valueA);
-  const lB = skill.labelB || valueToLabel(skill.valueB);
+function SkillRow({ skill, f1: f1Name, f2: f2Name }: { skill: SkillBarData; f1: string; f2: string }) {
+  const aWins = skill.advantage === 'fighter1';
+  const bWins = skill.advantage === 'fighter2';
 
   return (
-    <div className="rounded-lg border border-dark-border/50 bg-dark-bg p-4">
+    <div className="py-5 border-b border-white/[0.04] last:border-b-0">
+      {/* Skill name + who has the edge */}
       <div className="flex items-center justify-between mb-3">
-        <h4 className="text-sm font-bold uppercase tracking-wider text-dark-text">{skill.label}</h4>
+        <h4 className="text-xs font-bold uppercase tracking-wider text-white/60">{skill.label}</h4>
         {skill.advantage && skill.advantage !== 'even' && (
-          <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${
-            skill.advantage === 'fighter1' ? 'bg-ufc-red/20 text-ufc-red' : 'bg-blue-400/20 text-blue-400'
-          }`}>
-            Vantagem {skill.advantage === 'fighter1' ? fighter1Name : fighter2Name}
+          <span className={`text-[10px] font-bold uppercase tracking-wider ${aWins ? 'text-ufc-red' : 'text-blue-400'}`}>
+            {aWins ? f1Name : f2Name}
           </span>
         )}
+        {skill.advantage === 'even' && (
+          <span className="text-[10px] text-white/25 uppercase tracking-wider">Equilibrado</span>
+        )}
       </div>
-      <div className="grid grid-cols-2 gap-3">
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-dark-textMuted">{fighter1Name}</span>
-          <span className={`rounded-full border px-2.5 py-0.5 text-[10px] font-bold ${labelColor(lA)}`}>{lA}</span>
+
+      {/* Visual bars */}
+      <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 mb-2">
+        <div className="flex items-center gap-2.5">
+          <span className={`font-display text-lg tabular-nums ${aWins ? 'text-white' : 'text-white/30'}`}>{skill.valueA}</span>
+          <div className="flex-1 h-1.5 rounded-full bg-white/[0.04] overflow-hidden">
+            <div
+              className={`h-full rounded-full ${aWins ? 'bg-ufc-red' : 'bg-ufc-red/20'}`}
+              style={{ width: `${skill.valueA}%` }}
+            />
+          </div>
         </div>
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-dark-textMuted">{fighter2Name}</span>
-          <span className={`rounded-full border px-2.5 py-0.5 text-[10px] font-bold ${labelColor(lB)}`}>{lB}</span>
+        <div className="w-px h-5 bg-white/[0.06]" />
+        <div className="flex items-center gap-2.5 flex-row-reverse">
+          <span className={`font-display text-lg tabular-nums ${bWins ? 'text-white' : 'text-white/30'}`}>{skill.valueB}</span>
+          <div className="flex-1 h-1.5 rounded-full bg-white/[0.04] overflow-hidden flex justify-end">
+            <div
+              className={`h-full rounded-full ${bWins ? 'bg-blue-400' : 'bg-blue-400/20'}`}
+              style={{ width: `${skill.valueB}%` }}
+            />
+          </div>
         </div>
       </div>
+
+      {/* Insight note */}
       {skill.advantage_note && (
-        <p className="mt-2 text-[11px] italic text-dark-textMuted">{skill.advantage_note}</p>
+        <p className="text-[11px] text-white/35 leading-relaxed">{skill.advantage_note}</p>
       )}
     </div>
   );
@@ -60,47 +57,43 @@ export function PerfilHabilidadesSection({
   fighter1Name,
   fighter2Name,
   sectionNumber,
+  lang = 'pt',
 }: {
   data: PerfilHabilidadesSectionData;
   fighter1Name: string;
   fighter2Name: string;
   sectionNumber?: string;
+  lang?: Lang;
 }) {
-  const t = useTranslations('analise');
+  const t = getLabels(lang);
+
   return (
     <section>
-      <SectionHeader number={sectionNumber ?? "06"} title={t('habilidades_title')} accent={t('habilidades_accent')} />
+      <SectionHeader number={sectionNumber ?? "06"} title={t.habilidades_title} accent={t.habilidades_accent} />
 
-      <div className="rounded-lg border border-dark-border bg-dark-card p-6 md:p-8">
-        <div className="mb-6 flex items-center justify-center gap-8 text-sm">
-          <div className="flex items-center gap-2">
-            <div className="h-3 w-3 rounded-full bg-ufc-red" />
-            <span className="font-semibold text-dark-textMuted">{fighter1Name}</span>
-          </div>
-          <span className="text-dark-textMuted">vs</span>
-          <div className="flex items-center gap-2">
-            <div className="h-3 w-3 rounded-full bg-blue-400" />
-            <span className="font-semibold text-dark-textMuted">{fighter2Name}</span>
-          </div>
-        </div>
-
-        <div className="grid gap-3 md:grid-cols-2">
-          {data.skills.map((skill, i) => (
-            <SkillRow key={i} skill={skill} fighter1Name={fighter1Name} fighter2Name={fighter2Name} />
-          ))}
-        </div>
-
-        {data.insight && (
-          <div className="mt-6 rounded-lg border border-dark-border bg-dark-bg p-4">
-            <div className="flex items-start gap-3">
-              <BarChart3 className="mt-0.5 h-5 w-5 flex-shrink-0 text-ufc-gold" />
-              <p className="text-sm text-dark-textMuted">
-                <span className="font-bold text-dark-text">Insight:</span> {data.insight}
-              </p>
-            </div>
-          </div>
-        )}
+      {/* Fighter names */}
+      <div className="grid grid-cols-[1fr_auto_1fr] items-center mb-2">
+        <span className="font-display text-sm uppercase tracking-wider text-ufc-red">{fighter1Name}</span>
+        <span className="px-4 text-[10px] text-white/20">vs</span>
+        <span className="font-display text-sm uppercase tracking-wider text-blue-400 text-right">{fighter2Name}</span>
       </div>
+
+      {/* Skills */}
+      <div>
+        {data.skills.map((skill, i) => (
+          <SkillRow key={i} skill={skill} f1={fighter1Name} f2={fighter2Name} />
+        ))}
+      </div>
+
+      {/* Overall insight */}
+      {data.insight && (
+        <div className="mt-6 relative rounded-xl overflow-hidden">
+          <div className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-ufc-red to-blue-400 rounded-full" />
+          <div className="pl-5 py-3">
+            <p className="text-xs text-white/45 leading-relaxed">{data.insight}</p>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
