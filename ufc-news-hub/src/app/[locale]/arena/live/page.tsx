@@ -279,11 +279,14 @@ function EventResultView({
     return upcoming[0] ?? null;
   }, [data?.lutas]);
 
-  // Chronological order: prelims first (high ordem) → main event last (ordem=1)
-  // API already returns ORDER BY ordem DESC, just enforce it here
+  // Live order: finished fights first (most recent on top), then upcoming in chronological order
+  // Chronological = lowest ordem first (prelims happen before main event)
   const sortedLutas = useMemo(() => {
     if (!data?.lutas) return [];
-    return [...data.lutas].sort((a, b) => b.ordem - a.ordem);
+    const finished = [...data.lutas].filter(l => l.status === 'finalizada').sort((a, b) => a.ordem - b.ordem);
+    const live = [...data.lutas].filter(l => l.status === 'ao_vivo');
+    const upcoming = [...data.lutas].filter(l => l.status !== 'finalizada' && l.status !== 'ao_vivo').sort((a, b) => b.ordem - a.ordem);
+    return [...finished, ...live, ...upcoming];
   }, [data?.lutas]);
 
   if (!data && !error) {
