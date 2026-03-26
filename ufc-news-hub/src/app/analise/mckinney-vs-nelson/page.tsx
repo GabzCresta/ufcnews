@@ -82,7 +82,7 @@ const analise: FullSingleAnalise = {
         record: '17-8-0',
         ranking: 'N/R Peso Leve',
         info_extra: 'Portland, Oregon | 31 anos',
-        imagem_fullbody_url: 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-12/MCKINNEY_TERRANCE_L_12-06.png?itok=JYl1VRcp',
+        imagem_fullbody_url: 'https://ufc.com/images/styles/event_results_athlete_headshot/s3/2025-12/MCKINNEY_TERRANCE_12-06.png?itok=5QTi9ske',
       },
       fighter2: {
         nome_completo: 'Kyle "The Monster" Nelson',
@@ -91,7 +91,7 @@ const analise: FullSingleAnalise = {
         record: '17-6-1',
         ranking: 'N/R Peso Leve',
         info_extra: 'Huntsville, Ontario, Canada | 34 anos',
-        imagem_fullbody_url: 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-10/NELSON_KYLE_L_10-18.png?itok=K1REGeZG',
+        imagem_fullbody_url: 'https://ufc.com/images/styles/event_results_athlete_headshot/s3/2025-10/NELSON_KYLE_10-18.png?itok=8eqEwRD1',
       },
     },
 

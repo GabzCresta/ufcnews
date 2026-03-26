@@ -20,7 +20,7 @@ const analise: PrelimsAnalise = {
       ],
       tale_of_tape: [
         { label: 'Idade', fighter1: '26 anos', fighter2: '28 anos', note: 'O\'Neill mais nova' },
-        { label: 'Sequencia', fighter1: 'Voltando de lesao com vitoria', fighter2: 'Vem de derrota', note: null },
+        { label: 'Sequencia', fighter1: '19 MESES fora por lesao no joelho, voltou com vitoria', fighter2: 'Vem de derrota', note: 'O\'Neill ficou fora o ano inteiro de 2025' },
       ],
     },
     historico_lutas: {
@@ -48,7 +48,7 @@ const analise: PrelimsAnalise = {
     previsao_final: {
       winner_name: 'Casey O\'Neill', winner_side: 'fighter1', predicted_method: 'Decisao Unanime', confidence_score: 6, confidence_label: 'MEDIA',
       explanation: 'O\'Neill era prospect top do peso-mosca antes da lesao. Voltou com vitoria solida. Fernandes e competitiva mas sem o nivel tecnico pra superar O\'Neill. O wrestling e o volume devem decidir por 3 rounds.',
-      x_factor: { title: 'O\'Neill Voltando ao Nivel', description: 'Se O\'Neill esta 100% da lesao, o nivel tecnico e superior. A pergunta e o ring rust.' },
+      x_factor: { title: '19 Meses Fora por Lesao no Joelho', description: 'O\'Neill ficou fora o ANO INTEIRO de 2025 por lesao no joelho. Voltou com vitoria em outubro mas a questao e se esta 100%. Ring rust de quase 2 anos e significativo.' },
       upset_alert: { title: 'Fernandes E Dura', description: 'Fernandes tem 11-3 e nunca foi finalizada facilmente. Pode tornar competitiva.' },
       probabilities: { fighter1: { nome: 'O\'Neill', percent: 62 }, fighter2: { nome: 'Fernandes', percent: 36 }, draw: 2 },
       value_picks: {

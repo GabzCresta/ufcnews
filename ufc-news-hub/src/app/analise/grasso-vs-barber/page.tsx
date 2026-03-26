@@ -91,7 +91,7 @@ const analise: FullSingleAnalise = {
         record: '16-3-0',
         ranking: '#5 Peso Mosca Feminino',
         info_extra: 'Colorado, EUA | 27 anos',
-        imagem_fullbody_url: 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-12/BARBER_MAYCEE_L_12-06.png?itok=PsAi5oK3',
+        imagem_fullbody_url: 'https://ufc.com/images/styles/event_results_athlete_headshot/s3/2025-12/BARBER_MAYCEE_12-06.png?itok=msU5eK6f',
       },
     },
 

@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import type { HeroSectionData, HeroFighterData } from '@/types/analise';
 import type { Lang } from '@/lib/i18n-labels';
 
@@ -6,41 +5,7 @@ import type { Lang } from '@/lib/i18n-labels';
 // Hero Section — Premium Aurora + Glassmorphism
 // ═══════════════════════════════════════════════════════
 
-function FighterImage({ fighter, side }: { fighter: HeroFighterData; side: 'left' | 'right' }) {
-  const glowColor = side === 'left'
-    ? 'shadow-[0_0_60px_rgba(210,10,10,0.3)]'
-    : 'shadow-[0_0_60px_rgba(96,165,250,0.3)]';
-  const borderColor = side === 'left' ? 'border-ufc-red/30' : 'border-blue-400/30';
-
-  if (fighter.imagem_fullbody_url) {
-    return (
-      <div className={`relative mx-auto overflow-hidden rounded-full border-2 ${borderColor} ${glowColor}`}>
-        <div className="relative h-40 w-40 md:h-48 md:w-48 lg:h-56 lg:w-56">
-          <Image
-            src={fighter.imagem_fullbody_url}
-            alt={fighter.sobrenome}
-            fill
-            className="object-cover object-top"
-            sizes="(max-width: 768px) 160px, (max-width: 1024px) 192px, 224px"
-            unoptimized
-          />
-        </div>
-      </div>
-    );
-  }
-
-  const bgGradient = side === 'left'
-    ? 'bg-gradient-to-br from-ufc-red/20 to-transparent'
-    : 'bg-gradient-to-br from-blue-400/20 to-transparent';
-
-  const initials = fighter.sobrenome.slice(0, 2).toUpperCase();
-
-  return (
-    <div className={`mx-auto flex h-32 w-32 md:h-40 md:w-40 items-center justify-center rounded-full border-2 ${borderColor} ${bgGradient} ${glowColor}`}>
-      <span className="font-display text-4xl md:text-5xl text-white/30">{initials}</span>
-    </div>
-  );
-}
+// No fighter images - names only, clean and centered
 
 function FighterColumn({ fighter, side }: { fighter: HeroFighterData; side: 'left' | 'right' }) {
   const nameGradient = side === 'left'
@@ -50,10 +15,8 @@ function FighterColumn({ fighter, side }: { fighter: HeroFighterData; side: 'lef
   const accentBg = side === 'left' ? 'bg-ufc-red/10 border-ufc-red/20' : 'bg-blue-400/10 border-blue-400/20';
 
   return (
-    <div className="flex flex-col items-center gap-4">
-      <FighterImage fighter={fighter} side={side} />
-
-      <div className="text-center space-y-2">
+    <div className="flex flex-col items-center justify-center">
+      <div className="text-center space-y-3">
         {/* Sobrenome ONLY - MASSIVE */}
         <h2 className={`font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl uppercase leading-[0.85] bg-gradient-to-r ${nameGradient} bg-clip-text text-transparent`}>
           {fighter.sobrenome}

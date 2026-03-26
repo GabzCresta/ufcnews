@@ -86,7 +86,7 @@ const analise: FullSingleAnalise = {
         record: '24-5-0',
         ranking: '#4 Peso Medio',
         info_extra: 'Lagos, Nigeria / Auckland, Nova Zelandia | 36 anos',
-        imagem_fullbody_url: 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/ADESANYA_ISRAEL_L_02-01.png?itok=YGc30Vwe',
+        imagem_fullbody_url: 'https://ufc.com/images/styles/event_results_athlete_headshot/s3/2025-01/ADESANYA_ISRAEL_02-01.png?itok=x-f3YWNm',
       },
       fighter2: {
         nome_completo: 'Joe "Bodybagz" Pyfer',
@@ -95,7 +95,7 @@ const analise: FullSingleAnalise = {
         record: '15-3-0',
         ranking: '#14 Peso Medio',
         info_extra: 'Allentown, PA | Marquez MMA, Philadelphia | 29 anos',
-        imagem_fullbody_url: 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2024-06/PYFER_JOE_L_06-29.png?itok=prLW4_bl',
+        imagem_fullbody_url: 'https://ufc.com/images/styles/event_results_athlete_headshot/s3/2024-06/PYFER_JOE_06-29.png?itok=prLW4_bl',
       },
     },
 
@@ -248,8 +248,8 @@ const analise: FullSingleAnalise = {
               <div class="absolute inset-0 bg-gradient-to-br from-blue-400/10 to-transparent"></div>
               <div class="absolute inset-y-0 left-0 w-1 bg-blue-400 rounded-full"></div>
               <div class="relative p-5 pl-6">
-                <p class="text-xs font-bold uppercase tracking-wider text-blue-400 mb-2">Game plan revelado</p>
-                <p class="text-sm text-white/60 leading-relaxed"><em class="text-white/80">"Pressao inteligente. Causar dano."</em> Equipe recrutou sparrings pra imitar Izzy.</p>
+                <p class="text-xs font-bold uppercase tracking-wider text-blue-400 mb-2">Pyfer "renascido" e prometendo destruicao</p>
+                <p class="text-sm text-white/60 leading-relaxed">Disse a Helwani: <em class="text-white/80">"Vou machucar Adesanya de um jeito muito feio. Ele nao vai se mover."</em> Encontrou a fe e teve "um 180 total" na vida. Adesanya respondeu: espera Pyfer virar wrestler e esta preparado. Prometeu trazer "tecnicas esquecidas".</p>
               </div>
             </div>
           </div>

@@ -80,7 +80,7 @@ const analise: FullSingleAnalise = {
         record: '9-0-1',
         ranking: 'N/R Peso Medio',
         info_extra: 'Columbia, Maryland | 28 anos',
-        imagem_fullbody_url: 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-12/ABDUL-MALIK_MANSUR_L_12-06.png?itok=r58rf4-K',
+        imagem_fullbody_url: 'https://ufc.com/images/styles/event_results_athlete_headshot/s3/2025-12/ABDUL-MALIK_MANSUR_12-06.png?itok=pgPkI9c7',
       },
       fighter2: {
         nome_completo: 'Yousri "Baby Face Assassin" Belgaroui',
@@ -89,7 +89,7 @@ const analise: FullSingleAnalise = {
         record: '11-2-0',
         ranking: 'N/R Peso Medio',
         info_extra: 'Holanda/Tunisia | Glover Teixeira MMA | 31 anos',
-        imagem_fullbody_url: 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-10/BELGAROUI_YOUSRI_R_10-18.png?itok=g7i7Fdzt',
+        imagem_fullbody_url: 'https://ufc.com/images/styles/event_results_athlete_headshot/s3/2025-10/BELGAROUI_YOUSRI_10-18.png?itok=a9ZA7eTd',
       },
     },
 
