@@ -55,6 +55,7 @@ export function CommentCard({
   onReport,
   isSubmitting,
 }: CommentCardProps) {
+  const t = useTranslations('comments');
   const [isReplying, setIsReplying] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isReporting, setIsReporting] = useState(false);
@@ -164,7 +165,7 @@ export function CommentCard({
                       d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"
                     />
                   </svg>
-                  <span>Responder</span>
+                  <span>{t('reply')}</span>
                 </button>
               )}
 

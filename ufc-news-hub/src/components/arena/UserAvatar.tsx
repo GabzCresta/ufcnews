@@ -1,5 +1,7 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import { useState, useEffect, useRef } from 'react';
 import { Link } from '@/i18n/routing';
 import Image from 'next/image';
@@ -25,6 +27,7 @@ function getAvatarColor(nivel: NivelUsuario): string {
 }
 
 export function UserAvatar({ usuario, onLogout }: UserAvatarProps) {
+  const t = useTranslations('arena');
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -163,7 +166,7 @@ export function UserAvatar({ usuario, onLogout }: UserAvatarProps) {
               onClick={() => setIsOpen(false)}
             >
               <Trophy className="w-4 h-4" />
-              <span>Minhas Ligas</span>
+              <span>{t('my_leagues')}</span>
             </Link>
 
             <Link
@@ -195,7 +198,7 @@ export function UserAvatar({ usuario, onLogout }: UserAvatarProps) {
               className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm w-full text-left text-red-400 hover:text-red-300 hover:bg-red-400/10 transition-colors"
             >
               <LogOut className="w-4 h-4" />
-              <span>Sair</span>
+              <span>{t('leave')}</span>
             </button>
           </div>
         </div>

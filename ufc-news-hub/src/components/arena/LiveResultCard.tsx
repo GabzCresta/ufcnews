@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import { Clock, Zap, CheckCircle2, XCircle, Trophy } from 'lucide-react';
 import { sobrenome } from '@/components/arena/shared';
 
@@ -55,6 +56,7 @@ export function LiveResultCard({
   status,
   userPick,
 }: LiveResultCardProps) {
+  const t = useTranslations('arena');
   const isFinished = status === 'finalizada';
   const isLive = status === 'ao_vivo';
 
