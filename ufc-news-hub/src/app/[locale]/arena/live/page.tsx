@@ -405,7 +405,6 @@ function EventResultView({
                 </div>
               ) : null}
             </div>
-            )}
 
             {/* Progress bar */}
             <div className="mt-4">
