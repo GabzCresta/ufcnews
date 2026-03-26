@@ -14,7 +14,7 @@ export function Header() {
   const mainNav = [
     { href: '/' as const, label: t('home'), icon: Home },
     { href: '/noticias' as const, label: t('noticias'), icon: Newspaper },
-    { href: '/lutadores' as const, label: t('lutadores'), icon: Users },
+    { href: '/fighters' as const, label: t('lutadores'), icon: Users },
     { href: '/analises' as const, label: t('analises'), icon: BarChart3 },
     { href: '/arena' as const, label: t('arena'), icon: Target },
     { href: '/calendario' as const, label: t('calendario'), icon: Calendar },
