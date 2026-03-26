@@ -9,12 +9,14 @@ import { HomeNew } from '@/components/arena/HomeNew';
 import { HomeInProgress } from '@/components/arena/HomeInProgress';
 import { HomeComplete } from '@/components/arena/HomeComplete';
 import { OctagonTexture, Countdown, EventoNome, FightPreview, sortLutas, type Evento } from '@/components/arena/shared';
+import { useTranslations } from 'next-intl';
 
 // ═══════════════════════════════════════════════════════════
 // LANDING (not logged in)
 // ═══════════════════════════════════════════════════════════
 
 function HomeLanding({ evento }: { evento: Evento | null }) {
+  const t = useTranslations('arena');
   const topLutas = evento ? sortLutas(evento.lutas).slice(0, 4) : [];
 
   return (
@@ -39,7 +41,7 @@ function HomeLanding({ evento }: { evento: Evento | null }) {
                 Arena <span className="text-ufc-red">UFC</span>
               </h1>
               <p className="text-dark-textMuted">
-                Nenhum evento agendado no momento.
+                {t('no_event_scheduled')}
               </p>
             </div>
           )}
@@ -51,13 +53,13 @@ function HomeLanding({ evento }: { evento: Evento | null }) {
               className="group inline-flex items-center gap-2 px-8 py-3.5 bg-ufc-red hover:bg-ufc-redLight text-white font-display text-lg uppercase tracking-wide rounded-xl transition-all shadow-lg shadow-ufc-red/20 hover:shadow-ufc-red/40"
             >
               <Zap className="w-5 h-5" />
-              Fazer Meus Palpites
+              {t('make_picks')}
               <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Link>
             <div className="text-sm text-dark-textMuted">
-              Ja tem conta?{' '}
+              {t('already_have_account')}{' '}
               <Link href="/arena/login" className="text-ufc-red hover:underline">
-                Entrar na Arena
+                {t('enter_arena')}
               </Link>
             </div>
           </div>
@@ -65,9 +67,9 @@ function HomeLanding({ evento }: { evento: Evento | null }) {
           {/* How it works — 3 steps */}
           <div className="grid grid-cols-3 gap-3 pt-10">
             {[
-              { num: '01', title: 'Preveja', desc: 'Quem vai vencer cada luta', color: 'text-ufc-red' },
-              { num: '02', title: 'Pontue', desc: 'Acertos viram pontos e XP', color: 'text-ufc-gold' },
-              { num: '03', title: 'Domine', desc: 'Suba no ranking e ganhe titulos', color: 'text-green-400' },
+              { num: '01', title: t('predict'), desc: t('predict_desc'), color: 'text-ufc-red' },
+              { num: '02', title: t('score'), desc: t('score_desc'), color: 'text-ufc-gold' },
+              { num: '03', title: t('dominate'), desc: t('dominate_desc'), color: 'text-green-400' },
             ].map(step => (
               <div key={step.num} className="text-center space-y-1.5">
                 <div className={`font-display text-2xl ${step.color}`}>{step.num}</div>
@@ -81,7 +83,7 @@ function HomeLanding({ evento }: { evento: Evento | null }) {
           {topLutas.length > 0 && (
             <div className="neu-card p-4 text-left">
               <div className="text-[10px] font-display uppercase tracking-widest text-dark-textMuted mb-3">
-                Card Principal
+                {t('main_card_section')}
               </div>
               {topLutas.map(luta => (
                 <FightPreview key={luta.id} luta={luta} />
@@ -89,7 +91,7 @@ function HomeLanding({ evento }: { evento: Evento | null }) {
               {evento && evento.lutas.length > 4 && (
                 <div className="text-center mt-3">
                   <span className="text-xs text-dark-textMuted">
-                    + {evento.lutas.length - 4} lutas no card
+                    + {evento.lutas.length - 4} {t('more_fights')}
                   </span>
                 </div>
               )}
