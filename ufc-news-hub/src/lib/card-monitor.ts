@@ -420,6 +420,15 @@ export async function sincronizarLutas(eventoId: string, eventoNome: string, scr
     if (!f1Id) { result.errors.push(`Lutador nao encontrado: ${fight.fighter1}`); continue; }
     if (!f2Id) { result.errors.push(`Lutador nao encontrado: ${fight.fighter2}`); continue; }
 
+    // Check if this fight already exists by fighter IDs (prevents duplicates from name mismatches)
+    const existsByIds = await queryOne<{ id: string }>(
+      `SELECT id FROM lutas
+       WHERE evento_id = $1 AND status != 'cancelada'
+         AND ((lutador1_id = $2 AND lutador2_id = $3) OR (lutador1_id = $3 AND lutador2_id = $2))`,
+      [eventoId, f1Id, f2Id]
+    );
+    if (existsByIds) continue;
+
     const categoria = translateWeightClass(fight.weight_class);
     const isMainEvent = fight.is_main_event === true;
 
