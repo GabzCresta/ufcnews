@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Trophy, Crown } from 'lucide-react';
 import type { EventoRankingLiga as EventoRankingLigaType } from '@/types/arena';
 
+import { useTranslations } from 'next-intl';
 interface EventoRankingLigaProps {
   ranking: EventoRankingLigaType;
   currentUserId: string | undefined;

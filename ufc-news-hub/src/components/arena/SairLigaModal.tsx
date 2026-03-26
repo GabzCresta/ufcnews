@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { LogOut, X } from 'lucide-react';
 
+import { useTranslations } from 'next-intl';
 interface SairLigaModalProps {
   ligaId: string;
   ligaNome: string;
@@ -12,6 +13,7 @@ interface SairLigaModalProps {
 }
 
 export function SairLigaModal({ ligaId, ligaNome, isOpen, onClose }: SairLigaModalProps) {
+  const t = useTranslations('arena');
   const router = useRouter();
   const [isLeaving, setIsLeaving] = useState(false);
   const [error, setError] = useState('');
@@ -31,10 +33,10 @@ export function SairLigaModal({ ligaId, ligaNome, isOpen, onClose }: SairLigaMod
         router.push('/arena/ligas');
       } else {
         const data = await res.json() as { error?: string };
-        setError(data.error || 'Erro ao sair da liga');
+        setError(data.error || t('error_leave_league'));
       }
     } catch {
-      setError('Erro de conexao');
+      setError(t('error_connection'));
     } finally {
       setIsLeaving(false);
     }
@@ -72,7 +74,7 @@ export function SairLigaModal({ ligaId, ligaNome, isOpen, onClose }: SairLigaMod
             className="flex-1 flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium bg-red-600 hover:bg-red-700 text-white disabled:opacity-50 transition-colors"
           >
             <LogOut className="w-4 h-4" />
-            {isLeaving ? 'Saindo...' : 'Sair'}
+            {isLeaving ? t('leaving') : t('leave')}
           </button>
         </div>
       </div>

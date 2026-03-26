@@ -6,6 +6,7 @@ import FighterImage from '@/components/ui/FighterImage';
 import type { LutaComLutadores, Lutador, Previsao } from '@/types';
 import { PrevisaoForm } from './PrevisaoForm';
 
+import { useTranslations } from 'next-intl';
 interface LutaCardProps {
   luta: LutaComLutadores;
   userPrevisao?: Previsao | null;
@@ -23,6 +24,7 @@ export function LutaCard({
   onPrevisaoSubmit,
   showForm = true,
 }: LutaCardProps) {
+  const t = useTranslations('arena');
   const [isExpanded, setIsExpanded] = useState(false);
   const [localPrevisao, setLocalPrevisao] = useState<Previsao | null>(
     userPrevisao || null
@@ -39,11 +41,11 @@ export function LutaCard({
 
   const getTipoLabel = (tipo: string) => {
     const labels: Record<string, string> = {
-      main_event: 'MAIN EVENT',
-      co_main: 'CO-MAIN EVENT',
-      card_principal: 'CARD PRINCIPAL',
-      preliminar: 'PRELIMINAR',
-      early_prelim: 'EARLY PRELIM',
+      main_event: t('fight_type_main_event'),
+      co_main: t('fight_type_co_main'),
+      card_principal: t('fight_type_main_card'),
+      preliminar: t('fight_type_preliminary'),
+      early_prelim: t('fight_type_early_prelim'),
     };
     return labels[tipo] || tipo.toUpperCase();
   };

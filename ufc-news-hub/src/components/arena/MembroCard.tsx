@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { NIVEL_CONFIG, type MembroLiga } from '@/types/arena';
 import { formatUltimoAcesso } from '@/lib/arena/format';
 
+import { useTranslations } from 'next-intl';
 // ═══════════════════════════════════════════════════════════════
 // Props
 // ═══════════════════════════════════════════════════════════════

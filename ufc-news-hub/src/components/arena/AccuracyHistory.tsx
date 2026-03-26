@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { useArenaAuth } from '@/hooks/useArenaAuth';
 
@@ -11,6 +12,7 @@ interface HistoricoEvento {
 }
 
 export function AccuracyHistory() {
+  const t = useTranslations('arena');
   const { isAuthenticated } = useArenaAuth();
   const [historico, setHistorico] = useState<HistoricoEvento[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -27,7 +29,7 @@ export function AccuracyHistory() {
         const data = await res.json();
         setHistorico(data.historico ?? []);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Erro desconhecido');
+        setError(err instanceof Error ? err.message : t('error_unknown'));
       } finally {
         setIsLoading(false);
       }

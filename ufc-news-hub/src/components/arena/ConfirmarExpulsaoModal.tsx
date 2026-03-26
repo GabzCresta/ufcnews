@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { UserMinus, X } from 'lucide-react';
 
@@ -15,6 +16,7 @@ interface ConfirmarExpulsaoModalProps {
 export function ConfirmarExpulsaoModal({
   ligaId, userId, username, isOpen, onClose, onExpulso,
 }: ConfirmarExpulsaoModalProps) {
+  const t = useTranslations('arena');
   const [isExpelling, setIsExpelling] = useState(false);
   const [error, setError] = useState('');
 
@@ -34,10 +36,10 @@ export function ConfirmarExpulsaoModal({
         onClose();
       } else {
         const data = await res.json() as { error?: string };
-        setError(data.error || 'Erro ao expulsar membro');
+        setError(data.error || t('error_expel'));
       }
     } catch {
-      setError('Erro de conexao');
+      setError(t('error_connection'));
     } finally {
       setIsExpelling(false);
     }
@@ -73,7 +75,7 @@ export function ConfirmarExpulsaoModal({
             className="flex-1 flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium bg-red-600 hover:bg-red-700 text-white disabled:opacity-50 transition-colors"
           >
             <UserMinus className="w-4 h-4" />
-            {isExpelling ? 'Expulsando...' : 'Expulsar'}
+            {isExpelling ? t('expelling') : t('expel')}
           </button>
         </div>
       </div>

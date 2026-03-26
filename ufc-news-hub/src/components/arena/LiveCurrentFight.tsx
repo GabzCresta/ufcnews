@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { Zap, CheckCircle2, XCircle, Clock, Trophy } from 'lucide-react';
 import { sobrenome } from '@/components/arena/shared';
 
@@ -31,7 +32,7 @@ interface LiveCurrentFightProps {
 function tipoLabel(tipo: string): string {
   const map: Record<string, string> = {
     main_event: 'MAIN EVENT', co_main: 'CO-MAIN', card_principal: 'MAIN CARD',
-    preliminar: 'PRELIMINAR', early_prelim: 'EARLY PRELIM',
+    preliminar: 'PRELIMINARY', early_prelim: 'EARLY PRELIM',
   };
   return map[tipo] ?? tipo.toUpperCase();
 }
@@ -43,6 +44,7 @@ function tipoColor(tipo: string): string {
 }
 
 export function LiveCurrentFight({ luta }: LiveCurrentFightProps) {
+  const t = useTranslations('arena');
   const isLive = luta.status === 'ao_vivo';
   const isFinished = luta.status === 'finalizada';
   const isNext = !isLive && !isFinished;

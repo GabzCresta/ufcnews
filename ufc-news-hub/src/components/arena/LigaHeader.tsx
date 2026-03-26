@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Copy, Settings, LogOut, Lock, Globe, Check } from 'lucide-react';
 import type { Liga } from '@/types/arena';
 
+import { useTranslations } from 'next-intl';
 // ═══════════════════════════════════════════════════════════════
 // Props
 // ═══════════════════════════════════════════════════════════════

@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { useArenaAuth } from '@/hooks/useArenaAuth';
 
@@ -19,6 +20,7 @@ function positionColor(pos: number): string {
 }
 
 export function GlobalRanking() {
+  const t = useTranslations('arena');
   const { usuario } = useArenaAuth();
   const [data, setData] = useState<RankingEntry[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -29,13 +31,13 @@ export function GlobalRanking() {
       try {
         setIsLoading(true);
         const res = await fetch('/api/arena/analytics/ranking');
-        if (!res.ok) throw new Error('Erro ao buscar ranking');
+        if (!res.ok) throw new Error(t('error_load_ranking'));
         const json: unknown = await res.json();
         // API returns flat array (legacy) or { ranking: [...] } (new format)
         const entries = Array.isArray(json) ? json as RankingEntry[] : (json as { ranking: RankingEntry[] }).ranking;
         setData(entries);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Erro desconhecido');
+        setError(err instanceof Error ? err.message : t('error_unknown'));
       } finally {
         setIsLoading(false);
       }

@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import Image from 'next/image';
 import { X, ImageIcon, Settings, Users, UserMinus, Eye, EyeOff, Swords, BarChart3, Trophy, MessageCircle, Globe, Lock } from 'lucide-react';
@@ -22,6 +23,7 @@ type Tab = 'banner' | 'configs' | 'membros';
 export function GerenciarLigaModal({
   liga, membros, isOpen, onClose, onBannerUpdate, onLigaUpdate, onMembroExpulso,
 }: GerenciarLigaModalProps) {
+  const t = useTranslations('arena');
   const [activeTab, setActiveTab] = useState<Tab>('configs');
 
   // Configs form state
@@ -82,7 +84,7 @@ export function GerenciarLigaModal({
         setSaveError(data.error || 'Erro ao salvar');
       }
     } catch {
-      setSaveError('Erro de conexao');
+      setSaveError(t('error_connection'));
     } finally {
       setIsSaving(false);
     }
@@ -96,9 +98,9 @@ export function GerenciarLigaModal({
   }
 
   const tabs: { key: Tab; label: string; icon: React.ReactNode }[] = [
-    { key: 'banner', label: 'Banner', icon: <ImageIcon size={16} /> },
-    { key: 'configs', label: 'Configs', icon: <Settings size={16} /> },
-    { key: 'membros', label: 'Membros', icon: <Users size={16} /> },
+    { key: 'banner', label: t('tab_banner'), icon: <ImageIcon size={16} /> },
+    { key: 'configs', label: t('tab_configs'), icon: <Settings size={16} /> },
+    { key: 'membros', label: t('tab_members'), icon: <Users size={16} /> },
   ];
 
   return (
@@ -184,18 +186,18 @@ export function GerenciarLigaModal({
                 <div>
                   <label className="text-xs text-dark-textMuted uppercase mb-1 block">Tipo</label>
                   <div className="flex gap-2">
-                    {(['publica', 'privada'] as const).map(t => (
+                    {(['publica', 'privada'] as const).map(tipoOpt => (
                       <button
-                        key={t}
-                        onClick={() => setTipo(t)}
+                        key={tipoOpt}
+                        onClick={() => setTipo(tipoOpt)}
                         className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm border transition-colors ${
-                          tipo === t
+                          tipo === tipoOpt
                             ? 'border-ufc-red bg-ufc-red/10 text-white'
                             : 'border-dark-border text-dark-textMuted hover:text-white'
                         }`}
                       >
-                        {t === 'publica' ? <Globe size={14} /> : <Lock size={14} />}
-                        {t === 'publica' ? 'Publica' : 'Privada'}
+                        {tipoOpt === 'publica' ? <Globe size={14} /> : <Lock size={14} />}
+                        {tipoOpt === 'publica' ? t('public') : t('private')}
                       </button>
                     ))}
                   </div>
@@ -217,7 +219,7 @@ export function GerenciarLigaModal({
                 <div>
                   <label className="text-xs text-dark-textMuted uppercase mb-1 block">Ranking</label>
                   <div className="flex gap-2">
-                    {([{ value: 'pontos', label: 'Por Pontos', icon: Trophy }, { value: 'percentual', label: 'Por Percentual', icon: BarChart3 }] as const).map(r => (
+                    {([{ value: 'pontos', label: t('by_points'), icon: Trophy }, { value: 'percentual', label: t('by_percentage'), icon: BarChart3 }] as const).map(r => (
                       <button
                         key={r.value}
                         onClick={() => setRankingTipo(r.value)}
@@ -237,9 +239,9 @@ export function GerenciarLigaModal({
                 {/* Boolean toggles */}
                 <div className="space-y-2">
                   {[
-                    { label: 'Mostrar picks antes do evento', desc: 'Membros podem ver os picks uns dos outros', icon: mostrarPicks ? Eye : EyeOff, value: mostrarPicks, set: setMostrarPicks },
-                    { label: 'Apenas Main Card', desc: 'Previsoes so do main card', icon: Swords, value: apenasMainCard, set: setApenasMainCard },
-                    { label: 'Chat ativo', desc: 'Membros podem conversar na liga', icon: MessageCircle, value: chatAtivo, set: setChatAtivo },
+                    { label: t('show_picks_before'), desc: t('show_picks_desc'), icon: mostrarPicks ? Eye : EyeOff, value: mostrarPicks, set: setMostrarPicks },
+                    { label: t('main_card_only'), desc: t('main_card_only_desc'), icon: Swords, value: apenasMainCard, set: setApenasMainCard },
+                    { label: t('chat_active'), desc: t('chat_desc'), icon: MessageCircle, value: chatAtivo, set: setChatAtivo },
                   ].map(toggle => (
                     <button
                       key={toggle.label}
@@ -271,7 +273,7 @@ export function GerenciarLigaModal({
                   disabled={isSaving}
                   className="w-full neu-button rounded-lg px-4 py-2.5 text-sm font-medium text-white disabled:opacity-50"
                 >
-                  {isSaving ? 'Salvando...' : 'Salvar alteracoes'}
+                  {isSaving ? t('saving') : t('save_changes')}
                 </button>
               </div>
             )}

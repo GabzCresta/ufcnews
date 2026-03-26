@@ -4,6 +4,7 @@ import useSWR from 'swr';
 import { Link } from '@/i18n/routing';
 import { Trophy, ChevronRight } from 'lucide-react';
 
+import { useTranslations } from 'next-intl';
 interface RankingUser {
   id: string;
   username: string;

@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { Target } from 'lucide-react';
 import type { EventoAtualLiga, MembroLiga } from '@/types/arena';
 
@@ -10,6 +11,7 @@ interface PicksPressureProps {
 }
 
 export function PicksPressure({ eventoAtual, membros, mostrarNomesPendentes }: PicksPressureProps) {
+  const t = useTranslations('arena');
   const { total_membros, membros_com_picks } = eventoAtual;
   const percent = total_membros > 0 ? Math.round((membros_com_picks / total_membros) * 100) : 0;
   const todosProntos = membros_com_picks === total_membros;
@@ -40,7 +42,7 @@ export function PicksPressure({ eventoAtual, membros, mostrarNomesPendentes }: P
         ) : (
           <span className="text-sm text-dark-textMuted">
             {todosProntos
-              ? 'Todos prontos!'
+              ? t('all_ready')
               : `${membros_com_picks}/${total_membros} fizeram picks`
             }
           </span>

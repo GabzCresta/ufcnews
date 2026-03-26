@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { Zap, Lock, Scale } from 'lucide-react';
 import FighterImage from '@/components/ui/FighterImage';
@@ -18,8 +19,8 @@ interface PrevisaoFormProps {
 
 const METODOS = [
   { value: 'KO/TKO' as const, label: 'KO/TKO', icon: Zap },
-  { value: 'Submission' as const, label: 'Finalizacao', icon: Lock },
-  { value: 'Decision' as const, label: 'Decisao', icon: Scale },
+  { value: 'Submission' as const, label: 'Submission', icon: Lock },
+  { value: 'Decision' as const, label: 'Decision', icon: Scale },
 ] as const;
 
 type MetodoValue = (typeof METODOS)[number]['value'];
@@ -34,6 +35,7 @@ export function PrevisaoForm({
   userName,
   onSuccess,
 }: PrevisaoFormProps) {
+  const t = useTranslations('arena');
   const [selectedLutador, setSelectedLutador] = useState<string | null>(null);
   const [metodo, setMetodo] = useState<MetodoValue | null>(null);
   const [round, setRound] = useState<number | null>(null);
@@ -44,7 +46,7 @@ export function PrevisaoForm({
 
   const handleSubmit = async () => {
     if (!selectedLutador) {
-      setError('Selecione um vencedor');
+      setError(t('select_winner'));
       return;
     }
 
@@ -75,7 +77,7 @@ export function PrevisaoForm({
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Erro ao salvar previsao');
+        throw new Error(data.error || t('error_save_prediction'));
       }
 
       if (data.erros && data.erros.length > 0) {
@@ -101,7 +103,7 @@ export function PrevisaoForm({
 
       onSuccess(previsao);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Erro desconhecido');
+      setError(err instanceof Error ? err.message : t('error_unknown'));
     } finally {
       setIsSubmitting(false);
     }
@@ -201,7 +203,7 @@ export function PrevisaoForm({
             disabled={!selectedLutador || isSubmitting}
             className="w-full rounded-xl bg-ufc-red py-3 font-display uppercase tracking-wider text-white transition-all hover:bg-ufc-redLight hover:shadow-[0_0_20px_rgba(210,10,10,0.3)] disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {isSubmitting ? 'Salvando...' : 'Confirmar Previsao'}
+            {isSubmitting ? t('saving') : t('confirm_prediction')}
           </button>
         </div>
       )}
