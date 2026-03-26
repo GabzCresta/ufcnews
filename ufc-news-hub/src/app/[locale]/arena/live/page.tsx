@@ -396,7 +396,7 @@ function EventResultView({
                     style={{ background: 'linear-gradient(90deg, transparent, rgba(255,223,120,0.6), transparent)' }}
                   />
                   <p className="text-[9px] font-medium uppercase tracking-[0.15em] text-black/50">
-                    Seus pontos no evento
+                    {t('live_points_label')}
                   </p>
                   <p className={`font-display text-2xl sm:text-3xl tabular-nums mt-0.5 font-black ${
                     myEventPoints > 0 ? 'text-[#1a1400]' : 'text-black/30'
@@ -407,7 +407,7 @@ function EventResultView({
                   </p>
                   {nextPendingPick && (
                     <p className="text-[10px] text-black/40 mt-1">
-                      Proximo palpite: <span className="text-[#1a1400] font-bold">+{nextPendingPick.pontos_confianca} pts</span>
+                      {t('live_points_next_pick')}: <span className="text-[#1a1400] font-bold">+{nextPendingPick.pontos_confianca} pts</span>
                     </p>
                   )}
                 </div>

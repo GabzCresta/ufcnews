@@ -441,6 +441,8 @@
     "live_overlay_win_line1": "Você é",
     "live_overlay_win_line2": "FODAAAAAAAAAA",
     "live_overlay_lose": "Vai perder em!",
+    "live_points_label": "Seus pontos no evento",
+    "live_points_next_pick": "Proximo palpite",
     "live_loading": "Carregando...",
     "live_back": "Voltar",
     "live_fights_finished": "{done}/{total} lutas finalizadas",

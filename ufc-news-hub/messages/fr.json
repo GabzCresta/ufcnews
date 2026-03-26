@@ -441,6 +441,8 @@
     "live_overlay_win_line1": "Tu es",
     "live_overlay_win_line2": "INCROYAAABLE",
     "live_overlay_lose": "C'est fini!",
+    "live_points_label": "Vos points de l'evenement",
+    "live_points_next_pick": "Prochain pronostic",
     "live_loading": "Chargement...",
     "live_back": "Retour",
     "live_fights_finished": "{done}/{total} combats termines",

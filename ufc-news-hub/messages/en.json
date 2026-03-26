@@ -441,6 +441,8 @@
     "live_overlay_win_line1": "You are",
     "live_overlay_win_line2": "AMAZIIIIIIING",
     "live_overlay_lose": "You're done!",
+    "live_points_label": "Your event points",
+    "live_points_next_pick": "Next pick",
     "live_loading": "Loading...",
     "live_back": "Back",
     "live_fights_finished": "{done}/{total} fights finished",

@@ -441,6 +441,8 @@
     "live_overlay_win_line1": "Eres",
     "live_overlay_win_line2": "INCREIIIIIBLE",
     "live_overlay_lose": "Estas acabado!",
+    "live_points_label": "Tus puntos del evento",
+    "live_points_next_pick": "Proximo pronostico",
     "live_loading": "Cargando...",
     "live_back": "Volver",
     "live_fights_finished": "{done}/{total} peleas finalizadas",
