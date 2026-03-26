@@ -216,3 +216,243 @@ export function compareCards(previous: ScrapedFight[], current: ScrapedFight[]):
 
   return changes;
 }
+
+// ═══════════════════════════════════════════════════════════
+// Weight Class Translation
+// ═══════════════════════════════════════════════════════════
+
+const WEIGHT_CLASS_MAP: Record<string, string> = {
+  'flyweight': 'Peso Mosca',
+  'bantamweight': 'Peso Galo',
+  'featherweight': 'Peso Pena',
+  'lightweight': 'Peso Leve',
+  'welterweight': 'Peso Meio-Medio',
+  'middleweight': 'Peso Medio',
+  'light heavyweight': 'Peso Meio-Pesado',
+  'heavyweight': 'Peso Pesado',
+  "women's strawweight": 'Peso Palha Feminino',
+  "women's flyweight": 'Peso Mosca Feminino',
+  "women's bantamweight": 'Peso Galo Feminino',
+  "women's featherweight": 'Peso Pena Feminino',
+};
+
+function translateWeightClass(raw: string): string {
+  const cleaned = raw.toLowerCase().replace(/\s*bout.*$/i, '').trim();
+  return WEIGHT_CLASS_MAP[cleaned] || 'Peso Casado';
+}
+
+// ═══════════════════════════════════════════════════════════
+// Fighter Matching
+// ═══════════════════════════════════════════════════════════
+
+async function matchLutador(nome: string): Promise<string | null> {
+  const trimmed = nome.trim();
+  if (!trimmed) return null;
+
+  // Exact match (case-insensitive)
+  const exact = await queryOne<{ id: string }>(
+    'SELECT id FROM lutadores WHERE LOWER(nome) = LOWER($1)',
+    [trimmed]
+  );
+  if (exact) return exact.id;
+
+  // Fuzzy: match by last name + first initial
+  const parts = trimmed.split(' ');
+  const lastName = parts[parts.length - 1];
+  if (lastName.length < 2) return null;
+
+  const fuzzy = await queryOne<{ id: string; nome: string }>(
+    `SELECT id, nome FROM lutadores
+     WHERE LOWER(nome) LIKE '%' || LOWER($1)
+     ORDER BY LENGTH(nome) ASC LIMIT 1`,
+    [lastName]
+  );
+  return fuzzy?.id ?? null;
+}
+
+// ═══════════════════════════════════════════════════════════
+// Event Matching
+// ═══════════════════════════════════════════════════════════
+
+export async function matchEvento(): Promise<{ id: string; nome: string } | null> {
+  // Get the next agendado or ao_vivo event
+  const evento = await queryOne<{ id: string; nome: string }>(
+    `SELECT id, nome FROM eventos
+     WHERE status IN ('agendado', 'ao_vivo')
+     ORDER BY data_evento ASC
+     LIMIT 1`
+  );
+  return evento ?? null;
+}
+
+// ═══════════════════════════════════════════════════════════
+// Sync Lutas — The Missing Piece
+// ═══════════════════════════════════════════════════════════
+
+export interface SyncResult {
+  added: string[];
+  removed: string[];
+  updated: string[];
+  reordered: boolean;
+  picksInvalidated: number;
+  errors: string[];
+}
+
+export async function sincronizarLutas(eventoId: string, eventoNome: string, scrapedFights: ScrapedFight[]): Promise<SyncResult> {
+  const result: SyncResult = { added: [], removed: [], updated: [], reordered: false, picksInvalidated: 0, errors: [] };
+
+  // 1. Get current lutas from DB
+  const currentLutas = await query<{
+    id: string; lutador1_id: string; lutador2_id: string;
+    lutador1_nome: string; lutador2_nome: string; ordem: number; status: string;
+  }>(
+    `SELECT l.id, l.lutador1_id, l.lutador2_id,
+            lut1.nome as lutador1_nome, lut2.nome as lutador2_nome,
+            l.ordem, l.status::text as status
+     FROM lutas l
+     JOIN lutadores lut1 ON lut1.id = l.lutador1_id
+     JOIN lutadores lut2 ON lut2.id = l.lutador2_id
+     WHERE l.evento_id = $1 AND l.status != 'cancelada'
+     ORDER BY l.ordem DESC`,
+    [eventoId]
+  );
+
+  // 2. Build lookup for current DB fights
+  const dbFightMap = new Map<string, typeof currentLutas[0]>();
+  for (const luta of currentLutas) {
+    const key = [luta.lutador1_nome, luta.lutador2_nome].map(n => n.toLowerCase()).sort().join('|');
+    dbFightMap.set(key, luta);
+  }
+
+  // 3. Build set of scraped fight keys
+  const scrapedKeys = new Set<string>();
+  for (const fight of scrapedFights) {
+    const key = [fight.fighter1, fight.fighter2].map(n => n.toLowerCase()).sort().join('|');
+    scrapedKeys.add(key);
+  }
+
+  // 4. REMOVE / UPDATE: fights in DB but not in UFC.com
+  for (const luta of currentLutas) {
+    if (luta.status === 'finalizada') continue;
+    const key = [luta.lutador1_nome, luta.lutador2_nome].map(n => n.toLowerCase()).sort().join('|');
+    if (scrapedKeys.has(key)) continue;
+
+    // Check if it's an opponent change (one fighter still in scraped)
+    const f1Lower = luta.lutador1_nome.toLowerCase();
+    const f2Lower = luta.lutador2_nome.toLowerCase();
+
+    const f1InScraped = scrapedFights.find(f =>
+      f.fighter1.toLowerCase() === f1Lower || f.fighter2.toLowerCase() === f1Lower
+    );
+    const f2InScraped = scrapedFights.find(f =>
+      f.fighter1.toLowerCase() === f2Lower || f.fighter2.toLowerCase() === f2Lower
+    );
+
+    if (f1InScraped) {
+      // Fighter1 stays, opponent changed
+      const newOpponentName = f1InScraped.fighter1.toLowerCase() === f1Lower
+        ? f1InScraped.fighter2 : f1InScraped.fighter1;
+      const newOpponentId = await matchLutador(newOpponentName);
+      if (newOpponentId) {
+        await query('UPDATE lutas SET lutador2_id = $1, categoria_peso = $2 WHERE id = $3',
+          [newOpponentId, translateWeightClass(f1InScraped.weight_class), luta.id]);
+        result.updated.push(`${luta.lutador1_nome}: ${luta.lutador2_nome} → ${newOpponentName}`);
+        // Invalidate picks
+        const deleted = await query<{ usuario_id: string }>(
+          'DELETE FROM previsoes WHERE luta_id = $1 RETURNING usuario_id', [luta.id]);
+        result.picksInvalidated += deleted.length;
+      } else {
+        result.errors.push(`Lutador nao encontrado: ${newOpponentName}`);
+      }
+    } else if (f2InScraped) {
+      // Fighter2 stays, opponent changed
+      const newOpponentName = f2InScraped.fighter1.toLowerCase() === f2Lower
+        ? f2InScraped.fighter2 : f2InScraped.fighter1;
+      const newOpponentId = await matchLutador(newOpponentName);
+      if (newOpponentId) {
+        await query('UPDATE lutas SET lutador1_id = $1, categoria_peso = $2 WHERE id = $3',
+          [newOpponentId, translateWeightClass(f2InScraped.weight_class), luta.id]);
+        result.updated.push(`${luta.lutador2_nome}: ${luta.lutador1_nome} → ${newOpponentName}`);
+        const deleted = await query<{ usuario_id: string }>(
+          'DELETE FROM previsoes WHERE luta_id = $1 RETURNING usuario_id', [luta.id]);
+        result.picksInvalidated += deleted.length;
+      } else {
+        result.errors.push(`Lutador nao encontrado: ${newOpponentName}`);
+      }
+    } else {
+      // Fight completely removed
+      await query("UPDATE lutas SET status = 'cancelada' WHERE id = $1", [luta.id]);
+      const deleted = await query<{ usuario_id: string }>(
+        'DELETE FROM previsoes WHERE luta_id = $1 RETURNING usuario_id', [luta.id]);
+      result.picksInvalidated += deleted.length;
+      result.removed.push(`${luta.lutador1_nome} vs ${luta.lutador2_nome}`);
+    }
+  }
+
+  // 5. ADD: fights in UFC.com but not in DB
+  for (const fight of scrapedFights) {
+    const key = [fight.fighter1, fight.fighter2].map(n => n.toLowerCase()).sort().join('|');
+    if (dbFightMap.has(key)) continue;
+
+    // Skip if handled as opponent change
+    const wasUpdated = result.updated.some(u =>
+      u.toLowerCase().includes(fight.fighter1.toLowerCase()) ||
+      u.toLowerCase().includes(fight.fighter2.toLowerCase())
+    );
+    if (wasUpdated) continue;
+
+    const f1Id = await matchLutador(fight.fighter1);
+    const f2Id = await matchLutador(fight.fighter2);
+
+    if (!f1Id) { result.errors.push(`Lutador nao encontrado: ${fight.fighter1}`); continue; }
+    if (!f2Id) { result.errors.push(`Lutador nao encontrado: ${fight.fighter2}`); continue; }
+
+    const categoria = translateWeightClass(fight.weight_class);
+    const isMainEvent = fight.is_main_event === true;
+
+    await query(
+      `INSERT INTO lutas (evento_id, lutador1_id, lutador2_id, categoria_peso, tipo, ordem, rounds, status)
+       VALUES ($1, $2, $3, $4, $5, 0, $6, 'agendada')`,
+      [eventoId, f1Id, f2Id, categoria, isMainEvent ? 'main_event' : 'preliminar', isMainEvent ? 5 : 3]
+    );
+    result.added.push(`${fight.fighter1} vs ${fight.fighter2}`);
+  }
+
+  // 6. REORDER: match UFC.com order
+  // scrapedFights[0] = main event (ordem 1), last = first prelim (highest ordem)
+  const totalFights = scrapedFights.length;
+  for (let i = 0; i < totalFights; i++) {
+    const fight = scrapedFights[i];
+    const ordem = totalFights - i; // main event (i=0) gets highest... wait
+
+    // UFC.com lists main event first. Our ordem: 1 = main event, highest = first prelim
+    // So: scrapedFights[0] = main event = ordem 1
+    //     scrapedFights[last] = first prelim = ordem totalFights
+    const fightOrdem = totalFights - i;
+
+    const f1Id = await matchLutador(fight.fighter1);
+    const f2Id = await matchLutador(fight.fighter2);
+    if (!f1Id || !f2Id) continue;
+
+    // Determine tipo based on position
+    let tipo: string;
+    if (i === 0) {
+      tipo = 'main_event';
+    } else if (i <= 4) {
+      tipo = 'card_principal';
+    } else {
+      tipo = 'preliminar';
+    }
+
+    await query(
+      `UPDATE lutas SET ordem = $1, tipo = $2
+       WHERE evento_id = $3 AND status != 'cancelada'
+         AND ((lutador1_id = $4 AND lutador2_id = $5) OR (lutador1_id = $5 AND lutador2_id = $4))`,
+      [fightOrdem, tipo, eventoId, f1Id, f2Id]
+    );
+  }
+  result.reordered = true;
+
+  console.info(`[Card Sync] ${eventoNome}: +${result.added.length} added, -${result.removed.length} removed, ~${result.updated.length} updated, ${result.picksInvalidated} picks invalidated`);
+  return result;
+}

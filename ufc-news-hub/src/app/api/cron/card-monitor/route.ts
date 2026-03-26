@@ -7,6 +7,8 @@ import {
   saveSnapshot,
   saveMonitorLog,
   compareCards,
+  matchEvento,
+  sincronizarLutas,
   type ScrapedFight,
   type CardSnapshot,
 } from '@/lib/card-monitor';
@@ -96,18 +98,29 @@ async function scrapeNextEvent(): Promise<{ evento_nome: string; evento_data: st
         const fighter2 = f2Parts.join(' ').trim();
 
         if (fighter1 && fighter2) {
-          const weightClass = $(this).find('.c-listing-fight__class-text').text().trim() || '';
+          const weightClass = $(this).find('.c-listing-fight__class-text').first().text().trim().replace(/Bout.*$/i, '').trim() || '';
           fights.push({ fighter1, fighter2, weight_class: weightClass });
         }
       }
     });
 
-    if (fights.length === 0) {
+    // Deduplicate fights (UFC HTML has redundant elements per fight)
+    const seen = new Set<string>();
+    const uniqueFights: ScrapedFight[] = [];
+    for (const fight of fights) {
+      const key = [fight.fighter1, fight.fighter2].sort().join('|').toLowerCase();
+      if (!seen.has(key)) {
+        seen.add(key);
+        uniqueFights.push(fight);
+      }
+    }
+
+    if (uniqueFights.length === 0) {
       console.warn('[Card Monitor Cron] No fights found on event page');
       return null;
     }
 
-    return { evento_nome: eventoNome, evento_data: eventoData, fights };
+    return { evento_nome: eventoNome, evento_data: eventoData, fights: uniqueFights };
   } catch (error) {
     console.error('[Card Monitor Cron] Scrape error:', error);
     return null;
@@ -168,10 +181,22 @@ export async function GET(request: NextRequest) {
         status: 'ok',
       });
 
+      // Sync on first snapshot too
+      let syncResult = null;
+      const eventoFirst = await matchEvento();
+      if (eventoFirst && fights.length > 0) {
+        try {
+          syncResult = await sincronizarLutas(eventoFirst.id, eventoFirst.nome, fights);
+        } catch (syncError) {
+          console.error('[Card Monitor] Sync error on first snapshot:', syncError);
+        }
+      }
+
       return NextResponse.json({
-        message: 'Primeiro snapshot salvo',
+        message: 'Primeiro snapshot salvo e lutas sincronizadas',
         evento_nome,
         fights_count: fights.length,
+        sync: syncResult,
       });
     }
 
@@ -190,13 +215,25 @@ export async function GET(request: NextRequest) {
       await sendCardChangeAlert(evento_nome, changes);
     }
 
+    // Always sync lutas table with scraped data
+    let syncResult = null;
+    const evento = await matchEvento();
+    if (evento && fights.length > 0) {
+      try {
+        syncResult = await sincronizarLutas(evento.id, evento.nome, fights);
+      } catch (syncError) {
+        console.error('[Card Monitor] Sync error:', syncError);
+      }
+    }
+
     return NextResponse.json({
       message: changes.length > 0
-        ? `${changes.length} mudanca(s) detectada(s). Email enviado.`
-        : 'Nenhuma mudanca detectada',
+        ? `${changes.length} mudanca(s) detectada(s) e sincronizada(s)`
+        : 'Nenhuma mudanca detectada. Lutas sincronizadas.',
       evento_nome,
       fights_count: fights.length,
       changes,
+      sync: syncResult,
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';
