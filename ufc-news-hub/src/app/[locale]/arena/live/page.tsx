@@ -313,6 +313,9 @@ function EventResultView({
   const totalLutas = lutas.length;
   const isLive = data.evento.status === 'ao_vivo';
   const isFinished = data.evento.status === 'finalizado';
+  const myEventPoints = usuario_id
+    ? leaderboard.find(e => e.usuario_id === usuario_id)?.pontos_totais ?? 0
+    : 0;
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-6">
@@ -367,15 +370,17 @@ function EventResultView({
                   </p>
                 )}
               </div>
-              {/* Status badge */}
-              {isLive ? (
-                <div className="flex shrink-0 items-center gap-2 rounded-full bg-ufc-red/10 px-3 py-1.5">
-                  <span className="relative flex h-2.5 w-2.5">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ufc-red opacity-75" />
-                    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-ufc-red" />
-                  </span>
-                  <span className="font-display text-sm font-bold uppercase tracking-widest text-ufc-red">
-                    {t('live')}
+              {/* Event points badge */}
+              {usuario_id ? (
+                <div className={`flex shrink-0 items-center gap-2 rounded-full px-3 py-1.5 ${
+                  myEventPoints > 0
+                    ? 'bg-ufc-gold/10 border border-ufc-gold/30'
+                    : 'bg-white/5 border border-white/10'
+                }`}>
+                  <span className={`font-display text-sm font-bold tabular-nums ${
+                    myEventPoints > 0 ? 'text-ufc-gold' : 'text-dark-textMuted'
+                  }`}>
+                    {myEventPoints > 0 ? `+${myEventPoints}` : '0'} pts
                   </span>
                 </div>
               ) : isFinished ? (
