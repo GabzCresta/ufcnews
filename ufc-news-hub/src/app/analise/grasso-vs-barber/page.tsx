@@ -82,7 +82,7 @@ const analise: FullSingleAnalise = {
         record: '16-4-1',
         ranking: '#3 Peso Mosca Feminino',
         info_extra: 'Guadalajara, Mexico | 33 anos',
-        imagem_fullbody_url: null,
+        imagem_fullbody_url: 'https://ufc.com/images/styles/event_results_athlete_headshot/s3/2025-05/GRASSO_ALEXA_05-10.png?itok=MZKgl0VH',
       },
       fighter2: {
         nome_completo: 'Maycee "The Future" Barber',
@@ -91,7 +91,7 @@ const analise: FullSingleAnalise = {
         record: '16-3-0',
         ranking: '#5 Peso Mosca Feminino',
         info_extra: 'Colorado, EUA | 27 anos',
-        imagem_fullbody_url: null,
+        imagem_fullbody_url: 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-12/BARBER_MAYCEE_L_12-06.png?itok=PsAi5oK3',
       },
     },
 

@@ -80,7 +80,7 @@ const analise: FullSingleAnalise = {
         record: '31-13-0',
         ranking: 'N/R Peso Pena',
         info_extra: 'Seattle/Yakima, Washington | 34 anos',
-        imagem_fullbody_url: null,
+        imagem_fullbody_url: 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2024-07/EROSA_JULIAN_L_07-13.png?itok=lOpXxXfO',
       },
       fighter2: {
         nome_completo: 'Lerryan "Gunslinger" Douglas',
@@ -89,7 +89,7 @@ const analise: FullSingleAnalise = {
         record: '13-5-0',
         ranking: 'N/R Peso Pena',
         info_extra: 'Huntington Beach, CA | Bloodline Combat Sports (Cub Swanson) | 30 anos',
-        imagem_fullbody_url: null,
+        imagem_fullbody_url: 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-09/DOUGLAS_LERRYAN_R_09-09.png?itok=oQ15ZOce',
       },
     },
 

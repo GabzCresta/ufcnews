@@ -82,7 +82,7 @@ const analise: FullSingleAnalise = {
         record: '19-7-0',
         ranking: 'N/R Peso Meio-Medio',
         info_extra: 'Spokane, Washington | 38 anos',
-        imagem_fullbody_url: null,
+        imagem_fullbody_url: 'https://ufc.com/images/styles/event_results_athlete_headshot/s3/2025-06/CHIESA_MICHAEL_06-14.png?itok=4iQScir_',
       },
       fighter2: {
         nome_completo: 'Niko "The Hybrid" Price',
@@ -91,7 +91,7 @@ const analise: FullSingleAnalise = {
         record: '16-10-0',
         ranking: 'N/R Peso Meio-Medio',
         info_extra: 'Fort Lauderdale, Florida | 34 anos',
-        imagem_fullbody_url: null,
+        imagem_fullbody_url: 'https://ufc.com/images/styles/event_results_athlete_headshot/s3/2026-02/PRICE_NIKO_02-07.png?itok=VCLE2mS5',
       },
     },
 

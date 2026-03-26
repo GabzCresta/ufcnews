@@ -63,8 +63,11 @@ const analise: PrelimsAnalise = {
       fighter1: {
         nome: 'Musayev',
         recent_fights: [
-          { date: 'Jun 2025', opponent: 'Myktybek Orolbai', result: 'L', method: 'Sub R1 (kimura)', opponent_rank: 'N/R', quality_score: 3, quality_label: 'Bom', note: 'Submetido no debut UFC. O grappling foi a fraqueza exposta.' },
-          { date: 'Dez 2024', opponent: 'Patrick Pitbull', result: 'W', method: 'KO R1', opponent_rank: 'N/R', quality_score: 3, quality_label: 'Bom', note: 'Ultimo fight antes do UFC. KO devastador.' },
+          { date: 'Jun 2025', opponent: 'Myktybek Orolbai', result: 'L', method: 'Sub R1 (kimura)', opponent_rank: 'N/R', quality_score: 3, quality_label: 'Bom', note: 'Submetido no debut UFC por kimura. Grappling e a fraqueza clara.' },
+          { date: 'Dez 2023', opponent: 'Patricky Freire', result: 'W', method: 'Decisao Unanime', opponent_rank: 'Ex-campeao Bellator', quality_score: 4, quality_label: 'Muito Bom', note: 'Final do RIZIN Grand Prix. Venceu com mao quebrada no R2. Conquistou o titulo.' },
+          { date: 'Out 2023', opponent: 'Juri Ohara', result: 'W', method: 'KO R1', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'KO rapido no RIZIN Grand Prix semifinal.' },
+          { date: 'Jul 2023', opponent: 'Yusuke Yachi', result: 'W', method: 'KO R1', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'KO devastador no RIZIN. O poder de nocaute em acao.' },
+          { date: 'Mar 2023', opponent: 'Roberto de Souza', result: 'W', method: 'KO R2', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Mais um nocaute. 18 KOs em 22 vitorias.' },
         ],
       },
       fighter2: {

@@ -1,7 +1,7 @@
 'use client';
 
 import type { PrelimsAnalise, RecentFight } from '@/types/analise';
-import { useTranslations } from 'next-intl';
+import { getLabels, type Lang } from '@/lib/i18n-labels';
 import { SectionHeader } from './SectionHeader';
 import { ComparacaoEstatisticaSection } from './ComparacaoEstatisticaSection';
 import { PerfilHabilidadesSection } from './PerfilHabilidadesSection';
@@ -58,68 +58,57 @@ function SimpleHero({ data }: { data: PrelimsAnalise['prelims_analysis']['hero']
   );
 }
 
-/* ── Fight Card (single fight row) ── */
-function FightCard({ fight }: { fight: RecentFight }) {
+/* ── Fight Row (clean, editorial style) ── */
+function FightRow({ fight }: { fight: RecentFight }) {
+  const isWin = fight.result === 'W';
+  const isLoss = fight.result === 'L';
   return (
-    <div className="rounded-lg border border-dark-border/50 bg-dark-bg p-3">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span
-            className={`flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold ${
-              fight.result === 'W'
-                ? 'bg-green-500/20 text-green-400'
-                : fight.result === 'L'
-                  ? 'bg-red-500/20 text-red-400'
-                  : 'bg-gray-500/20 text-gray-400'
-            }`}
-          >
-            {fight.result}
-          </span>
-          <span className="text-sm font-semibold text-dark-text">{fight.opponent}</span>
-          <span className="text-xs text-dark-textMuted">{fight.opponent_rank}</span>
+    <div className="py-3 border-b border-white/[0.04] last:border-b-0">
+      <div className="flex items-baseline justify-between mb-1">
+        <div className="flex items-baseline gap-2.5">
+          <span className={`font-display text-sm font-bold ${isWin ? 'text-emerald-400' : isLoss ? 'text-red-400' : 'text-white/40'}`}>{fight.result}</span>
+          <span className="text-sm text-white/80">{fight.opponent}</span>
+          {fight.opponent_rank && fight.opponent_rank !== 'N/R' && (
+            <span className="text-[10px] font-semibold text-white/50 bg-white/[0.05] rounded px-1.5 py-0.5">{fight.opponent_rank}</span>
+          )}
         </div>
-        <div className="text-right">
-          <span className="text-xs text-dark-textMuted">{fight.date}</span>
-          <p className="text-xs font-semibold text-dark-text">{fight.method}</p>
-        </div>
+        <span className="text-[10px] text-white/25 tabular-nums">{fight.date}</span>
+      </div>
+      <div className="flex items-baseline justify-between">
+        {fight.note ? (
+          <p className="text-[11px] text-white/30 leading-relaxed max-w-[80%]">{fight.note}</p>
+        ) : <span />}
+        <span className="text-[10px] text-white/40 font-medium whitespace-nowrap">{fight.method}</span>
       </div>
     </div>
   );
 }
 
-/* ── Historico de Lutas Section ── */
-function HistoricoLutasSection({ data}: { data: PrelimsAnalise['prelims_analysis']['historico_lutas'] }) {
-  const t = useTranslations('analise');
+/* ── Historico de Lutas Section (clean layout) ── */
+function HistoricoLutasSection({ data, lang = 'pt' }: { data: PrelimsAnalise['prelims_analysis']['historico_lutas']; lang?: Lang }) {
+  const t = getLabels(lang);
   return (
     <section>
-      <SectionHeader number="02" title={t('historico_title')} accent={t('historico_accent')} />
-      <div className="grid gap-6 lg:grid-cols-2">
+      <SectionHeader number="02" title={t.historico_title} accent={t.historico_accent} />
+      <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
         {/* Fighter 1 */}
-        <div className="rounded-lg border border-dark-border bg-dark-card p-5">
-          <div className="mb-4 flex items-center gap-2">
-            <div className="h-6 w-1 rounded-full bg-ufc-red" />
-            <h3 className="font-display text-lg uppercase text-ufc-red">{data.fighter1.nome}</h3>
-            <span className="text-xs text-dark-textMuted">Ultimas {data.fighter1.recent_fights.length} lutas</span>
+        <div>
+          <div className="flex items-center justify-between mb-2 pb-3 border-b-2 border-ufc-red/30">
+            <span className="font-display text-sm uppercase tracking-wider text-ufc-red">{data.fighter1.nome}</span>
           </div>
-          <div className="space-y-2">
-            {data.fighter1.recent_fights.map((fight, i) => (
-              <FightCard key={i} fight={fight} />
-            ))}
-          </div>
+          {data.fighter1.recent_fights.map((fight, i) => (
+            <FightRow key={i} fight={fight} />
+          ))}
         </div>
 
         {/* Fighter 2 */}
-        <div className="rounded-lg border border-dark-border bg-dark-card p-5">
-          <div className="mb-4 flex items-center gap-2">
-            <div className="h-6 w-1 rounded-full bg-blue-400" />
-            <h3 className="font-display text-lg uppercase text-blue-400">{data.fighter2.nome}</h3>
-            <span className="text-xs text-dark-textMuted">Ultimas {data.fighter2.recent_fights.length} lutas</span>
+        <div>
+          <div className="flex items-center justify-between mb-2 pb-3 border-b-2 border-blue-400/30">
+            <span className="font-display text-sm uppercase tracking-wider text-blue-400">{data.fighter2.nome}</span>
           </div>
-          <div className="space-y-2">
-            {data.fighter2.recent_fights.map((fight, i) => (
-              <FightCard key={i} fight={fight} />
-            ))}
-          </div>
+          {data.fighter2.recent_fights.map((fight, i) => (
+            <FightRow key={i} fight={fight} />
+          ))}
         </div>
       </div>
     </section>
@@ -127,29 +116,29 @@ function HistoricoLutasSection({ data}: { data: PrelimsAnalise['prelims_analysis
 }
 
 /* ── Main View ── */
-export function PrelimsAnalysisView({ analise}: { analise: PrelimsAnalise }) {
+export function PrelimsAnalysisView({ analise, lang = 'pt' }: { analise: PrelimsAnalise; lang?: Lang }) {
   const d = analise.prelims_analysis;
-  const t = useTranslations('analise');
+  const t = getLabels(lang);
   const f1Name = d.hero.fighter1.nome;
   const f2Name = d.hero.fighter2.nome;
 
   return (
-    <main>
+    <main className="min-h-screen bg-[#0A0A0A]">
       {/* Section 1: Simple Hero */}
       <SimpleHero data={d.hero} />
 
-      <div className="container mx-auto px-4 py-10 space-y-14">
+      <div className="mx-auto max-w-5xl px-4 py-12 space-y-16">
         {/* Section 2: Comparacao Estatistica + Tale of Tape */}
         <ComparacaoEstatisticaSection
           data={d.comparacao_estatistica}
           fighter1Name={f1Name}
           fighter2Name={f2Name}
           sectionNumber="01"
-         
+          lang={lang}
         />
 
         {/* Section 3: Historico de Lutas */}
-        <HistoricoLutasSection data={d.historico_lutas} />
+        <HistoricoLutasSection data={d.historico_lutas} lang={lang} />
 
         {/* Section 4: Perfil de Habilidades */}
         <PerfilHabilidadesSection
@@ -157,21 +146,21 @@ export function PrelimsAnalysisView({ analise}: { analise: PrelimsAnalise }) {
           fighter1Name={f1Name}
           fighter2Name={f2Name}
           sectionNumber="03"
-         
+          lang={lang}
         />
 
         {/* Section 5: Distribuicao de Vitorias */}
-        <DistribuicaoVitoriasSection data={d.distribuicao_vitorias} sectionNumber="04" />
+        <DistribuicaoVitoriasSection data={d.distribuicao_vitorias} sectionNumber="04" lang={lang} />
 
         {/* Section 6: Previsao Final */}
-        <PrevisaoFinalSection data={d.previsao_final} sectionNumber="05" />
+        <PrevisaoFinalSection data={d.previsao_final} sectionNumber="05" lang={lang} />
       </div>
 
       {/* Footer */}
       <div className="container mx-auto px-4 pb-10">
         <div className="rounded-lg border border-dark-border bg-dark-bg p-5 text-center">
           <p className="text-xs text-dark-textMuted">
-            <span className="font-bold text-ufc-gold">UFC NEWS HUB</span> - {t('analise_preliminar')}
+            <span className="font-bold text-ufc-gold">UFC NEWS HUB</span> - {t.analise_preliminar}
           </p>
           <p className="mt-1 text-[10px] text-dark-textMuted">
             {d.hero.fighter1.nome} vs {d.hero.fighter2.nome} | {d.hero.evento_nome} | {d.hero.categoria_peso}
