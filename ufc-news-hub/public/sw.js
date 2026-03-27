@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ufc-news-hub-v4';
+const CACHE_NAME = 'ufc-news-hub-v5';
 const STATIC_ASSETS = [
   '/manifest.json',
 ];
@@ -38,12 +38,15 @@ self.addEventListener('fetch', (event) => {
 
   const url = new URL(event.request.url);
 
-  // Only cache static assets (_next/static, images, fonts, manifest)
+  // Never intercept external URLs (e.g. UFC.com images) — only cache our own assets
+  if (url.origin !== self.location.origin) return;
+
+  // Only cache static assets (_next/static, icons, fonts, manifest)
   const isStaticAsset =
     url.pathname.startsWith('/_next/static/') ||
     url.pathname.startsWith('/icons/') ||
     url.pathname === '/manifest.json' ||
-    url.pathname.match(/\.(png|jpg|jpeg|webp|svg|ico|woff2?)$/);
+    url.pathname.match(/\.(woff2?)$/);
 
   if (!isStaticAsset) return;
 
