@@ -197,6 +197,7 @@
     "nenhuma_desc": "Weekly analysis will be published 12 hours before each event."
   },
   "arena": {
+    "layout_arena": "ARENA",
     "title": "Arena",
     "welcome": "Welcome to the Arena!",
     "description": "Predict the outcome of each fight and earn points if you're right.",

@@ -197,6 +197,7 @@
     "nenhuma_desc": "As analises semanais serao publicadas 12 horas antes de cada evento."
   },
   "arena": {
+    "layout_arena": "ARENA",
     "title": "Arena",
     "welcome": "Bem-vindo a Arena!",
     "description": "Preveja o resultado de cada luta e ganhe pontos se acertar.",

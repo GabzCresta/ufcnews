@@ -197,6 +197,7 @@
     "nenhuma_desc": "Les analyses hebdomadaires seront publiees 12 heures avant chaque evenement."
   },
   "arena": {
+    "layout_arena": "ARENA",
     "title": "Arena",
     "welcome": "Bienvenue dans l'Arena !",
     "description": "Predisez le resultat de chaque combat et gagnez des points si vous avez raison.",
