@@ -1,3 +1,4 @@
+import { translateAnalysis } from '@/lib/translate-analysis';
 import { EventAnalysisView, type EventAnalysisData } from '@/components/analise/EventAnalysisView';
 import { enrichEventWithPhotos } from '@/lib/enrich-event-photos';
 
@@ -144,7 +145,9 @@ const eventData: EventAnalysisData = {
   ],
 };
 
-export default async function EventoPosWeighInsPage() {
-  const enrichedData = await enrichEventWithPhotos(eventData);
+export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const translatedData = locale === 'en' ? translateAnalysis(eventData) : eventData;
+  const enrichedData = await enrichEventWithPhotos(translatedData);
   return <EventAnalysisView data={enrichedData} />;
 }

@@ -1,3 +1,4 @@
+import { translateAnalysis } from '@/lib/translate-analysis';
 import { FullAnalysisView } from '@/components/analise/FullAnalysisView';
 import type { FullSingleAnalise } from '@/types/analise';
 
@@ -495,6 +496,8 @@ const analise: FullSingleAnalise = {
   },
 };
 
-export default function Page() {
-  return <FullAnalysisView analise={analise} />;
+export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const data = locale === 'en' ? translateAnalysis(analise) : analise;
+  return <FullAnalysisView analise={data} />;
 }

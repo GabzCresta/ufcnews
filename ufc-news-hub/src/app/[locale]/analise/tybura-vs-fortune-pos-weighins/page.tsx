@@ -1,3 +1,4 @@
+import { translateAnalysis } from '@/lib/translate-analysis';
 import { PrelimsAnalysisView } from '@/components/analise/PrelimsAnalysisView';
 import type { PrelimsAnalise } from '@/types/analise';
 
@@ -131,6 +132,8 @@ const analise: PrelimsAnalise = {
   },
 };
 
-export default function Page() {
-  return <PrelimsAnalysisView analise={analise} />;
+export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const data = locale === 'en' ? translateAnalysis(analise) : analise;
+  return <PrelimsAnalysisView analise={data} />;
 }
