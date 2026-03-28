@@ -55,6 +55,6 @@ export default function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!api|_next|.*\\..*|manifest\\.json|sw\\.js|icons).*)',
+    '/((?!api|admin|showcase|_next|.*\\..*|manifest\\.json|sw\\.js|icons).*)',
   ],
 };
