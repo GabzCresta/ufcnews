@@ -13,6 +13,13 @@ export interface ScrapedResult {
   tempo: string | null;
 }
 
+export interface LiveFightStatus {
+  lutador1_nome: string;
+  lutador2_nome: string;
+  status: 'upcoming' | 'live' | 'final';
+  fightOrder: number;
+}
+
 interface UFCLiveFighter {
   FighterId: number;
   Name: { FirstName: string; LastName: string; NickName: string | null };
@@ -240,6 +247,62 @@ export async function scrapeUFCResults(
   // 2. Fallback: Google Sports Card
   console.info('[scrape-results] Falling back to Google Sports Card');
   return scrapeGoogleSportsCard(eventName);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// Full card status: returns status of ALL fights (not just finished)
+// Used by auto-scraper to update individual fight statuses
+// ═══════════════════════════════════════════════════════════════
+
+export async function scrapeFullCardStatus(
+  options: { eventSlug?: string }
+): Promise<LiveFightStatus[]> {
+  const statuses: LiveFightStatus[] = [];
+
+  let fmid: string | undefined;
+  if (options.eventSlug) {
+    fmid = await getEventFmid(options.eventSlug) ?? undefined;
+  }
+  if (!fmid) return statuses;
+
+  try {
+    const url = `https://d29dxerjsp82wz.cloudfront.net/api/v3/event/live/${fmid}.json`;
+    const response = await fetch(url, {
+      headers: { 'Accept': 'application/json' },
+      signal: AbortSignal.timeout(10000),
+    });
+
+    if (!response.ok) return statuses;
+
+    const data = await response.json() as UFCLiveEvent;
+    const fightCard = data.LiveEventDetail?.FightCard;
+    if (!fightCard) return statuses;
+
+    for (const fight of fightCard) {
+      if (fight.Fighters.length < 2) continue;
+
+      const f1Name = `${fight.Fighters[0].Name.FirstName} ${fight.Fighters[0].Name.LastName}`.trim();
+      const f2Name = `${fight.Fighters[1].Name.FirstName} ${fight.Fighters[1].Name.LastName}`.trim();
+
+      let status: 'upcoming' | 'live' | 'final' = 'upcoming';
+      if (fight.Status === 'Final' || fight.Status === 'Completed') {
+        status = 'final';
+      } else if (fight.Status === 'Live' || fight.Status === 'In Progress') {
+        status = 'live';
+      }
+
+      statuses.push({
+        lutador1_nome: f1Name,
+        lutador2_nome: f2Name,
+        status,
+        fightOrder: fight.FightOrder,
+      });
+    }
+  } catch (error) {
+    console.error('[scrape-results] Error fetching full card status:', error);
+  }
+
+  return statuses;
 }
 
 // ═══════════════════════════════════════════════════════════════

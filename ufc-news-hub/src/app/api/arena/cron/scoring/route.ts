@@ -5,7 +5,7 @@ import {
   processarEventoFinalizado,
   atualizarPontuacaoEvento,
 } from '@/lib/arena/pontuacao';
-import { scrapeUFCResults, mapMethodToDB, matchFighterName } from '@/lib/scrape-results';
+import { scrapeUFCResults, scrapeFullCardStatus, mapMethodToDB, matchFighterName } from '@/lib/scrape-results';
 
 export async function GET(request: NextRequest) {
   const authHeader = request.headers.get('authorization');
@@ -149,6 +149,60 @@ export async function GET(request: NextRequest) {
 
     if (totalLutasScraped > 0) {
       console.log(`[SCORING CRON] Total fights scraped: ${totalLutasScraped}`);
+    }
+
+    // ── PHASE 0.7: Sync individual fight statuses (agendada → ao_vivo) ──
+    for (const ev of eventosAoVivo) {
+      if (!ev.ufc_slug) continue;
+      try {
+        const cardStatus = await scrapeFullCardStatus({ eventSlug: ev.ufc_slug });
+        if (cardStatus.length === 0) continue;
+
+        const allLutas = await query<{
+          id: string; lutador1_nome: string; lutador2_nome: string; status: string;
+        }>(
+          `SELECT l.id, l1.nome as lutador1_nome, l2.nome as lutador2_nome, l.status
+           FROM lutas l
+           JOIN lutadores l1 ON l1.id = l.lutador1_id
+           JOIN lutadores l2 ON l2.id = l.lutador2_id
+           WHERE l.evento_id = $1`,
+          [ev.id]
+        );
+
+        const liveFightIds = new Set<string>();
+
+        for (const cs of cardStatus) {
+          const matched = allLutas.find(luta => {
+            const m1 = matchFighterName(cs.lutador1_nome, luta.lutador1_nome) ||
+                        matchFighterName(cs.lutador1_nome, luta.lutador2_nome);
+            const m2 = matchFighterName(cs.lutador2_nome, luta.lutador1_nome) ||
+                        matchFighterName(cs.lutador2_nome, luta.lutador2_nome);
+            return m1 && m2;
+          });
+
+          if (matched && cs.status === 'live') {
+            liveFightIds.add(matched.id);
+            if (matched.status === 'agendada') {
+              await query(`UPDATE lutas SET status = 'ao_vivo' WHERE id = $1`, [matched.id]);
+              console.log(`[SCORING CRON] Fight status: ${matched.lutador1_nome} vs ${matched.lutador2_nome} → ao_vivo`);
+            }
+          }
+
+          if (!matched) {
+            console.warn(`[SCORING CRON] MISSING FIGHT in DB: ${cs.lutador1_nome} vs ${cs.lutador2_nome} (status: ${cs.status})`);
+          }
+        }
+
+        // Reset stale ao_vivo fights
+        for (const luta of allLutas) {
+          if (luta.status === 'ao_vivo' && !liveFightIds.has(luta.id)) {
+            await query(`UPDATE lutas SET status = 'agendada' WHERE id = $1`, [luta.id]);
+            console.log(`[SCORING CRON] Fight status: ${luta.lutador1_nome} vs ${luta.lutador2_nome} ao_vivo → agendada`);
+          }
+        }
+      } catch (err) {
+        console.error(`[SCORING CRON] Card status sync error for ${ev.nome}:`, err);
+      }
     }
 
     // Fix event status: if a "finalizado" event still has pending fights,

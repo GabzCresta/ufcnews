@@ -268,16 +268,16 @@ function EventResultView({
     // 1. If a fight is live, show it
     const live = data.lutas.find(l => l.status === 'ao_vivo');
     if (live) return live;
-    // 2. Show the most recently finished fight (lowest ordem = latest chronologically)
+    // 2. If there are upcoming fights, show the NEXT one (highest ordem = next chronologically)
+    const upcoming = [...data.lutas]
+      .filter(l => l.status !== 'finalizada' && l.status !== 'ao_vivo')
+      .sort((a, b) => b.ordem - a.ordem);
+    if (upcoming.length > 0) return upcoming[0];
+    // 3. All fights done — show the most recently finished (lowest ordem = last fight of the night)
     const finished = [...data.lutas]
       .filter(l => l.status === 'finalizada')
       .sort((a, b) => a.ordem - b.ordem);
-    if (finished.length > 0) return finished[0];
-    // 3. Show the next upcoming fight (highest ordem = next chronologically)
-    const upcoming = [...data.lutas]
-      .filter(l => l.status !== 'finalizada')
-      .sort((a, b) => b.ordem - a.ordem);
-    return upcoming[0] ?? null;
+    return finished[0] ?? null;
   }, [data?.lutas]);
 
   // Live order: finished fights first (most recent on top), then upcoming in chronological order

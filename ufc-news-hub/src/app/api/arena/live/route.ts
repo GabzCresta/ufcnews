@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { query, queryOne } from '@/lib/db';
 import { getUsuarioAtual } from '@/lib/arena/auth';
-import { scrapeUFCResults, mapMethodToDB, matchFighterName } from '@/lib/scrape-results';
+import { scrapeUFCResults, scrapeFullCardStatus, mapMethodToDB, matchFighterName, type LiveFightStatus } from '@/lib/scrape-results';
 import { processarPrevisoesLuta } from '@/lib/arena/pontuacao';
 
 // ═══════════════════════════════════════════════════════════════
 // Background auto-scrape throttle (max once per 90s per event)
 // ═══════════════════════════════════════════════════════════════
 const lastScrapeTime = new Map<string, number>();
-const SCRAPE_INTERVAL_MS = 90_000; // 90 seconds
+const SCRAPE_INTERVAL_MS = 30_000; // 30 seconds — fast updates during live events
 
 async function backgroundScrapeIfNeeded(eventoId: string, eventoNome: string, hasUnfinishedFights: boolean) {
   if (!hasUnfinishedFights) return;
@@ -31,12 +31,15 @@ async function scrapeAndUpdateFights(eventoId: string, eventoNome: string) {
     'SELECT ufc_slug FROM eventos WHERE id = $1', [eventoId]
   );
 
-  const scraped = await scrapeUFCResults(eventoNome, {
-    eventSlug: evento?.ufc_slug || undefined,
-  });
+  const eventSlug = evento?.ufc_slug || undefined;
 
-  if (scraped.length === 0) return;
+  // Fetch results AND full card status in parallel
+  const [scraped, cardStatus] = await Promise.all([
+    scrapeUFCResults(eventoNome, { eventSlug }),
+    eventSlug ? scrapeFullCardStatus({ eventSlug }) : Promise.resolve([] as LiveFightStatus[]),
+  ]);
 
+  // Get ALL lutas for this event (not just unfinished — need to match for status sync)
   const lutas = await query<{
     id: string; lutador1_id: string; lutador2_id: string;
     lutador1_nome: string; lutador2_nome: string; status: string;
@@ -46,13 +49,15 @@ async function scrapeAndUpdateFights(eventoId: string, eventoNome: string) {
      FROM lutas l
      JOIN lutadores l1 ON l1.id = l.lutador1_id
      JOIN lutadores l2 ON l2.id = l.lutador2_id
-     WHERE l.evento_id = $1 AND l.status != 'finalizada'`,
+     WHERE l.evento_id = $1`,
     [eventoId]
   );
 
+  // ── Phase 1: Update finished fights with results ──
   let updated = 0;
+  const unfinished = lutas.filter(l => l.status !== 'finalizada');
   for (const result of scraped) {
-    const matchedLuta = lutas.find(luta => {
+    const matchedLuta = unfinished.find(luta => {
       const m1 = matchFighterName(result.lutador1_nome, luta.lutador1_nome) ||
                   matchFighterName(result.lutador1_nome, luta.lutador2_nome);
       const m2 = matchFighterName(result.lutador2_nome, luta.lutador1_nome) ||
@@ -80,7 +85,6 @@ async function scrapeAndUpdateFights(eventoId: string, eventoNome: string) {
     updated++;
     console.log(`[live/auto-scrape] ${matchedLuta.lutador1_nome} vs ${matchedLuta.lutador2_nome} → ${result.vencedor_nome}`);
 
-    // Process predictions for this fight
     try {
       await processarPrevisoesLuta(matchedLuta.id);
     } catch (err) {
@@ -90,6 +94,64 @@ async function scrapeAndUpdateFights(eventoId: string, eventoNome: string) {
 
   if (updated > 0) {
     console.log(`[live/auto-scrape] ${updated} fights updated for ${eventoNome}`);
+  }
+
+  // ── Phase 2: Sync individual fight statuses (agendada → ao_vivo) ──
+  if (cardStatus.length > 0) {
+    for (const cs of cardStatus) {
+      if (cs.status !== 'live') continue;
+
+      const matchedLuta = lutas.find(luta => {
+        const m1 = matchFighterName(cs.lutador1_nome, luta.lutador1_nome) ||
+                    matchFighterName(cs.lutador1_nome, luta.lutador2_nome);
+        const m2 = matchFighterName(cs.lutador2_nome, luta.lutador1_nome) ||
+                    matchFighterName(cs.lutador2_nome, luta.lutador2_nome);
+        return m1 && m2;
+      });
+
+      if (matchedLuta && matchedLuta.status === 'agendada') {
+        await query(`UPDATE lutas SET status = 'ao_vivo' WHERE id = $1`, [matchedLuta.id]);
+        console.log(`[live/auto-scrape] Status: ${matchedLuta.lutador1_nome} vs ${matchedLuta.lutador2_nome} → ao_vivo`);
+      }
+    }
+
+    // Reset fights that were ao_vivo but are no longer live (fight ended between scrapes)
+    const liveFightIds = new Set<string>();
+    for (const cs of cardStatus) {
+      if (cs.status !== 'live') continue;
+      const matched = lutas.find(luta => {
+        const m1 = matchFighterName(cs.lutador1_nome, luta.lutador1_nome) ||
+                    matchFighterName(cs.lutador1_nome, luta.lutador2_nome);
+        const m2 = matchFighterName(cs.lutador2_nome, luta.lutador1_nome) ||
+                    matchFighterName(cs.lutador2_nome, luta.lutador2_nome);
+        return m1 && m2;
+      });
+      if (matched) liveFightIds.add(matched.id);
+    }
+
+    // Any DB fight marked ao_vivo that's NOT in the live set → back to agendada
+    // (it will get picked up as finalizada in the next scrape cycle)
+    for (const luta of lutas) {
+      if (luta.status === 'ao_vivo' && !liveFightIds.has(luta.id)) {
+        await query(`UPDATE lutas SET status = 'agendada' WHERE id = $1`, [luta.id]);
+        console.log(`[live/auto-scrape] Status: ${luta.lutador1_nome} vs ${luta.lutador2_nome} ao_vivo → agendada (no longer live)`);
+      }
+    }
+
+    // ── Phase 3: Log missing fights (in UFC API but not in DB) ──
+    for (const cs of cardStatus) {
+      const matched = lutas.find(luta => {
+        const m1 = matchFighterName(cs.lutador1_nome, luta.lutador1_nome) ||
+                    matchFighterName(cs.lutador1_nome, luta.lutador2_nome);
+        const m2 = matchFighterName(cs.lutador2_nome, luta.lutador1_nome) ||
+                    matchFighterName(cs.lutador2_nome, luta.lutador2_nome);
+        return m1 && m2;
+      });
+
+      if (!matched) {
+        console.warn(`[live/auto-scrape] MISSING FIGHT in DB: ${cs.lutador1_nome} vs ${cs.lutador2_nome} (order: ${cs.fightOrder}, status: ${cs.status})`);
+      }
+    }
   }
 }
 
@@ -275,7 +337,20 @@ export async function GET(request: NextRequest) {
     // Count finished fights
     const lutasFinalizadas = lutas.filter((l) => l.status === 'finalizada').length;
 
-    // Auto-scrape results in background when event is live and has unfinished fights
+    // Auto-transition: agendado → ao_vivo if event is within 6h window
+    // This makes the system self-healing — doesn't depend solely on the Vercel cron
+    if (evento.status === 'agendado') {
+      const eventDate = new Date(evento.data_evento);
+      const now = new Date();
+      const hoursUntilEvent = (eventDate.getTime() - now.getTime()) / (1000 * 60 * 60);
+      if (hoursUntilEvent <= 6 && lutas.length > 0) {
+        await query(`UPDATE eventos SET status = 'ao_vivo' WHERE id = $1`, [eventoId]);
+        evento.status = 'ao_vivo';
+        console.log(`[arena/live] Auto-transition: ${evento.nome} agendado → ao_vivo`);
+      }
+    }
+
+    // Auto-scrape results when event is live (or just transitioned) and has unfinished fights
     if (evento.status === 'ao_vivo') {
       const hasUnfinished = lutasFinalizadas < lutas.length;
       backgroundScrapeIfNeeded(eventoId, evento.nome, hasUnfinished);
