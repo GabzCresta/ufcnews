@@ -24,8 +24,8 @@ const analise: PrelimsAnalise = {
     keyFactors: [],
     xFactor: { title: '', description: '' },
   },
-  fighter1_info: { nome: "Casey O'Neill", record: '10-2-0', ultimasLutas: [{ result: 'L', opponent: 'Ariane Lipski', method: 'Decisao Unanime', event: 'UFC Fight Night' }] },
-  fighter2_info: { nome: 'Gabriella Fernandes', record: '9-2-0', ultimasLutas: [{ result: 'W', opponent: 'Wang Cong', method: 'Sub R2', event: 'UFC Fight Night' }] },
+  fighter1_info: { nome: "Casey O'Neill", record: '10-2-0', ultimasLutas: [{ result: 'W', opponent: 'Santos', method: 'Decisao Unanime', event: 'UFC Fight Night' }, { result: 'L', opponent: 'Ariane Lipski', method: 'Sub R2', event: 'UFC Fight Night' }] },
+  fighter2_info: { nome: 'Gabriella Fernandes', record: '11-3-0', ultimasLutas: [{ result: 'W', opponent: 'Stoliarenko', method: 'Decisao Unanime', event: 'UFC Fight Night' }, { result: 'W', opponent: 'Wang Cong', method: 'Sub R2', event: 'UFC Fight Night' }] },
   tactical_breakdown: { stats: [], radarData: [], taleOfTape: { fighter1: { altura: '1,65m', envergadura: '170cm', idade: 26, academia: 'Phuket, Tailandia / Australia' }, fighter2: { altura: '1,63m', envergadura: '165cm', idade: 28, academia: 'Brasil / Muay Thai base' } }, pathsToVictory: { fighter1: [], fighter2: [] }, dangerZones: [] },
   num_rounds: 3,
   is_titulo: false,
@@ -41,7 +41,7 @@ const analise: PrelimsAnalise = {
       num_rounds: 3,
       is_titulo: false,
       fighter1: { nome: "Casey O'Neill", record: '10-2-0', ranking: 'N/R', imagem_url: 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2024-04/ONEILL_CASEY_L_04-13.png?itok=CaON3iLL' },
-      fighter2: { nome: 'Gabriella Fernandes', record: '9-2-0', ranking: 'N/R', imagem_url: 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-08/FERNANDES_GABRIELLA_L_08-09.png?itok=7Gt6QPap' },
+      fighter2: { nome: 'Gabriella Fernandes', record: '11-3-0', ranking: 'N/R', imagem_url: 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-08/FERNANDES_GABRIELLA_L_08-09.png?itok=7Gt6QPap', },
     },
     comparacao_estatistica: {
       stats: [
@@ -65,21 +65,23 @@ const analise: PrelimsAnalise = {
       fighter1: {
         nome: "O'Neill",
         recent_fights: [
-          { date: 'Abr 2024', opponent: 'Ariane Lipski', result: 'L', method: 'Decisao Unanime', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Primeira luta apos ruptura de LCA. Nao pareceu a mesma lutadora. Joelho limitou explosividade.' },
-          { date: 'Abr 2022', opponent: 'Roxanne Modafferi', result: 'W', method: 'Decisao Unanime', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Ultima vitoria. Rompeu o LCA DURANTE a luta mas completou 3 rounds. Coragem absurda.' },
-          { date: 'Jan 2022', opponent: 'Antonina Shevchenko', result: 'W', method: 'TKO R3', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Dominou a irma da Valentina. POTN. Mostrou versatilidade.' },
-          { date: 'Set 2021', opponent: 'Lara Procopio', result: 'W', method: 'Sub R3', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'Finalizacao no terceiro round.' },
-          { date: 'Jun 2021', opponent: 'Luana Pinheiro', result: 'W', method: 'Decisao Unanime', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Debut UFC. Vitoria solida contra brasileira dura.' },
+          { date: 'Ago 2024', opponent: 'Santos', result: 'W', method: 'Decisao Unanime', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Vitoria por decisao. Retorno apos periodo dificil.' },
+          { date: 'Dez 2023', opponent: 'Ariane Lipski', result: 'L', method: 'Sub R2', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Submetida no segundo round. Joelho pode ter limitado performance.' },
+          { date: 'Mar 2023', opponent: 'Maia', result: 'L', method: 'Decisao Unanime', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Derrota por pontos.' },
+          { date: 'Fev 2022', opponent: 'Roxanne Modafferi', result: 'W', method: 'Decisao Dividida', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Vitoria apertada. Rompeu LCA durante a luta mas completou 3 rounds.' },
+          { date: 'Out 2021', opponent: 'Antonina Shevchenko', result: 'W', method: 'TKO R2', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Dominou a irma da Valentina. POTN. Mostrou versatilidade.' },
+          { date: 'Jun 2021', opponent: 'Procopio', result: 'W', method: 'Sub R3', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'Finalizacao no terceiro round.' },
+          { date: 'Fev 2021', opponent: 'Dobson', result: 'W', method: 'TKO R2', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'Debut UFC. TKO no segundo round.' },
         ],
       },
       fighter2: {
         nome: 'Fernandes',
         recent_fights: [
-          { date: 'Nov 2025', opponent: 'Wang Cong', result: 'W', method: 'Sub R2', opponent_rank: '#15 WFLW', quality_score: 3, quality_label: 'Bom', note: 'UPSET MASSIVO. Submeteu Wang Cong que era vista como prospect top da divisao. Resultado que abalou rankings.' },
-          { date: 'Jun 2025', opponent: 'Denise Gomes', result: 'W', method: 'Decisao Unanime', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Vitoria solida por decisao. Controle consistente por 3 rounds.' },
-          { date: 'Jan 2025', opponent: 'Victoria Leonardo', result: 'W', method: 'TKO R2', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'TKO com striking agressivo. Mostrou poder.' },
-          { date: 'Set 2024', opponent: 'Juliana Miller', result: 'L', method: 'Decisao Unanime', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Derrota competitiva. Aprendeu e ajustou.' },
-          { date: 'Mai 2024', opponent: 'Josiane Nunes', result: 'L', method: 'KO R1', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Nocauteada no R1. Vulnerabilidade a poder exposta.' },
+          { date: 'Ago 2025', opponent: 'Stoliarenko', result: 'W', method: 'Decisao Unanime', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Vitoria por decisao. Controle consistente.' },
+          { date: 'Nov 2024', opponent: 'Wang Cong', result: 'W', method: 'Sub R2', opponent_rank: '#15 WFLW', quality_score: 3, quality_label: 'Bom', note: 'UPSET MASSIVO. Submeteu Wang Cong que era vista como prospect top da divisao.' },
+          { date: 'Jun 2024', opponent: 'Judice', result: 'W', method: 'Decisao Dividida', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'Vitoria apertada por decisao dividida.' },
+          { date: 'Jun 2023', opponent: 'Bleda', result: 'L', method: 'Decisao Unanime', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Derrota competitiva por pontos.' },
+          { date: 'Fev 2023', opponent: 'Jasudavicius', result: 'L', method: 'Decisao Unanime', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Derrota por decisao no debut UFC.' },
         ],
       },
     },
@@ -96,7 +98,7 @@ const analise: PrelimsAnalise = {
     },
     distribuicao_vitorias: {
       fighter1: { nome: "O'Neill", ko_tko: { count: 3, percent: 30 }, submission: { count: 2, percent: 20 }, decision: { count: 5, percent: 50 }, total_wins: 10 },
-      fighter2: { nome: 'Fernandes', ko_tko: { count: 3, percent: 33 }, submission: { count: 3, percent: 34 }, decision: { count: 3, percent: 33 }, total_wins: 9 },
+      fighter2: { nome: 'Fernandes', ko_tko: { count: 3, percent: 27 }, submission: { count: 3, percent: 27 }, decision: { count: 5, percent: 46 }, total_wins: 11 },
       insight: "O'Neill pende pra decisao (50%), consistente com jogo de controle e pressao. Fernandes e perfeitamente equilibrada: 33% KO, 34% sub, 33% decisao. Pode vencer de qualquer forma. A submissao de Wang Cong mostrou evolucao real no jiu-jitsu de Fernandes. O'Neill precisa provar que o joelho aguenta 3 rounds de pressao.",
     },
     previsao_final: {

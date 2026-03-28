@@ -40,7 +40,7 @@ const analise: FullSingleAnalise = {
   fighter1_info: {
     nome: 'Julian Erosa',
     apelido: 'Juicy J',
-    record: '31-13-0',
+    record: '32-13-0',
     ranking: 'Sem ranking',
     ultimasLutas: [
       { result: 'L', opponent: 'Melquizael Costa', method: 'Decisao Unanime', event: 'UFC Fight Night' },
@@ -83,7 +83,7 @@ const analise: FullSingleAnalise = {
         nome_completo: 'Julian "Juicy J" Erosa',
         apelido: 'Juicy J',
         sobrenome: 'Erosa',
-        record: '31-13-0',
+        record: '32-13-0',
         ranking: 'Sem ranking',
         info_extra: 'Seattle/Yakima, WA | 10th Planet LV, Andy Varela | 34 anos | Luta em casa',
         imagem_fullbody_url: null,
@@ -119,7 +119,7 @@ const analise: FullSingleAnalise = {
                 Treina no Bloodline Combat Sports em Huntington Beach sob <strong class="text-blue-400">Cub Swanson</strong>, um dos melhores featherweights da historia do UFC. Swanson sabe preparar lutadores pra o octogono. Douglas sobre Erosa: <em class="text-white/80">"Ele gosta de trocar socos, e isso e tudo que eu preciso."</em>
               </p>
               <p class="text-sm text-white/70 leading-relaxed">
-                A confianca nao e arrogancia vazia. Douglas tem nocautes rapidos (36 segundos!), finalizacoes consistentes, e um treinador de elite. O perigo e que a confianca pode ser hubris contra um veterano do UFC com 31-13 e 14 submissoes.
+                A confianca nao e arrogancia vazia. Douglas tem nocautes rapidos (36 segundos!), finalizacoes consistentes, e um treinador de elite. O perigo e que a confianca pode ser hubris contra um veterano do UFC com 32-13 e 14 submissoes.
               </p>
             </div>
           </div>
@@ -209,7 +209,7 @@ const analise: FullSingleAnalise = {
         momentum_score: 5,
         momentum_label: 'Inconsistente',
         momentum_trend: 'stable',
-        momentum_note: 'Erosa e um veterano que alterna vitorias e derrotas. 31-13 na carreira com 14 submissoes. A guilhotina do 10th Planet e real. Aos 34, nao e prospect, e um veterano com armas especificas. Lutando em casa (Seattle/Yakima). A experiencia de 17 lutas UFC e a maior vantagem contra um debutante.',
+        momentum_note: 'Erosa e um veterano que alterna vitorias e derrotas. 32-13 na carreira com 14 submissoes. A guilhotina do 10th Planet e real. Aos 34, nao e prospect, e um veterano com armas especificas. Lutando em casa (Seattle/Yakima). A experiencia de 17 lutas UFC e a maior vantagem contra um debutante.',
       },
       fighter2: {
         nome: 'Lerryan Douglas',
@@ -271,7 +271,7 @@ const analise: FullSingleAnalise = {
         { label: 'Grappling e Submissao', valueA: 82, valueB: 52, labelA: 'Muito Bom', labelB: 'Medio', advantage: 'fighter1', advantage_note: '14 submissoes na carreira. Guilhotina afiada no 10th Planet sob Andy Varela. 1.80 subs/15min. Se a luta for pro chao ou pra scrambles, Erosa e MUITO mais perigoso. A maior assimetria do matchup.' },
         { label: 'Experiencia UFC', valueA: 80, valueB: 30, labelA: 'Muito Bom', labelB: 'Medio', advantage: 'fighter1', advantage_note: '17 lutas UFC vs 0 (debut). Erosa sabe lidar com a pressao do octogono, a audiencia, o timing. Douglas NUNCA experimentou. O debut e sempre incognita.' },
         { label: 'Poder de Nocaute', valueA: 55, valueB: 80, labelA: 'Bom', labelB: 'Muito Bom', advantage: 'fighter2', advantage_note: 'Douglas com 10 de 13 finalizacoes. KO de 36 seg. O poder e real e imediato. Erosa nao e nocauteador, ganha por submissao.' },
-        { label: 'Cardio', valueA: 68, valueB: 62, labelA: 'Bom', labelB: 'Bom', advantage: 'fighter1', advantage_note: 'Erosa com mais experiencia em lutas longas (31-13, muitas decisoes). Douglas vem de lutas rapidas (finalizacoes precoces). Se a luta durar, Erosa tem mais dados de cardio.' },
+        { label: 'Cardio', valueA: 68, valueB: 62, labelA: 'Bom', labelB: 'Bom', advantage: 'fighter1', advantage_note: 'Erosa com mais experiencia em lutas longas (32-13, muitas decisoes). Douglas vem de lutas rapidas (finalizacoes precoces). Se a luta durar, Erosa tem mais dados de cardio.' },
         { label: 'Maturidade Tatica', valueA: 72, valueB: 58, labelA: 'Bom', labelB: 'Bom', advantage: 'fighter1', advantage_note: 'Erosa admitiu evolucao: "No inicio era fixado em bonus." Agora mais disciplinado. Douglas pode ser excessivamente confiante no debut. A maturidade e vantagem em momentos de pressao.' },
       ],
       insight: 'Douglas e o lutador mais talentoso e mais explosivo. Mas e debut UFC contra veterano de 17 lutas com 14 submissoes. Se Douglas trocar como prometeu ("ele gosta de trocar, tudo que preciso"), pode se colocar em posicoes de scramble onde a guilhotina do 10th Planet esta esperando. A +260, Erosa e o underdog com valor genuino.',
@@ -280,10 +280,10 @@ const analise: FullSingleAnalise = {
     distribuicao_vitorias: {
       fighter1: {
         nome: 'Erosa',
-        ko_tko: { count: 8, percent: 26 },
-        submission: { count: 14, percent: 45 },
-        decision: { count: 9, percent: 29 },
-        total_wins: 31,
+        ko_tko: { count: 8, percent: 25 },
+        submission: { count: 14, percent: 44 },
+        decision: { count: 10, percent: 31 },
+        total_wins: 32,
       },
       fighter2: {
         nome: 'Douglas',

@@ -24,7 +24,7 @@ const analise: PrelimsAnalise = {
     keyFactors: [],
     xFactor: { title: '', description: '' },
   },
-  fighter1_info: { nome: 'Marcin Tybura', record: '25-10-0', ultimasLutas: [{ result: 'L', opponent: 'Serghei Spivac', method: 'KO R1', event: 'UFC Fight Night' }, { result: 'W', opponent: 'Tai Tuivasa', method: 'Decisao Unanime', event: 'UFC 293' }] },
+  fighter1_info: { nome: 'Marcin Tybura', record: '27-10-0', ultimasLutas: [{ result: 'L', opponent: 'Serghei Spivac', method: 'KO R1', event: 'UFC Fight Night' }, { result: 'W', opponent: 'Tai Tuivasa', method: 'Decisao Unanime', event: 'UFC 293' }] },
   fighter2_info: { nome: 'Tyrell Fortune', record: '17-3-0', ultimasLutas: [{ result: 'W', opponent: 'Eduardo Neves', method: 'KO R2', event: 'UFC Fight Night' }] },
   tactical_breakdown: { stats: [], radarData: [], taleOfTape: { fighter1: { altura: '1,88m', envergadura: '198cm', idade: 39, academia: 'Polonia / MMA' }, fighter2: { altura: '1,88m', envergadura: '193cm', idade: 34, academia: 'Fortis MMA, Dallas' } }, pathsToVictory: { fighter1: [], fighter2: [] }, dangerZones: [] },
   num_rounds: 3,
@@ -40,7 +40,7 @@ const analise: PrelimsAnalise = {
       categoria_peso: 'Peso Pesado (265 lbs)',
       num_rounds: 3,
       is_titulo: false,
-      fighter1: { nome: 'Marcin Tybura', record: '25-10-0', ranking: 'N/R', imagem_url: 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2026-03/TYBURA_MARCIN_L_03-28.png?itok=UmjJubdY' },
+      fighter1: { nome: 'Marcin Tybura', record: '27-10-0', ranking: 'N/R', imagem_url: 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2026-03/TYBURA_MARCIN_L_03-28.png?itok=UmjJubdY' },
       fighter2: { nome: 'Tyrell Fortune', record: '17-3-0', ranking: 'N/R', imagem_url: 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2026-03/FORTUNE_TYRELL_R_03-28.png?itok=yJwXsAme' },
     },
     comparacao_estatistica: {
@@ -97,9 +97,9 @@ const analise: PrelimsAnalise = {
       insight: 'A logica desse matchup e direta: a forca de Tybura sempre foi o wrestling e grinding (2o mais controle na historia do HW do UFC). Mas Fortune e o MELHOR WRESTLER que Tybura ja enfrentou. NCAA D-II National Champion com temporada de 37-1, Most Outstanding Wrestler, 2 titulos NJCAA, 6 titulos nacionais freestyle/greco, e ex-selecao americana. Quando Tybura enfrentou Romanov (wrestler de nivel similar), perdeu. Sem o wrestling, Tybura e forcado a lutar em pe, onde 60% das suas derrotas vieram por KO (Spivac, Volkov, Lewis, Gane, Sakai, Overeem). Fortune tem 11 KOs e desenvolveu kickboxing especificamente pra complementar o wrestling. A historia mais impressionante de Fortune vai alem do esporte: durante um weight cut no wrestling, sofreu convulsoes e falencia de orgaos. Foi declarado morto e ressuscitado. Acordou com lencol sobre o corpo. Essa resiliencia mental e impossivel de medir.',
     },
     distribuicao_vitorias: {
-      fighter1: { nome: 'Tybura', ko_tko: { count: 6, percent: 24 }, submission: { count: 7, percent: 28 }, decision: { count: 12, percent: 48 }, total_wins: 25 },
+      fighter1: { nome: 'Tybura', ko_tko: { count: 6, percent: 22 }, submission: { count: 7, percent: 26 }, decision: { count: 14, percent: 52 }, total_wins: 27 },
       fighter2: { nome: 'Fortune', ko_tko: { count: 11, percent: 65 }, submission: { count: 2, percent: 12 }, decision: { count: 4, percent: 23 }, total_wins: 17 },
-      insight: 'Tybura e grinder de decisao: 48% das vitorias nos pontos. Fortune e finalizador explosivo: 65% por KO/TKO, com 11 nocautes. O problema pra Tybura e que seu estilo de grinding depende de vantagem no wrestling, e Fortune tem credenciais de wrestling claramente superiores. Se nao pode grind, Tybura precisa trocar, e em pe 60% das derrotas vem por nocaute.',
+      insight: 'Tybura e grinder de decisao: 52% das vitorias nos pontos. Fortune e finalizador explosivo: 65% por KO/TKO, com 11 nocautes. O problema pra Tybura e que seu estilo de grinding depende de vantagem no wrestling, e Fortune tem credenciais de wrestling claramente superiores. Se nao pode grind, Tybura precisa trocar, e em pe 60% das derrotas vem por nocaute.',
     },
     previsao_final: {
       winner_name: 'Tyrell Fortune',

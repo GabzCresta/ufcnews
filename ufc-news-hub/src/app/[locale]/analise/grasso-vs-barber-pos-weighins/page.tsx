@@ -50,7 +50,7 @@ const analise: FullSingleAnalise = {
   fighter2_info: {
     nome: 'Maycee Barber',
     apelido: 'The Future',
-    record: '15-2-0',
+    record: '16-3-0',
     ranking: '#5 Peso Mosca',
     ultimasLutas: [
       { result: 'W', opponent: 'Karine Silva', method: 'Decisao Unanime', event: 'UFC 314' },
@@ -92,7 +92,7 @@ const analise: FullSingleAnalise = {
         nome_completo: 'Maycee "The Future" Barber',
         apelido: 'The Future',
         sobrenome: 'Barber',
-        record: '15-2-0',
+        record: '16-3-0',
         ranking: '#5 Peso Mosca',
         info_extra: 'Denver, CO | High Altitude MA | 27 anos',
         imagem_fullbody_url: null,
@@ -364,12 +364,12 @@ const analise: FullSingleAnalise = {
       },
       fighter2: {
         nome: 'Barber',
-        ko_tko: { count: 7, percent: 47 },
-        submission: { count: 1, percent: 7 },
-        decision: { count: 7, percent: 46 },
-        total_wins: 15,
+        ko_tko: { count: 7, percent: 44 },
+        submission: { count: 1, percent: 6 },
+        decision: { count: 8, percent: 50 },
+        total_wins: 16,
       },
-      insight: 'Grasso e lutadora de decisao (62%). Barber e mais finalizadora (47% KO/TKO). Se Barber dominar, pode buscar TKO. Se Grasso controlar o ritmo como na 1a luta, vai pros juizes. A diferenca e que Barber agora tem plano B (wrestling) e Grasso pode nao ter a mesma tecnica pos-fratura.',
+      insight: 'Grasso e lutadora de decisao (62%). Barber e mais finalizadora (44% KO/TKO). Se Barber dominar, pode buscar TKO. Se Grasso controlar o ritmo como na 1a luta, vai pros juizes. A diferenca e que Barber agora tem plano B (wrestling) e Grasso pode nao ter a mesma tecnica pos-fratura.',
     },
 
     danger_zones: {
@@ -534,7 +534,7 @@ const analise: FullSingleAnalise = {
         { icon: 'Brain', titulo: 'Grasso a +150: Valor Real?', stat_headline: 'GRASSO VENCEU A 1A LUTA. SUBMETEU SHEVCHENKO. EXPERIENCIA DE TITULO REAL.', contexto: 'A +150, Grasso tem valor SE a perna esta 100%. A experiencia de titulo (3x Shevchenko) e rara. Mas os dados recentes (32% precisao, 2 derrotas) nao apoiam.', implicacao_aposta: 'So aposte em Grasso se voce acredita que a versao 2023 pode aparecer. E um IF grande. A +150, o mercado esta precificando ~40% Grasso, o que e razoavel.', edge_level: 'leve', fighter_side: 'fighter1' },
       ],
       value_picks: [
-        { tipo: 'Metodo', pick: 'Barber por Decisao', odds: '-110', confianca: 'alta', raciocinio: 'O cenario mais logico. Pressao + wrestling + cardio = dominio por 3 rounds. Barber nao precisa finalizar. 7 de 15 vitorias por decisao. Wrestling novo garante controle.' },
+        { tipo: 'Metodo', pick: 'Barber por Decisao', odds: '-110', confianca: 'alta', raciocinio: 'O cenario mais logico. Pressao + wrestling + cardio = dominio por 3 rounds. Barber nao precisa finalizar. 8 de 16 vitorias por decisao. Wrestling novo garante controle.' },
         { tipo: 'Moneyline', pick: 'Grasso ML (+150)', odds: '+150', confianca: 'baixa', edge_vs_mercado: 'Grasso venceu a 1a luta. Submeteu Shevchenko. A +150, se a perna esta ok, e valor. Mas "se a perna esta ok" e um IF gigante.', raciocinio: 'Aposta de convicao. Voce precisa acreditar que a Grasso de 2023 ainda existe. Os dados recentes dizem que nao, mas experiencia de titulo e dificil de quantificar.' },
         { tipo: 'Prop', pick: 'Fight nao vai a Decisao (+180)', odds: '+180', confianca: 'baixa', raciocinio: 'Se a perna de Grasso nao aguenta, TKO de Barber e possivel. Se Barber for derrubada, submissao de Grasso (submeteu Shevchenko) e possivel. Cenarios de finish existem dos dois lados.' },
       ],
