@@ -91,10 +91,18 @@ async function findOrCreateLutador(fighter: ScrapedFighterInfo, weightClass: str
 }
 
 // ═══════════════════════════════════════════════════════════════
-// Background auto-scrape throttle
+// Background auto-scrape throttle + live round cache
 // ═══════════════════════════════════════════════════════════════
 const lastScrapeTime = new Map<string, number>();
 const SCRAPE_INTERVAL_MS = 30_000; // 30 seconds — fast updates during live events
+
+// Cache live round data per event (updated by background scraper, served by API)
+interface LiveRoundData {
+  liveRound: number | null;
+  liveRoundStartTime: string | null;
+  liveBetweenRounds: boolean;
+}
+const liveRoundCache = new Map<string, Map<string, LiveRoundData>>(); // eventoId → (fightKey → roundData)
 
 async function backgroundScrapeIfNeeded(eventoId: string, eventoNome: string, hasUnfinishedFights: boolean) {
   if (!hasUnfinishedFights) return;
@@ -182,11 +190,25 @@ async function scrapeAndUpdateFights(eventoId: string, eventoNome: string) {
     console.log(`[live/auto-scrape] ${updated} fights updated for ${eventoNome}`);
   }
 
-  // ── Phase 2: Sync individual fight statuses (agendada → ao_vivo) ──
+  // ── Phase 2: Sync individual fight statuses + cache round data ──
   if (cardStatus.length > 0) {
-    for (const cs of cardStatus) {
-      if (cs.status !== 'live') continue;
+    // Track fight IDs updated to finalizada in Phase 1 to avoid resetting them
+    const finalizedInPhase1 = new Set<string>();
+    for (const result of scraped) {
+      const matched = unfinished.find(luta => {
+        const m1 = matchFighterName(result.lutador1_nome, luta.lutador1_nome) ||
+                    matchFighterName(result.lutador1_nome, luta.lutador2_nome);
+        const m2 = matchFighterName(result.lutador2_nome, luta.lutador1_nome) ||
+                    matchFighterName(result.lutador2_nome, luta.lutador2_nome);
+        return m1 && m2;
+      });
+      if (matched) finalizedInPhase1.add(matched.id);
+    }
 
+    // Cache round data for live fights
+    const roundCache = new Map<string, LiveRoundData>();
+
+    for (const cs of cardStatus) {
       const matchedLuta = lutas.find(luta => {
         const m1 = matchFighterName(cs.lutador1_nome, luta.lutador1_nome) ||
                     matchFighterName(cs.lutador1_nome, luta.lutador2_nome);
@@ -195,13 +217,28 @@ async function scrapeAndUpdateFights(eventoId: string, eventoNome: string) {
         return m1 && m2;
       });
 
-      if (matchedLuta && matchedLuta.status === 'agendada') {
+      if (!matchedLuta) continue;
+
+      // Cache round data for live fights
+      if (cs.status === 'live') {
+        roundCache.set(matchedLuta.id, {
+          liveRound: cs.liveRound,
+          liveRoundStartTime: cs.liveRoundStartTime,
+          liveBetweenRounds: cs.liveBetweenRounds,
+        });
+      }
+
+      // Update fight status
+      if (cs.status === 'live' && matchedLuta.status === 'agendada' && !finalizedInPhase1.has(matchedLuta.id)) {
         await query(`UPDATE lutas SET status = 'ao_vivo' WHERE id = $1`, [matchedLuta.id]);
         console.log(`[live/auto-scrape] Status: ${matchedLuta.lutador1_nome} vs ${matchedLuta.lutador2_nome} → ao_vivo`);
       }
     }
 
-    // Reset fights that were ao_vivo but are no longer live (fight ended between scrapes)
+    // Save round cache for this event
+    liveRoundCache.set(eventoId, roundCache);
+
+    // Reset fights that were ao_vivo but are no longer live
     const liveFightIds = new Set<string>();
     for (const cs of cardStatus) {
       if (cs.status !== 'live') continue;
@@ -215,10 +252,9 @@ async function scrapeAndUpdateFights(eventoId: string, eventoNome: string) {
       if (matched) liveFightIds.add(matched.id);
     }
 
-    // Any DB fight marked ao_vivo that's NOT in the live set → back to agendada
-    // (it will get picked up as finalizada in the next scrape cycle)
+    // Any DB fight marked ao_vivo that's NOT in the live set AND wasn't just finalized → back to agendada
     for (const luta of lutas) {
-      if (luta.status === 'ao_vivo' && !liveFightIds.has(luta.id)) {
+      if (luta.status === 'ao_vivo' && !liveFightIds.has(luta.id) && !finalizedInPhase1.has(luta.id)) {
         await query(`UPDATE lutas SET status = 'agendada' WHERE id = $1`, [luta.id]);
         console.log(`[live/auto-scrape] Status: ${luta.lutador1_nome} vs ${luta.lutador2_nome} ao_vivo → agendada (no longer live)`);
       }
@@ -474,13 +510,13 @@ export async function GET(request: NextRequest) {
     // Count finished fights
     const lutasFinalizadas = lutas.filter((l) => l.status === 'finalizada').length;
 
-    // Auto-transition: agendado → ao_vivo if event is within 6h window
+    // Auto-transition: agendado → ao_vivo if event is within 1h window
     // This makes the system self-healing — doesn't depend solely on the Vercel cron
     if (evento.status === 'agendado') {
       const eventDate = new Date(evento.data_evento);
       const now = new Date();
       const hoursUntilEvent = (eventDate.getTime() - now.getTime()) / (1000 * 60 * 60);
-      if (hoursUntilEvent <= 6 && lutas.length > 0) {
+      if (hoursUntilEvent <= 1 && lutas.length > 0) {
         await query(`UPDATE eventos SET status = 'ao_vivo' WHERE id = $1`, [eventoId]);
         evento.status = 'ao_vivo';
         console.log(`[arena/live] Auto-transition: ${evento.nome} agendado → ao_vivo`);
@@ -493,11 +529,18 @@ export async function GET(request: NextRequest) {
       backgroundScrapeIfNeeded(eventoId, evento.nome, hasUnfinished);
     }
 
-    // Attach user pick to each fight
-    const lutasComPick = lutas.map((luta) => ({
-      ...luta,
-      userPick: picksMap.get(luta.luta_id) ?? null,
-    }));
+    // Attach user pick + live round data to each fight
+    const eventRoundCache = liveRoundCache.get(eventoId);
+    const lutasComPick = lutas.map((luta) => {
+      const roundData = eventRoundCache?.get(luta.luta_id);
+      return {
+        ...luta,
+        userPick: picksMap.get(luta.luta_id) ?? null,
+        liveRound: roundData?.liveRound ?? null,
+        liveRoundStartTime: roundData?.liveRoundStartTime ?? null,
+        liveBetweenRounds: roundData?.liveBetweenRounds ?? false,
+      };
+    });
 
     // Finalized events → cache aggressively (data won't change)
     // Live events → no cache (polling)

@@ -23,6 +23,9 @@ export interface LiveFightStatus {
   rounds: number | null;
   fighter1: ScrapedFighterInfo;
   fighter2: ScrapedFighterInfo;
+  liveRound: number | null;
+  liveRoundStartTime: string | null;
+  liveBetweenRounds: boolean;
 }
 
 export interface ScrapedFighterInfo {
@@ -57,6 +60,13 @@ interface UFCLiveFighter {
   UFCLink?: string | null;
 }
 
+interface UFCTrackingEvent {
+  Type: string;
+  RoundNumber: number | null;
+  RoundTime: string | null;
+  Timestamp: string;
+}
+
 interface UFCLiveFight {
   FightId: number;
   FightOrder: number;
@@ -65,6 +75,7 @@ interface UFCLiveFight {
   Fighters: UFCLiveFighter[];
   WeightClass?: { Description: string | null };
   RuleSet?: { PossibleRounds: number | null };
+  FightNightTracking?: UFCTrackingEvent[];
   Result: {
     Method: string;
     EndingRound: number;
@@ -342,6 +353,36 @@ export async function scrapeFullCardStatus(
         ufcLink: f.UFCLink || null,
       });
 
+      // Extract round info from FightNightTracking
+      let liveRound: number | null = null;
+      let liveRoundStartTime: string | null = null;
+      let liveBetweenRounds = false;
+
+      if (status === 'live' && fight.FightNightTracking) {
+        const tracking = fight.FightNightTracking
+          .filter(t => t.Type === 'round_start' || t.Type === 'round_end')
+          .sort((a, b) => new Date(b.Timestamp).getTime() - new Date(a.Timestamp).getTime());
+
+        if (tracking.length > 0) {
+          const latest = tracking[0];
+          if (latest.Type === 'round_start') {
+            liveRound = latest.RoundNumber;
+            liveRoundStartTime = latest.Timestamp;
+          } else if (latest.Type === 'round_end') {
+            liveRound = latest.RoundNumber;
+            liveBetweenRounds = true;
+          }
+        }
+
+        // Fallback: if no round events yet but fight is live, it's round 1
+        if (liveRound === null) {
+          liveRound = 1;
+          // Use fight_open timestamp as approximate round start
+          const fightOpen = fight.FightNightTracking.find(t => t.Type === 'fight_open');
+          if (fightOpen) liveRoundStartTime = fightOpen.Timestamp;
+        }
+      }
+
       statuses.push({
         lutador1_nome: f1Name,
         lutador2_nome: f2Name,
@@ -352,6 +393,9 @@ export async function scrapeFullCardStatus(
         rounds: fight.RuleSet?.PossibleRounds || null,
         fighter1: mapFighter(f1),
         fighter2: mapFighter(f2),
+        liveRound,
+        liveRoundStartTime,
+        liveBetweenRounds,
       });
     }
   } catch (error) {

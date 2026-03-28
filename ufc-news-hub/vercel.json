@@ -6,7 +6,7 @@
     },
     {
       "path": "/api/arena/cron/scoring",
-      "schedule": "*/1 * * * 5,6,0"
+      "schedule": "*/1 * * * 6,0"
     },
     {
       "path": "/api/cron/card-monitor",

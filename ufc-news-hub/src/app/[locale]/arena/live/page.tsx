@@ -83,6 +83,9 @@ interface Luta {
   lutador1_foto: string | null;
   lutador2_foto: string | null;
   userPick: UserPick | null;
+  liveRound: number | null;
+  liveRoundStartTime: string | null;
+  liveBetweenRounds: boolean;
 }
 
 interface LeaderboardEntry {

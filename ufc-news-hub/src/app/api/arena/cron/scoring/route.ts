@@ -39,11 +39,11 @@ export async function GET(request: NextRequest) {
       console.log(`[SCORING CRON] Status fix: ${ev.nome} ao_vivo → finalizado`);
     }
 
-    // Detect events that should be ao_vivo (date within 6h buffer for timezone, has fights)
+    // Detect events that should be ao_vivo (date within 1h buffer, has fights)
     const shouldBeAoVivo = await query<{ id: string; nome: string }>(
       `SELECT e.id, e.nome FROM eventos e
        WHERE e.status = 'agendado'
-         AND e.data_evento <= NOW() + INTERVAL '6 hours'
+         AND e.data_evento <= NOW() + INTERVAL '1 hour'
          AND EXISTS (SELECT 1 FROM lutas l WHERE l.evento_id = e.id)`
     );
     for (const ev of shouldBeAoVivo) {

@@ -1,8 +1,46 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { Zap, CheckCircle2, XCircle, Clock, Trophy } from 'lucide-react';
 import { sobrenome } from '@/components/arena/shared';
+
+// ═══════════════════════════════════════════════════════════════
+// Live timer: counts up from round start time (synced with UFC API)
+// ═══════════════════════════════════════════════════════════════
+
+function LiveTimer({ startTime }: { startTime: string }) {
+  const [elapsed, setElapsed] = useState(() => {
+    const diff = Date.now() - new Date(startTime).getTime();
+    return Math.max(0, Math.floor(diff / 1000));
+  });
+
+  useEffect(() => {
+    const diff = Date.now() - new Date(startTime).getTime();
+    setElapsed(Math.max(0, Math.floor(diff / 1000)));
+
+    const interval = setInterval(() => {
+      const d = Date.now() - new Date(startTime).getTime();
+      setElapsed(Math.max(0, Math.floor(d / 1000)));
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [startTime]);
+
+  // Cap at 5:00 (300s) per round
+  const capped = Math.min(elapsed, 300);
+  const minutes = Math.floor(capped / 60);
+  const seconds = capped % 60;
+
+  return (
+    <span
+      className="font-display text-2xl text-red-400 tabular-nums"
+      style={{ textShadow: '0 0 12px rgba(210,10,10,0.4)' }}
+    >
+      {minutes}:{seconds.toString().padStart(2, '0')}
+    </span>
+  );
+}
 
 interface UserPick {
   vencedor_previsto_id: string;
@@ -23,6 +61,9 @@ interface LiveLuta {
   lutador2_id: string;
   lutador2_nome: string;
   userPick: UserPick | null;
+  liveRound: number | null;
+  liveRoundStartTime: string | null;
+  liveBetweenRounds: boolean;
 }
 
 interface LiveCurrentFightProps {
@@ -153,6 +194,34 @@ export function LiveCurrentFight({ luta }: LiveCurrentFightProps) {
             </div>
           )}
         </div>
+
+        {/* ── Live round cronometer ── */}
+        {isLive && luta.liveRound != null && (
+          <div className="flex items-center justify-center">
+            <div
+              className="flex items-center gap-3 px-5 py-2 rounded-xl bg-black/60 border border-red-500/30"
+              style={{ boxShadow: '0 0 20px rgba(210,10,10,0.15), inset 0 0 10px rgba(0,0,0,0.3)' }}
+            >
+              <div className="flex items-center gap-1.5">
+                <span className="text-[10px] font-bold text-red-400/60 uppercase tracking-widest">Round</span>
+                <span
+                  className="font-display text-2xl text-white tabular-nums"
+                  style={{ textShadow: '0 0 10px rgba(255,255,255,0.2)' }}
+                >
+                  {luta.liveRound}
+                </span>
+              </div>
+              {luta.liveBetweenRounds && (
+                <span className="text-[10px] font-bold text-yellow-400/80 uppercase tracking-widest animate-pulse">
+                  Intervalo
+                </span>
+              )}
+              {!luta.liveBetweenRounds && luta.liveRoundStartTime && (
+                <LiveTimer startTime={luta.liveRoundStartTime} />
+              )}
+            </div>
+          </div>
+        )}
 
         {/* ── Fighter names + VS ── */}
         <div className="flex items-center gap-3 sm:gap-4">
