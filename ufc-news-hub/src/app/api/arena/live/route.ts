@@ -1,11 +1,97 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { query, queryOne } from '@/lib/db';
 import { getUsuarioAtual } from '@/lib/arena/auth';
-import { scrapeUFCResults, scrapeFullCardStatus, mapMethodToDB, matchFighterName, type LiveFightStatus } from '@/lib/scrape-results';
+import { scrapeUFCResults, scrapeFullCardStatus, mapMethodToDB, matchFighterName, type LiveFightStatus, type ScrapedFighterInfo } from '@/lib/scrape-results';
 import { processarPrevisoesLuta } from '@/lib/arena/pontuacao';
 
 // ═══════════════════════════════════════════════════════════════
-// Background auto-scrape throttle (max once per 90s per event)
+// Auto-sync helpers: find or create fighters, map card segments
+// ═══════════════════════════════════════════════════════════════
+
+const weightClassMap: Record<string, string> = {
+  Strawweight: 'Peso Palha', Flyweight: 'Peso Mosca', Bantamweight: 'Peso Galo',
+  Featherweight: 'Peso Pena', Lightweight: 'Peso Leve', Welterweight: 'Peso Meio-Medio',
+  Middleweight: 'Peso Medio', 'Light Heavyweight': 'Peso Meio-Pesado', Heavyweight: 'Peso Pesado',
+  "Women's Strawweight": 'Peso Palha Feminino', "Women's Flyweight": 'Peso Mosca Feminino',
+  "Women's Bantamweight": 'Peso Galo Feminino', "Women's Featherweight": 'Peso Pena Feminino',
+};
+
+function mapWeightClass(wc: string | null): string {
+  if (!wc) return 'Peso Indefinido';
+  return weightClassMap[wc] || wc;
+}
+
+function mapCardSegmentToTipo(segment: string | null, fightOrder: number): string {
+  if (!segment) {
+    if (fightOrder === 1) return 'main_event';
+    if (fightOrder === 2) return 'co_main';
+    return fightOrder <= 6 ? 'card_principal' : 'preliminar';
+  }
+  const s = segment.toLowerCase();
+  if (s === 'main') return fightOrder === 1 ? 'main_event' : (fightOrder === 2 ? 'co_main' : 'card_principal');
+  if (s === 'prelims' || s === 'preliminary') return 'preliminar';
+  if (s === 'early' || s.includes('early')) return 'early_prelim';
+  return 'card_principal';
+}
+
+function buildUfcSlug(nome: string): string {
+  return nome.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+}
+
+function buildHeadshotUrl(ufcLink: string | null): string | null {
+  if (!ufcLink) return null;
+  // Extract slug from UFC link: http://www.ufc.com/athlete/Israel-Adesanya → Israel-Adesanya
+  const match = ufcLink.match(/\/athlete\/([^/?#]+)/i);
+  if (!match) return null;
+  return `https://www.ufc.com/images/styles/event_results_athlete_headshot/s3/${match[1]}.png`;
+}
+
+async function findOrCreateLutador(fighter: ScrapedFighterInfo, weightClass: string | null): Promise<string> {
+  // Try exact match first
+  const existing = await queryOne<{ id: string }>(
+    `SELECT id FROM lutadores WHERE LOWER(nome) = LOWER($1)`,
+    [fighter.nome]
+  );
+  if (existing) return existing.id;
+
+  // Try last name match (handles "Ricky Simon" matching "Rick Simon" etc.)
+  const parts = fighter.nome.split(' ');
+  const lastName = parts[parts.length - 1];
+  const lastNameMatch = await queryOne<{ id: string; nome: string }>(
+    `SELECT id, nome FROM lutadores WHERE LOWER(nome) LIKE $1 AND LOWER(nome) LIKE $2`,
+    [`%${parts[0].toLowerCase()}%`, `%${lastName.toLowerCase()}%`]
+  );
+  if (lastNameMatch) return lastNameMatch.id;
+
+  // Create new fighter
+  const slug = buildUfcSlug(fighter.nome);
+  const categoriaPeso = mapWeightClass(weightClass);
+
+  const result = await queryOne<{ id: string }>(
+    `INSERT INTO lutadores (id, nome, apelido, categoria_peso, pais, cidade_natal, stance, vitorias, derrotas, empates, idade, ufc_slug, ativo)
+     VALUES (gen_random_uuid(), $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, true)
+     RETURNING id`,
+    [
+      fighter.nome,
+      fighter.apelido,
+      categoriaPeso,
+      fighter.pais,
+      fighter.cidade,
+      fighter.stance,
+      fighter.vitorias,
+      fighter.derrotas,
+      fighter.empates,
+      fighter.idade,
+      slug,
+    ]
+  );
+
+  console.info(`[live/auto-sync] Created fighter: ${fighter.nome} (${categoriaPeso})`);
+  return result!.id;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// Background auto-scrape throttle
 // ═══════════════════════════════════════════════════════════════
 const lastScrapeTime = new Map<string, number>();
 const SCRAPE_INTERVAL_MS = 30_000; // 30 seconds — fast updates during live events
@@ -138,18 +224,69 @@ async function scrapeAndUpdateFights(eventoId: string, eventoNome: string) {
       }
     }
 
-    // ── Phase 3: Log missing fights (in UFC API but not in DB) ──
+    // ── Phase 3: Auto-sync missing fights (in UFC API but not in DB) ──
     for (const cs of cardStatus) {
-      const matched = lutas.find(luta => {
+      // Full match (both fighters) — already in DB, skip
+      const fullMatch = lutas.find(luta => {
         const m1 = matchFighterName(cs.lutador1_nome, luta.lutador1_nome) ||
                     matchFighterName(cs.lutador1_nome, luta.lutador2_nome);
         const m2 = matchFighterName(cs.lutador2_nome, luta.lutador1_nome) ||
                     matchFighterName(cs.lutador2_nome, luta.lutador2_nome);
         return m1 && m2;
       });
+      if (fullMatch) continue;
 
-      if (!matched) {
-        console.warn(`[live/auto-scrape] MISSING FIGHT in DB: ${cs.lutador1_nome} vs ${cs.lutador2_nome} (order: ${cs.fightOrder}, status: ${cs.status})`);
+      // Partial match: one fighter matches — opponent swap
+      const partialMatch = lutas.find(luta => {
+        const m1a = matchFighterName(cs.lutador1_nome, luta.lutador1_nome);
+        const m1b = matchFighterName(cs.lutador1_nome, luta.lutador2_nome);
+        const m2a = matchFighterName(cs.lutador2_nome, luta.lutador1_nome);
+        const m2b = matchFighterName(cs.lutador2_nome, luta.lutador2_nome);
+        return (m1a || m1b || m2a || m2b) && !(m1a && m2b) && !(m1b && m2a);
+      });
+
+      if (partialMatch && partialMatch.status !== 'finalizada') {
+        // Opponent swap: update the non-matching fighter
+        try {
+          const f1Matches = matchFighterName(cs.lutador1_nome, partialMatch.lutador1_nome) ||
+                            matchFighterName(cs.lutador1_nome, partialMatch.lutador2_nome);
+          const newFighterInfo = f1Matches ? cs.fighter2 : cs.fighter1;
+          const newFighterId = await findOrCreateLutador(newFighterInfo, cs.weightClass);
+
+          // Determine which side to replace
+          const replaceF1 = !matchFighterName(cs.lutador1_nome, partialMatch.lutador1_nome) &&
+                            !matchFighterName(cs.lutador2_nome, partialMatch.lutador1_nome);
+
+          if (replaceF1) {
+            await query(`UPDATE lutas SET lutador1_id = $1 WHERE id = $2`, [newFighterId, partialMatch.id]);
+          } else {
+            await query(`UPDATE lutas SET lutador2_id = $1 WHERE id = $2`, [newFighterId, partialMatch.id]);
+          }
+
+          console.info(`[live/auto-sync] Opponent swap: ${partialMatch.lutador1_nome} vs ${partialMatch.lutador2_nome} → now has ${newFighterInfo.nome}`);
+        } catch (err) {
+          console.error(`[live/auto-sync] Swap failed for ${cs.fighter1.nome} vs ${cs.fighter2.nome}:`, err);
+        }
+        continue;
+      }
+
+      // No match at all — truly new fight, insert it
+      try {
+        const lutador1Id = await findOrCreateLutador(cs.fighter1, cs.weightClass);
+        const lutador2Id = await findOrCreateLutador(cs.fighter2, cs.weightClass);
+
+        const tipo = mapCardSegmentToTipo(cs.cardSegment, cs.fightOrder);
+        const categoriaPeso = mapWeightClass(cs.weightClass);
+
+        await query(
+          `INSERT INTO lutas (id, evento_id, lutador1_id, lutador2_id, categoria_peso, ordem, tipo, rounds, status)
+           VALUES (gen_random_uuid(), $1, $2, $3, $4, $5, $6::tipo_luta, $7, 'agendada'::status_luta)`,
+          [eventoId, lutador1Id, lutador2Id, categoriaPeso, cs.fightOrder, tipo, cs.rounds || 3]
+        );
+
+        console.info(`[live/auto-sync] Added missing fight: ${cs.fighter1.nome} vs ${cs.fighter2.nome} (order: ${cs.fightOrder})`);
+      } catch (err) {
+        console.error(`[live/auto-sync] Failed to add ${cs.fighter1.nome} vs ${cs.fighter2.nome}:`, err);
       }
     }
   }

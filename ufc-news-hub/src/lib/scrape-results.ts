@@ -18,6 +18,27 @@ export interface LiveFightStatus {
   lutador2_nome: string;
   status: 'upcoming' | 'live' | 'final';
   fightOrder: number;
+  cardSegment: string | null;
+  weightClass: string | null;
+  rounds: number | null;
+  fighter1: ScrapedFighterInfo;
+  fighter2: ScrapedFighterInfo;
+}
+
+export interface ScrapedFighterInfo {
+  nome: string;
+  apelido: string | null;
+  pais: string | null;
+  cidade: string | null;
+  stance: string | null;
+  altura: number | null;
+  envergadura: number | null;
+  vitorias: number | null;
+  derrotas: number | null;
+  empates: number | null;
+  idade: number | null;
+  peso: number | null;
+  ufcLink: string | null;
 }
 
 interface UFCLiveFighter {
@@ -25,13 +46,25 @@ interface UFCLiveFighter {
   Name: { FirstName: string; LastName: string; NickName: string | null };
   Corner: string;
   Outcome: { OutcomeId: number | null; Outcome: string | null };
+  Born?: { City: string | null; Country: string | null };
+  FightingOutOf?: { City: string | null; Country: string | null };
+  Record?: { Wins: number; Losses: number; Draws: number };
+  Age?: number;
+  Stance?: string | null;
+  Height?: number | null;
+  Reach?: number | null;
+  Weight?: number | null;
+  UFCLink?: string | null;
 }
 
 interface UFCLiveFight {
   FightId: number;
   FightOrder: number;
   Status: string;
+  CardSegment?: string | null;
   Fighters: UFCLiveFighter[];
+  WeightClass?: { Description: string | null };
+  RuleSet?: { PossibleRounds: number | null };
   Result: {
     Method: string;
     EndingRound: number;
@@ -281,8 +314,10 @@ export async function scrapeFullCardStatus(
     for (const fight of fightCard) {
       if (fight.Fighters.length < 2) continue;
 
-      const f1Name = `${fight.Fighters[0].Name.FirstName} ${fight.Fighters[0].Name.LastName}`.trim();
-      const f2Name = `${fight.Fighters[1].Name.FirstName} ${fight.Fighters[1].Name.LastName}`.trim();
+      const f1 = fight.Fighters[0];
+      const f2 = fight.Fighters[1];
+      const f1Name = `${f1.Name.FirstName} ${f1.Name.LastName}`.trim();
+      const f2Name = `${f2.Name.FirstName} ${f2.Name.LastName}`.trim();
 
       let status: 'upcoming' | 'live' | 'final' = 'upcoming';
       if (fight.Status === 'Final' || fight.Status === 'Completed') {
@@ -291,11 +326,32 @@ export async function scrapeFullCardStatus(
         status = 'live';
       }
 
+      const mapFighter = (f: UFCLiveFighter): ScrapedFighterInfo => ({
+        nome: `${f.Name.FirstName} ${f.Name.LastName}`.trim(),
+        apelido: f.Name.NickName || null,
+        pais: f.Born?.Country || f.FightingOutOf?.Country || null,
+        cidade: f.FightingOutOf?.City || f.Born?.City || null,
+        stance: f.Stance || null,
+        altura: f.Height || null,
+        envergadura: f.Reach || null,
+        vitorias: f.Record?.Wins ?? null,
+        derrotas: f.Record?.Losses ?? null,
+        empates: f.Record?.Draws ?? null,
+        idade: f.Age || null,
+        peso: f.Weight || null,
+        ufcLink: f.UFCLink || null,
+      });
+
       statuses.push({
         lutador1_nome: f1Name,
         lutador2_nome: f2Name,
         status,
         fightOrder: fight.FightOrder,
+        cardSegment: fight.CardSegment || null,
+        weightClass: fight.WeightClass?.Description || null,
+        rounds: fight.RuleSet?.PossibleRounds || null,
+        fighter1: mapFighter(f1),
+        fighter2: mapFighter(f2),
       });
     }
   } catch (error) {
