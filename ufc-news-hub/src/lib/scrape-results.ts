@@ -19,6 +19,7 @@ export interface LiveFightStatus {
   status: 'upcoming' | 'live' | 'final';
   fightOrder: number;
   cardSegment: string | null;
+  cardSegmentStartTime: string | null;
   weightClass: string | null;
   rounds: number | null;
   fighter1: ScrapedFighterInfo;
@@ -72,6 +73,7 @@ interface UFCLiveFight {
   FightOrder: number;
   Status: string;
   CardSegment?: string | null;
+  CardSegmentStartTime?: string | null;
   Fighters: UFCLiveFighter[];
   WeightClass?: { Description: string | null };
   RuleSet?: { PossibleRounds: number | null };
@@ -128,18 +130,27 @@ async function scrapeUFCLiveAPI(eventFmid: string): Promise<ScrapedResult[]> {
     if (fight.Status !== 'Final' && fight.Status !== 'Completed') continue;
     if (!fight.Result || fight.Fighters.length < 2) continue;
 
-    const winner = fight.Fighters.find(f => f.Outcome?.Outcome === 'Win');
-    if (!winner) continue;
-
     const f1Name = `${fight.Fighters[0].Name.FirstName} ${fight.Fighters[0].Name.LastName}`.trim();
     const f2Name = `${fight.Fighters[1].Name.FirstName} ${fight.Fighters[1].Name.LastName}`.trim();
-    const winnerName = `${winner.Name.FirstName} ${winner.Name.LastName}`.trim();
+
+    const winner = fight.Fighters.find(f => f.Outcome?.Outcome === 'Win');
+    const isDraw = fight.Fighters.every(f => f.Outcome?.Outcome === 'Draw');
+    const isNC = fight.Fighters.some(f => f.Outcome?.Outcome === 'No Contest');
+
+    // Handle draws and no contests (no winner)
+    if (!winner && !isDraw && !isNC) continue;
+
+    const winnerName = winner
+      ? `${winner.Name.FirstName} ${winner.Name.LastName}`.trim()
+      : '';
+
+    const metodo = isDraw ? 'Draw' : isNC ? 'No Contest' : (fight.Result.Method || 'Unknown');
 
     results.push({
       lutador1_nome: f1Name,
       lutador2_nome: f2Name,
       vencedor_nome: winnerName,
-      metodo: fight.Result.Method || 'Unknown',
+      metodo,
       round: fight.Result.EndingRound || null,
       tempo: fight.Result.EndingTime || null,
     });
@@ -389,6 +400,7 @@ export async function scrapeFullCardStatus(
         status,
         fightOrder: fight.FightOrder,
         cardSegment: fight.CardSegment || null,
+        cardSegmentStartTime: fight.CardSegmentStartTime || null,
         weightClass: fight.WeightClass?.Description || null,
         rounds: fight.RuleSet?.PossibleRounds || null,
         fighter1: mapFighter(f1),

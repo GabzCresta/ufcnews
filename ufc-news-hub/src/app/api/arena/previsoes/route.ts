@@ -153,9 +153,10 @@ export async function POST(request: NextRequest) {
           lutador2_id: string;
           status: string;
           data_evento: string;
+          horario_prelims: string | null;
         }>(
           `SELECT l.id, l.evento_id, l.lutador1_id, l.lutador2_id, l.status,
-                  e.data_evento
+                  e.data_evento, e.horario_prelims
            FROM lutas l
            JOIN eventos e ON e.id = l.evento_id
            WHERE l.id = $1`,
@@ -167,12 +168,14 @@ export async function POST(request: NextRequest) {
           continue;
         }
 
-        // Verificar se o evento já começou (1 hora antes do horário)
-        const eventoData = new Date(luta.data_evento);
-        const deadline = new Date(eventoData.getTime() - 60 * 60 * 1000); // 1 hora antes
+        // Deadline: 1 hora antes dos prelims (ou 1h antes do data_evento se prelims desconhecido)
+        const baseTime = luta.horario_prelims
+          ? new Date(luta.horario_prelims)
+          : new Date(luta.data_evento);
+        const deadline = new Date(baseTime.getTime() - 60 * 60 * 1000);
 
         if (new Date() > deadline) {
-          erros.push(`Deadline para previsões da luta ${previsao.luta_id} já passou`);
+          erros.push(`Deadline para previsões já passou (${deadline.toISOString()})`);
           continue;
         }
 

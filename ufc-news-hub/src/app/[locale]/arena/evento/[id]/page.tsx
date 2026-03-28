@@ -38,6 +38,50 @@ export default function EventoArenaPage({ params }: PageProps) {
   const [step, setStep] = useState<PageStep>('swipe');
   const [initialPicksLoaded, setInitialPicksLoaded] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
+  const [picksDeadline, setPicksDeadline] = useState<Date | null>(null);
+  const [deadlinePassed, setDeadlinePassed] = useState(false);
+  const [countdown, setCountdown] = useState('');
+
+  // Fetch picks deadline from live API
+  useEffect(() => {
+    async function fetchDeadline() {
+      try {
+        const res = await fetch(`/api/arena/live?evento_id=${id}`);
+        if (!res.ok) return;
+        const data = await res.json() as { picks_deadline?: string };
+        if (data.picks_deadline) {
+          setPicksDeadline(new Date(data.picks_deadline));
+        }
+      } catch { /* silent */ }
+    }
+    fetchDeadline();
+  }, [id]);
+
+  // Countdown timer
+  useEffect(() => {
+    if (!picksDeadline) return;
+
+    function update() {
+      const now = Date.now();
+      const diff = picksDeadline!.getTime() - now;
+      if (diff <= 0) {
+        setDeadlinePassed(true);
+        setCountdown('');
+        return;
+      }
+      setDeadlinePassed(false);
+      const h = Math.floor(diff / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      if (h > 0) setCountdown(`${h}h ${m}m`);
+      else if (m > 0) setCountdown(`${m}m ${s}s`);
+      else setCountdown(`${s}s`);
+    }
+
+    update();
+    const interval = setInterval(update, 1000);
+    return () => clearInterval(interval);
+  }, [picksDeadline]);
 
   // Redirect to login if not authenticated
   useEffect(() => {
@@ -220,9 +264,41 @@ export default function EventoArenaPage({ params }: PageProps) {
           )}
         </div>
 
+        {/* Deadline banner / countdown */}
+        {deadlinePassed && (
+          <div className="mx-4 mb-2 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-red-600/20 border border-red-500/40">
+            <Clock className="w-4 h-4 text-red-400" />
+            <span className="text-sm font-bold text-red-400 uppercase tracking-wider">
+              Picks encerrados
+            </span>
+          </div>
+        )}
+        {!deadlinePassed && countdown && (
+          <div className="mx-4 mb-2 flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-yellow-500/10 border border-yellow-500/20">
+            <Clock className="w-3.5 h-3.5 text-yellow-400" />
+            <span className="text-xs text-yellow-400/80">
+              Picks fecham em <span className="font-bold text-yellow-400">{countdown}</span>
+            </span>
+          </div>
+        )}
+
         {/* Main content */}
         <div className={`flex-1 flex justify-center px-4 pt-2 pb-4 ${step === 'edit' ? 'items-start overflow-y-auto' : 'items-start'}`}>
-          {step === 'swipe' && sortedLutas[currentIndex] && (
+          {deadlinePassed ? (
+            <div className="flex flex-col items-center justify-center gap-4 text-center py-16">
+              <div className="w-16 h-16 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center">
+                <Clock className="w-8 h-8 text-red-400" />
+              </div>
+              <p className="font-display text-xl text-white/60 uppercase">Picks encerrados</p>
+              <p className="text-sm text-white/30 max-w-xs">Os picks foram encerrados 1 hora antes dos prelims. Acompanhe o evento ao vivo!</p>
+              <Link
+                href={`/arena`}
+                className="mt-2 px-6 py-2.5 rounded-xl bg-ufc-red text-white font-bold text-sm uppercase tracking-wider hover:bg-ufc-redLight transition-colors"
+              >
+                Ir pro Arena Live
+              </Link>
+            </div>
+          ) : step === 'swipe' && sortedLutas[currentIndex] && (
             <SwipeCard
               luta={sortedLutas[currentIndex]}
               index={currentIndex}
@@ -234,7 +310,7 @@ export default function EventoArenaPage({ params }: PageProps) {
               onNext={handleNext}
             />
           )}
-          {step === 'summary' && (
+          {!deadlinePassed && step === 'summary' && (
             <PickSummary
               lutas={sortedLutas}
               picks={picks}
@@ -243,7 +319,7 @@ export default function EventoArenaPage({ params }: PageProps) {
               onGoToEdit={() => setStep('edit')}
             />
           )}
-          {step === 'edit' && (
+          {!deadlinePassed && step === 'edit' && (
             <PickEditScreen
               lutas={sortedLutas}
               picks={picks}

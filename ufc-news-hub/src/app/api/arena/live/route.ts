@@ -260,6 +260,19 @@ async function scrapeAndUpdateFights(eventoId: string, eventoNome: string) {
       }
     }
 
+    // ── Update horario_prelims from earliest CardSegmentStartTime ──
+    const startTimes = cardStatus
+      .map(cs => cs.cardSegmentStartTime)
+      .filter((t): t is string => t !== null)
+      .map(t => new Date(t).getTime());
+    if (startTimes.length > 0) {
+      const earliest = new Date(Math.min(...startTimes));
+      await query(
+        `UPDATE eventos SET horario_prelims = $1 WHERE id = $2 AND (horario_prelims IS NULL OR horario_prelims != $1)`,
+        [earliest.toISOString(), eventoId]
+      );
+    }
+
     // ── Phase 3: Auto-sync missing fights (in UFC API but not in DB) ──
     for (const cs of cardStatus) {
       // Full match (both fighters) — already in DB, skip
@@ -425,8 +438,8 @@ export async function GET(request: NextRequest) {
 
     // Parallel queries for all aggregated data
     const [evento, lutas, leaderboard] = await Promise.all([
-      queryOne<EventInfo>(
-        `SELECT id, nome, status::text, data_evento, local_evento
+      queryOne<EventInfo & { horario_prelims: string | null }>(
+        `SELECT id, nome, status::text, data_evento, local_evento, horario_prelims
          FROM eventos
          WHERE id = $1`,
         [eventoId]
@@ -548,6 +561,12 @@ export async function GET(request: NextRequest) {
       ? 'public, s-maxage=3600, stale-while-revalidate=60'
       : 'no-store';
 
+    // Calculate picks deadline: 1h before prelims (or 1h before data_evento)
+    const baseDeadline = evento.horario_prelims
+      ? new Date(evento.horario_prelims)
+      : new Date(evento.data_evento);
+    const picksDeadline = new Date(baseDeadline.getTime() - 60 * 60 * 1000).toISOString();
+
     return NextResponse.json(
       {
         evento,
@@ -555,6 +574,7 @@ export async function GET(request: NextRequest) {
         leaderboard,
         lutas_finalizadas: lutasFinalizadas,
         usuario_id: usuario?.id ?? null,
+        picks_deadline: picksDeadline,
       },
       {
         headers: { 'Cache-Control': cacheHeader },
