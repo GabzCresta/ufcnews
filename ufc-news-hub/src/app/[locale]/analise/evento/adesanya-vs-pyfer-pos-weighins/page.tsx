@@ -15,8 +15,8 @@ const eventData: EventAnalysisData = {
       categoria_peso: 'Peso Medio (185 lbs)',
       num_rounds: 5,
       predicted_winner: 'Israel Adesanya',
-      predicted_method: 'TKO R4',
-      confidence_label: 'MEDIA-ALTA',
+      predicted_method: 'Decisao Unanime',
+      confidence_label: 'MEDIA',
       is_main_event: true,
     },
     {
@@ -37,7 +37,7 @@ const eventData: EventAnalysisData = {
       num_rounds: 3,
       predicted_winner: 'Michael Chiesa',
       predicted_method: 'Submissao R2',
-      confidence_label: 'ALTA',
+      confidence_label: 'ALTA (Price KO 49 dias atras)',
     },
     {
       slug: 'erosa-vs-douglas-pos-weighins',
@@ -45,8 +45,8 @@ const eventData: EventAnalysisData = {
       fighter2: { nome: 'Lerryan Douglas', record: '13-5-0' },
       categoria_peso: 'Peso Pena (145 lbs)',
       num_rounds: 3,
-      predicted_winner: 'Julian Erosa',
-      predicted_method: 'Decisao Unanime',
+      predicted_winner: 'Lerryan Douglas',
+      predicted_method: 'TKO R2',
       confidence_label: 'MEDIA',
     },
     {
@@ -98,7 +98,7 @@ const eventData: EventAnalysisData = {
       categoria_peso: 'Peso Pesado (265 lbs)',
       num_rounds: 3,
       predicted_winner: 'Tyrell Fortune',
-      predicted_method: 'Decisao Unanime',
+      predicted_method: 'TKO R1-R2',
       confidence_label: 'MEDIA',
     },
     {
@@ -107,7 +107,7 @@ const eventData: EventAnalysisData = {
       fighter2: { nome: 'Gabriella Fernandes', record: '11-3-0' },
       categoria_peso: 'Peso Mosca Feminino (125 lbs)',
       num_rounds: 3,
-      predicted_winner: 'Casey O\'Neill',
+      predicted_winner: 'Gabriella Fernandes',
       predicted_method: 'Decisao Unanime',
       confidence_label: 'MEDIA',
     },

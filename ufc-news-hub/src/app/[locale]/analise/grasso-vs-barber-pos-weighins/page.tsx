@@ -5,8 +5,8 @@ const analise: FullSingleAnalise = {
   id: 'grasso-vs-barber-pos-weighins',
   evento_id: null,
   slug: 'grasso-vs-barber-pos-weighins',
-  titulo: 'Grasso vs Barber II: Pos Weigh-Ins | Compostura vs Energia',
-  subtitulo: 'Ambas bateram o peso sem problemas. Grasso composta como sempre. Barber elétrica. As odds confirmam: Barber favorita a -180.',
+  titulo: 'Grasso vs Barber II: Pos Weigh-Ins | Perna Quebrada, Wrestling Novo e a Revanche',
+  subtitulo: 'Grasso quebrou a perna em novembro de 2024. Barber agora tem wrestling: 3 TDs e 6:20 de controle contra Karine Silva. Odds: Barber -158 a -190.',
   lutador1_id: null,
   lutador2_id: null,
   artigo_conteudo: '',
@@ -14,8 +14,8 @@ const analise: FullSingleAnalise = {
     stats: [],
     radarData: [],
     taleOfTape: {
-      fighter1: { altura: '1,63m', envergadura: '163cm', idade: 33, academia: 'Lobo Gym' },
-      fighter2: { altura: '1,68m', envergadura: '173cm', idade: 27, academia: 'Colorado' },
+      fighter1: { altura: '1,63m', envergadura: '163cm', idade: 33, academia: 'Lobo Gym, Guadalajara' },
+      fighter2: { altura: '1,68m', envergadura: '173cm', idade: 27, academia: 'High Altitude MA, Denver' },
     },
     pathsToVictory: { fighter1: [], fighter2: [] },
     dangerZones: [],
@@ -23,23 +23,24 @@ const analise: FullSingleAnalise = {
   fight_prediction: {
     predictedWinner: 'fighter2',
     predictedMethod: 'Decisao Unanime',
-    confidence: 'MEDIA',
+    confidence: 'MEDIA-ALTA',
     fighter1Scenarios: [],
     fighter2Scenarios: [],
     keyFactors: [
-      { factor: 'Momentum', edge: 'fighter2', impact: 9, description: 'Barber com 7 vitorias seguidas vs Grasso com 2 derrotas seguidas.' },
-      { factor: 'Volume de Strikes', edge: 'fighter2', impact: 7, description: 'Barber com 5.44 SLpM vs 4.49 de Grasso.' },
-      { factor: 'Experiencia de Titulo', edge: 'fighter1', impact: 6, description: 'Grasso lutou 3x pelo titulo contra Shevchenko.' },
-      { factor: 'Weigh-In Demeanor', edge: 'fighter2', impact: 5, description: 'Barber pareceu fired up e confiante. Energia de quem sabe que o momento e dela.' },
+      { factor: 'Perna Quebrada + Declinio de Striking', edge: 'fighter2', impact: 9, description: 'Grasso quebrou a perna em novembro 2024. Perdeu titulo pra Shevchenko (set 2024). Perdeu pra Natalia Silva (mai 2025) com apenas 32% de precisao. Duas derrotas seguidas + lesao grave = declinio real.' },
+      { factor: 'Wrestling Novo de Barber', edge: 'fighter2', impact: 8, description: 'Na primeira luta, Barber nao conseguiu penetrar a high guard de Grasso. Agora tem wrestling: 3 TDs, 6:20 de controle contra Karine Silva. Arma nova que muda a dinamica completamente.' },
+      { factor: 'Cardio de Altitude de Denver', edge: 'fighter2', impact: 7, description: 'Barber treina no High Altitude MA em Denver com Guilherme Faria. Record no R3: 6-2. Ela NAO cansa. Voltou de pneumonia + strep + staph (9 dias hospitalizada) e venceu.' },
+      { factor: 'Experiencia de Titulo', edge: 'fighter1', impact: 6, description: 'Grasso lutou 3x pelo titulo contra Shevchenko. Esse nivel de experiencia em championship fights e raro. A questao e se a Grasso pos-lesao ainda consegue acessar esse nivel.' },
     ],
     xFactor: {
-      title: 'A Versao 2026 de Barber',
-      description: 'Barber aos 27 nao e a mesma de 2021 aos 22. 7 vitorias seguidas, mais atletica, mais madura. Na pesagem, a energia dela era contagiante.',
+      title: 'Barber Sobreviveu Pneumonia, Strep e Staph',
+      description: 'Barber ficou 9 dias hospitalizada apos UFC 299 (pneumonia, strep, staph). 21 meses de layoff. Voltou e venceu convincentemente. A resiliencia mental e fisica e absurda. Grasso voltando de perna quebrada tem paralelo, mas Barber ja provou que volta forte.',
     },
   },
   fighter1_info: {
     nome: 'Alexa Grasso',
     record: '16-4-1',
+    ranking: '#3 Peso Mosca',
     ultimasLutas: [
       { result: 'L', opponent: 'Natalia Silva', method: 'Decisao Unanime', event: 'UFC 315' },
       { result: 'L', opponent: 'Valentina Shevchenko', method: 'Decisao Unanime', event: 'UFC 306' },
@@ -48,17 +49,19 @@ const analise: FullSingleAnalise = {
   },
   fighter2_info: {
     nome: 'Maycee Barber',
-    record: '16-3-0',
+    apelido: 'The Future',
+    record: '15-2-0',
+    ranking: '#5 Peso Mosca',
     ultimasLutas: [
-      { result: 'W', opponent: 'Karine Silva', method: 'Decisao Unanime', event: 'UFC 323' },
-      { result: 'W', opponent: 'Rose Namajunas', method: 'Decisao Unanime', event: 'UFC 317' },
-      { result: 'W', opponent: 'Amanda Ribas', method: 'TKO R2', event: 'UFC Fight Night' },
+      { result: 'W', opponent: 'Karine Silva', method: 'Decisao Unanime', event: 'UFC 314' },
+      { result: 'W', opponent: 'Amanda Ribas', method: 'TKO R2', event: 'UFC 299' },
+      { result: 'W', opponent: 'Andrea Lee', method: 'Decisao Unanime', event: 'UFC Fight Night' },
     ],
   },
   evento_nome: 'UFC Fight Night: Adesanya vs Pyfer',
   evento_data: '28 de Marco, 2026',
   evento_local: 'Climate Pledge Arena, Seattle, Washington',
-  categoria_peso: 'Peso Mosca Feminino (125 lbs)',
+  categoria_peso: 'Peso Mosca (125 lbs)',
   num_rounds: 3,
   is_titulo: false,
   broadcast: null,
@@ -71,113 +74,199 @@ const analise: FullSingleAnalise = {
       evento_nome: 'UFC Fight Night: Adesanya vs Pyfer',
       evento_data: '28 de Marco, 2026',
       evento_local: 'Climate Pledge Arena, Seattle, Washington',
-      categoria_peso: 'Peso Mosca Feminino (125 lbs)',
+      categoria_peso: 'Peso Mosca (125 lbs)',
       num_rounds: 3,
       titulo_em_jogo: null,
-      tagline: 'Pos Weigh-Ins: Compostura vs Energia',
-      tagline_sub: 'Ambas bateram o peso. Grasso composta, Barber elétrica. A revanche de 5 anos esta definida.',
+      tagline: 'A Perna Quebrada e a Lutadora Completa',
+      tagline_sub: 'Grasso volta de fratura na perna + 2 derrotas. Barber agora tem wrestling e treina em altitude. A revanche que ninguem previa.',
       fighter1: {
         nome_completo: 'Alexa Grasso',
         apelido: '',
         sobrenome: 'Grasso',
         record: '16-4-1',
-        ranking: '#3 Peso Mosca Feminino',
-        info_extra: 'Guadalajara, Mexico | 33 anos',
-        imagem_fullbody_url: 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2026-03/GRASSO_ALEXA_L_03-28.png?itok=yNu__dee',
+        ranking: '#3 Peso Mosca',
+        info_extra: 'Guadalajara, Mexico | Lobo Gym | 33 anos',
+        imagem_fullbody_url: null,
       },
       fighter2: {
         nome_completo: 'Maycee "The Future" Barber',
         apelido: 'The Future',
         sobrenome: 'Barber',
-        record: '16-3-0',
-        ranking: '#5 Peso Mosca Feminino',
-        info_extra: 'Colorado, EUA | 27 anos',
-        imagem_fullbody_url: 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-12/BARBER_MAYCEE_L_12-06.png?itok=PsAi5oK3',
+        record: '15-2-0',
+        ranking: '#5 Peso Mosca',
+        info_extra: 'Denver, CO | High Altitude MA | 27 anos',
+        imagem_fullbody_url: null,
       },
     },
 
     narrativa: {
       html_content: `
-        <!-- WEIGH-IN UPDATE -->
+        <!-- GRASSO: O DECLINIO DOCUMENTADO -->
         <div class="mb-14">
           <h3 class="font-display text-2xl md:text-3xl uppercase mb-8">
-            <span class="bg-gradient-to-r from-emerald-400 to-green-300 bg-clip-text text-transparent">Atualizacao Pos Weigh-Ins</span>
+            <span class="bg-gradient-to-r from-ufc-red to-red-400 bg-clip-text text-transparent">O Capitulo Mais Dificil de Grasso</span>
           </h3>
 
           <div class="relative rounded-2xl overflow-hidden mb-8">
-            <div class="absolute inset-0 bg-gradient-to-r from-emerald-400/10 via-emerald-400/5 to-emerald-400/10"></div>
-            <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-emerald-400 to-green-300"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-ufc-red/10 via-ufc-red/5 to-ufc-red/10"></div>
+            <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-ufc-red to-red-400"></div>
             <div class="relative p-6">
-              <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-400 mb-3">PESAGEM CONFIRMADA</p>
-              <p class="text-sm text-white/60 leading-relaxed">
-                Ambas bateram o peso sem problemas. <strong class="text-ufc-red">Grasso</strong> pesou com compostura e tranquilidade, como quem ja fez isso dezenas de vezes. A expressao era de foco profundo. <strong class="text-blue-400">Barber</strong> pesou e pareceu absolutamente elétrica: energia pura, olhar de fome, linguagem corporal de quem sabe que o momento e dela. No face off, Barber manteve o olhar fixo e sorriu. Grasso manteve a calma. Dois estilos de preparacao mental completamente diferentes.
+              <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-ufc-red mb-3">TIMELINE DE DECLINIO</p>
+              <p class="text-sm text-white/70 leading-relaxed mb-4">
+                A historia de <strong class="text-ufc-red">Grasso</strong> nos ultimos 18 meses e brutal. Setembro 2024: perdeu o titulo pra Shevchenko por decisao. Novembro 2024: postou no Instagram de bota e muletas. Perna QUEBRADA. A fratura exigiu reabilitacao significativa. Maio 2025: voltou contra Natalia Silva e perdeu novamente, com apenas 32% de precisao nos strikes. Duas derrotas seguidas mais uma lesao grave.
+              </p>
+              <p class="text-sm text-white/70 leading-relaxed">
+                Os numeros contra Natalia Silva sao preocupantes. 32% de precisao. <strong class="text-ufc-red">Grasso</strong> sempre foi uma striker tecnica, com timing preciso e contragolpes elegantes. Quando a precisao cai pra 32%, algo mudou fundamentalmente. Pode ser a confianca na perna pos-fratura. Pode ser declinio natural aos 33. Pode ser que o nivel subiu ao redor dela. Provavelmente e uma combinacao dos tres.
               </p>
             </div>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <div class="relative rounded-2xl overflow-hidden">
               <div class="absolute inset-0 bg-gradient-to-b from-ufc-red/15 to-transparent"></div>
               <div class="absolute inset-x-0 top-0 h-1 bg-ufc-red"></div>
               <div class="relative p-5">
-                <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-ufc-red mb-2">Grasso na Pesagem</p>
-                <p class="font-display text-lg text-white mb-2">COMPOSTA</p>
-                <p class="text-xs text-white/50 leading-relaxed">Sem drama. Sem bravata. Grasso pesou com a tranquilidade de quem lutou 3 vezes contra Shevchenko. A experiencia aparece na calma. Pode ser um sinal positivo de preparacao mental, ou pode refletir a falta de energia que a sequencia de derrotas trouxe.</p>
+                <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-ufc-red mb-2">Set 2024</p>
+                <p class="font-display text-lg text-white mb-2">SHEVCHENKO III</p>
+                <p class="text-xs text-white/50 leading-relaxed">Perdeu titulo por decisao. Fim da era Grasso no flyweight.</p>
+                <div class="mt-3 inline-block rounded-full bg-ufc-red/20 px-3 py-1 text-[9px] font-bold uppercase text-ufc-red">Perdeu Titulo</div>
               </div>
             </div>
             <div class="relative rounded-2xl overflow-hidden">
-              <div class="absolute inset-0 bg-gradient-to-b from-blue-400/15 to-transparent"></div>
-              <div class="absolute inset-x-0 top-0 h-1 bg-blue-400"></div>
+              <div class="absolute inset-0 bg-gradient-to-b from-amber-400/15 to-transparent"></div>
+              <div class="absolute inset-x-0 top-0 h-1 bg-amber-400"></div>
               <div class="relative p-5">
-                <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-400 mb-2">Barber na Pesagem</p>
-                <p class="font-display text-lg text-white mb-2">FIRED UP</p>
-                <p class="text-xs text-white/50 leading-relaxed">Energia pura. Barber parecia pronta pra lutar na hora da pesagem. Sorrindo, confiante, com aquele brilho no olhar de quem vem de 7 vitorias seguidas. A juventude e o momentum irradiam da linguagem corporal.</p>
+                <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-400 mb-2">Nov 2024</p>
+                <p class="font-display text-lg text-white mb-2">PERNA QUEBRADA</p>
+                <p class="text-xs text-white/50 leading-relaxed">Instagram: bota e muletas. Fratura que exigiu reabilitacao longa.</p>
+                <div class="mt-3 inline-block rounded-full bg-amber-400/20 px-3 py-1 text-[9px] font-bold uppercase text-amber-400">Lesao Grave</div>
+              </div>
+            </div>
+            <div class="relative rounded-2xl overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-b from-ufc-red/15 to-transparent"></div>
+              <div class="absolute inset-x-0 top-0 h-1 bg-ufc-red"></div>
+              <div class="relative p-5">
+                <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-ufc-red mb-2">Mai 2025</p>
+                <p class="font-display text-lg text-white mb-2">NATALIA SILVA</p>
+                <p class="text-xs text-white/50 leading-relaxed">32% precisao de strikes. Performance mais fraca da carreira.</p>
+                <div class="mt-3 inline-block rounded-full bg-ufc-red/20 px-3 py-1 text-[9px] font-bold uppercase text-ufc-red">2a Derrota</div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- NARRATIVA ORIGINAL -->
-        <h3 class="font-display text-xl uppercase text-ufc-red mb-4">Fevereiro de 2021: O Comeco</h3>
-        <p class="mb-4">
-          No UFC 258, <strong class="text-ufc-red">Alexa Grasso</strong> enfrentou uma <strong class="text-blue-400">Maycee Barber</strong> de 22 anos que ainda se recuperava de uma lesao no joelho. Grasso venceu por decisao unanime e parecia destinada a grandes coisas. Barber, com tres derrotas em quatro lutas, parecia enterrada.
-        </p>
-        <p class="mb-4">
-          Cinco anos depois, as trajetorias se inverteram de forma dramatica. Grasso subiu ao topo: venceu Shevchenko por submissao e se tornou campeao do peso-mosca em marco de 2023. Mas desde entao, a queda foi vertiginosa: empate na revanche com Shevchenko, derrota por decisao no UFC 306, e outra derrota contra Natalia Silva. A mexicana perdeu o titulo e vem de duas derrotas consecutivas.
-        </p>
-        <h3 class="font-display text-xl uppercase text-ufc-red mb-4 mt-8">Barber: A Fenix</h3>
-        <p class="mb-4">
-          <strong class="text-blue-400">Maycee Barber</strong> fez o caminho contrario. Depois de 2021, encadeou SETE vitorias consecutivas que incluem nomes como Rose Namajunas, Amanda Ribas, e Karine Silva. Aos 27 anos, Barber e uma lutadora completamente diferente: mais atletica, mais paciente, mais madura. A "Future" que parecia precoce demais em 2021 finalmente chegou ao nivel que o apelido prometia.
-        </p>
-        <p class="mb-4">
-          A pesagem confirmou a narrativa: Barber pareceu fired up e pronta. Grasso pareceu composta mas sem aquela energia extra. As trajetorias continuam invertidas.
-        </p>
+        <!-- BARBER: A EVOLUCAO -->
+        <div class="mb-14">
+          <h3 class="font-display text-2xl md:text-3xl uppercase mb-8">
+            <span class="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">A Barber 2.0: Nao E Mais So Brawler</span>
+          </h3>
+
+          <div class="relative rounded-2xl overflow-hidden mb-8">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-400/5 via-transparent to-blue-400/5"></div>
+            <div class="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-blue-400 to-blue-400/20 rounded-full"></div>
+            <div class="relative p-6 pl-8">
+              <p class="text-sm text-white/70 leading-relaxed mb-4">
+                Na primeira luta, <strong class="text-blue-400">Barber</strong> nao conseguiu penetrar a high guard de Grasso. Grasso venceu por counter-boxing elegante. A Barber de 2021 era puro power com pouca estrategia. A versao 2026 e uma lutadora COMPLETA.
+              </p>
+              <p class="text-sm text-white/70 leading-relaxed mb-4">
+                O wrestling mudou tudo. Contra Karine Silva, <strong class="text-blue-400">Barber</strong> registrou 3 takedowns e 6 minutos e 20 segundos de tempo de controle. Isso NAO existia no arsenal dela quando perdeu pra Grasso. Agora, se a high guard funcionar, Barber pode simplesmente mudar pro wrestling e dominar no chao. E uma arma que a Grasso da primeira luta nao precisou enfrentar.
+              </p>
+              <p class="text-sm text-white/70 leading-relaxed">
+                A propria Barber resume: <em class="text-white/80">"Eu nao sou uma lutadora bonita. Sou uma lutadora muito agressiva. Eu faco as coisas feias, e funciona."</em> Treina no High Altitude MA em Denver com o tecnico de striking Guilherme Faria. O treino em altitude = vantagem de cardio natural. Record no R3: 6-2. Ela NAO cansa.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- BARBER: RESILIENCIA -->
+        <div class="mb-14">
+          <h3 class="font-display text-2xl md:text-3xl uppercase mb-8">
+            <span class="bg-gradient-to-r from-amber-400 to-yellow-300 bg-clip-text text-transparent">9 Dias no Hospital e a Volta</span>
+          </h3>
+
+          <div class="relative rounded-2xl overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-400/10 via-blue-400/5 to-blue-400/10"></div>
+            <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-400 to-cyan-300"></div>
+            <div class="relative p-6">
+              <p class="text-sm text-white/70 leading-relaxed mb-4">
+                Apos o UFC 299, <strong class="text-blue-400">Barber</strong> foi hospitalizada por 9 dias com pneumonia, strep e infeccao por staph. Simultaneamente. Ficou 21 meses afastada. A maioria dos lutadores quebraria psicologicamente com tudo isso.
+              </p>
+              <p class="text-sm text-white/70 leading-relaxed">
+                Barber voltou e venceu. Convincentemente. A resiliencia nao e discurso motivacional: e historico medico documentado. Contra Grasso, que esta voltando de perna quebrada, a comparacao de retornos de lesao favorece Barber. Ambas sofreram, mas Barber ja provou que volta forte. Grasso ainda precisa provar.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- A REVANCHE -->
+        <div>
+          <h3 class="font-display text-2xl md:text-3xl uppercase mb-8">
+            <span class="bg-gradient-to-r from-emerald-400 to-green-300 bg-clip-text text-transparent">O Que Mudou Desde a Primeira Luta</span>
+          </h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="relative rounded-2xl overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-br from-ufc-red/10 to-transparent"></div>
+              <div class="absolute inset-y-0 left-0 w-1 bg-ufc-red rounded-full"></div>
+              <div class="relative p-5 pl-6">
+                <p class="text-xs font-bold uppercase tracking-wider text-ufc-red mb-2">Grasso na 1a luta</p>
+                <p class="text-sm text-white/60 leading-relaxed">High guard impenetravel. Counter-boxing preciso. Vitoria tecnica clara. Barber nao tinha resposta.</p>
+              </div>
+            </div>
+            <div class="relative rounded-2xl overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-br from-ufc-red/10 to-transparent"></div>
+              <div class="absolute inset-y-0 left-0 w-1 bg-ufc-red rounded-full"></div>
+              <div class="relative p-5 pl-6">
+                <p class="text-xs font-bold uppercase tracking-wider text-ufc-red mb-2">Grasso agora</p>
+                <p class="text-sm text-white/60 leading-relaxed">Perna quebrada (nov 2024). 2 derrotas seguidas. 32% precisao vs Natalia Silva. A versao pos-lesao e uma incognita.</p>
+              </div>
+            </div>
+            <div class="relative rounded-2xl overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-br from-blue-400/10 to-transparent"></div>
+              <div class="absolute inset-y-0 left-0 w-1 bg-blue-400 rounded-full"></div>
+              <div class="relative p-5 pl-6">
+                <p class="text-xs font-bold uppercase tracking-wider text-blue-400 mb-2">Barber na 1a luta</p>
+                <p class="text-sm text-white/60 leading-relaxed">Puro power. Sem wrestling. Nao conseguia penetrar a high guard. Previsivel e limitada.</p>
+              </div>
+            </div>
+            <div class="relative rounded-2xl overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-br from-blue-400/10 to-transparent"></div>
+              <div class="absolute inset-y-0 left-0 w-1 bg-blue-400 rounded-full"></div>
+              <div class="relative p-5 pl-6">
+                <p class="text-xs font-bold uppercase tracking-wider text-blue-400 mb-2">Barber agora</p>
+                <p class="text-sm text-white/60 leading-relaxed">Wrestling (3 TDs, 6:20 controle vs K. Silva). Treino em altitude. R3 record: 6-2. Sobreviveu pneumonia+strep+staph. Lutadora completa.</p>
+              </div>
+            </div>
+          </div>
+        </div>
       `,
       stakes: [
         { dimensao: 'Ranking', fighter1: '#3 Peso Mosca', fighter2: '#5 Peso Mosca' },
-        { dimensao: 'Sequencia', fighter1: '2 derrotas seguidas', fighter2: '7 vitorias seguidas' },
-        { dimensao: 'Objetivo', fighter1: 'Parar a queda e se manter relevante', fighter2: 'Vingar 2021 e buscar titulo' },
-        { dimensao: 'Risco', fighter1: '3a derrota seguida pode tirar do top 5', fighter2: 'Perder pra mesma adversaria 2x' },
-        { dimensao: 'Pesagem', fighter1: 'Composta e tranquila', fighter2: 'Elétrica e confiante' },
+        { dimensao: 'Sequencia', fighter1: '2 derrotas seguidas + lesao', fighter2: '7 vitorias seguidas' },
+        { dimensao: 'Evolucao', fighter1: 'Voltando de perna quebrada, precisa provar', fighter2: 'Agora tem wrestling + treino em altitude' },
+        { dimensao: 'Risco', fighter1: '3a derrota seguida pode tirar do top 5', fighter2: 'Perder revanche eliminaria da conversa de titulo' },
+        { dimensao: 'Narrativa', fighter1: 'Venceu a primeira luta. Pode vencer de novo?', fighter2: '7 seguidas + wrestling novo = lutadora completa' },
       ],
       prognostico: {
         fighter1_vence: {
-          titulo: 'A EXPERIENCIA PREVALECE',
-          subtitulo: 'Grasso usa a experiencia de titulo para frustrar Barber e virar a narrativa',
+          titulo: 'A EX-CAMPEA AINDA SABE',
+          subtitulo: 'Grasso prova que a tecnica de champion rounds contra Shevchenko nao desapareceu',
           consequencias: [
-            { tag: 'RANKING', texto: 'Grasso para a queda e se mantem no top 3, possivelmente em eliminatoria pelo titulo' },
-            { tag: 'NARRATIVA', texto: 'Prova que 2x contra Shevchenko nao destruiu a confianca' },
+            { tag: 'VALIDACAO', texto: 'Mostra que a perna esta 100% e que as 2 derrotas foram circunstanciais, nao declinio.' },
+            { tag: 'RANKING', texto: 'Se mantem no top 3 e volta a conversa de titulo.' },
+            { tag: 'PROXIMA', texto: 'Grasso vs vencedora de Shevchenko/contender pelo titulo.' },
           ],
-          proxima_luta: 'Grasso vs vencedora de uma eliminatoria pelo titulo',
+          proxima_luta: 'Grasso vs top 3 FLYW em title eliminator',
         },
         fighter2_vence: {
-          titulo: 'THE FUTURE CHEGOU',
-          subtitulo: 'Barber vinga a derrota de 2021 e consolida a sequencia de 8 vitorias',
+          titulo: 'THE FUTURE CHEGA',
+          subtitulo: 'Barber confirma que a evolucao e real e que 7 vitorias nao mentem',
           consequencias: [
-            { tag: 'TITULO', texto: 'Barber com 8 vitorias seguidas entra na conversa pelo titulo do peso-mosca' },
-            { tag: 'EVOLUCAO', texto: 'Prova que a versao 2026 de Barber e incomparavel com a de 2021' },
+            { tag: 'TITULO', texto: 'Barber se coloca na conversa imediata de title shot com 8 seguidas.' },
+            { tag: 'EVOLUCAO', texto: 'O wrestling novo + vitoria sobre ex-campea = lutadora completa confirmada.' },
+            { tag: 'PROXIMA', texto: 'Barber vs Shevchenko ou vencedora de title fight.' },
           ],
-          proxima_luta: 'Barber vs campeao ou eliminatoria pelo titulo',
+          proxima_luta: 'Barber vs Shevchenko pelo titulo ou #1 contender',
         },
       },
     },
@@ -187,144 +276,159 @@ const analise: FullSingleAnalise = {
         nome: 'Alexa Grasso',
         color: 'red',
         recent_fights: [
-          { date: 'Mai 2025', opponent: 'Natalia Silva', result: 'L', method: 'Decisao Unanime', opponent_rank: '#8 FLW', quality_score: 3, quality_label: 'Bom', note: 'Segunda derrota seguida. Grasso nao conseguiu impor o jogo e foi superada no volume.' },
-          { date: 'Set 2024', opponent: 'Valentina Shevchenko', result: 'L', method: 'Decisao Unanime', opponent_rank: 'Ex-campeao', quality_score: 5, quality_label: 'Excelente', note: 'Perdeu o titulo na trilogia. Dominada no chao por Shevchenko por quase 15 minutos.' },
-          { date: 'Set 2023', opponent: 'Valentina Shevchenko', result: 'D', method: 'Empate Dividido', opponent_rank: 'Ex-campeao', quality_score: 5, quality_label: 'Excelente', note: 'Revanche pelo titulo terminou empatada. Grasso reteve.' },
-          { date: 'Mar 2023', opponent: 'Valentina Shevchenko', result: 'W', method: 'Submissao R4 (face crank)', opponent_rank: 'Campeao', quality_score: 5, quality_label: 'Excelente', note: 'Surpreendeu o mundo com submissao sobre Shevchenko. Ganhou o titulo.' },
-        ],
-        full_fight_history: [
-          { date: 'Nov 2016', opponent: 'Heather Jo Clark', result: 'W', method: 'UD', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'Debut UFC' },
-          { date: 'Fev 2017', opponent: 'Felice Herrig', result: 'L', method: 'UD', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Primeira derrota' },
-          { date: 'Ago 2017', opponent: 'Randa Markos', result: 'W', method: 'SD', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Decisao dividida' },
-          { date: 'Mai 2018', opponent: 'Tatiana Suarez', result: 'L', method: 'Sub R1 (RNC)', opponent_rank: 'N/R', quality_score: 3, quality_label: 'Bom', note: 'Submetida pela wrestler' },
-          { date: 'Jun 2019', opponent: 'Karolina Kowalkiewicz', result: 'W', method: 'UD', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Vitoria solida' },
-          { date: 'Set 2019', opponent: 'Carla Esparza', result: 'L', method: 'MD', opponent_rank: '#5 SW', quality_score: 3, quality_label: 'Bom', note: 'Decisao majoritaria' },
-          { date: 'Ago 2020', opponent: 'Ji Yeon Kim', result: 'W', method: 'UD', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'Mudou pra flyweight' },
-          { date: 'Fev 2021', opponent: 'Maycee Barber', result: 'W', method: 'UD', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Primeira luta contra Barber' },
-          { date: 'Mar 2022', opponent: 'Joanne Wood', result: 'W', method: 'Sub R1 (RNC)', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Submissao rapida' },
-          { date: 'Out 2022', opponent: 'Viviane Araujo', result: 'W', method: 'UD', opponent_rank: '#6 FLW', quality_score: 3, quality_label: 'Bom', note: 'Ganhou shot pelo titulo' },
-          { date: 'Mar 2023', opponent: 'Valentina Shevchenko', result: 'W', method: 'Sub R4 (face crank)', opponent_rank: 'Campeao', quality_score: 5, quality_label: 'Excelente', note: 'GANHOU TITULO' },
-          { date: 'Set 2023', opponent: 'Valentina Shevchenko', result: 'D', method: 'SD (empate)', opponent_rank: 'Ex-campeao', quality_score: 5, quality_label: 'Excelente', note: 'Reteve titulo por empate' },
-          { date: 'Set 2024', opponent: 'Valentina Shevchenko', result: 'L', method: 'UD', opponent_rank: 'Ex-campeao', quality_score: 5, quality_label: 'Excelente', note: 'Perdeu titulo na trilogia' },
-          { date: 'Mai 2025', opponent: 'Natalia Silva', result: 'L', method: 'UD', opponent_rank: '#8 FLW', quality_score: 3, quality_label: 'Bom', note: 'Segunda derrota seguida' },
+          { date: 'Mai 2025', opponent: 'Natalia Silva', result: 'L', method: 'Decisao Unanime', opponent_rank: '#7 FLYW', quality_score: 3, quality_label: 'Bom', note: '32% precisao de strikes. Performance mais fraca da carreira. Pos perna quebrada (nov 2024).' },
+          { date: 'Set 2024', opponent: 'Valentina Shevchenko', result: 'L', method: 'Decisao Unanime', opponent_rank: 'Campeao', quality_score: 5, quality_label: 'Excelente', note: 'Perdeu titulo na trilogia. Competitiva mas nao o suficiente.' },
+          { date: 'Set 2023', opponent: 'Valentina Shevchenko', result: 'D', method: 'Empate Dividido', opponent_rank: 'Campeao', quality_score: 5, quality_label: 'Excelente', note: 'Empate controverso na revanche. Manteve titulo.' },
+          { date: 'Jun 2023', opponent: 'Valentina Shevchenko', result: 'W', method: 'Submissao R4', opponent_rank: 'Campeao', quality_score: 5, quality_label: 'Excelente', note: 'Conquista historica do titulo. Finalizou a dominante Shevchenko.' },
         ],
         momentum_score: 3,
-        momentum_label: 'Em Recuperacao',
+        momentum_label: 'Em Declinio',
         momentum_trend: 'descending',
-        momentum_note: 'Grasso esta em queda. Perdeu o titulo e depois perdeu pra Natalia Silva. Duas derrotas seguidas depois de ter sido campeao. Aos 33 anos, a janela esta se fechando. Na pesagem, Grasso pareceu composta, o que pode ser experiencia ou simplesmente falta da energia extra necessaria pra essa revanche.',
+        momentum_note: 'Duas derrotas seguidas mais perna quebrada em novembro 2024. A precisao de 32% contra Natalia Silva e alarmante pra uma striker tecnica. Aos 33 anos, voltando de fratura, a questao nao e se Grasso SABE lutar (ela submeteu Shevchenko), mas se o corpo ainda permite. A experiencia de titulo e real, mas a versao pos-lesao e uma incognita.',
       },
       fighter2: {
         nome: 'Maycee Barber',
         color: 'blue',
         recent_fights: [
-          { date: 'Dez 2025', opponent: 'Karine Silva', result: 'W', method: 'Decisao Unanime', opponent_rank: '#7 FLW', quality_score: 3, quality_label: 'Bom', note: 'Setima vitoria seguida. Dominou a brasileira por 3 rounds.' },
-          { date: 'Jun 2025', opponent: 'Rose Namajunas', result: 'W', method: 'Decisao Unanime', opponent_rank: '#4 FLW', quality_score: 4, quality_label: 'Muito Bom', note: 'Venceu a ex-campeao de duas divisoes. A vitoria mais impressionante da sequencia.' },
-          { date: 'Fev 2025', opponent: 'Amanda Ribas', result: 'W', method: 'TKO R2', opponent_rank: '#9 FLW', quality_score: 3, quality_label: 'Bom', note: 'Finalizou Ribas no segundo round com ground and pound.' },
-          { date: 'Out 2024', opponent: 'Taila Santos', result: 'W', method: 'Decisao Unanime', opponent_rank: '#5 FLW', quality_score: 4, quality_label: 'Muito Bom', note: 'Dominou a brasileira que ja desafiou o titulo.' },
+          { date: 'Jan 2026', opponent: 'Karine Silva', result: 'W', method: 'Decisao Unanime', opponent_rank: '#8 FLYW', quality_score: 3, quality_label: 'Bom', note: '3 TDs, 6:20 de controle. Wrestling novo. Vitoria convincente mostrando evolucao.' },
+          { date: 'Abr 2024', opponent: 'Amanda Ribas', result: 'W', method: 'TKO R2', opponent_rank: '#9 FLYW', quality_score: 3, quality_label: 'Bom', note: 'TKO antes da hospitalizacao (pneumonia/strep/staph).' },
+          { date: 'Nov 2023', opponent: 'Andrea Lee', result: 'W', method: 'Decisao Unanime', opponent_rank: '#7 FLYW', quality_score: 3, quality_label: 'Bom', note: 'Dominio por 3 rounds.' },
+          { date: 'Jul 2023', opponent: 'Erin Blanchfield', result: 'W', method: 'Decisao Unanime', opponent_rank: '#4 FLYW', quality_score: 4, quality_label: 'Muito Bom', note: 'Vitoria sobre grappler de elite. Mostrou TDD e game plan.' },
         ],
-        full_fight_history: [
-          { date: 'Nov 2018', opponent: 'Hannah Cifers', result: 'W', method: 'TKO R2', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'Debut UFC' },
-          { date: 'Mar 2019', opponent: 'JJ Aldrich', result: 'W', method: 'TKO R2', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Segunda vitoria' },
-          { date: 'Out 2019', opponent: 'Gillian Robertson', result: 'W', method: 'TKO R1', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'R1 finish' },
-          { date: 'Jan 2020', opponent: 'Roxanne Modafferi', result: 'L', method: 'UD', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Upset. Lesao no joelho durante a luta.' },
-          { date: 'Fev 2021', opponent: 'Alexa Grasso', result: 'L', method: 'UD', opponent_rank: 'N/R', quality_score: 3, quality_label: 'Bom', note: 'Segunda derrota seguida. Vindo de lesao.' },
-          { date: 'Jul 2021', opponent: 'Miranda Maverick', result: 'W', method: 'SD', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Comeco da sequencia de vitorias' },
-          { date: 'Abr 2022', opponent: 'Montana De La Rosa', result: 'W', method: 'UD', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Controle por 3 rounds' },
-          { date: 'Jul 2022', opponent: 'Jessica Eye', result: 'W', method: 'UD', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Terceira seguida' },
-          { date: 'Mar 2023', opponent: 'Andrea Lee', result: 'W', method: 'SD', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Decisao dividida apertada' },
-          { date: 'Jun 2023', opponent: 'Amanda Ribas', result: 'W', method: 'TKO R2', opponent_rank: '#9 FLW', quality_score: 3, quality_label: 'Bom', note: 'Finalizacao por strikes' },
-          { date: 'Mar 2024', opponent: 'Katlyn Cerminara', result: 'W', method: 'UD', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'Decisao unanime' },
-          { date: 'Out 2024', opponent: 'Taila Santos', result: 'W', method: 'UD', opponent_rank: '#5 FLW', quality_score: 4, quality_label: 'Muito Bom', note: 'Ex-desafiante ao titulo' },
-          { date: 'Jun 2025', opponent: 'Rose Namajunas', result: 'W', method: 'UD', opponent_rank: '#4 FLW', quality_score: 4, quality_label: 'Muito Bom', note: 'Ex-campeao dupla' },
-          { date: 'Dez 2025', opponent: 'Karine Silva', result: 'W', method: 'UD', opponent_rank: '#7 FLW', quality_score: 3, quality_label: 'Bom', note: '7a vitoria seguida' },
-        ],
-        momentum_score: 9,
+        momentum_score: 8,
         momentum_label: 'Em Alta',
         momentum_trend: 'ascending',
-        momentum_note: 'Barber esta em ascensao meteoritica. 7 vitorias seguidas contra oponentes de qualidade crescente. Na pesagem, a energia e a confianca eram visiveis. Barber sabe que esse e o momento dela.',
+        momentum_note: 'Sete vitorias seguidas. Sobreviveu pneumonia, strep e staph (9 dias hospitalizada). 21 meses de layoff e voltou vencendo. Agora com wrestling (3 TDs, 6:20 controle vs Karine Silva). Treino em altitude em Denver. Record no R3: 6-2. A evolucao de brawler pra lutadora completa e documentada.',
       },
     },
 
     nivel_competicao: {
-      fighter1: { nome: 'Grasso', media_oponentes: 4, media_oponentes_label: 'Muito Bom', aproveitamento: '8-4-1 (62%)', contra_top5: '1W-2L-1D' },
-      fighter2: { nome: 'Barber', media_oponentes: 3, media_oponentes_label: 'Bom', aproveitamento: '9-3 (75%)', contra_top5: '3W-1L' },
+      fighter1: {
+        nome: 'Grasso',
+        media_oponentes: 4,
+        media_oponentes_label: 'Muito Bom',
+        aproveitamento: '4W-2L-1D (57%)',
+        contra_top5: '1W-2L-1D',
+      },
+      fighter2: {
+        nome: 'Barber',
+        media_oponentes: 3,
+        media_oponentes_label: 'Bom',
+        aproveitamento: '7W-0L (100%)',
+        contra_top5: '1W-0L',
+      },
       oponentes_em_comum_count: { fighter1: 0, fighter2: 0 },
-      oponentes_em_comum_note: 'Sem oponentes em comum recentes significativos. Grasso enfrentou Shevchenko 3 vezes (elite absoluta). Barber enfrentou Namajunas e Santos (top 5). Grasso tem experiencia contra oponentes de nivel mais alto mas vem de resultados piores.',
+      oponentes_em_comum_note: 'Sem oponentes em comum alem da propria luta entre elas. Grasso lutou no nivel de campeonato (3x Shevchenko). Barber construiu a sequencia contra oposicao ranqueada consistente (Blanchfield #4, Lee #7, Silva #8). O nivel de oposicao de Grasso e mais alto, mas o momento atual e MUITO pior.',
     },
 
     oponente_comum: null,
 
     comparacao_estatistica: {
       stats: [
-        { label: 'Sig. Strikes por Minuto', valueA: 4.49, valueB: 5.44, maxVal: 7, format: 'decimal', note: 'Barber tem volume significativamente maior' },
-        { label: 'Precisao de Strikes (%)', valueA: 43, valueB: 47, maxVal: 100, format: 'percent' },
-        { label: 'Strikes Absorvidos/Min', valueA: 3.80, valueB: 4.20, maxVal: 6, format: 'decimal', reverseWinner: true },
-        { label: 'Defesa de Strikes (%)', valueA: 55, valueB: 52, maxVal: 100, format: 'percent' },
-        { label: 'Takedowns por 15 Min', valueA: 0.50, valueB: 1.80, maxVal: 4, format: 'decimal' },
-        { label: 'Defesa de Takedown (%)', valueA: 72, valueB: 65, maxVal: 100, format: 'percent' },
+        { label: 'Sig. Strikes por Minuto', valueA: 4.49, valueB: 5.44, maxVal: 8, format: 'decimal', note: 'Barber com volume MUITO maior. Mais agressiva e constante.' },
+        { label: 'Precisao de Strikes (%)', valueA: 43, valueB: 42, maxVal: 100, format: 'percent', note: 'Similar, mas Grasso caiu pra 32% contra Natalia Silva. Tendencia preocupante.' },
+        { label: 'Strikes Absorvidos/Min', valueA: 3.80, valueB: 4.20, maxVal: 6, format: 'decimal', reverseWinner: true, note: 'Ambas absorvem bastante. Luta de striking vai ter volume.' },
+        { label: 'Defesa de Strikes (%)', valueA: 52, valueB: 55, maxVal: 100, format: 'percent', note: 'Barber com leve vantagem defensiva. Melhoria recente.' },
+        { label: 'Takedowns por 15 Min', valueA: 0.50, valueB: 1.80, maxVal: 4, format: 'decimal', note: 'Barber com wrestling NOVO. 3 TDs vs Karine Silva. Arma que nao existia na 1a luta.' },
+        { label: 'Defesa de Takedown (%)', valueA: 72, valueB: 74, maxVal: 100, format: 'percent', note: 'Similar. Ambas defendem bem.' },
       ],
       tale_of_tape: [
-        { label: 'Idade', fighter1: '33 anos', fighter2: '27 anos', note: 'Barber 6 anos mais nova' },
-        { label: 'Altura', fighter1: '1,63m', fighter2: '1,68m', note: 'Barber 5cm mais alta' },
-        { label: 'Envergadura', fighter1: '163cm', fighter2: '173cm', note: 'Barber com 10cm a mais' },
-        { label: 'Stance', fighter1: 'Ortodoxa', fighter2: 'Ortodoxa', note: null },
-        { label: 'Academia', fighter1: 'Lobo Gym, Guadalajara', fighter2: 'Colorado', note: null },
+        { label: 'Idade', fighter1: '33 anos', fighter2: '27 anos', note: '6 anos de diferenca. Barber no auge fisico.' },
+        { label: 'Altura', fighter1: '1,63m (5\'4")', fighter2: '1,68m (5\'6")', note: 'Barber 5cm mais alta.' },
+        { label: 'Envergadura', fighter1: '163cm (64")', fighter2: '173cm (68")', note: 'Barber com 4 polegadas de reach a mais. Vantagem significativa.' },
+        { label: 'Stance', fighter1: 'Ortodoxa', fighter2: 'Ortodoxa', note: 'Ambas ortodoxas. Matchup de poder vs tecnica.' },
+        { label: 'Academia', fighter1: 'Lobo Gym, Guadalajara', fighter2: 'High Altitude MA, Denver', note: 'Barber treina em altitude com Guilherme Faria = vantagem de cardio.' },
+        { label: 'Lesao Recente', fighter1: 'Perna quebrada (nov 2024)', fighter2: 'Pneumonia/strep/staph (2024, recuperada)', note: 'Ambas voltaram de problemas serios. Barber ja provou retorno.' },
       ],
     },
 
     perfil_habilidades: {
       skills: [
-        { label: 'Striking Tecnico', valueA: 75, valueB: 72, labelA: 'Bom', labelB: 'Bom', advantage: 'even', advantage_note: 'Grasso e mais tecnica com combinacoes. Barber e mais atletica com volume. Estilos diferentes mas nivel similar.' },
-        { label: 'Poder de Nocaute', valueA: 55, valueB: 68, labelA: 'Bom', labelB: 'Bom', advantage: 'fighter2', advantage_note: 'Barber tem 44% KO rate e nocauteou Ribas. Grasso raramente finaliza (56% decisao).' },
-        { label: 'Wrestling', valueA: 55, valueB: 70, labelA: 'Bom', labelB: 'Bom', advantage: 'fighter2', advantage_note: 'Barber media 1.80 TDs/15min. Mais agressiva no grappling ofensivo.' },
-        { label: 'Jiu-Jitsu', valueA: 72, valueB: 55, labelA: 'Bom', labelB: 'Bom', advantage: 'fighter1', advantage_note: 'Grasso submeteu SHEVCHENKO. Tem jiu-jitsu perigoso quando chega ao chao.' },
-        { label: 'Cardio e Ritmo', valueA: 70, valueB: 78, labelA: 'Bom', labelB: 'Muito Bom', advantage: 'fighter2', advantage_note: 'Barber mantem volume alto por 3 rounds. Aos 27, o atletismo e superior.' },
-        { label: 'Experiencia de Elite', valueA: 82, valueB: 65, labelA: 'Muito Bom', labelB: 'Bom', advantage: 'fighter1', advantage_note: '3 lutas contra Shevchenko. Grasso lutou no nivel mais alto possivel da divisao.' },
+        { label: 'Striking Tecnico', valueA: 78, valueB: 72, labelA: 'Muito Bom', labelB: 'Bom', advantage: 'fighter1', advantage_note: 'Grasso e mais tecnica: counter-boxing, timing, angulos. Mas a precisao caiu pra 32% vs Natalia Silva. A perna quebrada pode ter afetado a base. Se a Grasso de 2023 aparecer, a tecnica ainda e superior. Se for a de 2025, nao.' },
+        { label: 'Poder de Nocaute', valueA: 55, valueB: 68, labelA: 'Bom', labelB: 'Bom', advantage: 'fighter2', advantage_note: 'Barber bate mais pesado. TKO em Amanda Ribas. Mais volume e mais agressividade. "Eu faco as coisas feias, e funciona." Grasso raramente machuca adversarias com um unico golpe.' },
+        { label: 'Wrestling', valueA: 48, valueB: 68, labelA: 'Medio', labelB: 'Bom', advantage: 'fighter2', advantage_note: 'A MAIOR mudanca desde a 1a luta. Barber agora com 3 TDs e 6:20 controle vs Karine Silva. Na 1a luta, nao conseguia penetrar a high guard. Agora tem plano B: se o striking nao funcionar, derruba.' },
+        { label: 'Cardio e Gas', valueA: 65, valueB: 82, labelA: 'Bom', labelB: 'Muito Bom', advantage: 'fighter2', advantage_note: 'Barber treina em altitude em Denver. Record no R3: 6-2. Ela NAO cansa. Grasso voltando de perna quebrada com cardio desconhecido. A altitude da uma vantagem natural e consistente.' },
+        { label: 'Fight IQ e Experiencia', valueA: 82, valueB: 68, labelA: 'Muito Bom', labelB: 'Bom', advantage: 'fighter1', advantage_note: 'Grasso lutou 3x contra Shevchenko pelo titulo. Submeteu a GOAT do flyweight. O IQ de championship fight e real. A questao e se a versao pos-lesao ainda acessa esse nivel.' },
+        { label: 'Resiliencia e Retorno', valueA: 62, valueB: 85, labelA: 'Bom', labelB: 'Excelente', advantage: 'fighter2', advantage_note: 'Barber: pneumonia + strep + staph, 9 dias hospital, 21 meses layoff, voltou e venceu. O historico de retorno e mais forte e mais recente que o de Grasso.' },
       ],
+      insight: 'A Barber 2026 e uma lutadora fundamentalmente diferente da que perdeu pra Grasso. O wrestling muda a dinamica completamente. Grasso voltando de perna quebrada com 32% de precisao no ultimo fight e uma red flag seria. A experiencia de titulo e a unica vantagem clara de Grasso, mas se o corpo nao permitir, nao importa.',
     },
 
     distribuicao_vitorias: {
-      fighter1: { nome: 'Grasso', ko_tko: { count: 3, percent: 19 }, submission: { count: 4, percent: 25 }, decision: { count: 9, percent: 56 }, total_wins: 16 },
-      fighter2: { nome: 'Barber', ko_tko: { count: 7, percent: 44 }, submission: { count: 2, percent: 12 }, decision: { count: 7, percent: 44 }, total_wins: 16 },
-      insight: 'Perfis diferentes. Grasso e mais de decisao (56%) com submissoes perigosas (25%). Barber e equilibrada entre KO (44%) e decisao (44%). A pesagem nao muda esse perfil: espere uma luta de 3 rounds que provavelmente vai pros juizes.',
+      fighter1: {
+        nome: 'Grasso',
+        ko_tko: { count: 3, percent: 19 },
+        submission: { count: 3, percent: 19 },
+        decision: { count: 10, percent: 62 },
+        total_wins: 16,
+      },
+      fighter2: {
+        nome: 'Barber',
+        ko_tko: { count: 7, percent: 47 },
+        submission: { count: 1, percent: 7 },
+        decision: { count: 7, percent: 46 },
+        total_wins: 15,
+      },
+      insight: 'Grasso e lutadora de decisao (62%). Barber e mais finalizadora (47% KO/TKO). Se Barber dominar, pode buscar TKO. Se Grasso controlar o ritmo como na 1a luta, vai pros juizes. A diferenca e que Barber agora tem plano B (wrestling) e Grasso pode nao ter a mesma tecnica pos-fratura.',
     },
 
     danger_zones: {
       zones: [
-        { rounds: 'R1', danger_level: 6, danger_label: 'VANTAGEM BARBER', color: 'green', title: 'Energia e Explosao', description: 'Barber pareceu fired up na pesagem. No R1, a diferenca de juventude e explosividade e mais evidente. Se Barber pressionar com volume, Grasso vai precisar ser inteligente pra nao ficar pra tras nos cartoes.' },
-        { rounds: 'R2', danger_level: 5, danger_label: 'EQUILIBRADO', color: 'gold', title: 'Adaptacao', description: 'Grasso tende a melhorar conforme a luta avanca. A experiencia de lutas de 5 rounds contra Shevchenko da compostura. Se Grasso encontrar o ritmo e comecar a conectar combinacoes, o R2 pode equilibrar.' },
-        { rounds: 'R3', danger_level: 5, danger_label: 'VANTAGEM BARBER', color: 'green', title: 'Decisao nos Cartoes', description: 'Se Barber venceu os primeiros 2 rounds com volume, o R3 e dela. Grasso precisaria de uma finalizacao pra virar. Mas se Grasso estiver competitiva, o R3 vira um round decisivo nos cartoes.' },
+        {
+          rounds: 'R1',
+          danger_level: 5,
+          danger_label: 'EQUILIBRADO',
+          color: 'gold',
+          title: 'Teste da Perna e do Plano',
+          description: 'O R1 define tudo. Se Grasso conseguir estabelecer a high guard e o counter-boxing como na 1a luta, a tecnica pode prevalecer. Se Barber impuser pressao e wrestling cedo, Grasso precisa mostrar que a perna aguenta. Os primeiros 2 minutos sao diagnostico: a base esta firme? Os pivots sao explosivos? Se nao, Barber vai sentir.',
+        },
+        {
+          rounds: 'R2',
+          danger_level: 6,
+          danger_label: 'VANTAGEM BARBER',
+          color: 'green',
+          title: 'O Wrestling Entra',
+          description: 'Se o striking foi equilibrado no R1, Barber vai mudar pro wrestling no R2. 3 TDs e 6:20 de controle contra Karine Silva nao foram acidente. A high guard de Grasso protegia contra socos, nao contra takedowns. E uma adaptacao inteligente que a Grasso da 1a luta nao precisou enfrentar.',
+        },
+        {
+          rounds: 'R3',
+          danger_level: 7,
+          danger_label: 'VANTAGEM BARBER',
+          color: 'green',
+          title: 'Altitude vs Perna Quebrada',
+          description: 'Barber treina em altitude. Record no R3: 6-2. Grasso voltando de perna quebrada com cardio desconhecido. Se chegar ao R3 equilibrado, a vantagem de condicionamento de Barber provavelmente decide. A perna pos-fratura vai reclamar no minuto 12-15.',
+        },
       ],
     },
 
     intangiveis: {
       items: [
-        { icon: 'TrendingUp', title: '7 Vitorias Seguidas', fighter: 'Barber', risk_level: 'ENORME POSITIVO', risk_color: 'green', description: 'Barber vem de 7 vitorias consecutivas com qualidade crescente. Na pesagem, a confianca era visivel.' },
-        { icon: 'Zap', title: 'Energia na Pesagem', fighter: 'Barber', risk_level: 'POSITIVO', risk_color: 'green', description: 'Barber pareceu elétrica e fired up na pesagem. A energia de quem sabe que o momento e dela. Isso pode se traduzir em volume alto desde o R1.' },
-        { icon: 'Brain', title: 'Experiencia de Titulo', fighter: 'Grasso', risk_level: 'POSITIVO', risk_color: 'green', description: 'Grasso lutou 3x contra Shevchenko pelo titulo. Essa experiencia em lutas de altissimo nivel e um ativo que Barber nao tem.' },
-        { icon: 'Shield', title: 'Compostura na Pesagem', fighter: 'Grasso', risk_level: 'POSITIVO', risk_color: 'green', description: 'Grasso pesou com calma e compostura. Pode indicar preparacao mental solida ou simplesmente a experiencia de quem ja fez isso muitas vezes.' },
-        { icon: 'Zap', title: 'Jiu-Jitsu de Grasso', fighter: 'Grasso', risk_level: 'POSITIVO', risk_color: 'green', description: 'Grasso submeteu Valentina Shevchenko. Se a luta for ao chao, Grasso e perigosa. Barber precisa evitar o chao.' },
-        { icon: 'AlertTriangle', title: '2 Derrotas Seguidas', fighter: 'Grasso', risk_level: 'RISCO MEDIO', risk_color: 'yellow', description: 'Grasso vem de 2 derrotas. A confianca pode estar abalada. Perder pra terceira vez seguida seria devastador pra carreira.' },
+        { icon: 'AlertTriangle', title: 'Perna Quebrada (Novembro 2024)', fighter: 'Grasso', risk_level: 'RISCO ALTO', risk_color: 'red', description: 'Fratura na perna documentada no Instagram (bota e muletas). Voltou e perdeu com 32% de precisao. A base de uma striker depende da perna. Se nao esta 100%, o counter-boxing que venceu a 1a luta nao funciona.' },
+        { icon: 'TrendingUp', title: 'Wrestling Novo de Barber', fighter: 'Barber', risk_level: 'ENORME POSITIVO', risk_color: 'green', description: '3 TDs, 6:20 de controle contra Karine Silva. Arma que NAO existia na primeira luta. Se a high guard funcionar, Barber derruba. Se nao, bate. Duas opcoes agora, nao uma.' },
+        { icon: 'Activity', title: 'Treino em Altitude (Denver)', fighter: 'Barber', risk_level: 'POSITIVO', risk_color: 'green', description: 'High Altitude MA em Denver com Guilherme Faria. Altitude = vantagem de cardio natural. Record no R3: 6-2. Barber NAO cansa.' },
+        { icon: 'Shield', title: 'Sobreviveu Pneumonia + Strep + Staph', fighter: 'Barber', risk_level: 'POSITIVO', risk_color: 'green', description: '9 dias hospitalizada. 21 meses de layoff. Voltou e venceu convincentemente. A resiliencia mental e fisica e documentada.' },
+        { icon: 'Brain', title: 'Experiencia de Titulo (3x Shevchenko)', fighter: 'Grasso', risk_level: 'POSITIVO', risk_color: 'green', description: 'Submeteu Shevchenko. Lutou 3x pelo titulo. Esse nivel de experiencia e raro no flyweight feminino. Se a Grasso de 2023 aparecer, a tecnica ainda e elite.' },
+        { icon: 'TrendingUp', title: '32% Precisao vs Natalia Silva', fighter: 'Grasso', risk_level: 'RISCO ALTO', risk_color: 'red', description: 'A pior precisao da carreira. Pode ser efeito da perna quebrada na base. Pode ser declinio. De qualquer forma, e red flag seria pra uma striker tecnica.' },
       ],
     },
 
     caminhos_vitoria: {
       fighter1: {
         nome: 'Grasso',
-        total_probability: 38,
+        total_probability: 35,
         scenarios: [
-          { name: 'Submissao Oportunista', probability: 14, method: 'Submissao R2-R3', description: 'Grasso encontra uma abertura no chao e aplica uma submissao. Ela ja provou que pode submeter qualquer uma com o face crank em Shevchenko.' },
-          { name: 'Tecnica e Experiencia', probability: 14, method: 'Decisao Unanime', description: 'Grasso usa a experiencia pra controlar o ritmo, conectar combinacoes precisas e frustrar o volume de Barber.' },
-          { name: 'Contragolpe Perfeito', probability: 10, method: 'KO/TKO R2-R3', description: 'Barber entra com volume e Grasso encontra o timing pra um contragolpe limpo que machuca.' },
+          { name: 'Counter-Boxing da 1a Luta', probability: 18, method: 'Decisao Unanime', description: 'Grasso reestabelece a high guard e o counter-boxing que venceram a primeira luta. A tecnica de championship rounds contra Shevchenko aparece. Barber nao consegue penetrar nem com wrestling (Grasso com 72% TDD). Vitoria nos pontos.' },
+          { name: 'Submissao no Scramble', probability: 10, method: 'Submissao R2-R3', description: 'Se Barber for pro chao, Grasso pode pegar uma submissao no scramble. Submeteu Shevchenko, que e uma das melhores grapplers do flyweight. O jiu-jitsu e real.' },
+          { name: 'KO de Counter Preciso', probability: 7, method: 'KO/TKO R1-R2', description: 'Barber entra agressiva demais (como prometeu) e Grasso acerta um counter preciso. Menos provavel dada a queda de precisao, mas a tecnica nao desaparece completamente.' },
         ],
       },
       fighter2: {
         nome: 'Barber',
-        total_probability: 60,
+        total_probability: 63,
         scenarios: [
-          { name: 'Volume e Atletismo', probability: 32, method: 'Decisao Unanime', description: 'Barber usa o volume superior (5.44 SLpM) e o atletismo pra pressionar Grasso por 3 rounds. A energia da pesagem se traduz em atividade nos cartoes.' },
-          { name: 'TKO por Acumulo', probability: 16, method: 'TKO R2-R3', description: 'Barber acumula dano com strikes e o volume eventualmente forca a interrupcao.' },
-          { name: 'Ground and Pound', probability: 12, method: 'TKO R2', description: 'Barber leva ao chao e domina com ground and pound, como fez contra Ribas.' },
+          { name: 'Pressao + Wrestling = Dominio', probability: 30, method: 'Decisao Unanime', description: 'Barber usa volume de strikes pra pressionar e mistura wrestling quando a high guard funciona. 3 TDs + controle no chao + cardio de altitude = dominio por 3 rounds. O game plan completo.' },
+          { name: 'TKO por Volume e Pressao', probability: 18, method: 'TKO R2-R3', description: 'Barber machuca Grasso com volume constante. A perna pos-fratura nao permite pivots defensivos. O arbitro para quando Grasso nao consegue mais se defender. Similar ao que aconteceu vs Ribas.' },
+          { name: 'Ground and Pound', probability: 15, method: 'TKO R2-R3', description: 'Barber derruba Grasso (wrestling novo) e domina com ground and pound. Se a base de Grasso esta comprometida pela fratura, o TDD de 72% pode ser menor na pratica.' },
         ],
       },
     },
@@ -333,63 +437,83 @@ const analise: FullSingleAnalise = {
       winner_name: 'Maycee Barber',
       winner_side: 'fighter2',
       predicted_method: 'Decisao Unanime',
-      confidence_score: 6,
-      confidence_label: 'MEDIA',
-      explanation: 'A pesagem confirmou a narrativa sem grandes surpresas. Barber pareceu fired up e confiante, Grasso pareceu composta e calma. As trajetorias continuam falando mais alto: Barber com 7 vitorias e pico atletico aos 27, Grasso com 2 derrotas aos 33. As odds se mantiveram em Barber -180. A previsao nao muda: Barber por decisao com volume e atletismo. Mas Grasso por sub continua sendo a arma secreta.',
+      confidence_score: 7,
+      confidence_label: 'MEDIA-ALTA',
+      explanation: 'A Barber de 2026 e uma lutadora fundamentalmente diferente da que perdeu pra Grasso. O wrestling (3 TDs, 6:20 controle vs Karine Silva) muda a dinamica por completo. Na primeira luta, Barber nao conseguia penetrar a high guard. Agora tem plano B: se a high guard funcionar, derruba. Se nao, bate. Enquanto isso, Grasso esta voltando de perna quebrada (novembro 2024) com 32% de precisao no ultimo fight. A base de uma striker depende da perna. Se nao esta 100%, o counter-boxing que venceu a 1a luta simplesmente nao funciona. Barber treina em altitude, record no R3 e 6-2, sobreviveu pneumonia/strep/staph. A resiliencia e documentada. A confianca e MEDIA-ALTA porque a unica duvida e se Grasso de championship rounds contra Shevchenko ainda existe. Se essa versao aparecer, os 35% dela sao reais. Mas os dados recentes nao apoiam esse cenario.',
       x_factor: {
-        title: 'O Jiu-Jitsu de Grasso',
-        description: 'Grasso submeteu SHEVCHENKO. Se a luta for ao chao por qualquer razao, Grasso e letal. Barber precisa manter em pe a todo custo.',
+        title: 'Grasso a +150 e Debativel',
+        description: 'Grasso venceu a primeira luta. Submeteu Shevchenko. A experiencia de titulo e real. A +150, se voce acredita que a perna esta curada e que a Grasso de 2023 pode aparecer, e uma aposta de valor. Mas os 32% de precisao vs Natalia Silva sao um dado que nao pode ser ignorado.',
       },
       upset_alert: {
-        title: 'Grasso Ja Venceu Essa Luta',
-        description: 'Em 2021, Grasso dominou Barber por decisao. A experiencia da primeira luta e um fator que pode dar a Grasso leituras sobre o estilo de Barber, mesmo que Barber tenha evoluido muito.',
+        title: 'A Grasso de 2023 Pode Aparecer',
+        description: 'Grasso submeteu a GOAT do flyweight. Se a versao de championship rounds aparecer, com a perna 100%, a experiencia de titulo pode ser demais pra Barber. A tecnica nao desaparece. Mas o corpo precisa cooperar.',
       },
       probabilities: {
-        fighter1: { nome: 'Grasso', percent: 38 },
-        fighter2: { nome: 'Barber', percent: 60 },
+        fighter1: { nome: 'Grasso', percent: 35 },
+        fighter2: { nome: 'Barber', percent: 63 },
         draw: 2,
       },
       value_picks: {
-        moneyline: { pick: 'Barber (-180)', reasoning: 'Barber e favorita justificada com 7 vitorias seguidas, pesagem confiante, contra Grasso vindo de 2 derrotas. Preco justo a -180.' },
-        method: { pick: 'Vai para Decisao (-150)', reasoning: 'Grasso tende a lutas de decisao (56% das vitorias). Barber ganhou 4 das ultimas 5 por decisao. Probabilidade alta de ir aos juizes.' },
-        over_under: { pick: 'Over 2.5 Rounds', rounds: 2.5, reasoning: 'Ambas tem experiencia em lutas que vao a distancia. Finalizacao precoce e improvavel. Ambas pareceram bem na pesagem.' },
-        best_value: 'Over 2.5 rounds continua sendo a aposta mais segura. A pesagem nao mudou o perfil da luta.',
+        moneyline: { pick: 'Barber ML (-158 a -190)', reasoning: 'A -170 media, Barber e favorita justificada. Wrestling novo + altitude + resiliencia + 7 vitorias seguidas. O preco e justo, nao e pechincha.' },
+        method: { pick: 'Barber por Decisao (-110)', reasoning: 'O cenario mais provavel: pressao + wrestling + cardio = dominio por 3 rounds. Barber nao precisa finalizar. So precisa ser mais completa, o que ela e agora.' },
+        over_under: { pick: 'Under 2.5 Rounds (+200)', rounds: 2.5, reasoning: 'Se a perna de Grasso nao aguenta, pode acabar antes. TKO R2-R3 e cenario real. +200 paga bem por um cenario possivel.' },
+        best_value: 'Grasso a +150 e a aposta mais interessante do ponto de vista de valor, SE voce acredita que a perna esta 100% e que a versao 2023 pode aparecer. E um IF grande. Se nao acredita, Barber por Decisao e a aposta mais logica do co-main.',
       },
     },
 
     o_que_observar: {
       points: [
-        { num: 1, title: 'A Energia de Barber no R1', icon: 'Activity', description: 'Barber pareceu fired up na pesagem. Observe se essa energia se traduz em volume alto desde os primeiros segundos. Se sim, Grasso vai ficar pra tras nos cartoes cedo.' },
-        { num: 2, title: 'O Jiu-Jitsu de Grasso', icon: 'Target', description: 'Grasso submeteu Shevchenko. Se a luta for ao chao, Grasso e perigosa. Observe se ela busca clinch ou takedowns pra usar o grappling.' },
-        { num: 3, title: 'A Compostura de Grasso Sob Pressao', icon: 'Brain', description: 'Grasso pareceu composta na pesagem. Se manter essa calma sob a pressao de Barber, pode encontrar aberturas. Se a compostura virar passividade, perde nos cartoes.' },
-        { num: 4, title: 'Ajustes da Revanche', icon: 'Shield', description: 'Ambas lutaram em 2021. Grasso venceu. Observe quais ajustes Barber fez: mais wrestling? Mais pressao? Diferente stance? A evolucao em 5 anos e a narrativa.' },
-        { num: 5, title: 'O Cardio no R3', icon: 'Clock', description: 'Se a luta estiver apertada indo pro R3, observe quem tem mais gas. Barber aos 27 deveria ter vantagem atletica.' },
+        { num: 1, title: 'A Base de Grasso nos Primeiros 60 Segundos', icon: 'Activity', description: 'A perna quebrada afeta a base. Observe se Grasso consegue pivotar, trocar de direcao, e plantar pra contragolpear como na 1a luta. Se os pivots parecerem lentos ou hesitantes, a fratura ainda esta afetando. Se parecerem fluidos, a recuperacao foi completa.' },
+        { num: 2, title: 'Barber Tenta Takedown Cedo?', icon: 'Target', description: 'Na 1a luta, Barber foi puro striking. Se ela tentar takedown nos primeiros 3 minutos, confirma a evolucao e o novo game plan. 3 TDs vs Karine Silva mostram que o wrestling e real. Observe a reacao de Grasso ao nível de mudar.' },
+        { num: 3, title: 'A High Guard de Grasso Funciona?', icon: 'Shield', description: 'A high guard de Grasso foi impenetravel na 1a luta. Se Barber conseguir penetrar agora (com mais potencia e angulos), a dinamica mudou. Se a high guard funcionar, Barber precisa do wrestling.' },
+        { num: 4, title: 'Volume de Grasso no R2', icon: 'Zap', description: 'Se Grasso estiver ativa e precisa no R2, a perna esta funcionando. Se o volume cair, a fadiga da perna pos-fratura esta aparecendo. Contra a Barber de altitude (R3 record 6-2), queda de volume no R2 e sentenca.' },
+        { num: 5, title: 'A Agressividade de Barber', icon: 'Brain', description: '"Eu nao sou uma lutadora bonita. Eu faco as coisas feias." Se Barber estiver controlada e paciente no R1, o game plan e disciplinado. Se vier agressiva demais desde o inicio, pode abrir espaco pra counter-boxing de Grasso.' },
       ],
     },
 
     creator_kit: {
       instagram: [
-        { slide_number: 1, title: 'POS WEIGH-INS', content: 'GRASSO vs BARBER II\nPOS PESAGEM\n\nGrasso: composta, calma\nBarber: fired up, elétrica\n\nOdds: Barber -180 / Grasso +150\nAmbas bateram o peso.', color: 'gold' },
-        { slide_number: 2, title: 'PREVISAO MANTIDA', content: 'BARBER por Decisao Unanime\n\nConfianca: MEDIA\n60% Barber / 38% Grasso\n\nA pesagem confirmou:\nBarber com energia, Grasso composta.\nAs trajetorias nao mentem.\n\nMelhor aposta: Over 2.5 Rounds', color: 'blue' },
+        { slide_number: 1, title: 'A REVANCHE', content: 'GRASSO vs BARBER II\nPOS WEIGH-INS\n\nGrasso: perna QUEBRADA (nov 2024)\n+ 2 derrotas seguidas\n+ 32% precisao vs Natalia Silva\n\nBarber: 7 vitorias seguidas\n+ wrestling NOVO (3 TDs, 6:20 controle)\n+ treino em altitude\n+ sobreviveu pneumonia/strep/staph\n\nA revanche que ninguem previa.', color: 'gold' },
+        { slide_number: 2, title: 'O QUE MUDOU', content: 'BARBER 2021:\nPuro power. Sem wrestling.\nNao penetrava a high guard.\n\nBARBER 2026:\n3 TDs e 6:20 controle vs K. Silva\nTreino em altitude (Denver)\nR3 record: 6-2\nSobreviveu pneumonia+strep+staph\n\nLutadora COMPLETA agora.', color: 'blue' },
+        { slide_number: 3, title: 'PREVISAO', content: 'BARBER por Decisao\nConfianca: MEDIA-ALTA (7/10)\n63% Barber / 35% Grasso\n\nGrasso +150: valor SE a perna esta ok\nBarber Decisao: aposta mais logica\n\nA perna de Grasso decide TUDO.', color: 'red' },
       ],
       twitter: [
-        { num: '1/3', text: 'POS WEIGH-INS: Grasso vs Barber II. Ambas bateram o peso. Grasso composta e calma. Barber fired up e elétrica. A energia da pesagem confirmou as trajetorias: Barber no pico, Grasso em recuperacao.' },
-        { num: '2/3', text: 'Odds se mantiveram: Barber -180, Grasso +150. A pesagem nao mudou nada drasticamente. Previsao se mantem: Barber por decisao com volume. Mas Grasso por sub continua sendo o wildcard.' },
-        { num: '3/3', text: 'Melhor aposta pos weigh-ins: Over 2.5 rounds. Ambas pareceram bem fisicamente. Luta de decisao. Barber pelo volume, Grasso pela experiencia. Vai aos juizes.' },
+        { num: '1/4', text: 'POS WEIGH-INS: Grasso vs Barber II. Grasso: perna QUEBRADA (nov 2024) + 2 derrotas + 32% precisao no ultimo fight. Barber: 7 seguidas + wrestling NOVO + altitude. Thread:' },
+        { num: '2/4', text: 'A MUDANCA: Na 1a luta, Barber nao penetrava a high guard. Agora tem 3 TDs e 6:20 controle vs Karine Silva. Se a high guard funcionar, Barber derruba. Se nao, bate. Duas opcoes. Treina em altitude em Denver. R3 record: 6-2.' },
+        { num: '3/4', text: 'GRASSO: Perna quebrada nov 2024 (Instagram: bota e muletas). Voltou com 32% precisao vs Natalia Silva. A base depende da perna. Se nao esta 100%, o counter-boxing que venceu a 1a luta nao funciona.' },
+        { num: '4/4', text: 'Pick: Barber por Decisao. Confianca MEDIA-ALTA. 63% Barber. Grasso a +150 e valor SE a perna esta ok, mas os dados nao apoiam. Barber Decisao e a aposta mais logica do co-main.' },
       ],
       video: [
-        { time: '0-10s', title: 'Hook', text: 'Grasso vs Barber II: ambas bateram o peso. Grasso composta. Barber elétrica. A pesagem confirmou tudo.' },
-        { time: '10-25s', title: 'Pesagem', text: 'Grasso pesou com a calma de quem lutou 3x contra Shevchenko. Barber pareceu pronta pra lutar na hora. A energia e a confianca eram visiveis. Odds: Barber -180, Grasso +150.' },
-        { time: '25-35s', title: 'Previsao', text: 'Previsao se mantem: Barber por decisao. Compostura vs energia. Volume vs experiencia. Over 2.5 rounds e a aposta.' },
+        { time: '0-10s', title: 'Hook', text: 'Grasso quebrou a perna em novembro de 2024. Barber agora tem wrestling. A revanche que ninguem previa.' },
+        { time: '10-30s', title: 'Grasso', text: 'Perna quebrada. 2 derrotas seguidas. 32% precisao no ultimo fight. A base de uma striker depende da perna. Se nao esta 100%, o counter-boxing que venceu a 1a luta nao funciona.' },
+        { time: '30-50s', title: 'Barber', text: '7 seguidas. 3 TDs e 6:20 controle vs Karine Silva. Wrestling NOVO. Treino em altitude. R3 record 6-2. Sobreviveu pneumonia, strep e staph. 9 dias no hospital. Voltou e venceu. Lutadora completa.' },
+        { time: '50-65s', title: 'Previsao', text: 'Barber por Decisao. Confianca MEDIA-ALTA. Grasso a +150 so tem valor se a perna esta 100%. Os dados dizem que nao.' },
+        { time: '65-75s', title: 'CTA', text: 'Voce acredita na Grasso de 2023? Comenta e segue.' },
       ],
       tiktok: [
-        { hook: 'Na pesagem, uma pesou com CALMA e a outra com FOGO.', body: 'Grasso: composta, tranquila, experiencia de quem lutou 3x contra Shevchenko. Barber: elétrica, fired up, energia de quem vem de 7 VITORIAS SEGUIDAS. As trajetorias continuam invertidas. Barber favorita a -180. Previsao: Barber por decisao. Mas Grasso SUBMETEU Shevchenko. Se a luta for ao chao, qualquer coisa acontece.', cta: 'Compostura ou energia? Comenta!' },
+        { hook: 'Grasso QUEBROU a perna e agora enfrenta uma Barber que tem arma NOVA.', body: 'Perna quebrada novembro 2024. 32% precisao no ultimo fight. Do outro lado: Barber com 7 seguidas, wrestling novo (3 TDs vs Karine Silva), treino em altitude, sobreviveu pneumonia. A mesma lutadora que perdeu a 1a luta? Nao. A Barber 2026 e completa.', cta: 'Grasso consegue ou e Barber dominando? Comenta!' },
       ],
       headlines: [
-        'Pos Weigh-Ins: Grasso Composta, Barber Elétrica na Pesagem',
-        'Grasso vs Barber II: Pesagem Confirma As Trajetorias Invertidas',
-        'Barber -180 Pos Pesagem: A Energia e o Volume Sao Demais?',
-        'O Jiu-Jitsu de Grasso Continua Sendo a Arma Secreta da Revanche',
+        'Perna Quebrada vs Wrestling Novo: Por Que Grasso vs Barber II E Diferente',
+        'Barber 2026: 3 TDs, Altitude, e a Arma Que Nao Existia na 1a Luta',
+        '32% Precisao: O Numero Que Preocupa Sobre Grasso Pos-Fratura',
+        'A Barber Que Sobreviveu Pneumonia, Strep e Staph E a Mesma Que Vai Vingar a Derrota',
+      ],
+      podcast: [
+        {
+          timestamp: '0:00-7:00',
+          title: 'O Declinio Documentado de Grasso e a Evolucao de Barber',
+          talking_points: [
+            'Grasso: perna quebrada nov 2024, perdeu titulo pra Shevchenko, perdeu pra Natalia Silva com 32% precisao. Timeline de declinio.',
+            'Barber: wrestling NOVO (3 TDs, 6:20 vs Karine Silva). Arma que nao existia na 1a luta. Treino altitude Denver. R3 record 6-2.',
+            'Barber sobreviveu pneumonia + strep + staph (9 dias hospital). 21 meses layoff. Voltou vencendo. Resiliencia documentada.',
+            'Pick: Barber por Decisao. Grasso +150 so vale se voce acredita na versao 2023.',
+          ],
+          discussion_questions: [
+            'A Grasso que submeteu Shevchenko ainda existe?',
+            'O wrestling de Barber e real ou foi so contra Karine Silva?',
+          ],
+        },
       ],
     },
 
@@ -397,26 +521,26 @@ const analise: FullSingleAnalise = {
 
     radar_apostador: {
       odds: {
-        fighter1_odds: '+150',
-        fighter2_odds: '-180',
+        fighter1_odds: '+124 a +160',
+        fighter2_odds: '-158 a -190',
         fighter1_name: 'Alexa Grasso',
         fighter2_name: 'Maycee Barber',
-        source: 'Media de casas de apostas pos weigh-ins (marco 2026)',
+        source: 'Range de DraftKings, FanDuel e BetMGM (marco 2026)',
       },
       edges: [
-        { icon: 'TrendingUp', titulo: 'Momentum e Energia de Barber', stat_headline: '7 VITORIAS SEGUIDAS + PESAGEM FIRED UP', contexto: 'Barber pareceu elétrica na pesagem. A energia confirma o momentum de 7 vitorias seguidas.', implicacao_aposta: 'Favorece Barber. O momentum e a confianca sao reais e visiveis.', edge_level: 'forte', fighter_side: 'fighter2' },
-        { icon: 'Activity', titulo: 'Volume de Strikes', stat_headline: 'BARBER 5.44 SLpM VS GRASSO 4.49 SLpM', contexto: 'Barber tem volume significativamente maior. Em lutas de 3 rounds, volume ganha nos cartoes.', implicacao_aposta: 'Favorece Barber por decisao.', edge_level: 'moderado', fighter_side: 'fighter2' },
-        { icon: 'Zap', titulo: 'Jiu-Jitsu de Grasso', stat_headline: 'SUBMETEU VALENTINA SHEVCHENKO NO R4', contexto: 'Grasso tem jiu-jitsu genuinamente perigoso. Se a luta for ao chao, qualquer coisa pode acontecer.', implicacao_aposta: 'Grasso por sub a +500 tem valor como longshot.', edge_level: 'moderado', fighter_side: 'fighter1' },
-        { icon: 'Brain', titulo: 'Compostura de Grasso', stat_headline: 'COMPOSTA E CALMA NA PESAGEM', contexto: 'Grasso pesou com tranquilidade. Pode ser experiencia ou pode ser falta de energia. Ambiguo.', implicacao_aposta: 'Nao muda as odds significativamente.', edge_level: 'leve', fighter_side: 'fighter1' },
+        { icon: 'AlertTriangle', titulo: 'Perna Quebrada + Queda de Precisao', stat_headline: 'GRASSO: 32% PRECISAO VS NATALIA SILVA. PERNA QUEBRADA NOV 2024.', contexto: 'A base de uma striker depende da perna. Fratura + 32% precisao no retorno = sinais claros de que algo mudou. Pode ser temporario, pode ser permanente.', implicacao_aposta: 'Desfavorece Grasso em qualquer prop de striking. Favorece Under rounds se a perna nao aguenta.', edge_level: 'forte', fighter_side: 'fighter2' },
+        { icon: 'TrendingUp', titulo: 'Wrestling Novo de Barber', stat_headline: '3 TDs E 6:20 DE CONTROLE VS KARINE SILVA. ARMA QUE NAO EXISTIA NA 1A LUTA.', contexto: 'Na primeira luta, Barber perdeu porque nao conseguia penetrar a high guard. Agora tem plano B: wrestling. Se a high guard funcionar, derruba. Se nao, bate.', implicacao_aposta: 'Barber por Decisao e o cenario mais provavel. A versatilidade da opcoes.', edge_level: 'forte', fighter_side: 'fighter2' },
+        { icon: 'Activity', titulo: 'Altitude + R3 Record 6-2', stat_headline: 'BARBER TREINA EM ALTITUDE EM DENVER. R3 RECORD: 6-2. NAO CANSA.', contexto: 'High Altitude MA com Guilherme Faria. A vantagem de cardio e natural e consistente. Contra Grasso voltando de perna quebrada, o R3 favorece Barber claramente.', implicacao_aposta: 'Se a luta for equilibrada ate o R3, Barber leva. Favorece Barber em qualquer prop que envolva rounds tardios.', edge_level: 'moderado', fighter_side: 'fighter2' },
+        { icon: 'Brain', titulo: 'Grasso a +150: Valor Real?', stat_headline: 'GRASSO VENCEU A 1A LUTA. SUBMETEU SHEVCHENKO. EXPERIENCIA DE TITULO REAL.', contexto: 'A +150, Grasso tem valor SE a perna esta 100%. A experiencia de titulo (3x Shevchenko) e rara. Mas os dados recentes (32% precisao, 2 derrotas) nao apoiam.', implicacao_aposta: 'So aposte em Grasso se voce acredita que a versao 2023 pode aparecer. E um IF grande. A +150, o mercado esta precificando ~40% Grasso, o que e razoavel.', edge_level: 'leve', fighter_side: 'fighter1' },
       ],
       value_picks: [
-        { tipo: 'Over/Under', pick: 'Over 2.5 Rounds', odds: '-180', confianca: 'alta', raciocinio: 'Grasso tem 56% das vitorias por decisao. Barber ganhou 4 das ultimas 5 por decisao. Ambas pareceram bem na pesagem. Vai a distancia.' },
-        { tipo: 'Moneyline', pick: 'Barber (-180)', odds: '-180', confianca: 'media', raciocinio: 'Favorita justificada. Pesagem confirmou a narrativa. Preco justo.' },
-        { tipo: 'Metodo', pick: 'Grasso por Submissao', odds: '+500', confianca: 'baixa', edge_vs_mercado: 'Longshot com valor. Grasso submeteu Shevchenko. Se a luta for ao chao, a possibilidade e real.', raciocinio: 'Aposta de risco/recompensa. Se Grasso encontrar o back ou um scramble, o jiu-jitsu pode decidir.' },
+        { tipo: 'Metodo', pick: 'Barber por Decisao', odds: '-110', confianca: 'alta', raciocinio: 'O cenario mais logico. Pressao + wrestling + cardio = dominio por 3 rounds. Barber nao precisa finalizar. 7 de 15 vitorias por decisao. Wrestling novo garante controle.' },
+        { tipo: 'Moneyline', pick: 'Grasso ML (+150)', odds: '+150', confianca: 'baixa', edge_vs_mercado: 'Grasso venceu a 1a luta. Submeteu Shevchenko. A +150, se a perna esta ok, e valor. Mas "se a perna esta ok" e um IF gigante.', raciocinio: 'Aposta de convicao. Voce precisa acreditar que a Grasso de 2023 ainda existe. Os dados recentes dizem que nao, mas experiencia de titulo e dificil de quantificar.' },
+        { tipo: 'Prop', pick: 'Fight nao vai a Decisao (+180)', odds: '+180', confianca: 'baixa', raciocinio: 'Se a perna de Grasso nao aguenta, TKO de Barber e possivel. Se Barber for derrubada, submissao de Grasso (submeteu Shevchenko) e possivel. Cenarios de finish existem dos dois lados.' },
       ],
       armadilha: {
-        titulo: 'Armadilha: Barber por KO',
-        descricao: 'Barber tem 44% KO rate mas suas ultimas 4 vitorias foram por decisao. No nivel UFC, ela nao esta finalizando. Apostar em Barber por KO e ir contra o padrao recente, mesmo com a energia da pesagem.',
+        titulo: 'Armadilha: Barber por KO/TKO R1 (+450)',
+        descricao: 'Barber nao e nocauteadora de R1. E uma fighter de volume e pressao. O TKO de Ribas foi no R2 apos acumulo de dano. Esperar nocaute rapido de Barber e ignorar o estilo dela. A vitoria mais provavel e por decisao com wrestling e cardio, nao por finish explosivo.',
       },
       disclaimer: 'Analise pos weigh-ins para fins informativos. Aposte com responsabilidade.',
     },

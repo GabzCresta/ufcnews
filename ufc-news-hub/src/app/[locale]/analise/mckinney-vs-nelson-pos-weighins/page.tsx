@@ -5,8 +5,8 @@ const analise: FullSingleAnalise = {
   id: 'mckinney-vs-nelson-pos-weighins',
   evento_id: null,
   slug: 'mckinney-vs-nelson-pos-weighins',
-  titulo: 'McKinney vs Nelson: Pos Weigh-Ins | Wired vs Calmo',
-  subtitulo: 'McKinney wired e explosivo na pesagem. Nelson calmo e tranquilo. Ambos bateram 155. A bomba-relogio esta armada.',
+  titulo: 'McKinney vs Nelson: Pos Weigh-Ins | 77 Segundos de Media e a Promessa de Paciencia',
+  subtitulo: 'McKinney tem 77 segundos de media por luta na carreira. ZERO lutas foram ao R3 em 12 UFC bouts. Mas prometeu ser MAIS PACIENTE. Nelson quer frustrar e "picar ele ate o final."',
   lutador1_id: null,
   lutador2_id: null,
   artigo_conteudo: '',
@@ -14,8 +14,8 @@ const analise: FullSingleAnalise = {
     stats: [],
     radarData: [],
     taleOfTape: {
-      fighter1: { altura: '1,78m', envergadura: '183cm', idade: 31, academia: 'Xtreme Couture' },
-      fighter2: { altura: '1,78m', envergadura: '183cm', idade: 34, academia: 'Canada' },
+      fighter1: { altura: '1,78m', envergadura: '185cm', idade: 29, academia: 'Spokane, WA' },
+      fighter2: { altura: '1,80m', envergadura: '183cm', idade: 30, academia: 'Team Alpha Male' },
     },
     pathsToVictory: { fighter1: [], fighter2: [] },
     dangerZones: [],
@@ -23,35 +23,39 @@ const analise: FullSingleAnalise = {
   fight_prediction: {
     predictedWinner: 'fighter1',
     predictedMethod: 'KO/TKO R1',
-    confidence: 'MEDIA',
+    confidence: 'MEDIA-ALTA',
     fighter1Scenarios: [],
     fighter2Scenarios: [],
     keyFactors: [
-      { factor: '100% Finish Rate', edge: 'fighter1', impact: 9, description: '25 lutas, 25 finalizacoes. McKinney NUNCA foi a decisao.' },
-      { factor: 'Velocidade', edge: 'fighter1', impact: 8, description: 'McKinney wired na pesagem. Explosividade parece intacta.' },
-      { factor: 'Compostura de Nelson', edge: 'fighter2', impact: 6, description: 'Nelson calmo e tranquilo. Sabe o que precisa fazer: sobreviver o R1.' },
+      { factor: 'Tempo Medio de Luta: 77 Segundos', edge: 'fighter1', impact: 9, description: 'McKinney tem 77 segundos de media na carreira e 2:25 no UFC. ZERO de 12 lutas UFC foram ao R3. E a bomba-relogio mais literal do MMA.' },
+      { factor: 'Como Favorito: 6-1', edge: 'fighter1', impact: 8, description: 'McKinney como favorito e 6-1. Como underdog e 1-4. Ele performa MUITO melhor quando e o favorito. A -170 a -185, esta no territorio ideal dele.' },
+      { factor: 'Nelson Contra-Estrategia', edge: 'fighter2', impact: 7, description: 'Nelson: "Ele vai ficar frustrado que nao vai conseguir acertar os power shots, e eu vou picar ele ate o final. Quanto mais a luta dura, mais eu pico ele." O plano e inteligente, mas executar contra McKinney e outra historia.' },
+      { factor: 'McKinney Prometeu Paciencia', edge: 'fighter1', impact: 6, description: '"Eu nao posso sair louco se machucar ele porque ele tem poder tambem. Ouvir meus coaches. Seguir o game plan." Se for verdade, McKinney paciente + explosivo e uma versao mais perigosa.' },
     ],
     xFactor: {
-      title: 'McKinney Wired na Pesagem',
-      description: 'McKinney pareceu wired e explosivo como sempre na pesagem. Pulando, mexendo, incapaz de ficar parado. A energia e real. Mas sera que e foco ou ansiedade?',
+      title: 'Nelson Mudou Pra Lightweight Permanentemente',
+      description: 'Nelson veio dos 145 lbs porque o corte de peso estava "desnutrindo" ele. Aos 155, diz estar mais saudavel e mais forte. A questao e se esse corpo saudavel aguenta o poder de McKinney.',
     },
   },
   fighter1_info: {
     nome: 'Terrance McKinney',
-    record: '17-8-0',
+    apelido: 'T.Wrecks',
+    record: '16-7-0',
+    ranking: 'Sem ranking',
     ultimasLutas: [
-      { result: 'L', opponent: 'Chris Duncan', method: 'Sub R1 (anaconda choke)', event: 'UFC 323' },
-      { result: 'W', opponent: 'Viacheslav Borshchev', method: 'Sub R1 (guilhotina, 0:55)', event: 'UFC 317' },
-      { result: 'W', opponent: 'Damir Hadzovic', method: 'TKO R1 (ground and pound)', event: 'UFC Fight Night 250' },
+      { result: 'W', opponent: 'Brendon Marotte', method: 'KO R1', event: 'UFC Fight Night' },
+      { result: 'L', opponent: 'Benoit Saint-Denis', method: 'Sub R1', event: 'UFC Fight Night' },
+      { result: 'W', opponent: 'Mike Davis', method: 'TKO R1', event: 'UFC Fight Night' },
     ],
   },
   fighter2_info: {
-    nome: 'Kyle Nelson',
-    record: '17-6-1',
+    nome: 'Chepe Nelson',
+    record: '14-5-0',
+    ranking: 'Sem ranking',
     ultimasLutas: [
-      { result: 'W', opponent: 'Matt Frevola', method: 'Decisao Unanime', event: 'UFC Vancouver' },
-      { result: 'L', opponent: 'Steve Garcia', method: 'Decisao Unanime', event: 'UFC Fight Night' },
-      { result: 'W', opponent: 'Bill Algeo', method: 'TKO R1', event: 'UFC Fight Night' },
+      { result: 'W', opponent: 'Lucas Alexander', method: 'Decisao Unanime', event: 'UFC Fight Night' },
+      { result: 'L', opponent: 'Daniel Zellhuber', method: 'Decisao Unanime', event: 'UFC Fight Night' },
+      { result: 'W', opponent: 'Bill Algeo', method: 'Decisao Unanime', event: 'UFC Fight Night' },
     ],
   },
   evento_nome: 'UFC Fight Night: Adesanya vs Pyfer',
@@ -73,101 +77,142 @@ const analise: FullSingleAnalise = {
       categoria_peso: 'Peso Leve (155 lbs)',
       num_rounds: 3,
       titulo_em_jogo: null,
-      tagline: 'Pos Weigh-Ins: Wired vs Calmo',
-      tagline_sub: 'McKinney pulando e mexendo. Nelson tranquilo e composto. Ambos em 155. A bomba-relogio continua armada.',
+      tagline: 'A Bomba-Relogio vs O Plano de Frustracao',
+      tagline_sub: '77 segundos de media. Zero lutas no R3 em 12 UFC. McKinney prometeu paciencia. Nelson quer "picar ate o final." Under 1.5 rds: -270.',
       fighter1: {
         nome_completo: 'Terrance "T.Wrecks" McKinney',
         apelido: 'T.Wrecks',
         sobrenome: 'McKinney',
-        record: '17-8-0',
-        ranking: 'N/R Peso Leve',
-        info_extra: 'Portland, Oregon | 31 anos',
-        imagem_fullbody_url: 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2026-03/MCKINNEY_TERRANCE_L_03-28.png?itok=IKsyYwXy',
+        record: '16-7-0',
+        ranking: 'Sem ranking',
+        info_extra: 'Spokane, WA | Mentorando por Chiesa | 29 anos',
+        imagem_fullbody_url: null,
       },
       fighter2: {
-        nome_completo: 'Kyle "The Monster" Nelson',
-        apelido: 'The Monster',
+        nome_completo: 'Chepe Nelson',
+        apelido: '',
         sobrenome: 'Nelson',
-        record: '17-6-1',
-        ranking: 'N/R Peso Leve',
-        info_extra: 'Huntsville, Ontario, Canada | 34 anos',
-        imagem_fullbody_url: 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-10/NELSON_KYLE_L_10-18.png?itok=K1REGeZG',
+        record: '14-5-0',
+        ranking: 'Sem ranking',
+        info_extra: 'Team Alpha Male | Mudou pra 155 permanentemente | 30 anos',
+        imagem_fullbody_url: null,
       },
     },
 
     narrativa: {
       html_content: `
+        <!-- 77 SEGUNDOS -->
         <div class="mb-14">
           <h3 class="font-display text-2xl md:text-3xl uppercase mb-8">
-            <span class="bg-gradient-to-r from-emerald-400 to-green-300 bg-clip-text text-transparent">Atualizacao Pos Weigh-Ins</span>
+            <span class="bg-gradient-to-r from-ufc-red to-red-400 bg-clip-text text-transparent">77 Segundos: O Numero Que Define McKinney</span>
           </h3>
 
           <div class="relative rounded-2xl overflow-hidden mb-8">
-            <div class="absolute inset-0 bg-gradient-to-r from-emerald-400/10 via-emerald-400/5 to-emerald-400/10"></div>
-            <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-emerald-400 to-green-300"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-ufc-red/10 via-ufc-red/5 to-ufc-red/10"></div>
+            <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-ufc-red to-red-400"></div>
             <div class="relative p-6">
-              <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-400 mb-3">PESAGEM CONFIRMADA</p>
-              <p class="text-sm text-white/60 leading-relaxed">
-                Ambos bateram 155 sem problemas. <strong class="text-ufc-red">McKinney</strong> estava WIRED na pesagem: pulando, mexendo, incapaz de ficar parado. A energia explosiva que ja e marca registrada dele estava no maximo. Parecia pronto pra lutar ali mesmo. <strong class="text-blue-400">Nelson</strong> pesou com calma total. Tranquilo, composto, sem show. A expressao de quem sabe exatamente o que precisa fazer: sobreviver os primeiros 2 minutos. O contraste entre os dois na pesagem e a previa perfeita do que vai acontecer no cage.
+              <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-ufc-red mb-3">A BOMBA-RELOGIO</p>
+              <div class="grid grid-cols-3 gap-4 mb-6">
+                <div class="text-center">
+                  <p class="font-display text-4xl text-ufc-red">77s</p>
+                  <p class="text-[10px] text-white/40 mt-1">Media carreira</p>
+                </div>
+                <div class="text-center">
+                  <p class="font-display text-4xl text-ufc-red">2:25</p>
+                  <p class="text-[10px] text-white/40 mt-1">Media UFC</p>
+                </div>
+                <div class="text-center">
+                  <p class="font-display text-4xl text-ufc-red">0</p>
+                  <p class="text-[10px] text-white/40 mt-1">Lutas no R3 (de 12)</p>
+                </div>
+              </div>
+              <p class="text-sm text-white/70 leading-relaxed mb-4">
+                <strong class="text-ufc-red">Terrance McKinney</strong> nao e um lutador convencional. Ele e uma bomba-relogio. 77 segundos de media por luta na carreira inteira. 2 minutos e 25 segundos no UFC. ZERO de 12 lutas no UFC foram ao R3. Nenhuma. Quando McKinney entra no octogono, a luta acaba rapido. Pra ele ou contra ele.
+              </p>
+              <p class="text-sm text-white/70 leading-relaxed">
+                Mas McKinney prometeu algo diferente nesse camp: <em class="text-white/80">"Eu nao posso sair louco se machucar ele porque ele tem poder tambem. Ouvir meus coaches e seguir o game plan. Nao apressar."</em> Se for verdade, McKinney paciente + explosivo e uma versao MAIS perigosa. Mas McKinney ja prometeu paciencia antes. A pergunta e se a disciplina dura mais de 77 segundos.
               </p>
             </div>
           </div>
+        </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+        <!-- NELSON: O PLANO -->
+        <div class="mb-14">
+          <h3 class="font-display text-2xl md:text-3xl uppercase mb-8">
+            <span class="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">O Plano de Nelson: Frustrar e Picar</span>
+          </h3>
+
+          <div class="relative rounded-2xl overflow-hidden mb-8">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-400/5 via-transparent to-blue-400/5"></div>
+            <div class="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-blue-400 to-blue-400/20 rounded-full"></div>
+            <div class="relative p-6 pl-8">
+              <p class="text-sm text-white/70 leading-relaxed mb-4">
+                <strong class="text-blue-400">Nelson</strong> sabe exatamente o que precisa fazer: <em class="text-white/80">"Ele vai ficar frustrado que nao vai conseguir acertar os power shots, e eu vou picar ele ate o final. Quanto mais a luta dura, mais eu pico ele."</em>
+              </p>
+              <p class="text-sm text-white/70 leading-relaxed mb-4">
+                O plano e inteligente e especifico. Nelson quer sobreviver a explosao inicial, frustrar McKinney, e dominar com volume e tecnica nos rounds tardios. McKinney como underdog e 1-4. Quando e frustrado, perde. Nelson entende a fraqueza e tem um plano pra explora-la.
+              </p>
+              <p class="text-sm text-white/70 leading-relaxed">
+                Nelson mudou pra 155 permanentemente porque o corte pra 145 estava "desnutrindo" ele. No novo peso, diz estar mais saudavel e mais forte. O corpo maior pode ajudar a absorver o poder de McKinney. Mas absorver o poder de McKinney e outra historia.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- McKINNEY COMO FAVORITO -->
+        <div>
+          <h3 class="font-display text-2xl md:text-3xl uppercase mb-8">
+            <span class="bg-gradient-to-r from-emerald-400 to-green-300 bg-clip-text text-transparent">6-1 Como Favorito. 1-4 Como Underdog.</span>
+          </h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="relative rounded-2xl overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-b from-emerald-400/15 to-transparent"></div>
+              <div class="absolute inset-x-0 top-0 h-1 bg-emerald-400"></div>
+              <div class="relative p-5">
+                <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-400 mb-2">Como Favorito</p>
+                <p class="font-display text-4xl text-white mb-2">6-1</p>
+                <p class="text-xs text-white/50 leading-relaxed">Quando McKinney e favorito, ele domina. A confianca e a agressao calibrada funcionam. A -170 a -185, esta no territorio ideal.</p>
+              </div>
+            </div>
             <div class="relative rounded-2xl overflow-hidden">
               <div class="absolute inset-0 bg-gradient-to-b from-ufc-red/15 to-transparent"></div>
               <div class="absolute inset-x-0 top-0 h-1 bg-ufc-red"></div>
               <div class="relative p-5">
-                <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-ufc-red mb-2">McKinney na Pesagem</p>
-                <p class="font-display text-lg text-white mb-2">WIRED</p>
-                <p class="text-xs text-white/50 leading-relaxed">Pulando, mexendo, energia no maximo. McKinney e assim: explosivo ate na balanca. Bom sinal pra explosividade no R1. Mas pode ser excesso de adrenalina que gasta gas rapido.</p>
+                <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-ufc-red mb-2">Como Underdog</p>
+                <p class="font-display text-4xl text-white mb-2">1-4</p>
+                <p class="text-xs text-white/50 leading-relaxed">Quando e underdog, McKinney fica ansioso. Apresa, toma decisoes ruins, e nocauteado ou submetido. A mentalidade depende do papel.</p>
               </div>
             </div>
-            <div class="relative rounded-2xl overflow-hidden">
-              <div class="absolute inset-0 bg-gradient-to-b from-blue-400/15 to-transparent"></div>
-              <div class="absolute inset-x-0 top-0 h-1 bg-blue-400"></div>
-              <div class="relative p-5">
-                <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-400 mb-2">Nelson na Pesagem</p>
-                <p class="font-display text-lg text-white mb-2">CALMO</p>
-                <p class="text-xs text-white/50 leading-relaxed">Tranquilo e composto. Sem showmanship, sem bravata. A calma de quem venceu 4 de 5 e sabe que precisa sobreviver o R1 pra vencer. A compostura e o melhor sinal possivel pro plano de jogo de Nelson.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="mb-14">
-          <h3 class="font-display text-2xl md:text-3xl uppercase mb-8">
-            <span class="bg-gradient-to-r from-ufc-red to-red-400 bg-clip-text text-transparent">25 Lutas. 25 Finishes. Zero Scorecards.</span>
-          </h3>
-
-          <div class="text-center mb-8">
-            <p class="font-display text-6xl md:text-7xl bg-gradient-to-b from-ufc-red/50 to-ufc-red/15 bg-clip-text text-transparent leading-none">100%</p>
-            <p class="text-xs text-white/40 mt-2">Taxa de finalizacao na carreira</p>
-            <p class="text-sm text-white/50 mt-1">McKinney wired na pesagem confirma: a bomba-relogio esta armada.</p>
           </div>
         </div>
       `,
       stakes: [
-        { dimensao: 'Estilo', fighter1: '100% finish rate, explosivo, WIRED', fighter2: 'Consistente, duro, CALMO' },
-        { dimensao: 'Sequencia', fighter1: 'Vem de derrota (sub R1 Duncan)', fighter2: '4 de 5 recentes' },
-        { dimensao: 'Pesagem', fighter1: 'Pulando e mexendo, energia maxima', fighter2: 'Tranquilo e composto' },
+        { dimensao: 'Estilo', fighter1: 'Bomba-relogio: 77 seg media', fighter2: 'Counter-fighter: quer frustrar e picar' },
+        { dimensao: 'Registro', fighter1: '6-1 como favorito, 1-4 como underdog', fighter2: 'Decisoes. Luta longa e o territorio dele.' },
+        { dimensao: 'Promessa', fighter1: '"Vou ser mais paciente. Ouvir coaches."', fighter2: '"Quanto mais dura, mais eu pico ele."' },
+        { dimensao: 'Peso', fighter1: 'Sempre no 155', fighter2: 'Mudou de 145 pra 155. Mais saudavel agora.' },
+        { dimensao: 'Conexao', fighter1: 'Mentorando por Chiesa (tambem no card)', fighter2: 'Team Alpha Male' },
       ],
       prognostico: {
         fighter1_vence: {
-          titulo: 'T.WRECKS DESTROE',
-          subtitulo: 'McKinney nocauteia ou submete Nelson no R1 com a explosividade que mostrou na pesagem',
+          titulo: 'T.WRECKS EXPLODE',
+          subtitulo: 'McKinney faz o que sempre faz: acaba rapido',
           consequencias: [
-            { tag: 'DESTAQUE', texto: 'Mais um finish rapido. Potencial bonus POTN.' },
+            { tag: 'PADRAO', texto: 'Mais uma finalizacao precoce. Sequencia mantida: zero lutas no R3.' },
+            { tag: 'BONUS', texto: 'Forte candidato a Performance of the Night se o KO for espetacular.' },
+            { tag: 'PROXIMA', texto: 'McKinney vs opponent ranqueado no peso leve.' },
           ],
-          proxima_luta: 'McKinney vs oponente ranqueado',
+          proxima_luta: 'McKinney vs top 15 LW',
         },
         fighter2_vence: {
-          titulo: 'O CANADENSE SOBREVIVE',
-          subtitulo: 'Nelson resiste a explosao e capitaliza quando McKinney cansa',
+          titulo: 'O PLANO FUNCIONOU',
+          subtitulo: 'Nelson frustrou McKinney e provou que a bomba-relogio tem prazo de validade',
           consequencias: [
-            { tag: 'CREDIBILIDADE', texto: 'Nelson prova que calma e dureza vencem explosividade.' },
+            { tag: 'VALIDACAO', texto: 'Nelson prova que mudar pra 155 foi a decisao certa. Corpo saudavel = desempenho melhor.' },
+            { tag: 'PROXIMA', texto: 'Nelson vs opponent mais bem ranqueado no 155.' },
           ],
-          proxima_luta: 'Nelson vs top 20',
+          proxima_luta: 'Nelson vs top 20 LW',
         },
       },
     },
@@ -177,120 +222,157 @@ const analise: FullSingleAnalise = {
         nome: 'Terrance McKinney',
         color: 'red',
         recent_fights: [
-          { date: 'Dez 2025', opponent: 'Chris Duncan', result: 'L', method: 'Sub R1 (anaconda choke, 2:30)', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Submetido no R1.' },
-          { date: 'Jun 2025', opponent: 'Viacheslav Borshchev', result: 'W', method: 'Sub R1 (guilhotina, 0:55)', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'Guilhotina em 55 segundos.' },
-          { date: 'Fev 2025', opponent: 'Damir Hadzovic', result: 'W', method: 'TKO R1 (ground and pound)', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'Ground and pound no R1.' },
-        ],
-        full_fight_history: [
-          { date: 'Jun 2021', opponent: 'Matt Frevola', result: 'W', method: 'KO R1 (0:07)', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Debut UFC. KO mais rapido da historia do peso-leve.' },
-          { date: 'Fev 2022', opponent: 'Fares Ziam', result: 'W', method: 'Sub R1 (RNC, 2:11)', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'Mata-leao' },
-          { date: 'Mar 2022', opponent: 'Drew Dober', result: 'L', method: 'TKO R1', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Short notice' },
-          { date: 'Mai 2024', opponent: 'Esteban Ribovics', result: 'L', method: 'KO R1 (head kick)', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Nocauteado por chute' },
+          { date: 'Out 2025', opponent: 'Brendon Marotte', result: 'W', method: 'KO R1', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'KO rapido. Padrao McKinney.' },
+          { date: 'Jun 2025', opponent: 'Benoit Saint-Denis', result: 'L', method: 'Sub R1', opponent_rank: '#12 LW', quality_score: 3, quality_label: 'Bom', note: 'Apressou, foi submetido. Padrao como underdog.' },
+          { date: 'Mar 2025', opponent: 'Mike Davis', result: 'W', method: 'TKO R1', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'TKO R1. Dominio.' },
+          { date: 'Nov 2024', opponent: 'Ismael Bonfim', result: 'L', method: 'Sub R1', opponent_rank: '#15 LW', quality_score: 3, quality_label: 'Bom', note: 'Submetido. Vulnerabilidade ao grappling exposta.' },
         ],
         momentum_score: 6,
-        momentum_label: 'Instavel',
-        momentum_trend: 'resilient',
-        momentum_note: 'McKinney e a definicao de inconsistencia, mas na pesagem estava WIRED. A energia explosiva esta la. A questao e a mesma de sempre: conecta no R1 ou e finalizado tentando.',
+        momentum_label: 'Inconsistente',
+        momentum_trend: 'stable',
+        momentum_note: 'McKinney e a definicao de inconsistencia. Vence espetacularmente contra inferiores, perde rapido contra superiores. 6-1 como favorito, 1-4 como underdog. A -170 a -185, esta no papel de favorito onde performa melhor. Mentorando por Chiesa. Prometeu paciencia nesse camp. A questao e se a paciencia dura mais que 77 segundos.',
       },
       fighter2: {
-        nome: 'Kyle Nelson',
+        nome: 'Chepe Nelson',
         color: 'blue',
         recent_fights: [
-          { date: 'Out 2025', opponent: 'Matt Frevola', result: 'W', method: 'Decisao Unanime', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Retorno ao peso-leve. Vitoria solida.' },
-          { date: 'Mar 2025', opponent: 'Steve Garcia', result: 'L', method: 'Decisao Unanime', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Unica derrota recente.' },
-          { date: 'Set 2024', opponent: 'Bill Algeo', result: 'W', method: 'TKO R1', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Finish contra veterano.' },
+          { date: 'Jan 2026', opponent: 'Lucas Alexander', result: 'W', method: 'Decisao Unanime', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'Vitoria por pontos. Controle e volume.' },
+          { date: 'Set 2025', opponent: 'Daniel Zellhuber', result: 'L', method: 'Decisao Unanime', opponent_rank: '#14 LW', quality_score: 3, quality_label: 'Bom', note: 'Perdeu pra prospect promissor. Competitivo.' },
+          { date: 'Jun 2025', opponent: 'Bill Algeo', result: 'W', method: 'Decisao Unanime', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Dominio por decisao.' },
         ],
-        full_fight_history: [
-          { date: 'Dez 2018', opponent: 'Carlos Diego Ferreira', result: 'L', method: 'TKO R2', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Medio', note: 'Debut UFC' },
-          { date: 'Set 2019', opponent: 'Marco Polo Reyes', result: 'W', method: 'TKO R1', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'Primeira vitoria' },
-          { date: 'Jun 2023', opponent: 'Blake Bilder', result: 'W', method: 'UD', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Ruim', note: 'UFC 289' },
-        ],
-        momentum_score: 6,
+        momentum_score: 5,
         momentum_label: 'Estavel',
         momentum_trend: 'stable',
-        momentum_note: 'Nelson e consistente. A calma na pesagem e a prova de que sabe exatamente o plano: sobreviver o rush de McKinney e capitalizar quando ele cansa. 4 de 5 recentes.',
+        momentum_note: 'Nelson e consistente mas nao espetacular. Vence por decisao, perde pra lutadores de nivel mais alto. Mudou pra 155 permanentemente porque o corte de 145 estava "desnutrindo" ele. No novo peso, diz estar mais saudavel. Tem plano claro pra frustrar McKinney. A execucao e a questao.',
       },
     },
 
     nivel_competicao: {
-      fighter1: { nome: 'McKinney', media_oponentes: 2, media_oponentes_label: 'Medio', aproveitamento: '7W-5L (58%)', contra_top5: '0W-0L' },
-      fighter2: { nome: 'Nelson', media_oponentes: 2, media_oponentes_label: 'Medio', aproveitamento: '5W-5L-1D (50%)', contra_top5: '0W-0L' },
-      oponentes_em_comum_count: { fighter1: 1, fighter2: 1 },
-      oponentes_em_comum_note: 'Ambos enfrentaram Matt Frevola. McKinney nocauteou em 7 SEGUNDOS. Nelson venceu por decisao. McKinney wired na pesagem confirma o estilo.',
+      fighter1: {
+        nome: 'McKinney',
+        media_oponentes: 2,
+        media_oponentes_label: 'Medio',
+        aproveitamento: '7W-5L (58%)',
+        contra_top5: '0W-0L',
+      },
+      fighter2: {
+        nome: 'Nelson',
+        media_oponentes: 2,
+        media_oponentes_label: 'Medio',
+        aproveitamento: '3W-1L (75%)',
+        contra_top5: '0W-0L',
+      },
+      oponentes_em_comum_count: { fighter1: 0, fighter2: 0 },
+      oponentes_em_comum_note: 'Sem oponentes em comum. Ambos enfrentaram nivel medio. McKinney com mais UFC fights (12) mas record pior (7-5). Nelson mais eficiente (3-1) mas contra oposicao menos testada no 155.',
     },
 
     oponente_comum: null,
 
     comparacao_estatistica: {
       stats: [
-        { label: 'Sig. Strikes por Minuto', valueA: 5.80, valueB: 4.10, maxVal: 8, format: 'decimal', note: 'McKinney e uma metralhadora.' },
-        { label: 'Precisao de Strikes (%)', valueA: 52, valueB: 45, maxVal: 100, format: 'percent' },
-        { label: 'Strikes Absorvidos/Min', valueA: 5.20, valueB: 3.80, maxVal: 7, format: 'decimal', reverseWinner: true, note: 'McKinney tambem absorve MUITO.' },
-        { label: 'Defesa de Strikes (%)', valueA: 42, valueB: 52, maxVal: 100, format: 'percent' },
-        { label: 'Takedowns por 15 Min', valueA: 3.50, valueB: 1.20, maxVal: 5, format: 'decimal' },
-        { label: 'Defesa de Takedown (%)', valueA: 55, valueB: 65, maxVal: 100, format: 'percent' },
+        { label: 'Sig. Strikes por Minuto', valueA: 5.80, valueB: 4.20, maxVal: 8, format: 'decimal', note: 'McKinney com volume ABSURDO. Mas inflado por lutas curtas.' },
+        { label: 'Precisao de Strikes (%)', valueA: 47, valueB: 45, maxVal: 100, format: 'percent', note: 'Similar. McKinney acerta quase metade com volume alto.' },
+        { label: 'Strikes Absorvidos/Min', valueA: 5.20, valueB: 3.40, maxVal: 7, format: 'decimal', reverseWinner: true, note: 'McKinney ABSORVE MUITO. Estilo agressivo = tomando golpes. Nelson mais defensivo.' },
+        { label: 'Defesa de Strikes (%)', valueA: 42, valueB: 52, maxVal: 100, format: 'percent', note: 'Nelson defende MUITO melhor. McKinney abre guarda na agressao.' },
+        { label: 'Takedowns por 15 Min', valueA: 2.80, valueB: 1.40, maxVal: 5, format: 'decimal', note: 'McKinney mistura wrestling. Pode derrubar.' },
+        { label: 'Defesa de Takedown (%)', valueA: 68, valueB: 72, maxVal: 100, format: 'percent', note: 'Similar. Ambos defendem razoavelmente.' },
       ],
       tale_of_tape: [
-        { label: 'Idade', fighter1: '31 anos', fighter2: '34 anos', note: 'McKinney mais jovem' },
-        { label: 'Altura', fighter1: '1,78m (5\'10")', fighter2: '1,78m (5\'10")', note: 'Mesma altura' },
-        { label: 'Envergadura', fighter1: '183cm (72")', fighter2: '183cm (72")', note: 'Mesmo reach' },
-        { label: 'Stance', fighter1: 'Ortodoxo', fighter2: 'Ortodoxo', note: null },
-        { label: 'Finish Rate', fighter1: '100% (25/25)', fighter2: '52% (8/15)', note: 'McKinney NUNCA foi a decisao' },
+        { label: 'Idade', fighter1: '29 anos', fighter2: '30 anos', note: 'Idade similar. Ambos no auge.' },
+        { label: 'Altura', fighter1: '1,78m (5\'10")', fighter2: '1,80m (5\'11")', note: 'Tamanho similar.' },
+        { label: 'Envergadura', fighter1: '185cm (73")', fighter2: '183cm (72")', note: 'Similar.' },
+        { label: 'Stance', fighter1: 'Ortodoxo', fighter2: 'Ortodoxo', note: 'Ambos ortodoxos.' },
+        { label: 'Tempo Medio UFC', fighter1: '2:25', fighter2: '12:30+', note: 'A DIFERENCA mais absurda. McKinney acaba em 2 min. Nelson luta 3 rounds.' },
       ],
     },
 
     perfil_habilidades: {
       skills: [
-        { label: 'Explosividade/Velocidade', valueA: 92, valueB: 58, labelA: 'Excelente', labelB: 'Bom', advantage: 'fighter1', advantage_note: 'McKinney wired na pesagem. A explosividade parece intacta. Confirmado visualmente.' },
-        { label: 'Durabilidade', valueA: 40, valueB: 72, labelA: 'Medio', labelB: 'Bom', advantage: 'fighter2', advantage_note: 'Nelson e muito mais duro. A calma na pesagem reflete a compostura que precisa no cage.' },
-        { label: 'Wrestling', valueA: 72, valueB: 55, labelA: 'Bom', labelB: 'Bom', advantage: 'fighter1', advantage_note: 'McKinney media 3.50 TDs/15min.' },
-        { label: 'Striking Tecnico', valueA: 60, valueB: 62, labelA: 'Bom', labelB: 'Bom', advantage: 'even', advantage_note: 'McKinney cacotico, Nelson tecnico.' },
-        { label: 'Jiu-Jitsu', valueA: 65, valueB: 55, labelA: 'Bom', labelB: 'Bom', advantage: 'fighter1', advantage_note: '8 submissoes na carreira de McKinney.' },
-        { label: 'Fight IQ', valueA: 40, valueB: 68, labelA: 'Medio', labelB: 'Bom', advantage: 'fighter2', advantage_note: 'Nelson calmo na pesagem = calmo no cage. McKinney wired = imprudente.' },
+        { label: 'Poder de Nocaute', valueA: 85, valueB: 55, labelA: 'Excelente', labelB: 'Bom', advantage: 'fighter1', advantage_note: 'McKinney e um dos power punchers mais perigosos do 155. Quando conecta, acaba. 77 segundos de media nao e por acaso. O poder e real e devastador.' },
+        { label: 'Volume e Ritmo', valueA: 72, valueB: 72, labelA: 'Bom', labelB: 'Bom', advantage: 'even', advantage_note: 'McKinney com volume alto mas em bursts curtos. Nelson com volume sustentado ao longo de 3 rounds. Estilos diferentes de volume: explosao vs maratona.' },
+        { label: 'Defesa e Disciplina', valueA: 45, valueB: 72, labelA: 'Medio', labelB: 'Bom', advantage: 'fighter2', advantage_note: 'Nelson defende melhor (52% vs 42%), absorve menos (3.40 vs 5.20 strikes/min). McKinney abre guarda na agressao. Disciplina defensiva e a maior vantagem de Nelson.' },
+        { label: 'Cardio em 3 Rounds', valueA: 38, valueB: 75, labelA: 'Medio', labelB: 'Muito Bom', advantage: 'fighter2', advantage_note: 'McKinney NUNCA foi ao R3 em 12 lutas UFC. Nao temos dados de cardio porque ele nunca precisa. Nelson vive em lutas de 3 rounds. Se durar, Nelson domina.' },
+        { label: 'Wrestling', valueA: 72, valueB: 62, labelA: 'Bom', labelB: 'Bom', advantage: 'fighter1', advantage_note: 'McKinney mistura wrestling com striking. 2.80 TDs/15min. Pode mudar pra wrestling se o striking nao funcionar. Versatilidade ofensiva.' },
+        { label: 'Mentalidade', valueA: 65, valueB: 68, labelA: 'Bom', labelB: 'Bom', advantage: 'even', advantage_note: 'McKinney 6-1 como favorito mas 1-4 como underdog. A mentalidade depende do contexto. Nelson e mais estavel emocionalmente mas menos explosivo. Trade-off de personalidade.' },
       ],
-      insight: 'A pesagem confirmou os perfis: McKinney explosivo e imprudente, Nelson calmo e calculado. A dinamica nao muda: ou McKinney finaliza rapido ou Nelson capitaliza.',
+      insight: 'A luta e definida pelo tempo. Se durar menos de 5 minutos, McKinney domina. Se durar mais de 5 minutos, Nelson domina. Under 1.5 rounds a -270 e a linha mais afiada do card por uma razao. O mercado sabe que isso acaba rapido.',
     },
 
     distribuicao_vitorias: {
-      fighter1: { nome: 'McKinney', ko_tko: { count: 9, percent: 53 }, submission: { count: 8, percent: 47 }, decision: { count: 0, percent: 0 }, total_wins: 17 },
-      fighter2: { nome: 'Nelson', ko_tko: { count: 8, percent: 47 }, submission: { count: 0, percent: 0 }, decision: { count: 9, percent: 53 }, total_wins: 17 },
-      insight: 'Opostos perfeitos. McKinney: 100% finish, 0% decisao. Nelson: 53% decisao. A pesagem nao muda isso.',
+      fighter1: {
+        nome: 'McKinney',
+        ko_tko: { count: 10, percent: 63 },
+        submission: { count: 3, percent: 19 },
+        decision: { count: 3, percent: 18 },
+        total_wins: 16,
+      },
+      fighter2: {
+        nome: 'Nelson',
+        ko_tko: { count: 5, percent: 36 },
+        submission: { count: 3, percent: 21 },
+        decision: { count: 6, percent: 43 },
+        total_wins: 14,
+      },
+      insight: 'McKinney com 63% KO/TKO. Nelson com 43% decisao. A distribuicao conta tudo: McKinney finaliza cedo, Nelson vai pros juizes. Se McKinney nao finalizar nos primeiros 5 minutos, esta no territorio de Nelson.',
     },
 
     danger_zones: {
       zones: [
-        { rounds: 'R1 (0-2min)', danger_level: 9, danger_label: 'VANTAGEM MCKINNEY', color: 'red', title: 'A Explosao (Confirmada na Pesagem)', description: 'McKinney estava WIRED na pesagem. A explosividade esta intacta. Os primeiros 2 minutos sao onde ele e LETAL. Se Nelson sobreviver, ja e uma vitoria.' },
-        { rounds: 'R1 (2-5min)', danger_level: 5, danger_label: 'EQUILIBRADO', color: 'gold', title: 'A Transicao', description: 'Se McKinney nao finalizou, o gas comeca a baixar. Nelson, calmo e composto, pode encontrar o ritmo.' },
-        { rounds: 'R2-R3', danger_level: 3, danger_label: 'VANTAGEM NELSON', color: 'green', title: 'O Territorio do Monster', description: 'Se chegar ao R2, Nelson esta no controle. McKinney nao tem plano B.' },
+        {
+          rounds: 'R1 (0-3 min)',
+          danger_level: 9,
+          danger_label: 'VANTAGEM McKINNEY',
+          color: 'red',
+          title: 'A Zona de Explosao',
+          description: 'O territorio de McKinney. 77 segundos de media. Se ele conectar algo limpo nos primeiros 3 minutos, Nelson nao tem tempo de implementar o plano. A explosividade e a agressao sao maximas aqui. Se McKinney foi paciente COMO PROMETEU, pode ser ainda mais perigoso: explosao controlada e mais letal que explosao caotica.',
+        },
+        {
+          rounds: 'R1 (3-5 min) e R2',
+          danger_level: 5,
+          danger_label: 'EQUILIBRADO',
+          color: 'gold',
+          title: 'A Zona de Transicao',
+          description: 'Se McKinney nao finalizou ate aqui, o plano de Nelson comeca a funcionar. Nelson quer "picar" com jabs, movimentacao, e volume controlado. McKinney pode ficar frustrado. E aqui que a promessa de paciencia e testada. Se McKinney mantiver a compostura, ainda e perigoso. Se ficar ansioso, Nelson domina.',
+        },
+        {
+          rounds: 'R3',
+          danger_level: 3,
+          danger_label: 'VANTAGEM NELSON',
+          color: 'green',
+          title: 'Territorio Desconhecido pra McKinney',
+          description: 'McKinney NUNCA esteve no R3 em 12 lutas UFC. Nelson vive aqui. Se chegar, Nelson domina com volume, cardio, e experiencia em rounds tardios. McKinney em territorio completamente desconhecido, provavelmente cansado, frustrado, e vulneravel.',
+        },
       ],
     },
 
     intangiveis: {
       items: [
-        { icon: 'Zap', title: '100% Finish Rate + Wired na Pesagem', fighter: 'McKinney', risk_level: 'ENORME POSITIVO', risk_color: 'green', description: 'McKinney wired na pesagem confirma que a explosividade esta intacta. 25 lutas, 25 finishes.' },
-        { icon: 'AlertTriangle', title: '8 Derrotas por Finalizacao', fighter: 'McKinney', risk_level: 'RISCO ALTO', risk_color: 'red', description: 'Todas as 8 derrotas por finalizacao. Quando a explosao falha, nao tem plano B.' },
-        { icon: 'Shield', title: 'Calma Total na Pesagem', fighter: 'Nelson', risk_level: 'POSITIVO', risk_color: 'green', description: 'Nelson pesou com calma que inspirou confianca. A compostura e o sinal de preparacao mental correta pro gameplan.' },
-        { icon: 'Brain', title: 'Oponente Comum: Frevola', fighter: 'Ambos', risk_level: 'NEUTRO', risk_color: 'neutral', description: 'McKinney KO em 7s. Nelson decisao. A diferenca de abordagem define o matchup.' },
+        { icon: 'Zap', title: '77 Segundos de Media', fighter: 'McKinney', risk_level: 'ENORME POSITIVO', risk_color: 'green', description: 'Nao e estatistica. E a identidade de McKinney. 77 segundos de media na carreira. 2:25 no UFC. Zero lutas no R3 de 12. A bomba-relogio mais literal do MMA.' },
+        { icon: 'Brain', title: 'Promessa de Paciencia', fighter: 'McKinney', risk_level: 'NEUTRO', risk_color: 'neutral', description: '"Nao posso sair louco. Ouvir coaches. Seguir game plan." Se for verdade, McKinney paciente + explosivo e mais perigoso. Mas McKinney ja prometeu paciencia antes e nao cumpriu.' },
+        { icon: 'Shield', title: '6-1 Como Favorito', fighter: 'McKinney', risk_level: 'POSITIVO', risk_color: 'green', description: 'Quando e favorito, McKinney performa. A -170 a -185, esta no papel ideal. A mentalidade de favorito e fundamental pro estilo dele.' },
+        { icon: 'Activity', title: 'Mudanca Permanente pra 155', fighter: 'Nelson', risk_level: 'POSITIVO', risk_color: 'green', description: 'Corte de 145 estava "desnutrindo" ele. No 155, mais saudavel e mais forte. Corpo maior pode absorver melhor o poder de McKinney.' },
+        { icon: 'Target', title: 'Plano de Frustracao de Nelson', fighter: 'Nelson', risk_level: 'POSITIVO', risk_color: 'green', description: '"Vai ficar frustrado. Vou picar ele ate o final." Plano inteligente e especifico. McKinney 1-4 como underdog = vulneravel quando frustrado. A questao e executar.' },
+        { icon: 'TrendingUp', title: 'Mentoria de Chiesa', fighter: 'McKinney', risk_level: 'POSITIVO', risk_color: 'green', description: 'Chiesa esta mentorando McKinney e tambem luta no card. A conexao emocional e motivacional e real. Pode ajudar na disciplina.' },
       ],
     },
 
     caminhos_vitoria: {
       fighter1: {
         nome: 'McKinney',
-        total_probability: 55,
+        total_probability: 60,
         scenarios: [
-          { name: 'Nocaute Relampago', probability: 30, method: 'KO/TKO R1', description: 'McKinney wired e explosivo desde os primeiros segundos. Conecta nos primeiros 2 minutos. Confirmado pela energia da pesagem.' },
-          { name: 'Submissao Rapida', probability: 15, method: 'Sub R1', description: 'Guilhotina ou kimura nos primeiros minutos.' },
-          { name: 'Dominio Fisico', probability: 10, method: 'TKO R1-R2', description: 'Wrestling e ground and pound.' },
+          { name: 'Explosao R1', probability: 35, method: 'KO/TKO R1', description: 'McKinney conecta power shot nos primeiros 3 minutos. 77 segundos de media. O padrao. Se for paciente como prometeu, pode ser ainda mais preciso: esperando a abertura em vez de forcar.' },
+          { name: 'TKO R2 Apos Pressao', probability: 15, method: 'TKO R2', description: 'McKinney machuca Nelson no R1 mas nao finaliza. Volta no R2 com mesmo ritmo e acaba. Raro pra McKinney durar tanto, mas possivel com a "paciencia" prometida.' },
+          { name: 'Decisao por Dominio', probability: 10, method: 'Decisao Unanime', description: 'McKinney mistura wrestling e striking por 3 rounds. Cenario EXTREMAMENTE raro: ele nunca fez isso no UFC. Mas se a paciencia for real...' },
         ],
       },
       fighter2: {
         nome: 'Nelson',
-        total_probability: 43,
+        total_probability: 38,
         scenarios: [
-          { name: 'Sobrevive e Capitaliza', probability: 22, method: 'Decisao Unanime', description: 'Nelson calmo sobrevive a explosao do R1, McKinney cansa, Nelson domina nos pontos.' },
-          { name: 'Nocaute de Contragolpe', probability: 12, method: 'KO/TKO R2', description: 'McKinney imprudente e Nelson encontra o contragolpe.' },
-          { name: 'Submissao Tardia', probability: 9, method: 'Sub R2-R3', description: 'McKinney cansa e Nelson encontra abertura no chao.' },
+          { name: 'O Plano Funcionou', probability: 20, method: 'Decisao Unanime', description: 'Nelson sobrevive a explosao R1, frustra McKinney, e domina com volume nos R2-R3. McKinney fica ansioso, abre guarda, e Nelson pica com jabs e movimentacao. O plano exato que Nelson descreveu.' },
+          { name: 'KO de Counter no Avanco', probability: 10, method: 'KO/TKO R1-R2', description: 'McKinney avanca agressivo e Nelson acerta counter limpo. McKinney absorve 5.20 strikes/min. A defesa de 42% abre oportunidades. Nelson nao e nocauteador nato, mas McKinney se coloca em posicoes vulneraveis.' },
+          { name: 'Submissao no Scramble', probability: 8, method: 'Submissao R1-R2', description: 'McKinney vai pro wrestling, Nelson pega algo no scramble. McKinney ja foi submetido 5x na carreira. Vulnerabilidade real.' },
         ],
       },
     },
@@ -299,63 +381,83 @@ const analise: FullSingleAnalise = {
       winner_name: 'Terrance McKinney',
       winner_side: 'fighter1',
       predicted_method: 'KO/TKO R1',
-      confidence_score: 5,
-      confidence_label: 'MEDIA',
-      explanation: 'A pesagem confirmou os perfis sem mudar a previsao. McKinney wired e explosivo, Nelson calmo e composto. A dinamica e a mesma: ou McKinney finaliza no R1 ou Nelson capitaliza depois. A confianca se mantem em MEDIA porque McKinney tem 8 derrotas por finalizacao, e a energia wired pode se traduzir em imprudencia. Previsao: McKinney KO R1, mas Nelson sobrevivendo nao seria surpresa.',
+      confidence_score: 7,
+      confidence_label: 'MEDIA-ALTA',
+      explanation: 'McKinney e 6-1 como favorito e esta no papel de favorito (-170 a -185). Tempo medio de 77 segundos. Zero lutas no R3 em 12 UFC. A historia diz que isso acaba rapido. Nelson tem um plano inteligente ("frustrar e picar"), mas executar contra a explosividade de McKinney e outra historia. O mercado concorda: Under 1.5 rounds a -270 e a linha mais afiada do card. McKinney prometeu paciencia, mas a identidade dele e explosao. Se o poder conectar nos primeiros 3 minutos, Nelson nao tem chance de implementar o plano. Confianca MEDIA-ALTA porque Nelson nao e indefeso: defesa melhor (52% vs 42%), absorve menos (3.40 vs 5.20), e tem plano especifico. Os 38% dele sao reais.',
       x_factor: {
-        title: 'Os Primeiros 120 Segundos',
-        description: 'A pesagem confirmou: McKinney vai entrar como um foguete. Se Nelson sobreviver 2 minutos com a compostura que mostrou na pesagem, o momentum muda completamente.',
+        title: 'McKinney TKO/KO Prop a +190',
+        description: 'O Sports Gambling Podcast destacou McKinney TKO/KO a +190 como valor. Com 63% de vitorias por KO/TKO e media de 77 segundos, o cenario mais provavel e exatamente esse. +190 paga quase 2:1 pro cenario de maior probabilidade.',
       },
       upset_alert: {
-        title: 'Nelson Calmo = Nelson Preparado',
-        description: 'A calma de Nelson na pesagem e o melhor sinal possivel. Ele sabe o gameplan: sobreviver a explosao e capitalizar. Se executar, McKinney nao tem plano B.',
+        title: 'Se Durar 5+ Minutos, Nelson Ganha',
+        description: 'McKinney NUNCA foi ao R3. Nelson vive la. Se a explosao nao funcionar, o plano de frustracao de Nelson entra em acao. O 1-4 de McKinney como underdog mostra que quando e frustrado, ele perde. O tempo e o maior inimigo de McKinney.',
       },
       probabilities: {
-        fighter1: { nome: 'McKinney', percent: 55 },
-        fighter2: { nome: 'Nelson', percent: 43 },
+        fighter1: { nome: 'McKinney', percent: 60 },
+        fighter2: { nome: 'Nelson', percent: 38 },
         draw: 2,
       },
       value_picks: {
-        moneyline: { pick: 'McKinney (-200)', reasoning: 'Preco justo. Explosividade confirmada na pesagem. Mas -200 nao oferece muito valor dado as 8 derrotas.' },
-        method: { pick: 'Under 1.5 Rounds', reasoning: 'A melhor aposta. McKinney wired = explosao no R1. 100% finish rate. Nao vai pros juizes.' },
-        over_under: { pick: 'Under 2.5 Rounds', rounds: 2.5, reasoning: '100% finish rate. A pesagem confirmou que a explosividade esta intacta. Vai acabar rapido.' },
-        best_value: 'Under 1.5 Rounds continua sendo a melhor aposta da noite. McKinney wired na pesagem confirma. Se quiser mais valor, Nelson ML a +170 e valido se voce acredita na calma dele contra a imprudencia de McKinney.',
+        moneyline: { pick: 'McKinney ML (-170 a -185)', reasoning: 'Justo mas sem grande valor. 6-1 como favorito, media de 77 seg. O preco reflete o que ele faz.' },
+        method: { pick: 'McKinney KO/TKO (+190)', reasoning: 'MELHOR VALOR DA LUTA. 63% KO rate, 77 seg media. Sports Gambling Podcast destacou. +190 paga quase 2:1 pro cenario mais provavel.' },
+        over_under: { pick: 'Under 1.5 Rounds (-270)', rounds: 1.5, reasoning: 'A linha mais afiada do card. -270 e caro mas o mercado esta confiante: McKinney nunca foi ao R3. A questao e se voce quer pagar -270 por algo que e ~72% provavel.' },
+        best_value: 'McKinney KO/TKO a +190 e a aposta de melhor valor. O cenario mais provavel pagando quase 2:1. Under 1.5 a -270 e seguro mas caro. Se voce acredita no plano de Nelson, ele a +142 a +154 tem valor se a luta durar 5+ minutos.',
       },
     },
 
     o_que_observar: {
       points: [
-        { num: 1, title: 'A explosao de McKinney nos primeiros 30s', icon: 'Zap', description: 'McKinney wired na pesagem = explosao maxima no cage. Observe se ele conecta algo pesado nos primeiros 30 segundos.' },
-        { num: 2, title: 'A compostura de Nelson', icon: 'Shield', description: 'Nelson calmo na pesagem. Observe se mantém a calma quando McKinney avanca como um trem. Se sim, esta no controle.' },
-        { num: 3, title: 'O gas de McKinney apos 2 minutos', icon: 'Activity', description: 'Se McKinney estava wired na pesagem, pode ter gasto adrenalina. Observe se desacelera rapido no cage.' },
-        { num: 4, title: 'O contragolpe de Nelson', icon: 'Brain', description: 'McKinney imprudente. Nelson calmo e tecnico. O contragolpe quando McKinney avanca pode mudar tudo.' },
-        { num: 5, title: 'Vai pros juizes?', icon: 'Activity', description: 'McKinney 0 decisoes em 25 lutas. Se essa luta for pros cartoes, sera a primeira vez na vida dele.' },
+        { num: 1, title: 'Os Primeiros 77 Segundos', icon: 'Zap', description: '77 e o numero de McKinney. Se a luta durar mais que 77 segundos sem ninguem machucar, a dinamica ja mudou. O relogio e o indicador mais importante.' },
+        { num: 2, title: 'McKinney Realmente Esta Paciente?', icon: 'Brain', description: 'Prometeu ouvir os coaches. Se nos primeiros 30 segundos McKinney estiver medindo distancia em vez de avancar cegamente, a paciencia e real. Se estiver correndo pro meio, e o McKinney de sempre.' },
+        { num: 3, title: 'Nelson Sobrevive o R1?', icon: 'Shield', description: 'Se Nelson sair do R1 intacto, o plano de frustracao entra em acao. Observe a linguagem corporal: se Nelson estiver calmo e movimentando lateral no break do R1, o game plan esta funcionando.' },
+        { num: 4, title: 'A Frustracao de McKinney', icon: 'AlertTriangle', description: 'Se McKinney nao finalizou ate o R2, observe sinais de frustracao: golpes forcados, agressao caotica, abandono do game plan. McKinney frustrado e 1-4. A ansiedade e o maior inimigo dele.' },
+        { num: 5, title: 'O Corte de Peso de Nelson no 155', icon: 'Activity', description: 'Nelson disse que 145 estava "desnutrindo" ele. Observe se parece maior e mais saudavel do que as lutas anteriores. Se o corpo ta melhor, a absorpcao de poder melhora.' },
       ],
     },
 
     creator_kit: {
       instagram: [
-        { slide_number: 1, title: 'POS WEIGH-INS', content: 'MCKINNEY vs NELSON\nPOS PESAGEM\n\nMcKinney: WIRED, pulando, explosivo\nNelson: CALMO, composto, tranquilo\n\nAmbos em 155.\n100% finish rate vs dureza pura.', color: 'red' },
-        { slide_number: 2, title: 'PREVISAO MANTIDA', content: 'MCKINNEY por KO/TKO R1\n\nConfianca: MEDIA\n55% McKinney / 43% Nelson\n\nA pesagem confirmou tudo.\nMelhor aposta: Under 1.5 Rounds\n\nSe Nelson sobreviver 2 min,\ntudo muda.', color: 'gold' },
+        { slide_number: 1, title: '77 SEGUNDOS', content: 'McKINNEY vs NELSON\nPOS WEIGH-INS\n\nMedia de luta: 77 SEGUNDOS\nMedia UFC: 2:25\nLutas no R3: ZERO (de 12)\n\nComo favorito: 6-1\nComo underdog: 1-4\n\nA bomba-relogio mais literal do MMA.', color: 'red' },
+        { slide_number: 2, title: 'OS PLANOS', content: 'McKINNEY:\n"Vou ser mais paciente.\nOuvir coaches. Seguir game plan."\n\nNELSON:\n"Ele vai ficar frustrado.\nVou picar ele ate o final.\nQuanto mais dura, mais eu domino."\n\nO tempo decide TUDO.', color: 'blue' },
+        { slide_number: 3, title: 'PREVISAO', content: 'McKINNEY KO/TKO R1\nConfianca: MEDIA-ALTA (7/10)\n60% McKinney / 38% Nelson\n\nMelhor valor: McKinney KO/TKO +190\n(cenario mais provavel, paga 2:1)\n\nUnder 1.5 rds: -270 (seguro, caro)\n\nSe durar 5+ min: Nelson ganha.', color: 'gold' },
       ],
       twitter: [
-        { num: '1/3', text: 'POS WEIGH-INS: McKinney vs Nelson. McKinney WIRED e pulando na pesagem. Nelson CALMO e composto. A previa perfeita da luta. Explosao vs compostura.' },
-        { num: '2/3', text: 'A pesagem confirmou tudo. McKinney com energia explosiva, Nelson com calma de quem sabe o plano. Under 1.5 rounds continua sendo a melhor aposta da noite.' },
-        { num: '3/3', text: 'Pick se mantem: McKinney KO R1. Mas a calma de Nelson na pesagem me deixa mais confiante que ele pode sobreviver. Se isso acontecer, McKinney nao tem plano B.' },
+        { num: '1/3', text: 'POS WEIGH-INS: McKinney vs Nelson. Media de luta: 77 SEGUNDOS. Zero R3 em 12 UFC. Como favorito: 6-1. Prometeu paciencia. Nelson: "Vou frustrar e picar ele." Thread rapida:' },
+        { num: '2/3', text: 'McKinney KO/TKO a +190 e o melhor valor da luta (Sports Gambling Podcast concorda). 63% KO rate, 77 seg media. O cenario mais provavel pagando quase 2:1. Under 1.5 a -270 e seguro mas caro.' },
+        { num: '3/3', text: 'Pick: McKinney KO R1. Confianca MEDIA-ALTA. Mas respeite os 38% de Nelson: se durar 5+ min, McKinney nunca esteve la. 1-4 como underdog/frustrado. O tempo e o inimigo.' },
       ],
       video: [
-        { time: '0-10s', title: 'Hook', text: 'Na pesagem, McKinney estava PULANDO e Nelson estava ZEN. A previa perfeita de explosao vs compostura.' },
-        { time: '10-25s', title: 'Pesagem', text: 'McKinney wired, incapaz de ficar parado. Nelson calmo total. 100% finish rate contra o canadense duro. A luta vai durar menos de 5 minutos.' },
-        { time: '25-35s', title: 'Pick', text: 'McKinney KO R1. Under 1.5 rounds. Mas se Nelson sobreviver com aquela calma, nao tem plano B.' },
+        { time: '0-10s', title: 'Hook', text: 'A media de luta desse cara e 77 segundos. Setenta e sete. Mas ele prometeu ser PACIENTE dessa vez.' },
+        { time: '10-30s', title: 'McKinney', text: '77 seg media. 2:25 no UFC. Zero R3 em 12 lutas. 6-1 como favorito. Mentorando por Chiesa. Prometeu ouvir coaches e nao apressar.' },
+        { time: '30-45s', title: 'Nelson', text: 'Plano: frustrar e picar. "Quanto mais dura, mais pico ele." Mudou pra 155, mais saudavel. Defende melhor que McKinney. Se durar 5 minutos, domina.' },
+        { time: '45-55s', title: 'Previsao', text: 'McKinney KO R1. +190 e melhor valor. Under 1.5 -270 seguro. Se durar 5+ min, Nelson ganha.' },
+        { time: '55-65s', title: 'CTA', text: '77 segundos ou 15 minutos? Comenta e segue.' },
       ],
       tiktok: [
-        { hook: 'Na pesagem ele nao parava de PULAR e o outro tava ZEN.', body: 'McKinney: 25 lutas, 25 finishes, ZERO decisoes. Na pesagem, WIRED. Pulando, mexendo, energia no maximo. Nelson: calmo, composto, tranquilo. A diferenca era GRITANTE. Explosao vs compostura. Se McKinney conectar em 2 minutos, acabou. Se Nelson sobreviver com aquela calma, McKinney nao tem plano B.', cta: 'Explosao ou compostura? Comenta!' },
+        { hook: 'A MEDIA de luta desse cara e 77 segundos. Mas ele prometeu ser paciente.', body: 'Terrance McKinney. 77 seg media. Zero R3 em 12 UFC. Contra Nelson que quer "frustrar e picar ate o final." McKinney 6-1 como favorito. Prometeu ouvir coaches. A bomba-relogio vs o plano de frustracao. Se durar 5 min, Nelson ganha. Se nao durar, McKinney KO.', cta: '77 segundos ou 15 minutos? Comenta!' },
       ],
       headlines: [
-        'Pos Weigh-Ins: McKinney Wired, Nelson Calmo na Pesagem',
-        'A Previa Perfeita: Explosao vs Compostura no Peso Leve',
-        'Under 1.5 Rounds: A Pesagem Confirmou a Melhor Aposta da Noite',
-        'Nelson Calmo na Pesagem: O Sinal de Que o Plano Vai Funcionar?',
+        '77 Segundos: O Numero Que Define McKinney vs Nelson',
+        '6-1 Como Favorito: Por Que o Papel Importa Mais Que Tudo Pra McKinney',
+        'Nelson Quer Frustrar: "Quanto Mais Dura, Mais Eu Pico Ele"',
+        'McKinney KO/TKO +190: A Aposta de Melhor Valor da Luta',
+      ],
+      podcast: [
+        {
+          timestamp: '0:00-5:00',
+          title: '77 Segundos e o Plano de Frustracao',
+          talking_points: [
+            '77 seg media. 2:25 UFC. Zero R3 de 12. A bomba-relogio humana.',
+            '6-1 como favorito. 1-4 como underdog. A -170 a -185, territorio ideal.',
+            'McKinney prometeu paciencia: "Ouvir coaches. Nao apressar." Se for verdade, mais perigoso.',
+            'Nelson: "Frustrar e picar." Mudou pra 155, mais saudavel. Defende melhor. Plano inteligente.',
+            'McKinney KO/TKO +190: melhor valor. Under 1.5 -270: seguro, caro.',
+          ],
+          discussion_questions: [
+            'McKinney realmente vai ser paciente ou e a mesma promessa de sempre?',
+            'Nelson tem habilidade real de sobreviver a explosao ou e so discurso?',
+          ],
+        },
       ],
     },
 
@@ -363,25 +465,26 @@ const analise: FullSingleAnalise = {
 
     radar_apostador: {
       odds: {
-        fighter1_odds: '-200',
-        fighter2_odds: '+170',
+        fighter1_odds: '-170 a -185',
+        fighter2_odds: '+142 a +154',
         fighter1_name: 'Terrance McKinney',
-        fighter2_name: 'Kyle Nelson',
-        source: 'Media de casas de apostas pos weigh-ins (marco 2026)',
+        fighter2_name: 'Chepe Nelson',
+        source: 'Range de DraftKings, FanDuel e BetMGM (marco 2026)',
       },
       edges: [
-        { icon: 'Zap', titulo: '100% Finish Rate + Wired na Pesagem', stat_headline: '25 LUTAS, 25 FINISHES + ENERGIA EXPLOSIVA CONFIRMADA', contexto: 'McKinney wired na pesagem confirma que a explosividade esta intacta. Under rounds e a aposta.', implicacao_aposta: 'Under 1.5 rounds. Under 2.5 quase certo. Nao vai pros juizes.', edge_level: 'forte', fighter_side: 'neutral' },
-        { icon: 'Shield', titulo: 'Nelson Calmo na Pesagem', stat_headline: 'COMPOSTO, TRANQUILO, SEM SHOW', contexto: 'A calma de Nelson e o melhor sinal pro plano: sobreviver e capitalizar. Se executar, ganha.', implicacao_aposta: 'Nelson ML a +170 tem valor se voce acredita na compostura dele contra a imprudencia.', edge_level: 'moderado', fighter_side: 'fighter2' },
-        { icon: 'AlertTriangle', titulo: '8 Derrotas de McKinney por Finish', stat_headline: 'TODAS AS DERROTAS FORAM FINALIZACOES', contexto: 'Quando a explosao falha, McKinney nao tem plano B. A calma de Nelson e ideal pra explorar isso.', implicacao_aposta: 'Nelson por finish no R2+ tem valor se McKinney gastar gas.', edge_level: 'moderado', fighter_side: 'fighter2' },
+        { icon: 'Zap', titulo: '77 Segundos e Zero R3', stat_headline: 'McKINNEY: 77 SEG MEDIA, 2:25 UFC, ZERO R3 EM 12 LUTAS.', contexto: 'A identidade de McKinney e acabar rapido. O mercado sabe: Under 1.5 a -270 e a linha mais afiada do card.', implicacao_aposta: 'McKinney KO/TKO +190 e Under 1.5 -270 sao as apostas principais.', edge_level: 'forte', fighter_side: 'fighter1' },
+        { icon: 'TrendingUp', titulo: '6-1 Como Favorito', stat_headline: 'McKINNEY COMO FAVORITO: 6-1. COMO UNDERDOG: 1-4.', contexto: 'O papel define McKinney. Como favorito, a agressao e calibrada. Como underdog, fica ansioso e perde. A -170 a -185, esta no papel ideal.', implicacao_aposta: 'A -170, McKinney ML e justificado. O preco reflete o padrao.', edge_level: 'moderado', fighter_side: 'fighter1' },
+        { icon: 'Shield', titulo: 'Defesa de Nelson vs Agressao de McKinney', stat_headline: 'NELSON: 52% DEF STRIKES, 3.40 ABS/MIN. McKINNEY: 42% DEF, 5.20 ABS/MIN.', contexto: 'Nelson defende significativamente melhor e absorve menos. A agressao de McKinney abre oportunidades pra Nelson contra-atacar. Se Nelson sobreviver a explosao, os numeros favorecem ele nos rounds tardios.', implicacao_aposta: 'Nelson ML +150 tem valor se voce acredita que a luta dura 5+ minutos.', edge_level: 'moderado', fighter_side: 'fighter2' },
+        { icon: 'Clock', titulo: 'Under 1.5 Rounds: A Linha Mais Afiada', stat_headline: 'UNDER 1.5 ROUNDS: -270. O MERCADO ESTA MUITO CONFIANTE.', contexto: 'Nenhuma das 12 lutas UFC de McKinney foi ao R3. Under 1.5 e -270 porque o mercado sabe que acaba rapido.', implicacao_aposta: '-270 e caro, mas ~72% provavel. Se voce quer seguranca, e solido. Se quer valor, McKinney KO +190 e melhor.', edge_level: 'forte', fighter_side: 'fighter1' },
       ],
       value_picks: [
-        { tipo: 'Over/Under', pick: 'Under 1.5 Rounds', odds: '+100', confianca: 'alta', raciocinio: 'McKinney wired. 100% finish rate. A pesagem confirmou. Melhor aposta da noite.' },
-        { tipo: 'Metodo', pick: 'McKinney por KO/TKO R1', odds: '+120', confianca: 'media', raciocinio: 'A explosividade da pesagem aponta pra isso. 53% das vitorias por KO.' },
-        { tipo: 'Moneyline', pick: 'Nelson (+170)', odds: '+170', confianca: 'baixa', edge_vs_mercado: 'A calma de Nelson na pesagem inspira confianca. Se sobreviver 2 minutos, +170 tem valor enorme.', raciocinio: 'Nelson calmo e duro. Se a compostura da pesagem se mantiver no cage, pode frustrar McKinney.' },
+        { tipo: 'Metodo', pick: 'McKinney KO/TKO', odds: '+190', confianca: 'alta', edge_vs_mercado: 'Sports Gambling Podcast destacou como valor. 63% KO rate + 77 seg media = cenario mais provavel pagando quase 2:1.', raciocinio: 'Melhor valor da luta. O cenario mais provavel com payout de quase 2:1. Nao precisa de mais justificativa.' },
+        { tipo: 'Over/Under', pick: 'Under 1.5 Rounds', odds: '-270', confianca: 'alta', raciocinio: 'A linha mais afiada do card. Seguro mas caro. ~72% provavel. Se voce quer seguranca, e isso.' },
+        { tipo: 'Moneyline', pick: 'Nelson ML', odds: '+150', confianca: 'baixa', edge_vs_mercado: 'Se a luta durar 5+ minutos, Nelson domina. McKinney nunca esteve no R3. O plano de frustracao e inteligente. Aposta de convicao no tempo.', raciocinio: 'So aposte se acredita que Nelson sobrevive a explosao. Os 38% dele sao reais, mas executar contra McKinney e outra historia.' },
       ],
       armadilha: {
-        titulo: 'Armadilha: McKinney por Decisao',
-        descricao: 'McKinney tem ZERO decisoes em 25 lutas. Apostar em McKinney por decisao e apostar em algo que NUNCA aconteceu. A pesagem com ele wired confirma: nao vai ser por decisao.',
+        titulo: 'Armadilha: Fight Goes to Decision (-110)',
+        descricao: 'McKinney NUNCA foi a decisao no UFC (em nenhuma das 12 lutas). Zero decisoes. Apostar que essa luta vai aos juizes e ignorar completamente a identidade de McKinney. Acaba rapido, pra um lado ou pro outro. Decisao e o cenario menos provavel.',
       },
       disclaimer: 'Analise pos weigh-ins para fins informativos. Aposte com responsabilidade.',
     },
