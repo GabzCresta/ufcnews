@@ -348,56 +348,62 @@ function TabProduto({ onNavigate }: { onNavigate: (t: TabId) => void }) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Card MANUAL — muted, "before" */}
+            {/* Card CRIADOR HOJE — what creators actually do */}
             <div className="rounded-2xl bg-zinc-900/20 border border-white/[0.04] p-8">
               <div className="flex items-center gap-2 mb-8">
                 <div className="h-2 w-2 rounded-full bg-zinc-700" />
-                <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-zinc-600">Manual</p>
+                <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-zinc-600">{t('compare_creator_label')}</p>
               </div>
-              <div className="space-y-8">
-                <div>
-                  <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-700 mb-1">{t('value_volume')}</p>
-                  <p className="font-display text-4xl text-zinc-700 leading-none">2-3<span className="text-lg text-zinc-800">/sem</span></p>
-                </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-700 mb-1">{t('value_research')}</p>
-                  <p className="font-display text-4xl text-zinc-700 leading-none">15H</p>
-                </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-700 mb-1">{t('value_coverage')}</p>
-                  <p className="font-display text-4xl text-zinc-700 leading-none">{t('value_coverage_before')}</p>
-                </div>
+              <div className="space-y-6">
+                {[
+                  { label: t('compare_creator_1_label'), value: t('compare_creator_1_value'), sub: t('compare_creator_1_sub') },
+                  { label: t('compare_creator_2_label'), value: t('compare_creator_2_value'), sub: t('compare_creator_2_sub') },
+                  { label: t('compare_creator_3_label'), value: t('compare_creator_3_value'), sub: t('compare_creator_3_sub') },
+                  { label: t('compare_creator_4_label'), value: t('compare_creator_4_value'), sub: t('compare_creator_4_sub') },
+                ].map((item, i) => (
+                  <div key={i}>
+                    <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-700 mb-1">{item.label}</p>
+                    <p className="text-[15px] font-bold text-zinc-500 leading-snug">{item.value}</p>
+                    <p className="text-[11px] text-zinc-700 mt-0.5">{item.sub}</p>
+                  </div>
+                ))}
               </div>
             </div>
 
             {/* Card OCTAGON IA — hero card, 0H gigantesco */}
             <div className="rounded-2xl bg-zinc-900/40 border border-[#E20814]/20 p-8 relative overflow-hidden">
-              {/* Red ambient inside card */}
               <div className="absolute -right-10 -top-10 w-40 h-40 rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(226,8,20,0.08) 0%, transparent 70%)' }} />
               <div className="flex items-center gap-2 mb-8">
                 <div className="h-2 w-2 rounded-full bg-[#E20814]" />
                 <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#E20814]">Octagon IA</p>
               </div>
-              <div className="space-y-8 relative">
-                <div>
-                  <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500 mb-1">{t('value_volume')}</p>
-                  <p className="font-display text-4xl text-white leading-none">8-12<span className="text-lg text-zinc-400">/sem</span></p>
-                </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500 mb-1">{t('value_research')}</p>
-                  {/* 0H — THE selling point: massive, red, glowing */}
-                  <p
-                    className="font-display text-7xl md:text-8xl font-bold text-[#E20814] leading-none"
-                    style={{ textShadow: '0 0 40px rgba(226,8,20,0.35), 0 0 80px rgba(226,8,20,0.12)' }}
-                  >
-                    0H
-                  </p>
-                  <p className="text-[11px] uppercase tracking-[0.15em] text-zinc-400 mt-1">{t('hero_stat_3_label')}</p>
-                </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500 mb-1">{t('value_coverage')}</p>
-                  <p className="font-display text-4xl text-white leading-none">{t('value_coverage_after')}</p>
-                </div>
+              <div className="space-y-6 relative">
+                {[
+                  { label: t('compare_octagon_1_label'), value: t('compare_octagon_1_value'), sub: t('compare_octagon_1_sub'), big: false },
+                  { label: t('compare_octagon_2_label'), value: '0H', sub: t('hero_stat_3_label'), big: true },
+                  { label: t('compare_octagon_3_label'), value: t('compare_octagon_3_value'), sub: t('compare_octagon_3_sub'), big: false },
+                  { label: t('compare_octagon_4_label'), value: t('compare_octagon_4_value'), sub: t('compare_octagon_4_sub'), big: false },
+                ].map((item, i) => (
+                  <div key={i}>
+                    <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500 mb-1">{item.label}</p>
+                    {item.big ? (
+                      <>
+                        <p
+                          className="font-display text-7xl md:text-8xl font-bold text-[#E20814] leading-none"
+                          style={{ textShadow: '0 0 40px rgba(226,8,20,0.35), 0 0 80px rgba(226,8,20,0.12)' }}
+                        >
+                          {item.value}
+                        </p>
+                        <p className="text-[11px] uppercase tracking-[0.15em] text-zinc-400 mt-1">{item.sub}</p>
+                      </>
+                    ) : (
+                      <>
+                        <p className="text-[15px] font-bold text-white leading-snug">{item.value}</p>
+                        <p className="text-[11px] text-zinc-400 mt-0.5">{item.sub}</p>
+                      </>
+                    )}
+                  </div>
+                ))}
               </div>
               {/* Micro data-viz bars */}
               <div className="absolute bottom-6 right-6 flex items-end gap-[3px] opacity-20">
@@ -406,25 +412,6 @@ function TabProduto({ onNavigate }: { onNavigate: (t: TabId) => void }) {
                 ))}
               </div>
             </div>
-          </div>
-
-          {/* Extra metrics row */}
-          <div className="grid grid-cols-3 gap-4 mt-6">
-            {[
-              { icon: BarChart3, metric: t('value_quality'), before: t('value_quality_before'), after: t('value_quality_after') },
-              { icon: CheckCircle2, metric: t('value_frequency'), before: t('value_frequency_before'), after: t('value_frequency_after') },
-              { icon: Share2, metric: t('value_publish'), before: t('value_publish_before'), after: t('value_publish_after') },
-            ].map((item, i) => (
-              <div key={i} className="rounded-xl bg-zinc-900/20 border border-white/[0.04] p-5">
-                <item.icon className="h-4 w-4 text-[#E20814]/70 mb-3" />
-                <p className="text-[10px] uppercase tracking-[0.15em] text-zinc-600 mb-2">{item.metric}</p>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-zinc-700 line-through">{item.before}</span>
-                  <ArrowRight className="h-3 w-3 text-[#E20814]/60" />
-                  <span className="text-sm text-emerald-400 font-bold">{item.after}</span>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
