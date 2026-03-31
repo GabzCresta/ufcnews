@@ -12,19 +12,20 @@ const config: Config = {
     extend: {
       colors: {
         ufc: {
-          red: '#D20A0A',
+          red: '#E20814',
           redDark: '#8B0000',
           redLight: '#FF1A1A',
           gold: '#C9B037',
           goldDark: '#A89030',
         },
         dark: {
-          bg: '#0A0A0A',
+          bg: '#000000',
+          bgSubtle: '#0A0A0A',
           card: '#141414',
           cardHover: '#1A1A1A',
-          border: '#262626',
+          border: '#1F1F1F',
           text: '#FAFAFA',
-          textMuted: '#A3A3A3',
+          textMuted: '#A0A0A0',
         },
         category: {
           lutadores: '#3B82F6',
@@ -46,6 +47,7 @@ const config: Config = {
       },
       animation: {
         'pulse-red': 'pulse-red 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'pulse-value': 'pulse-value 2.5s ease-in-out infinite',
         'slide-up': 'slide-up 0.3s ease-out',
         'fade-in': 'fade-in 0.2s ease-out',
         'fadeIn': 'fadeIn 0.2s ease-out',
@@ -78,8 +80,12 @@ const config: Config = {
       },
       keyframes: {
         'pulse-red': {
-          '0%, 100%': { boxShadow: '0 0 0 0 rgba(210, 10, 10, 0.4)' },
-          '50%': { boxShadow: '0 0 0 8px rgba(210, 10, 10, 0)' },
+          '0%, 100%': { boxShadow: '0 0 0 0 rgba(226, 8, 20, 0.4)' },
+          '50%': { boxShadow: '0 0 0 8px rgba(226, 8, 20, 0)' },
+        },
+        'pulse-value': {
+          '0%, 100%': { boxShadow: '0 0 8px rgba(226, 8, 20, 0.3), 0 0 20px rgba(226, 8, 20, 0.1)', transform: 'scale(1)' },
+          '50%': { boxShadow: '0 0 16px rgba(226, 8, 20, 0.5), 0 0 40px rgba(226, 8, 20, 0.2)', transform: 'scale(1.03)' },
         },
         'slide-up': {
           '0%': { transform: 'translateY(10px)', opacity: '0' },
