@@ -8,11 +8,20 @@ const intlMiddleware = createMiddleware(routing);
 const PUBLIC_PATTERNS = [
   /^\/arena(\/|$)/,         // /arena and all sub-paths
   /^\/[a-z]{2}\/arena(\/|$)/, // /pt/arena, /en/arena, etc.
+  /^\/analise(\/|$)/,       // /analise and all sub-paths
+  /^\/[a-z]{2}\/analise(\/|$)/, // /pt/analise, /en/analise, etc.
+  /^\/analises(\/|$)/,      // /analises listing
+  /^\/[a-z]{2}\/analises(\/|$)/,
+  /^\/app(\/|$)/,           // /app (old home, dev access)
+  /^\/[a-z]{2}\/app(\/|$)/,
+  /^\/enterprise(\/|$)/,    // /enterprise (english landing)
+  /^\/[a-z]{2}\/enterprise(\/|$)/,
   /^\/admin(\/|$)/,         // /admin (already password-protected)
+  /^\/dashboard(\/|$)/,     // /dashboard (has own login gate)
 ];
 
-// Locale root paths that should redirect to arena
-const LOCALE_ROOTS = new Set(['/', '/pt', '/en', '/fr', '/es']);
+// Locale root paths - now serve the landing page directly (no redirect)
+// Old behavior redirected to /arena; new landing page is the home
 
 function isPublicPath(pathname: string): boolean {
   return PUBLIC_PATTERNS.some((pattern) => pattern.test(pathname));
@@ -34,9 +43,10 @@ function hasValidAdminCookie(request: NextRequest): boolean {
 export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Root paths redirect to /arena
-  if (LOCALE_ROOTS.has(pathname)) {
-    return NextResponse.redirect(new URL('/arena', request.url));
+  // Root paths now serve the landing page (public)
+  const localeRoots = new Set(['/', '/pt', '/en', '/fr', '/es']);
+  if (localeRoots.has(pathname)) {
+    return intlMiddleware(request);
   }
 
   // Public paths: always allowed
@@ -55,6 +65,6 @@ export default function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!api|admin|showcase|_next|.*\\..*|manifest\\.json|sw\\.js|icons).*)',
+    '/((?!api|admin|dashboard|showcase|_next|.*\\..*|manifest\\.json|sw\\.js|icons).*)',
   ],
 };
