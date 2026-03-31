@@ -281,7 +281,7 @@ function TabProduto({ onNavigate }: { onNavigate: (t: TabId) => void }) {
             <div className="mt-16 flex justify-center gap-10 md:gap-20">
               {[
                 { value: '15', label: t('hero_stat_1_label') },
-                { value: '78%', label: t('hero_stat_2_label') },
+                { value: '25+', label: t('hero_stat_2_label') },
                 { value: '0h', label: t('hero_stat_3_label') },
               ].map((item, i) => (
                 <div key={i} className="text-center">

@@ -655,7 +655,7 @@
     "hero_title_3": "Voce Nao Tem Tempo de Fazer.",
     "hero_desc": "Analises de pre-luta prontas pra publicar. 15 secoes por luta. Estatisticas verificadas. Creator Kit incluso. Zero pesquisa.",
     "hero_stat_1_label": "Secoes por Luta",
-    "hero_stat_2_label": "Precisao",
+    "hero_stat_2_label": "Dados por Lutador",
     "hero_stat_3_label": "Pesquisa Pra Voce",
     "hero_cta_example": "Ver Exemplo Real",
     "hero_cta_arena": "Ver Arena",
@@ -784,7 +784,7 @@
     "faq_4_q": "Como funciona a Arena de Previsoes?",
     "faq_4_a": "Seus seguidores fazem previsoes sobre as lutas, competem em ligas privadas do seu canal e sobem no leaderboard. Pode ser integrado white-label para aumentar engajamento e retencao.",
     "faq_5_q": "Qual a precisao das previsoes?",
-    "faq_5_a": "78% de acerto em vencedores, rastreado publicamente. 21 de 27 previsoes corretas em 2 eventos. Toda previsao e auditada com total transparencia.",
+    "faq_5_a": "Todas as previsoes sao rastreadas publicamente com total transparencia. Cada analise inclui confidence picks, value picks e danger zones baseados em 25+ dados por lutador. O foco e a qualidade dos insights, nao apenas acerto de vencedor.",
     "faq_6_q": "Quanto custa?",
     "faq_6_a": "Depende do pacote. Vamos conversar sobre o que faz sentido pro seu canal. Entra em contato pelo WhatsApp ou email.",
     "footer_rights": "Todos os direitos reservados."
