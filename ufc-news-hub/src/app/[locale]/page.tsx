@@ -430,22 +430,17 @@ function TabProduto({ onNavigate }: { onNavigate: (t: TabId) => void }) {
 
         {/* Flow component */}
         <div className="relative">
-          {/* Connecting line — correction #3: 2px, gray-800 to gradient red with glow */}
-          <div className="hidden md:block absolute top-10 left-[12.5%] right-[12.5%] h-[2px] z-0">
-            {/* Nó 1→3: gray */}
-            <div className="absolute left-0 w-[65%] h-full bg-zinc-800" />
-            {/* Nó 3→4: gradient gray→red with glow */}
-            <div
-              className="absolute left-[65%] right-0 h-full bg-gradient-to-r from-zinc-800 to-[#E20814]"
-              style={{ boxShadow: '0 0 12px rgba(226,8,20,0.5), 0 0 24px rgba(226,8,20,0.2)' }}
-            />
-          </div>
+          {/* Connecting line — full red gradient with glow */}
+          <div
+            className="hidden md:block absolute top-10 left-[12.5%] right-[12.5%] h-[2px] z-0 bg-gradient-to-r from-[#E20814]/20 via-[#E20814]/60 to-[#E20814]"
+            style={{ boxShadow: '0 0 8px rgba(226,8,20,0.3), 0 0 20px rgba(226,8,20,0.15)' }}
+          />
 
           {/* Mobile vertical line */}
-          <div className="md:hidden absolute left-10 top-10 bottom-10 w-[2px] z-0">
-            <div className="h-[65%] bg-zinc-800" />
-            <div className="h-[35%] bg-gradient-to-b from-zinc-800 to-[#E20814]" style={{ boxShadow: '0 0 12px rgba(226,8,20,0.5)' }} />
-          </div>
+          <div
+            className="md:hidden absolute left-10 top-10 bottom-10 w-[2px] z-0 bg-gradient-to-b from-[#E20814]/20 via-[#E20814]/60 to-[#E20814]"
+            style={{ boxShadow: '0 0 8px rgba(226,8,20,0.3)' }}
+          />
 
           <div className="flex flex-col md:flex-row gap-10 md:gap-0 relative z-10">
             <PipelineNode icon={Search} num="01" title={t('pipeline_1_title')} desc={t('pipeline_1_desc')} isLast={false} />
