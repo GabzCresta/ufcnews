@@ -68,31 +68,28 @@ function PipelineNode({ icon: Icon, num, title, desc, isLast }: {
 }) {
   return (
     <div className="relative text-center group flex-1">
-      {/* Hexagonal angular node */}
       <div className="mx-auto mb-4 relative">
         <svg viewBox="0 0 80 80" className="w-20 h-20 mx-auto">
           <polygon
             points="40,2 72,16 72,64 40,78 8,64 8,16"
-            fill={isLast ? 'rgba(226,8,20,0.08)' : 'rgba(24,24,27,0.8)'}
-            stroke={isLast ? '#E20814' : 'rgba(255,255,255,0.08)'}
-            strokeWidth={isLast ? '1.5' : '0.8'}
+            fill={isLast ? 'rgba(226,8,20,0.12)' : 'rgba(255,255,255,0.03)'}
+            stroke={isLast ? '#E20814' : 'rgba(226,8,20,0.25)'}
+            strokeWidth={isLast ? '1.5' : '1'}
             className="transition-all duration-300"
           />
         </svg>
-        {/* Icon centered inside */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <Icon className={`h-6 w-6 ${isLast ? 'text-[#E20814]' : 'text-zinc-500 group-hover:text-zinc-300 transition-colors'}`} />
+          <Icon className={`h-6 w-6 ${isLast ? 'text-[#E20814]' : 'text-zinc-300 group-hover:text-white transition-colors'}`} />
         </div>
-        {/* Glow on last node */}
         {isLast && (
-          <div className="absolute inset-0 rounded-full opacity-40 pointer-events-none" style={{ boxShadow: '0 0 30px rgba(226,8,20,0.3)' }} />
+          <div className="absolute inset-0 pointer-events-none" style={{ filter: 'blur(15px)', background: 'radial-gradient(circle, rgba(226,8,20,0.25) 0%, transparent 70%)' }} />
         )}
       </div>
-      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500">
+      <p className={`text-[10px] font-bold uppercase tracking-[0.2em] ${isLast ? 'text-[#E20814]' : 'text-zinc-400'}`}>
         {num}
       </p>
       <p className="text-[13px] font-bold uppercase tracking-wider text-white mt-1">{title}</p>
-      <p className="text-[11px] text-zinc-600 mt-1.5 leading-relaxed max-w-[180px] mx-auto">{desc}</p>
+      <p className="text-[11px] text-zinc-400 mt-1.5 leading-relaxed max-w-[180px] mx-auto">{desc}</p>
     </div>
   );
 }
@@ -152,7 +149,7 @@ function TabNav({ active, onChange }: { active: TabId; onChange: (t: TabId) => v
     { id: 'contato' as TabId, label: t('nav_contato'), icon: MessageCircle },
   ];
   return (
-    <nav className="sticky top-0 z-50 backdrop-blur-xl bg-[#050505]/90 border-b border-zinc-800/50">
+    <nav className="sticky top-0 z-50 backdrop-blur-xl bg-[#080808]/90 border-b border-white/[0.06]">
       <div className="mx-auto max-w-6xl px-6">
         <div className="flex items-center h-14 gap-1">
           {/* OCTAGON Logo — correction #1 */}
@@ -242,12 +239,33 @@ function TabProduto({ onNavigate }: { onNavigate: (t: TabId) => void }) {
 
       {/* ─── HERO ─── */}
       <section className="relative overflow-hidden min-h-[92vh] flex items-center">
-        {/* Ambient glow */}
+        {/* Ambient glow — stronger, warmer */}
         <div
-          className="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-          style={{ width: 700, height: 700, background: 'radial-gradient(circle, rgba(226,8,20,0.07) 0%, transparent 65%)', filter: 'blur(120px)' }}
+          className="absolute left-1/2 top-[38%] -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+          style={{ width: 800, height: 800, background: 'radial-gradient(circle, rgba(226,8,20,0.10) 0%, rgba(226,8,20,0.03) 40%, transparent 70%)', filter: 'blur(100px)' }}
         />
-        {/* Octagon watermark — correction #2: 0.5px, huge, partial overlap, ghostly */}
+        {/* Secondary ambient — bottom left warmth */}
+        <div
+          className="absolute left-[-10%] bottom-[10%] pointer-events-none"
+          style={{ width: 500, height: 500, background: 'radial-gradient(circle, rgba(226,8,20,0.04) 0%, transparent 70%)', filter: 'blur(80px)' }}
+        />
+        {/* Octagon outline — visible, centered behind text, animated stroke */}
+        <svg
+          viewBox="0 0 800 800"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] md:w-[800px] md:h-[800px] pointer-events-none"
+          fill="none"
+          stroke="rgba(226,8,20,0.08)"
+          strokeWidth="1"
+        >
+          <polygon
+            points="280,10 520,10 680,170 680,430 520,590 280,590 120,430 120,170"
+            transform="translate(0,100)"
+            strokeDasharray="2400"
+            strokeDashoffset="0"
+            className="animate-[draw-octagon_3s_ease-out_forwards]"
+          />
+        </svg>
+        {/* Subtle ghost watermark — right side */}
         <OctagonWatermark className="absolute -right-[15%] top-[-10%] w-[900px] h-[900px]" />
 
         <div className="relative mx-auto max-w-6xl px-6 py-28">
@@ -327,11 +345,11 @@ function TabProduto({ onNavigate }: { onNavigate: (t: TabId) => void }) {
             { icon: TrendingUp, title: t('problem_quality_title'), stat: '25+', desc: t('problem_quality_desc') },
             { icon: Users, title: t('problem_scale_title'), stat: '14', desc: t('problem_scale_desc') },
           ].map((item, i) => (
-            <div key={i} className="group rounded-2xl bg-zinc-900/30 border border-white/[0.04] p-7 hover:border-white/[0.08] transition-all duration-500">
+            <div key={i} className="group rounded-2xl bg-white/[0.03] border border-white/[0.06] p-7 hover:border-[#E20814]/20 transition-all duration-500">
               <item.icon className="h-5 w-5 text-[#E20814] mb-5" />
-              <p className="text-[11px] font-bold uppercase tracking-wider text-zinc-300 mb-2">{item.title}</p>
-              <p className="font-display text-5xl text-[#E20814]/12 mb-3 leading-none">{item.stat}</p>
-              <p className="text-[12px] text-zinc-500 leading-relaxed">{item.desc}</p>
+              <p className="text-[11px] font-bold uppercase tracking-wider text-zinc-200 mb-2">{item.title}</p>
+              <p className="font-display text-5xl text-[#E20814]/15 mb-3 leading-none">{item.stat}</p>
+              <p className="text-[12px] text-zinc-400 leading-relaxed">{item.desc}</p>
             </div>
           ))}
         </div>
@@ -785,7 +803,7 @@ export default function LandingPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#050505] text-white">
+    <main className="min-h-screen bg-[#080808] text-white">
       <TabNav active={activeTab} onChange={handleNavigate} />
 
       {activeTab === 'produto' && <TabProduto onNavigate={handleNavigate} />}
