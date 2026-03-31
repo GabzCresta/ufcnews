@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ufc-news-hub-v6';
+const CACHE_NAME = 'ufc-news-hub-v7';
 const STATIC_ASSETS = [
   '/manifest.json',
 ];
