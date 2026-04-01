@@ -291,7 +291,7 @@ function TabProduto({ onNavigate }: { onNavigate: (t: TabId) => void }) {
             </h1>
 
             {/* Subheadline — correction #4: Pure White */}
-            <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-white/80">
+            <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-white">
               {t('hero_desc')}
             </p>
 
