@@ -524,8 +524,8 @@ function TabAnalise() {
           </div>
 
           <div className="text-center mt-10">
-            <p className="font-display text-lg md:text-2xl uppercase text-white/80">{t('analise_tagline')}</p>
-            <p className="text-xs text-zinc-500 mt-2 max-w-md mx-auto">{t('analise_tagline_desc')}</p>
+            <p className="font-display text-lg md:text-2xl uppercase text-[#E20814]">{t('analise_tagline')}</p>
+            <p className="text-sm text-white mt-2 max-w-md mx-auto">{t('analise_tagline_desc')}</p>
           </div>
         </div>
       </section>
