@@ -1,28 +1,51 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Link } from '@/i18n/routing';
-import { Zap, ChevronRight, Clock } from 'lucide-react';
-import { useArenaAuth } from '@/hooks/useArenaAuth';
-import { useEventoPicks } from '@/hooks/useEventoPicks';
-import { HomeNew } from '@/components/arena/HomeNew';
-import { HomeInProgress } from '@/components/arena/HomeInProgress';
-import { HomeComplete } from '@/components/arena/HomeComplete';
+import { Zap, ChevronRight, Clock, Eye } from 'lucide-react';
 import { OctagonTexture, Countdown, EventoNome, FightPreview, sortLutas, type Evento } from '@/components/arena/shared';
 import { useTranslations } from 'next-intl';
 
-// ═══════════════════════════════════════════════════════════
-// LANDING (not logged in)
-// ═══════════════════════════════════════════════════════════
-
-function HomeLanding({ evento }: { evento: Evento | null }) {
+export default function ArenaPreviewPage() {
   const t = useTranslations('arena');
+  const [evento, setEvento] = useState<Evento | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchEvento() {
+      try {
+        const res = await fetch('/api/eventos/proximo?include_live=true');
+        if (res.ok) {
+          const data: unknown = await res.json();
+          setEvento(data as Evento);
+        }
+      } catch { /* silent */ }
+      setLoading(false);
+    }
+    fetchEvento();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <Clock className="w-6 h-6 text-ufc-red animate-spin" />
+      </div>
+    );
+  }
+
   const topLutas = evento ? sortLutas(evento.lutas).slice(0, 4) : [];
 
   return (
     <OctagonTexture posterUrl={evento?.poster_url} className={evento?.poster_url ? 'min-h-[85vh] sm:min-h-screen' : ''}>
       <div className={`container mx-auto px-4 ${evento?.poster_url ? 'flex flex-col justify-center min-h-[85vh] sm:min-h-screen' : 'py-12 sm:py-20'}`}>
         <div className="max-w-lg mx-auto text-center space-y-8 w-full">
+
+          {/* Preview badge */}
+          <div className="flex justify-center">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-ufc-red/10 border border-ufc-red/30 px-4 py-1.5 text-xs font-display uppercase tracking-widest text-ufc-red">
+              <Eye className="w-3.5 h-3.5" />
+              {t('preview_badge')}
+            </span>
+          </div>
 
           {/* Event as protagonist */}
           {evento ? (
@@ -46,22 +69,16 @@ function HomeLanding({ evento }: { evento: Evento | null }) {
             </div>
           )}
 
-          {/* Single CTA */}
+          {/* CTA — points to landing page contact section */}
           <div className="space-y-3">
-            <Link
-              href="/arena/registro"
+            <a
+              href="mailto:contato@crenas.site?subject=Arena%20Access%20Request"
               className="group inline-flex items-center gap-2 px-8 py-3.5 bg-ufc-red hover:bg-ufc-redLight text-white font-display text-lg uppercase tracking-wide rounded-xl transition-all shadow-lg shadow-ufc-red/20 hover:shadow-ufc-red/40"
             >
               <Zap className="w-5 h-5" />
-              {t('make_picks')}
+              {t('preview_cta_picks')}
               <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-            <div className="text-sm text-dark-textMuted">
-              {t('already_have_account')}{' '}
-              <Link href="/arena/login" className="text-ufc-red hover:underline">
-                {t('enter_arena')}
-              </Link>
-            </div>
+            </a>
           </div>
 
           {/* How it works — 3 steps */}
@@ -101,68 +118,4 @@ function HomeLanding({ evento }: { evento: Evento | null }) {
       </div>
     </OctagonTexture>
   );
-}
-
-// ═══════════════════════════════════════════════════════════
-// HOME LOGADO — thin 3-state controller
-// ═══════════════════════════════════════════════════════════
-
-function HomeLogado({ evento }: { evento: Evento | null }) {
-  const { usuario } = useArenaAuth();
-  const { picks, picksLoading } = useEventoPicks(evento?.id);
-
-  if (!usuario || picksLoading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <Clock className="w-6 h-6 text-ufc-red animate-spin" />
-      </div>
-    );
-  }
-
-  const isNew = (usuario.total_previsoes ?? 0) === 0;
-  const totalLutas = evento?.lutas?.length ?? 0;
-  const picksCount = Object.keys(picks).length;
-  const allDone = totalLutas > 0 && picksCount >= totalLutas;
-
-  if (isNew) return <HomeNew evento={evento} />;
-  if (allDone) return <HomeComplete evento={evento} picks={picks} />;
-  return <HomeInProgress evento={evento} picks={picks} picksCount={picksCount} totalLutas={totalLutas} />;
-}
-
-// ═══════════════════════════════════════════════════════════
-// MAIN PAGE
-// ═══════════════════════════════════════════════════════════
-
-export default function ArenaPage() {
-  const { isAuthenticated, isLoading } = useArenaAuth();
-  const [evento, setEvento] = useState<Evento | null>(null);
-  const [eventoLoading, setEventoLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchEvento() {
-      try {
-        const res = await fetch('/api/eventos/proximo?include_live=true');
-        if (res.ok) {
-          const data: unknown = await res.json();
-          setEvento(data as Evento);
-        }
-      } catch { /* silent */ }
-      setEventoLoading(false);
-    }
-    fetchEvento();
-  }, []);
-
-  if (isLoading || eventoLoading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <Clock className="w-6 h-6 text-ufc-red animate-spin" />
-      </div>
-    );
-  }
-
-  if (!isAuthenticated) {
-    return <HomeLanding evento={evento} />;
-  }
-
-  return <HomeLogado evento={evento} />;
 }

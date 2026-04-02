@@ -1,53 +1,38 @@
 'use client';
 
-import { Link } from '@/i18n/routing';
-import { MessageCircle, Mail, ArrowLeft, Lock } from 'lucide-react';
+import { Lock, Mail } from 'lucide-react';
 import { OctagonPortalLayout } from '@/components/arena/OctagonPortalLayout';
+import { useTranslations } from 'next-intl';
 
-export default function ArenaRegistroPage() {
+export default function ArenaPreviewRegistroPage() {
+  const t = useTranslations('arena');
+
   return (
-    <OctagonPortalLayout>
-      <div className="neu-card p-8">
+    <OctagonPortalLayout backHref="/arena">
+      <div className="neu-card p-8 animate-glow-pulse-border">
         {/* Header */}
-        <div className="flex flex-col items-center mb-8">
-          <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-ufc-red/10 border border-ufc-red/20">
-            <Lock className="h-8 w-8 text-ufc-red" />
+        <div className="flex flex-col items-center mb-8 slide-up-fade">
+          <div className="text-ufc-red mb-4">
+            <Lock className="h-10 w-10" />
           </div>
           <h2 className="font-display text-3xl uppercase tracking-wide text-dark-text">
-            Acesso Exclusivo
+            {t('cta_exclusive_title')}
           </h2>
-          <p className="mt-2 text-sm text-dark-textMuted text-center max-w-xs">
-            O Arena esta disponivel para parceiros e clientes. Entre em contato para criar sua conta.
+          <p className="mt-2 text-sm text-dark-textMuted text-center">
+            {t('cta_exclusive_subtitle')}
           </p>
         </div>
 
-        {/* CTA buttons */}
-        <div className="flex flex-col gap-3">
+        {/* CTA — email only */}
+        <div className="flex flex-col gap-4">
           <a
-            href="https://wa.me/16463549521?text=Oi!%20Quero%20criar%20conta%20no%20Arena%20do%20Crenas"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 w-full rounded-xl bg-emerald-600 py-3 font-display uppercase text-white hover:bg-emerald-500 transition-all hover:shadow-[0_0_20px_rgba(16,185,129,0.3)]"
+            href="mailto:contato@crenas.site?subject=Arena%20Access%20Request"
+            className="flex items-center justify-center gap-3 w-full rounded-xl bg-ufc-red py-3.5 font-display uppercase text-white hover:bg-ufc-redLight transition-all hover:shadow-[0_0_20px_rgba(210,10,10,0.4)] slide-up-fade"
+            style={{ animationDelay: '50ms' }}
           >
-            <MessageCircle className="h-4 w-4" />
-            Falar no WhatsApp
-          </a>
-
-          <a
-            href="mailto:contato@crenas.site?subject=Criar%20Conta%20Arena%20Crenas"
-            className="flex items-center justify-center gap-2 w-full rounded-xl border border-dark-border bg-dark-card py-3 font-display uppercase text-dark-text hover:border-ufc-red/40 transition-all"
-          >
-            <Mail className="h-4 w-4" />
+            <Mail className="h-5 w-5" />
             contato@crenas.site
           </a>
-        </div>
-
-        {/* Back link */}
-        <div className="mt-6 text-center">
-          <Link href="/arena" className="inline-flex items-center gap-2 text-sm text-dark-textMuted hover:text-ufc-red transition-colors">
-            <ArrowLeft className="h-3 w-3" />
-            Voltar ao Arena
-          </Link>
         </div>
       </div>
     </OctagonPortalLayout>
