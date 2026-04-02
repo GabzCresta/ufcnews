@@ -18,7 +18,7 @@ export function EventoCard({ evento, featured = false }: EventoCardProps) {
   const isPast = dataEvento < new Date();
 
   return (
-    <Link href={`/arena/evento/${evento.id}`}>
+    <Link href={`/hub/arena/evento/${evento.id}`}>
       <div
         className={`group relative overflow-hidden rounded-lg border border-dark-border bg-dark-card transition-all duration-300 hover:border-ufc-red/50 hover:bg-dark-cardHover ${
           featured ? 'md:col-span-2' : ''

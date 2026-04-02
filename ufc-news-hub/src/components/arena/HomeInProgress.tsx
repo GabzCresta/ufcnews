@@ -56,7 +56,7 @@ export function HomeInProgress({ evento, picks, picksCount, totalLutas }: HomeIn
               </div>
 
               <Link
-                href={`/arena/evento/${evento.id}`}
+                href={`/hub/arena/evento/${evento.id}`}
                 className="group flex items-center justify-center gap-2 w-full py-3.5 bg-ufc-red hover:bg-ufc-redLight text-white font-display uppercase tracking-wide rounded-xl transition-all text-sm animate-pulse-red"
               >
                 <Zap className="w-4 h-4" />
@@ -65,7 +65,7 @@ export function HomeInProgress({ evento, picks, picksCount, totalLutas }: HomeIn
               </Link>
 
               {nextUnpicked && (
-                <Link href={`/arena/evento/${evento.id}`} className="block">
+                <Link href={`/hub/arena/evento/${evento.id}`} className="block">
                   <div className="text-[10px] font-display uppercase tracking-widest text-white/30 mb-1">
                     {t('next_fight')}
                   </div>

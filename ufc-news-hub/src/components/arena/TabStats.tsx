@@ -18,7 +18,7 @@ export function TabStats() {
       <div className="neu-card p-6 text-center">
         <Target className="w-10 h-10 text-dark-textMuted mx-auto mb-3" />
         <p className="text-dark-textMuted">{t('login_to_see_stats')}</p>
-        <Link href="/arena/login" className="text-ufc-red text-sm mt-2 inline-block hover:underline">Entrar</Link>
+        <Link href="/hub/arena/login" className="text-ufc-red text-sm mt-2 inline-block hover:underline">Entrar</Link>
       </div>
     );
   }
@@ -70,7 +70,7 @@ export function TabStats() {
         </div>
       </div>
 
-      <Link href={`/arena/perfil/${usuario.username}`} className="block text-center text-sm text-ufc-red hover:underline">
+      <Link href={`/hub/arena/perfil/${usuario.username}`} className="block text-center text-sm text-ufc-red hover:underline">
         {t('see_full_profile')} →
       </Link>
     </div>

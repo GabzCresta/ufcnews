@@ -104,7 +104,7 @@ export function PickSummary({
           {t('edit_predictions')}
         </button>
         <Link
-          href={`/arena/evento/${eventoId}/meus-picks`}
+          href={`/hub/arena/evento/${eventoId}/meus-picks`}
           className="flex items-center justify-center gap-2 w-full py-3 bg-ufc-gold/10 border border-ufc-gold/20 text-ufc-gold font-display uppercase tracking-wide rounded-xl transition-all hover:bg-ufc-gold/20 text-sm"
         >
           <Trophy className="w-4 h-4" />

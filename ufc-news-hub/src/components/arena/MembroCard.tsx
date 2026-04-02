@@ -55,7 +55,7 @@ export function MembroCard({ membro, isCurrentUser, showPicksDetail, posicao }: 
 
         {/* Avatar */}
         <Link
-          href={`/arena/perfil/${membro.username}`}
+          href={`/hub/arena/perfil/${membro.username}`}
           className="shrink-0"
           aria-label={`Perfil de ${displayName}`}
         >

@@ -50,7 +50,7 @@ export function MinhasLigas({ showCtaIfEmpty = false }: MinhasLigasProps) {
   if (ligas.length === 0 && showCtaIfEmpty) {
     return (
       <Link
-        href="/arena/ligas/criar"
+        href="/hub/arena/ligas/criar"
         className="flex items-center gap-4 rounded-xl border border-white/10 bg-black/40 backdrop-blur-md p-5 hover:border-ufc-gold/30 transition-colors group"
       >
         <div className="w-10 h-10 rounded-full bg-ufc-gold/10 flex items-center justify-center shrink-0">
@@ -75,7 +75,7 @@ export function MinhasLigas({ showCtaIfEmpty = false }: MinhasLigasProps) {
         {ligas.map(liga => (
           <Link
             key={liga.id}
-            href={`/arena/ligas/${liga.id}`}
+            href={`/hub/arena/ligas/${liga.id}`}
             className="shrink-0 rounded-xl border border-white/10 bg-black/40 backdrop-blur-md p-4 min-w-[140px] hover:border-ufc-gold/30 transition-colors"
           >
             <div className="text-sm font-medium text-white truncate">{liga.nome}</div>
@@ -87,7 +87,7 @@ export function MinhasLigas({ showCtaIfEmpty = false }: MinhasLigasProps) {
           </Link>
         ))}
         <Link
-          href="/arena/ligas/criar"
+          href="/hub/arena/ligas/criar"
           className="shrink-0 rounded-xl border border-dashed border-white/10 bg-black/20 p-4 min-w-[100px] flex flex-col items-center justify-center gap-1 hover:border-ufc-gold/30 transition-colors"
         >
           <Plus className="w-4 h-4 text-white/30" />

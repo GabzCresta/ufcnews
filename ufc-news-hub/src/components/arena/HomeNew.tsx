@@ -44,7 +44,7 @@ export function HomeNew({ evento }: HomeNewProps) {
 
               <div className="text-center">
                 <Link
-                  href={`/arena/evento/${evento.id}`}
+                  href={`/hub/arena/evento/${evento.id}`}
                   className="group inline-flex items-center gap-2 px-8 py-4 bg-ufc-red hover:bg-ufc-redLight text-white font-display text-lg uppercase tracking-wide rounded-xl transition-all shadow-lg shadow-ufc-red/20 hover:shadow-ufc-red/40"
                 >
                   <Zap className="w-5 h-5" />

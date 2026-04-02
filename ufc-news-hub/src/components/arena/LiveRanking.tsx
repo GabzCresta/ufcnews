@@ -64,7 +64,7 @@ export function LiveRanking({ limit = 3, highlightUserId, showTotal = true }: Li
           <Trophy className="w-4 h-4 text-ufc-gold" />
           <span className="text-sm font-display uppercase text-white/70">Ranking</span>
         </div>
-        <Link href="/arena/analytics" className="flex items-center gap-1 text-xs text-white/30 hover:text-white/50 transition-colors">
+        <Link href="/hub/arena/analytics" className="flex items-center gap-1 text-xs text-white/30 hover:text-white/50 transition-colors">
           ver tudo <ChevronRight className="w-3 h-3" />
         </Link>
       </div>

@@ -165,7 +165,7 @@ export function PickCard({
           {!editing ? (
             <div className="flex items-center justify-between">
               <Link
-                href="/analises"
+                href="/hub/analises"
                 className="flex items-center gap-1 text-[10px] text-white/20 hover:text-ufc-red transition-colors"
               >
                 <ExternalLink className="w-3 h-3" />
@@ -281,7 +281,7 @@ export function PickCard({
       {/* Analysis link for finished fights */}
       {isFinished && (
         <Link
-          href="/analises"
+          href="/hub/analises"
           className="flex items-center gap-1 mt-3 text-[10px] text-white/20 hover:text-ufc-red transition-colors"
         >
           <ExternalLink className="w-3 h-3" />

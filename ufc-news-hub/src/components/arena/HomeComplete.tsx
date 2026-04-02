@@ -52,7 +52,7 @@ export function HomeComplete({ evento, picks }: HomeCompleteProps) {
             </p>
             {evento && (
               <Link
-                href={`/arena/evento/${evento.id}`}
+                href={`/hub/arena/evento/${evento.id}`}
                 className="inline-flex items-center gap-2 px-5 py-2.5 border border-white/15 text-white/60 hover:text-white hover:border-white/25 rounded-xl transition-colors text-sm"
               >
                 <Pencil className="w-3.5 h-3.5" />
@@ -69,7 +69,7 @@ export function HomeComplete({ evento, picks }: HomeCompleteProps) {
             <p className="text-xs text-white/40">{t('league_subtitle')}</p>
             <div className="flex gap-3">
               <Link
-                href="/arena/ligas/criar"
+                href="/hub/arena/ligas/criar"
                 className="flex-1 py-2.5 bg-ufc-red hover:bg-ufc-redLight text-white font-display uppercase text-xs tracking-wide rounded-xl transition-all text-center"
               >
                 {t('create_league')}

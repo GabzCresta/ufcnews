@@ -238,7 +238,7 @@ export function SwipeCard({
 
       {/* Analysis link */}
       <Link
-        href="/analises"
+        href="/hub/analises"
         className="flex items-center gap-1.5 mt-6 text-xs text-white/25 hover:text-ufc-red transition-colors"
       >
         <HelpCircle className="w-3.5 h-3.5" />

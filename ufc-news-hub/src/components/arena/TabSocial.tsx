@@ -56,7 +56,7 @@ export function TabSocial() {
       <div className="neu-card p-6 text-center">
         <Users className="w-10 h-10 text-dark-textMuted mx-auto mb-3" />
         <p className="text-dark-textMuted">{t('join_league_to_compete')}</p>
-        <Link href="/arena/login" className="text-ufc-red text-sm mt-2 inline-block hover:underline">Entrar</Link>
+        <Link href="/hub/arena/login" className="text-ufc-red text-sm mt-2 inline-block hover:underline">Entrar</Link>
       </div>
     );
   }
@@ -77,7 +77,7 @@ export function TabSocial() {
             {ligas.map(liga => (
               <Link
                 key={liga.id}
-                href={`/arena/ligas/${liga.id}`}
+                href={`/hub/arena/ligas/${liga.id}`}
                 className="flex items-center justify-between p-2.5 rounded-lg bg-dark-bg/50 hover:bg-dark-bg transition-colors"
               >
                 <span className="text-sm text-dark-text font-medium">{liga.nome}</span>
@@ -86,7 +86,7 @@ export function TabSocial() {
             ))}
           </div>
         )}
-        <Link href="/arena/ligas" className="block text-center text-sm text-ufc-red hover:underline">
+        <Link href="/hub/arena/ligas" className="block text-center text-sm text-ufc-red hover:underline">
           {t('see_all_leagues')} →
         </Link>
       </div>

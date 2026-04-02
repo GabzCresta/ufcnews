@@ -46,7 +46,7 @@ export function UserAvatar({ usuario, onLogout }: UserAvatarProps) {
   if (!usuario) {
     return (
       <Link
-        href="/arena/login"
+        href="/hub/arena/login"
         className="flex items-center gap-2 px-4 py-2 rounded-lg border border-ufc-red/60 text-ufc-red hover:bg-ufc-red/10 font-medium text-sm transition-colors"
       >
         <User className="w-4 h-4" />
@@ -152,7 +152,7 @@ export function UserAvatar({ usuario, onLogout }: UserAvatarProps) {
           {/* Menu options */}
           <nav className="py-2">
             <Link
-              href={`/arena/perfil/${usuario.username}`}
+              href={`/hub/arena/perfil/${usuario.username}`}
               className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm text-dark-textMuted hover:text-dark-text hover:bg-dark-bg transition-colors"
               onClick={() => setIsOpen(false)}
             >
@@ -161,7 +161,7 @@ export function UserAvatar({ usuario, onLogout }: UserAvatarProps) {
             </Link>
 
             <Link
-              href="/arena/ligas"
+              href="/hub/arena/ligas"
               className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm text-dark-textMuted hover:text-dark-text hover:bg-dark-bg transition-colors"
               onClick={() => setIsOpen(false)}
             >
@@ -170,7 +170,7 @@ export function UserAvatar({ usuario, onLogout }: UserAvatarProps) {
             </Link>
 
             <Link
-              href="/arena/historico"
+              href="/hub/arena/historico"
               className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm text-dark-textMuted hover:text-dark-text hover:bg-dark-bg transition-colors"
               onClick={() => setIsOpen(false)}
             >
@@ -179,7 +179,7 @@ export function UserAvatar({ usuario, onLogout }: UserAvatarProps) {
             </Link>
 
             <Link
-              href="/arena/perfil/avatar"
+              href="/hub/arena/perfil/avatar"
               className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm text-dark-textMuted hover:text-dark-text hover:bg-dark-bg transition-colors"
               onClick={() => setIsOpen(false)}
             >

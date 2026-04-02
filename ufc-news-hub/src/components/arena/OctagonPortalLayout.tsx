@@ -5,9 +5,10 @@ import { Link } from '@/i18n/routing';
 
 interface OctagonPortalLayoutProps {
   children: React.ReactNode;
+  backHref?: string;
 }
 
-export function OctagonPortalLayout({ children }: OctagonPortalLayoutProps) {
+export function OctagonPortalLayout({ children, backHref = '/hub/arena' }: OctagonPortalLayoutProps) {
   return (
     <div className="min-h-screen bg-dark-bg flex flex-col md:flex-row">
       {/* Left Panel — The Portal */}
@@ -80,10 +81,10 @@ export function OctagonPortalLayout({ children }: OctagonPortalLayoutProps) {
           {/* Back to Arena */}
           <div className="mt-6 text-center">
             <Link
-              href="/arena"
+              href={backHref}
               className="text-sm text-dark-textMuted hover:text-ufc-red transition-colors"
             >
-              ← Voltar para Arena
+              &larr; Voltar para Arena
             </Link>
           </div>
         </div>
