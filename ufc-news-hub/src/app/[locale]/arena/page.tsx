@@ -37,6 +37,13 @@ export default function ArenaPreviewPage() {
 
   return (
     <OctagonTexture posterUrl={evento?.poster_url} className={evento?.poster_url ? 'min-h-[85vh] sm:min-h-screen' : ''}>
+      {/* Back button — top left */}
+      <div className="absolute top-4 left-4 z-20">
+        <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-dark-textMuted hover:text-ufc-red transition-colors">
+          <ArrowLeft className="h-3.5 w-3.5" />
+          Back to Octagon
+        </Link>
+      </div>
       <div className={`container mx-auto px-4 ${evento?.poster_url ? 'flex flex-col justify-center min-h-[85vh] sm:min-h-screen' : 'py-12 sm:py-20'}`}>
         <div className="max-w-lg mx-auto text-center space-y-8 w-full">
 
@@ -95,14 +102,6 @@ export default function ArenaPreviewPage() {
                 <div className="text-[11px] text-dark-textMuted leading-tight">{step.desc}</div>
               </div>
             ))}
-          </div>
-
-          {/* Back to landing */}
-          <div className="pt-4">
-            <Link href="/" className="inline-flex items-center gap-2 text-sm text-dark-textMuted hover:text-ufc-red transition-colors">
-              <ArrowLeft className="h-3.5 w-3.5" />
-              Back to Octagon
-            </Link>
           </div>
 
           {/* Fight preview */}
