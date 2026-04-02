@@ -26,7 +26,7 @@ export function BottomNav({ eventoId, isAoVivo, username }: BottomNavProps) {
   const tabs: NavTab[] = [
     {
       label: t('nav_home'),
-      href: '/arena',
+      href: '/hub/arena',
       icon: <Home className="w-5 h-5" />,
       matchPaths: ['/hub/arena'],
     },

@@ -643,45 +643,24 @@ function TabArena() {
               </p>
             </div>
 
-            {/* Right: PickCard mockup — faithful to real component */}
+            {/* Right: 3 Arena mockups showcasing different features */}
             <div className="flex flex-col gap-3">
-              {/* Card 1: Main Event — with pick made */}
+
+              {/* 1. Pick Card — main event with pick made */}
               <div className="rounded-xl border bg-[#E20814]/5 border-[#E20814]/20 backdrop-blur-sm p-4">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-[9px] font-display uppercase tracking-widest text-[#E20814]">Main Event</span>
                   <span className="text-[9px] font-display uppercase tracking-widest text-white/25">5 Rounds</span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-[#E20814]/60 shrink-0 bg-zinc-800">
-                    <img src="/api/image-proxy?url=https%3A%2F%2Fufc.com%2Fimages%2Fstyles%2Fathlete_bio_full_body%2Fs3%2F2025-01%2F12%2FMOICANO_RENATO_L_09-28.png%3Fitok%3DaJ4kuhkB" alt="Moicano" className="w-full h-full object-cover object-top" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-white truncate">Moicano <span className="text-white/25 font-normal">vs Duncan</span></p>
-                    <div className="flex gap-1.5 mt-1">
-                      <span className="text-[10px] text-[#E20814]/80 bg-[#E20814]/10 px-2 py-0.5 rounded-full">KO/TKO</span>
-                      <span className="text-[10px] text-white/40 bg-white/5 px-2 py-0.5 rounded-full">R3</span>
-                    </div>
-                  </div>
-                  <div className="w-8 h-8 rounded-full overflow-hidden border border-white/10 shrink-0 opacity-30 bg-zinc-800">
-                    <img src="/api/image-proxy?url=https%3A%2F%2Fufc.com%2Fimages%2Fstyles%2Fathlete_bio_full_body%2Fs3%2F2023-07%2FDUNCAN_CHRIS_L_07-22.png%3Fitok%3DHlQ_JCOr" alt="Duncan" className="w-full h-full object-cover object-top" />
-                  </div>
-                </div>
-              </div>
-
-              {/* Card 2: Card Principal — pick in progress */}
-              <div className="rounded-xl border bg-black/30 border-white/10 backdrop-blur-sm p-4">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-[9px] font-display uppercase tracking-widest text-white/25">Card Principal</span>
-                </div>
                 <div className="grid grid-cols-2 gap-2">
-                  <button className="bg-[#E20814]/15 border border-[#E20814]/50 rounded-lg px-3 py-2.5 text-center transition-all">
-                    <p className="text-xs font-semibold text-white">Yakhyaev</p>
-                    <p className="text-[9px] text-white/40 mt-0.5">10-1-0</p>
-                  </button>
-                  <button className="bg-white/5 border border-transparent rounded-lg px-3 py-2.5 text-center hover:border-white/15 transition-all">
-                    <p className="text-xs font-semibold text-white/50">Ribeiro</p>
-                    <p className="text-[9px] text-white/25 mt-0.5">14-7-0</p>
-                  </button>
+                  <div className="bg-[#E20814]/15 border border-[#E20814]/50 rounded-lg px-3 py-2.5 text-center">
+                    <p className="text-xs font-semibold text-white">Moicano</p>
+                    <p className="text-[9px] text-white/40 mt-0.5">20-7-1</p>
+                  </div>
+                  <div className="bg-white/5 border border-transparent rounded-lg px-3 py-2.5 text-center">
+                    <p className="text-xs font-semibold text-white/50">Duncan</p>
+                    <p className="text-[9px] text-white/25 mt-0.5">15-2-0</p>
+                  </div>
                 </div>
                 <div className="flex flex-wrap gap-1.5 mt-3">
                   <span className="text-[10px] bg-[#E20814] text-white px-2.5 py-1 rounded-full font-medium">KO/TKO</span>
@@ -690,26 +669,55 @@ function TabArena() {
                 </div>
               </div>
 
-              {/* Card 3: Prelim — completed with result */}
-              <div className="rounded-xl border bg-green-500/10 border-green-500/30 backdrop-blur-sm p-4">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-[9px] font-display uppercase tracking-widest text-white/25">Prelim</span>
-                  <span className="flex items-center gap-1 text-[9px] text-green-400 font-bold uppercase">
-                    <CheckCircle2 className="w-3 h-3" /> Correct
-                  </span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-green-500 shrink-0 bg-zinc-800 flex items-center justify-center text-white/60 text-sm font-bold">LV</div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-white truncate">Vannata <span className="text-white/25 font-normal">vs Flowers</span></p>
-                    <div className="flex gap-1.5 mt-1">
-                      <span className="text-[10px] text-[#E20814]/80 bg-[#E20814]/10 px-2 py-0.5 rounded-full">Decision</span>
-                    </div>
-                    <p className="text-[10px] text-ufc-gold/60 mt-1">+100 pts</p>
+              {/* 2. Profile Card — user stats showcase */}
+              <div className="rounded-xl border bg-black/30 border-white/10 backdrop-blur-sm p-4">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#E20814]/30 to-[#E20814]/10 border border-[#E20814]/30 flex items-center justify-center text-white text-xs font-bold">GP</div>
+                  <div>
+                    <p className="text-sm font-semibold text-white">GabzCresta</p>
+                    <p className="text-[9px] text-ufc-gold uppercase tracking-wider">Contender</p>
                   </div>
-                  <div className="w-8 h-8 rounded-full overflow-hidden border border-white/10 shrink-0 opacity-30 bg-zinc-800 flex items-center justify-center text-white/30 text-[10px] font-bold">DF</div>
+                  <div className="ml-auto text-right">
+                    <p className="text-sm font-bold text-white">1,950</p>
+                    <p className="text-[9px] text-white/30 uppercase">pts</p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-4 gap-2">
+                  {[
+                    { label: 'Picks', value: '56' },
+                    { label: 'Correct', value: '15' },
+                    { label: 'Streak', value: '5' },
+                    { label: 'KOs', value: '6' },
+                  ].map((s, i) => (
+                    <div key={i} className="text-center bg-white/[0.03] rounded-lg py-2">
+                      <p className="text-xs font-bold text-white">{s.value}</p>
+                      <p className="text-[8px] text-white/30 uppercase">{s.label}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
+
+              {/* 3. Leaderboard — ranking preview */}
+              <div className="rounded-xl border bg-black/30 border-white/10 backdrop-blur-sm p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-[9px] font-display uppercase tracking-widest text-ufc-gold">Leaderboard</span>
+                  <Trophy className="w-3.5 h-3.5 text-ufc-gold/50" />
+                </div>
+                <div className="space-y-2">
+                  {[
+                    { pos: '1', name: 'MMAKing_BR', pts: '2,450', medal: 'text-yellow-400' },
+                    { pos: '2', name: 'OctagonPro', pts: '2,180', medal: 'text-zinc-400' },
+                    { pos: '3', name: 'GabzCresta', pts: '1,950', medal: 'text-amber-600' },
+                  ].map((row, i) => (
+                    <div key={i} className={`flex items-center gap-3 px-2 py-1.5 rounded-lg ${i === 2 ? 'bg-[#E20814]/10 border border-[#E20814]/20' : ''}`}>
+                      <span className={`text-xs font-bold w-4 ${row.medal}`}>{row.pos}</span>
+                      <span className="text-xs text-white flex-1">{row.name}</span>
+                      <span className="text-xs text-white/50 font-mono">{row.pts}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
