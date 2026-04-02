@@ -443,7 +443,7 @@ function TabProduto({ onNavigate }: { onNavigate: (t: TabId) => void }) {
           <h2 className="font-display text-3xl md:text-5xl font-bold tracking-tight text-white">
             {t('pipeline_title')}
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-sm text-zinc-500">
+          <p className="mx-auto mt-4 max-w-xl text-sm text-white">
             {t('pipeline_desc')}
           </p>
         </div>
