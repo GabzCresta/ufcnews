@@ -283,7 +283,7 @@ function TabProduto({ onNavigate }: { onNavigate: (t: TabId) => void }) {
               {t('hero_title_1')}<br />
               <span
                 className="text-[#E20814]"
-                style={{ textShadow: '0 0 30px rgba(226,8,20,0.4), 0 0 60px rgba(226,8,20,0.15)' }}
+                style={{ textShadow: '0 0 20px rgba(226,8,20,0.2), 0 0 40px rgba(226,8,20,0.08)' }}
               >
                 {t('hero_title_2')}
               </span>
