@@ -666,9 +666,28 @@ function TabArena() {
                     How? <span className="text-ufc-gold/50">(+50 pts)</span>
                   </p>
                   <div className="grid grid-cols-3 gap-2">
-                    <div className="py-2.5 rounded-xl text-[11px] font-medium text-center bg-[#E20814] text-white">KO/TKO</div>
-                    <div className="py-2.5 rounded-xl text-[11px] font-medium text-center bg-white/5 text-white/40 border border-white/10">Submission</div>
+                    <div className="py-2.5 rounded-xl text-[11px] font-medium text-center bg-white/5 text-white/40 border border-white/10">KO/TKO</div>
+                    <div className="py-2.5 rounded-xl text-[11px] font-medium text-center bg-[#E20814] text-white">Submission</div>
                     <div className="py-2.5 rounded-xl text-[11px] font-medium text-center bg-white/5 text-white/40 border border-white/10">Decision</div>
+                  </div>
+                </div>
+
+                {/* Round selection — visible when KO/TKO or Submission picked */}
+                <div>
+                  <p className="text-[10px] font-display uppercase tracking-widest text-white/40 mb-2">
+                    Which Round? <span className="text-ufc-gold/50">(+50 pts)</span>
+                  </p>
+                  <div className="flex gap-2 justify-center">
+                    {[1, 2, 3, 4, 5].map(r => (
+                      <div
+                        key={r}
+                        className={`w-10 h-10 rounded-full text-[11px] font-display flex items-center justify-center ${
+                          r === 2 ? 'bg-[#E20814] text-white' : 'bg-white/5 text-white/40 border border-white/10'
+                        }`}
+                      >
+                        R{r}
+                      </div>
+                    ))}
                   </div>
                 </div>
 
