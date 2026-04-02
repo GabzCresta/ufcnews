@@ -488,9 +488,10 @@ function TabAnalise() {
 
         <div className="relative mx-auto max-w-6xl px-6 py-16 w-full">
           <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-2 rounded-full bg-white/[0.03] px-4 py-1.5 border border-white/[0.05] mb-4">
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/[0.03] px-4 py-1.5 border border-white/[0.05] mb-3">
               <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814]">UFC Fight Night</span>
             </div>
+            <br />
             <div className="inline-flex items-center gap-2 rounded-full bg-white/[0.03] px-4 py-1.5 border border-white/[0.05]">
               <span className="text-[11px] font-medium tracking-wide text-white">{t('analise_event_details')}</span>
             </div>
