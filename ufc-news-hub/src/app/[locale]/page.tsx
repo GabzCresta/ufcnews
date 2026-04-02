@@ -621,27 +621,99 @@ function TabArena() {
   return (
     <div className="animate-fade-in">
 
-      <section className="relative overflow-hidden min-h-[80vh] flex items-center">
+      <section className="relative overflow-hidden min-h-[85vh] flex items-center">
         <div className="absolute left-1/2 top-[35%] -translate-x-1/2 -translate-y-1/2 pointer-events-none" style={{ width: 600, height: 600, background: 'radial-gradient(circle, rgba(226,8,20,0.06) 0%, transparent 65%)', filter: 'blur(120px)' }} />
-        <OctagonWatermark className="absolute -right-[12%] top-[-5%] w-[800px] h-[800px]" />
 
-        <div className="relative mx-auto max-w-6xl px-6 py-28">
-          <div className="text-center">
-            <div className="mb-10 inline-flex items-center gap-2.5 rounded-full bg-white/[0.03] px-5 py-2.5 border border-white/[0.05]">
-              <Trophy className="h-3.5 w-3.5 text-[#E20814]" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814]">{t('arena_badge')}</span>
+        <div className="relative mx-auto max-w-6xl px-6 py-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            {/* Left: text */}
+            <div>
+              <div className="mb-8 inline-flex items-center gap-2.5 rounded-full bg-white/[0.03] px-5 py-2.5 border border-white/[0.05]">
+                <Trophy className="h-3.5 w-3.5 text-[#E20814]" />
+                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814]">{t('arena_badge')}</span>
+              </div>
+
+              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[0.92]">
+                {t('arena_title_1')}<br />
+                <span className="text-[#E20814]" style={{ textShadow: '0 0 20px rgba(226,8,20,0.2)' }}>{t('arena_title_2')}</span>
+              </h1>
+
+              <p className="mt-6 max-w-lg text-lg leading-relaxed text-white">
+                {t('arena_desc')}
+              </p>
             </div>
 
-            <h1 className="font-display text-[clamp(3rem,7vw,5.5rem)] font-bold tracking-tight text-white leading-[0.92]">
-              {t('arena_title_1')}<br />
-              <span className="text-[#E20814]" style={{ textShadow: '0 0 30px rgba(226,8,20,0.4)' }}>{t('arena_title_2')}</span>
-            </h1>
+            {/* Right: PickCard mockup — faithful to real component */}
+            <div className="flex flex-col gap-3">
+              {/* Card 1: Main Event — with pick made */}
+              <div className="rounded-xl border bg-[#E20814]/5 border-[#E20814]/20 backdrop-blur-sm p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-[9px] font-display uppercase tracking-widest text-[#E20814]">Main Event</span>
+                  <span className="text-[9px] font-display uppercase tracking-widest text-white/25">5 Rounds</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-[#E20814]/60 shrink-0 bg-zinc-800">
+                    <img src="/api/image-proxy?url=https%3A%2F%2Fufc.com%2Fimages%2Fstyles%2Fathlete_bio_full_body%2Fs3%2F2025-01%2F12%2FMOICANO_RENATO_L_09-28.png%3Fitok%3DaJ4kuhkB" alt="Moicano" className="w-full h-full object-cover object-top" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-white truncate">Moicano <span className="text-white/25 font-normal">vs Duncan</span></p>
+                    <div className="flex gap-1.5 mt-1">
+                      <span className="text-[10px] text-[#E20814]/80 bg-[#E20814]/10 px-2 py-0.5 rounded-full">KO/TKO</span>
+                      <span className="text-[10px] text-white/40 bg-white/5 px-2 py-0.5 rounded-full">R3</span>
+                    </div>
+                  </div>
+                  <div className="w-8 h-8 rounded-full overflow-hidden border border-white/10 shrink-0 opacity-30 bg-zinc-800">
+                    <img src="/api/image-proxy?url=https%3A%2F%2Fufc.com%2Fimages%2Fstyles%2Fathlete_bio_full_body%2Fs3%2F2023-07%2FDUNCAN_CHRIS_L_07-22.png%3Fitok%3DHlQ_JCOr" alt="Duncan" className="w-full h-full object-cover object-top" />
+                  </div>
+                </div>
+              </div>
 
-            <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-white/80">
-              {t('arena_desc')}
-            </p>
+              {/* Card 2: Regular fight — pick in progress */}
+              <div className="rounded-xl border bg-black/30 border-white/10 backdrop-blur-sm p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-[9px] font-display uppercase tracking-widest text-white/25">Prelim</span>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <button className="bg-[#E20814]/15 border border-[#E20814]/50 rounded-lg px-3 py-2.5 text-center transition-all">
+                    <p className="text-xs font-semibold text-white">Sterling</p>
+                    <p className="text-[9px] text-white/40 mt-0.5">20-4-0</p>
+                  </button>
+                  <button className="bg-white/5 border border-transparent rounded-lg px-3 py-2.5 text-center hover:border-white/15 transition-all">
+                    <p className="text-xs font-semibold text-white/50">Zalal</p>
+                    <p className="text-[9px] text-white/25 mt-0.5">18-4-0</p>
+                  </button>
+                </div>
+                <div className="flex flex-wrap gap-1.5 mt-3">
+                  <span className="text-[10px] bg-[#E20814] text-white px-2.5 py-1 rounded-full font-medium">KO/TKO</span>
+                  <span className="text-[10px] bg-white/5 text-white/30 px-2.5 py-1 rounded-full">Submission</span>
+                  <span className="text-[10px] bg-white/5 text-white/30 px-2.5 py-1 rounded-full">Decision</span>
+                </div>
+              </div>
+
+              {/* Card 3: Completed with result */}
+              <div className="rounded-xl border bg-green-500/10 border-green-500/30 backdrop-blur-sm p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-[9px] font-display uppercase tracking-widest text-white/25">Co-Main</span>
+                  <span className="flex items-center gap-1 text-[9px] text-green-400 font-bold uppercase">
+                    <CheckCircle2 className="w-3 h-3" /> Correct
+                  </span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-green-500 shrink-0 bg-zinc-800 flex items-center justify-center text-white/60 text-sm font-bold">BP</div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-white truncate">Burns <span className="text-white/25 font-normal">vs Prates</span></p>
+                    <div className="flex gap-1.5 mt-1">
+                      <span className="text-[10px] text-[#E20814]/80 bg-[#E20814]/10 px-2 py-0.5 rounded-full">Decision</span>
+                    </div>
+                    <p className="text-[10px] text-ufc-gold/60 mt-1">+100 pts</p>
+                  </div>
+                  <div className="w-8 h-8 rounded-full overflow-hidden border border-white/10 shrink-0 opacity-30 bg-zinc-800 flex items-center justify-center text-white/30 text-[10px] font-bold">MP</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-zinc-800/60 to-transparent" />
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-24">
