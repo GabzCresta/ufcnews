@@ -644,7 +644,7 @@ function TabArena() {
             </div>
 
             {/* Right: 3 Arena mockups showcasing different features */}
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-0">
 
               {/* 1. SwipeCard — pixel-faithful to real Arena UI */}
               <div className="rounded-2xl p-5 space-y-5">
@@ -704,6 +704,9 @@ function TabArena() {
                 </div>
               </div>
 
+              {/* Separator */}
+              <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-1" />
+
               {/* 2. Profile Card — user stats showcase */}
               <div className="rounded-xl p-4">
                 <div className="flex items-center gap-3 mb-3">
@@ -731,6 +734,9 @@ function TabArena() {
                   ))}
                 </div>
               </div>
+
+              {/* Separator */}
+              <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-1" />
 
               {/* 3. Leaderboard — ranking preview */}
               <div className="rounded-xl p-4">
