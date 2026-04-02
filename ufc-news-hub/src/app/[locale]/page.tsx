@@ -410,7 +410,7 @@ function TabProduto({ onNavigate }: { onNavigate: (t: TabId) => void }) {
                       <>
                         <p
                           className="font-display text-7xl md:text-8xl font-bold text-[#E20814] leading-none"
-                          style={{ textShadow: '0 0 40px rgba(226,8,20,0.35), 0 0 80px rgba(226,8,20,0.12)' }}
+                          style={{ textShadow: '0 0 20px rgba(226,8,20,0.2), 0 0 40px rgba(226,8,20,0.08)' }}
                         >
                           {item.value}
                         </p>
