@@ -265,19 +265,6 @@ function TabProduto({ onNavigate }: { onNavigate: (t: TabId) => void }) {
             className="animate-[draw-octagon_3s_ease-out_forwards]"
           />
         </svg>
-        {/* Second octagon — smaller, rotated, gives depth */}
-        <svg
-          viewBox="0 0 800 800"
-          className="absolute left-1/2 top-[48%] -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] md:w-[550px] md:h-[550px] pointer-events-none rotate-[22.5deg]"
-          fill="none"
-        >
-          <polygon
-            points="280,10 520,10 680,170 680,430 520,590 280,590 120,430 120,170"
-            transform="translate(0,100)"
-            stroke="rgba(226,8,20,0.15)"
-            strokeWidth="1.5"
-          />
-        </svg>
 
         <div className="relative mx-auto max-w-6xl px-6 py-28">
           <div className="text-center">
