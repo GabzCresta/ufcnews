@@ -350,8 +350,8 @@ function TabProduto({ onNavigate }: { onNavigate: (t: TabId) => void }) {
             <div key={i} className="group rounded-2xl bg-white/[0.03] border border-white/[0.06] p-7 hover:border-[#E20814]/20 transition-all duration-500">
               <item.icon className="h-5 w-5 text-[#E20814] mb-5" />
               <p className="text-[11px] font-bold uppercase tracking-wider text-zinc-200 mb-2">{item.title}</p>
-              <p className="font-display text-5xl text-[#E20814]/15 mb-3 leading-none">{item.stat}</p>
-              <p className="text-[12px] text-zinc-400 leading-relaxed">{item.desc}</p>
+              <p className="font-display text-5xl text-[#E20814] mb-3 leading-none">{item.stat}</p>
+              <p className="text-[13px] text-zinc-300 leading-relaxed">{item.desc}</p>
             </div>
           ))}
         </div>
