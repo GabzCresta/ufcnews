@@ -646,43 +646,50 @@ function TabArena() {
             {/* Right: 3 Arena mockups showcasing different features */}
             <div className="flex flex-col gap-3">
 
-              {/* 1. SwipeCard pick detail — faithful to real UI */}
-              <div className="rounded-2xl border bg-black/40 border-white/10 backdrop-blur-sm p-5 space-y-4">
+              {/* 1. SwipeCard — pixel-faithful to real Arena UI */}
+              <div className="rounded-2xl border bg-black/60 border-white/10 backdrop-blur-sm p-5 space-y-5">
+                {/* Fight context */}
+                <div className="text-center space-y-1">
+                  <h3 className="text-xl font-display uppercase tracking-wide font-bold text-[#E20814]">Main Event</h3>
+                  <p className="text-xs text-white/50">Lightweight Bout · 5 rounds</p>
+                  <p className="text-[10px] text-white/30 font-display tracking-wide">Fight 1 of 13</p>
+                </div>
+
                 {/* Picked fighter recap */}
                 <div className="flex items-center gap-3 py-3 px-4 rounded-2xl bg-[#E20814]/10 border border-[#E20814]/30">
-                  <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-[#E20814] shrink-0 bg-zinc-800">
+                  <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-[#E20814] shrink-0 bg-zinc-800">
                     <img src="/api/image-proxy?url=https%3A%2F%2Fufc.com%2Fimages%2Fstyles%2Fevent_results_athlete_headshot%2Fs3%2F2025-06%2FMOICANO_RENATO_06-28.png%3Fitok%3DgO9qvgp6" alt="Moicano" className="w-full h-full object-cover object-top" />
                   </div>
                   <div>
-                    <span className="text-base font-display uppercase font-bold text-white">Moicano</span>
-                    <span className="text-sm text-white/40 ml-1.5">wins</span>
+                    <span className="text-lg font-display uppercase font-bold text-white">Moicano</span>
+                    <span className="text-base text-white/40 ml-1.5">wins</span>
                   </div>
-                  <span className="ml-auto text-[10px] text-white/30 hover:text-white px-2 py-1 rounded-lg bg-white/5">change</span>
+                  <span className="ml-auto text-[10px] text-white/30 px-2 py-1 rounded-lg bg-white/5">change</span>
                 </div>
 
                 {/* Method */}
                 <div>
-                  <p className="text-[10px] font-display uppercase tracking-widest text-white/40 mb-2">
+                  <p className="text-[11px] font-display uppercase tracking-widest text-white/40 mb-3">
                     How? <span className="text-ufc-gold/50">(+50 pts)</span>
                   </p>
-                  <div className="grid grid-cols-3 gap-2">
-                    <div className="py-2.5 rounded-xl text-[11px] font-medium text-center bg-white/5 text-white/40 border border-white/10">KO/TKO</div>
-                    <div className="py-2.5 rounded-xl text-[11px] font-medium text-center bg-[#E20814] text-white">Submission</div>
-                    <div className="py-2.5 rounded-xl text-[11px] font-medium text-center bg-white/5 text-white/40 border border-white/10">Decision</div>
+                  <div className="grid grid-cols-3 gap-3">
+                    <div className="py-3 rounded-xl text-sm font-medium text-center bg-white/5 text-white/40 border border-white/10">KO/TKO</div>
+                    <div className="py-3 rounded-xl text-sm font-medium text-center bg-[#E20814] text-white">Finalizacao</div>
+                    <div className="py-3 rounded-xl text-sm font-medium text-center bg-white/5 text-white/40 border border-white/10">Decisao</div>
                   </div>
                 </div>
 
-                {/* Round selection — visible when KO/TKO or Submission picked */}
+                {/* Round selection */}
                 <div>
-                  <p className="text-[10px] font-display uppercase tracking-widest text-white/40 mb-2">
+                  <p className="text-[11px] font-display uppercase tracking-widest text-white/40 mb-3">
                     Which Round? <span className="text-ufc-gold/50">(+50 pts)</span>
                   </p>
-                  <div className="flex gap-2 justify-center">
+                  <div className="flex gap-3 justify-center">
                     {[1, 2, 3, 4, 5].map(r => (
                       <div
                         key={r}
-                        className={`w-10 h-10 rounded-full text-[11px] font-display flex items-center justify-center ${
-                          r === 2 ? 'bg-[#E20814] text-white' : 'bg-white/5 text-white/40 border border-white/10'
+                        className={`w-11 h-11 rounded-full text-sm font-display flex items-center justify-center ${
+                          r === 3 ? 'bg-[#E20814] text-white' : 'bg-white/5 text-white/40 border border-white/10'
                         }`}
                       >
                         R{r}
@@ -691,9 +698,9 @@ function TabArena() {
                   </div>
                 </div>
 
-                {/* Next fight button */}
-                <div className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white/5 text-[11px] font-display uppercase tracking-wider text-white/50">
-                  Next Fight <ArrowRight className="w-3 h-3" />
+                {/* Next fight */}
+                <div className="flex items-center justify-center gap-2 py-3 rounded-xl bg-white/5 text-sm font-display uppercase tracking-wider text-white/50">
+                  Next Fight <ArrowRight className="w-3.5 h-3.5" />
                 </div>
               </div>
 
