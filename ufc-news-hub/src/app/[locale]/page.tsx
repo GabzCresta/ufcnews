@@ -335,7 +335,7 @@ function TabProduto({ onNavigate }: { onNavigate: (t: TabId) => void }) {
       {/* ─── PROBLEM ─── */}
       <section className="mx-auto max-w-6xl px-6 py-28">
         <div className="text-center mb-16">
-          <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814]/60 mb-4">{t('problem_tag')}</p>
+          <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814] mb-4">{t('problem_tag')}</p>
           <h2 className="font-display text-3xl md:text-5xl font-bold tracking-tight text-white">
             {t('problem_title_1')}<br />{t('problem_title_2')}
           </h2>
@@ -361,7 +361,7 @@ function TabProduto({ onNavigate }: { onNavigate: (t: TabId) => void }) {
       <section className="relative overflow-hidden">
         <div className="mx-auto max-w-6xl px-6 py-28">
           <div className="text-center mb-16">
-            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814]/60 mb-4">{t('value_tag')}</p>
+            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814] mb-4">{t('value_tag')}</p>
             <h2 className="font-display text-3xl md:text-5xl font-bold tracking-tight text-white">
               {t('value_title')} <span className="text-[#E20814]">&rarr;</span> {t('value_title_2')}
             </h2>
@@ -439,7 +439,7 @@ function TabProduto({ onNavigate }: { onNavigate: (t: TabId) => void }) {
       {/* ─── PIPELINE — correction #3: hexagonal nodes, glowing flow line ─── */}
       <section className="relative mx-auto max-w-6xl px-6 py-28">
         <div className="text-center mb-20">
-          <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814]/60 mb-4">{t('pipeline_tag')}</p>
+          <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814] mb-4">{t('pipeline_tag')}</p>
           <h2 className="font-display text-3xl md:text-5xl font-bold tracking-tight text-white">
             {t('pipeline_title')}
           </h2>
@@ -568,7 +568,7 @@ function TabAnalise() {
 
       <section className="mx-auto max-w-6xl px-6 py-10">
         <div className="text-center mb-10">
-          <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814]/60 mb-3">{t('analise_sections_tag')}</p>
+          <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814] mb-3">{t('analise_sections_tag')}</p>
           <h2 className="font-display text-2xl md:text-3xl font-bold tracking-tight text-white">
             {t('analise_sections_title')}
           </h2>
@@ -645,7 +645,7 @@ function TabArena() {
 
       <section className="mx-auto max-w-6xl px-6 py-24">
         <div className="text-center mb-16">
-          <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814]/60 mb-4">{t('arena_why_tag')}</p>
+          <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814] mb-4">{t('arena_why_tag')}</p>
           <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-white">
             {t('arena_why_title_1')}<br /><span className="text-zinc-500">{t('arena_why_title_2')}</span>
           </h2>
@@ -766,7 +766,7 @@ function TabContato() {
 
       <section className="mx-auto max-w-3xl px-6 py-24">
         <div className="text-center mb-10">
-          <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814]/60 mb-3">{t('faq_tag')}</p>
+          <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814] mb-3">{t('faq_tag')}</p>
           <h2 className="font-display text-2xl md:text-3xl font-bold tracking-tight text-white">FAQ</h2>
         </div>
 
