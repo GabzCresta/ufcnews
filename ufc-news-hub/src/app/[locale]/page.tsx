@@ -707,52 +707,58 @@ function TabArena() {
               {/* Separator */}
               <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-1" />
 
-              {/* 2. Profile Card — faithful to real profile page */}
-              <div className="rounded-xl p-4">
-                {/* Profile header */}
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#E20814]/30 to-[#E20814]/10 border-2 border-[#E20814]/40 flex items-center justify-center text-white text-sm font-bold">GP</div>
-                  <div>
-                    <p className="text-sm font-bold text-white">GabzCresta</p>
-                    <p className="text-[9px] text-ufc-gold uppercase tracking-wider">Amateur · 1235 XP</p>
+              {/* 2. Profile — faithful to real profile screenshot */}
+              <div className="rounded-xl p-4 space-y-3">
+                {/* 3 stat cards with colored icons — like real profile */}
+                <div className="grid grid-cols-3 gap-2">
+                  <div className="neu-card rounded-xl p-3 text-center">
+                    <span className="text-[#E20814] text-xs">&#x2764;</span>
+                    <p className="text-base font-bold text-[#E20814] mt-1">1950</p>
+                    <p className="text-[8px] text-white/30 uppercase">Points</p>
+                  </div>
+                  <div className="neu-card rounded-xl p-3 text-center">
+                    <span className="text-green-400 text-xs">&#x263A;</span>
+                    <p className="text-base font-bold text-white mt-1">15</p>
+                    <p className="text-[8px] text-white/30 uppercase">Correct</p>
+                  </div>
+                  <div className="neu-card rounded-xl p-3 text-center">
+                    <span className="text-purple-400 text-xs">&#x2197;</span>
+                    <p className="text-base font-bold text-white mt-1">26.3%</p>
+                    <p className="text-[8px] text-white/30 uppercase">Accuracy</p>
                   </div>
                 </div>
-                {/* Stats row — like real profile */}
-                <div className="grid grid-cols-3 gap-2 mb-4">
-                  {[
-                    { value: '1,950', label: 'Points', color: 'text-white' },
-                    { value: '15', label: 'Correct', color: 'text-white' },
-                    { value: '26.3%', label: 'Accuracy', color: 'text-white' },
-                  ].map((s, i) => (
-                    <div key={i} className="text-center rounded-xl bg-white/[0.03] border border-white/[0.05] py-3">
-                      <p className={`text-base font-bold ${s.color}`}>{s.value}</p>
-                      <p className="text-[8px] text-white/30 uppercase mt-0.5">{s.label}</p>
-                    </div>
-                  ))}
-                </div>
-                {/* Streaks + Specialties inline */}
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <p className="text-[8px] font-display uppercase tracking-widest text-white/25 mb-2">Streaks</p>
-                    <div className="flex gap-2">
-                      {[{ v: '1', l: 'Current' }, { v: '5', l: 'Best' }].map((s, i) => (
-                        <div key={i} className="text-center flex-1 rounded-lg bg-white/[0.03] border border-white/[0.05] py-2">
-                          <p className="text-sm font-bold text-white">{s.v}</p>
-                          <p className="text-[7px] text-white/25 uppercase">{s.l}</p>
-                        </div>
-                      ))}
-                    </div>
+                {/* Streaks — 3 cards with colored bottom border */}
+                <div>
+                  <p className="text-[8px] font-display uppercase tracking-widest text-white/30 mb-2 flex items-center gap-1">&#x1F525; Streaks</p>
+                  <div className="grid grid-cols-3 gap-2">
+                    {[
+                      { v: '1', l: 'Current', border: 'border-b-yellow-500' },
+                      { v: '5', l: 'Best', border: 'border-b-green-500' },
+                      { v: '2', l: 'Main Event', border: 'border-b-[#E20814]' },
+                    ].map((s, i) => (
+                      <div key={i} className={`neu-card rounded-xl p-2.5 text-center border-b-2 ${s.border}`}>
+                        <p className="text-lg font-bold text-white">{s.v}</p>
+                        <p className="text-[7px] text-white/30 uppercase">{s.l}</p>
+                      </div>
+                    ))}
                   </div>
-                  <div>
-                    <p className="text-[8px] font-display uppercase tracking-widest text-white/25 mb-2">Specialties</p>
-                    <div className="flex gap-2">
-                      {[{ v: '6', l: 'KOs' }, { v: '8', l: 'Decisions' }].map((s, i) => (
-                        <div key={i} className="text-center flex-1 rounded-lg bg-white/[0.03] border border-white/[0.05] py-2">
-                          <p className="text-sm font-bold text-white">{s.v}</p>
-                          <p className="text-[7px] text-white/25 uppercase">{s.l}</p>
-                        </div>
-                      ))}
-                    </div>
+                </div>
+                {/* Specialties — 4 cards with colored icons */}
+                <div>
+                  <p className="text-[8px] font-display uppercase tracking-widest text-white/30 mb-2">Specialties</p>
+                  <div className="grid grid-cols-4 gap-2">
+                    {[
+                      { v: '6', l: 'KOs', icon: '&#x1F4A5;', color: 'text-red-400' },
+                      { v: '0', l: 'Subs', icon: '&#x1F512;', color: 'text-blue-400' },
+                      { v: '8', l: 'Decisions', icon: '&#x1F3C6;', color: 'text-yellow-400' },
+                      { v: '0', l: 'Underdogs', icon: '&#x1F43E;', color: 'text-purple-400' },
+                    ].map((s, i) => (
+                      <div key={i} className="neu-card rounded-xl p-2 text-center">
+                        <span className={`text-xs ${s.color}`} dangerouslySetInnerHTML={{ __html: s.icon }} />
+                        <p className="text-sm font-bold text-white">{s.v}</p>
+                        <p className="text-[6px] text-white/25 uppercase">{s.l}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -760,22 +766,22 @@ function TabArena() {
               {/* Separator */}
               <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-1" />
 
-              {/* 3. Achievements — faithful to real profile */}
+              {/* 3. Achievements — grid with locked/unlocked states */}
               <div className="rounded-xl p-4">
                 <p className="text-[9px] font-display uppercase tracking-widest text-white/25 mb-3">Achievements (2 / 18)</p>
                 <div className="grid grid-cols-3 gap-2">
                   {[
-                    { emoji: '🩸', name: 'First Blood', desc: 'First prediction', unlocked: true },
-                    { emoji: '5️⃣', name: 'Hot Streak', desc: 'Streak of 5', unlocked: true },
-                    { emoji: '🎯', name: 'Sniper', desc: '5 perfect predictions', unlocked: false },
-                    { emoji: '🔥', name: 'On Fire', desc: '10 main events', unlocked: false },
-                    { emoji: '🏆', name: 'Champion', desc: 'Won a league season', unlocked: false },
-                    { emoji: '💀', name: 'KO Artist', desc: '10 KO/TKOs correct', unlocked: false },
+                    { emoji: '🩸', name: 'First Blood', date: '16/03/2026', unlocked: true },
+                    { emoji: '5️⃣', name: 'Hot Streak', date: '28/03/2026', unlocked: true },
+                    { emoji: '🎯', name: 'Sniper', date: '', unlocked: false },
+                    { emoji: '🔥', name: 'On Fire', date: '', unlocked: false },
+                    { emoji: '🏆', name: 'Champion', date: '', unlocked: false },
+                    { emoji: '💀', name: 'KO Artist', date: '', unlocked: false },
                   ].map((a, i) => (
-                    <div key={i} className={`text-center rounded-xl border py-3 px-2 ${a.unlocked ? 'bg-white/[0.03] border-white/[0.08]' : 'bg-white/[0.01] border-white/[0.03] opacity-40'}`}>
+                    <div key={i} className={`neu-card rounded-xl p-2.5 text-center ${a.unlocked ? 'border border-green-500/20' : 'opacity-30'}`}>
                       <p className="text-lg">{a.emoji}</p>
-                      <p className="text-[9px] font-bold text-white mt-1">{a.name}</p>
-                      <p className="text-[7px] text-white/30 mt-0.5">{a.desc}</p>
+                      <p className="text-[8px] font-bold text-white mt-1">{a.name}</p>
+                      {a.unlocked && a.date && <p className="text-[7px] text-green-400/60 mt-0.5">{a.date}</p>}
                     </div>
                   ))}
                 </div>
