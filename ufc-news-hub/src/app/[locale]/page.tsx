@@ -249,24 +249,35 @@ function TabProduto({ onNavigate }: { onNavigate: (t: TabId) => void }) {
           className="absolute left-[-10%] bottom-[10%] pointer-events-none"
           style={{ width: 500, height: 500, background: 'radial-gradient(circle, rgba(226,8,20,0.04) 0%, transparent 70%)', filter: 'blur(80px)' }}
         />
-        {/* Octagon outline — visible, centered behind text, animated stroke */}
+        {/* Octagon outline — main, centered behind text */}
         <svg
           viewBox="0 0 800 800"
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] md:w-[800px] md:h-[800px] pointer-events-none"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] md:w-[750px] md:h-[750px] pointer-events-none"
           fill="none"
-          stroke="rgba(226,8,20,0.08)"
-          strokeWidth="1"
         >
           <polygon
             points="280,10 520,10 680,170 680,430 520,590 280,590 120,430 120,170"
             transform="translate(0,100)"
+            stroke="rgba(226,8,20,0.12)"
+            strokeWidth="1.5"
             strokeDasharray="2400"
             strokeDashoffset="0"
             className="animate-[draw-octagon_3s_ease-out_forwards]"
           />
         </svg>
-        {/* Subtle ghost watermark — right side */}
-        <OctagonWatermark className="absolute -right-[15%] top-[-10%] w-[900px] h-[900px]" />
+        {/* Second octagon — smaller, rotated, gives depth */}
+        <svg
+          viewBox="0 0 800 800"
+          className="absolute left-1/2 top-[48%] -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] md:w-[550px] md:h-[550px] pointer-events-none rotate-[22.5deg]"
+          fill="none"
+        >
+          <polygon
+            points="280,10 520,10 680,170 680,430 520,590 280,590 120,430 120,170"
+            transform="translate(0,100)"
+            stroke="rgba(226,8,20,0.06)"
+            strokeWidth="1"
+          />
+        </svg>
 
         <div className="relative mx-auto max-w-6xl px-6 py-28">
           <div className="text-center">
