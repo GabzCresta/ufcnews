@@ -647,7 +647,7 @@ function TabArena() {
             <div className="flex flex-col gap-3">
 
               {/* 1. SwipeCard — pixel-faithful to real Arena UI */}
-              <div className="rounded-2xl border bg-black/60 border-white/10 backdrop-blur-sm p-5 space-y-5">
+              <div className="rounded-2xl p-5 space-y-5">
                 {/* Fight context */}
                 <div className="text-center space-y-1">
                   <h3 className="text-xl font-display uppercase tracking-wide font-bold text-[#E20814]">Main Event</h3>
@@ -705,7 +705,7 @@ function TabArena() {
               </div>
 
               {/* 2. Profile Card — user stats showcase */}
-              <div className="rounded-xl border bg-black/30 border-white/10 backdrop-blur-sm p-4">
+              <div className="rounded-xl p-4">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#E20814]/30 to-[#E20814]/10 border border-[#E20814]/30 flex items-center justify-center text-white text-xs font-bold">GP</div>
                   <div>
@@ -733,7 +733,7 @@ function TabArena() {
               </div>
 
               {/* 3. Leaderboard — ranking preview */}
-              <div className="rounded-xl border bg-black/30 border-white/10 backdrop-blur-sm p-4">
+              <div className="rounded-xl p-4">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-[9px] font-display uppercase tracking-widest text-ufc-gold">Leaderboard</span>
                   <Trophy className="w-3.5 h-3.5 text-ufc-gold/50" />
