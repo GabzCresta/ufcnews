@@ -26,7 +26,7 @@ export default function ArenaPreviewRegistroPage() {
         {/* CTA — email only */}
         <div className="flex flex-col gap-4">
           <a
-            href="mailto:contato@crenas.site?subject=Arena%20Access%20Request"
+            href="/#contato"
             className="flex items-center justify-center gap-3 w-full rounded-xl bg-ufc-red py-3.5 font-display uppercase text-white hover:bg-ufc-redLight transition-all hover:shadow-[0_0_20px_rgba(210,10,10,0.4)] slide-up-fade"
             style={{ animationDelay: '50ms' }}
           >

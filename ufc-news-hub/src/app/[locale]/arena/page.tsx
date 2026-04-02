@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Zap, ChevronRight, Clock, Eye } from 'lucide-react';
+import { Zap, ChevronRight, Clock, Eye, ArrowLeft } from 'lucide-react';
+import { Link } from '@/i18n/routing';
 import { OctagonTexture, Countdown, EventoNome, FightPreview, sortLutas, type Evento } from '@/components/arena/shared';
 import { useTranslations } from 'next-intl';
 
@@ -71,14 +72,14 @@ export default function ArenaPreviewPage() {
 
           {/* CTA — points to landing page contact section */}
           <div className="space-y-3">
-            <a
-              href="mailto:contato@crenas.site?subject=Arena%20Access%20Request"
+            <Link
+              href="/#contato"
               className="group inline-flex items-center gap-2 px-8 py-3.5 bg-ufc-red hover:bg-ufc-redLight text-white font-display text-lg uppercase tracking-wide rounded-xl transition-all shadow-lg shadow-ufc-red/20 hover:shadow-ufc-red/40"
             >
               <Zap className="w-5 h-5" />
               {t('preview_cta_picks')}
               <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </a>
+            </Link>
           </div>
 
           {/* How it works — 3 steps */}
@@ -94,6 +95,14 @@ export default function ArenaPreviewPage() {
                 <div className="text-[11px] text-dark-textMuted leading-tight">{step.desc}</div>
               </div>
             ))}
+          </div>
+
+          {/* Back to landing */}
+          <div className="pt-4">
+            <Link href="/" className="inline-flex items-center gap-2 text-sm text-dark-textMuted hover:text-ufc-red transition-colors">
+              <ArrowLeft className="h-3.5 w-3.5" />
+              Back to Octagon
+            </Link>
           </div>
 
           {/* Fight preview */}
