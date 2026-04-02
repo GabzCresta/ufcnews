@@ -258,8 +258,8 @@ function TabProduto({ onNavigate }: { onNavigate: (t: TabId) => void }) {
           <polygon
             points="280,10 520,10 680,170 680,430 520,590 280,590 120,430 120,170"
             transform="translate(0,100)"
-            stroke="rgba(226,8,20,0.12)"
-            strokeWidth="1.5"
+            stroke="rgba(226,8,20,0.25)"
+            strokeWidth="2"
             strokeDasharray="2400"
             strokeDashoffset="0"
             className="animate-[draw-octagon_3s_ease-out_forwards]"
@@ -274,8 +274,8 @@ function TabProduto({ onNavigate }: { onNavigate: (t: TabId) => void }) {
           <polygon
             points="280,10 520,10 680,170 680,430 520,590 280,590 120,430 120,170"
             transform="translate(0,100)"
-            stroke="rgba(226,8,20,0.06)"
-            strokeWidth="1"
+            stroke="rgba(226,8,20,0.15)"
+            strokeWidth="1.5"
           />
         </svg>
 
