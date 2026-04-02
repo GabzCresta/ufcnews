@@ -668,19 +668,19 @@ function TabArena() {
                 </div>
               </div>
 
-              {/* Card 2: Regular fight — pick in progress */}
+              {/* Card 2: Card Principal — pick in progress */}
               <div className="rounded-xl border bg-black/30 border-white/10 backdrop-blur-sm p-4">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-[9px] font-display uppercase tracking-widest text-white/25">Prelim</span>
+                  <span className="text-[9px] font-display uppercase tracking-widest text-white/25">Card Principal</span>
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   <button className="bg-[#E20814]/15 border border-[#E20814]/50 rounded-lg px-3 py-2.5 text-center transition-all">
-                    <p className="text-xs font-semibold text-white">Sterling</p>
-                    <p className="text-[9px] text-white/40 mt-0.5">20-4-0</p>
+                    <p className="text-xs font-semibold text-white">Yakhyaev</p>
+                    <p className="text-[9px] text-white/40 mt-0.5">10-1-0</p>
                   </button>
                   <button className="bg-white/5 border border-transparent rounded-lg px-3 py-2.5 text-center hover:border-white/15 transition-all">
-                    <p className="text-xs font-semibold text-white/50">Zalal</p>
-                    <p className="text-[9px] text-white/25 mt-0.5">18-4-0</p>
+                    <p className="text-xs font-semibold text-white/50">Ribeiro</p>
+                    <p className="text-[9px] text-white/25 mt-0.5">14-7-0</p>
                   </button>
                 </div>
                 <div className="flex flex-wrap gap-1.5 mt-3">
@@ -690,24 +690,24 @@ function TabArena() {
                 </div>
               </div>
 
-              {/* Card 3: Completed with result */}
+              {/* Card 3: Prelim — completed with result */}
               <div className="rounded-xl border bg-green-500/10 border-green-500/30 backdrop-blur-sm p-4">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-[9px] font-display uppercase tracking-widest text-white/25">Co-Main</span>
+                  <span className="text-[9px] font-display uppercase tracking-widest text-white/25">Prelim</span>
                   <span className="flex items-center gap-1 text-[9px] text-green-400 font-bold uppercase">
                     <CheckCircle2 className="w-3 h-3" /> Correct
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-green-500 shrink-0 bg-zinc-800 flex items-center justify-center text-white/60 text-sm font-bold">BP</div>
+                  <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-green-500 shrink-0 bg-zinc-800 flex items-center justify-center text-white/60 text-sm font-bold">LV</div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-white truncate">Burns <span className="text-white/25 font-normal">vs Prates</span></p>
+                    <p className="text-sm font-semibold text-white truncate">Vannata <span className="text-white/25 font-normal">vs Flowers</span></p>
                     <div className="flex gap-1.5 mt-1">
                       <span className="text-[10px] text-[#E20814]/80 bg-[#E20814]/10 px-2 py-0.5 rounded-full">Decision</span>
                     </div>
                     <p className="text-[10px] text-ufc-gold/60 mt-1">+100 pts</p>
                   </div>
-                  <div className="w-8 h-8 rounded-full overflow-hidden border border-white/10 shrink-0 opacity-30 bg-zinc-800 flex items-center justify-center text-white/30 text-[10px] font-bold">MP</div>
+                  <div className="w-8 h-8 rounded-full overflow-hidden border border-white/10 shrink-0 opacity-30 bg-zinc-800 flex items-center justify-center text-white/30 text-[10px] font-bold">DF</div>
                 </div>
               </div>
             </div>
