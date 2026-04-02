@@ -279,15 +279,17 @@ function TabProduto({ onNavigate }: { onNavigate: (t: TabId) => void }) {
             </div>
 
             {/* Headline — correction #4: condensed, DADOS with red glow */}
-            <h1 className="font-display text-[clamp(3rem,7vw,5.5rem)] font-bold tracking-tight text-white leading-[0.92]">
+            <h1 className="font-display text-[clamp(3rem,7vw,5.5rem)] font-bold tracking-tight text-white leading-[0.95]">
               {t('hero_title_1')}<br />
               <span
                 className="text-[#E20814]"
                 style={{ textShadow: '0 0 30px rgba(226,8,20,0.4), 0 0 60px rgba(226,8,20,0.15)' }}
               >
                 {t('hero_title_2')}
-              </span><br />
-              <span className="text-zinc-500 text-[0.72em]">{t('hero_title_3')}</span>
+              </span>
+              {t('hero_title_3') && (
+                <><br /><span className="text-zinc-500 text-[0.72em]">{t('hero_title_3')}</span></>
+              )}
             </h1>
 
             {/* Subheadline — correction #4: Pure White */}
