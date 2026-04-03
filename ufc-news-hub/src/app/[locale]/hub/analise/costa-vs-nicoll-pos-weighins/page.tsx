@@ -1,0 +1,357 @@
+import { loadAnalysisData } from '@/lib/load-analysis-locale';
+import type { Lang } from '@/lib/i18n-labels';
+import { PrelimsAnalysisView } from '@/components/analise/PrelimsAnalysisView';
+import type { PrelimsAnalise } from '@/types/analise';
+
+const analise: PrelimsAnalise = {
+  id: 'costa-vs-nicoll-pos-weighins',
+  evento_id: null,
+  slug: 'costa-vs-nicoll-pos-weighins',
+  titulo: 'Costa vs Nicoll (Pos Weigh-Ins): Ambos Bateram Peso, Costa Favorito Pesado',
+  subtitulo: null,
+  lutador1_id: null,
+  lutador2_id: null,
+  artigo_conteudo: '',
+  tactical_breakdown: {
+    stats: [],
+    radarData: [],
+    taleOfTape: {
+      fighter1: { altura: '', envergadura: '', idade: 0, academia: '' },
+      fighter2: { altura: '', envergadura: '', idade: 0, academia: '' },
+    },
+    pathsToVictory: { fighter1: [], fighter2: [] },
+    dangerZones: [],
+  },
+  fight_prediction: {
+    predictedWinner: 'fighter1',
+    predictedMethod: 'KO/TKO R2',
+    confidence: 'MEDIA-ALTA',
+    fighter1Scenarios: [],
+    fighter2Scenarios: [],
+    keyFactors: [],
+    xFactor: { title: '', description: '' },
+  },
+  fighter1_info: {
+    nome: 'Alessandro Costa',
+    record: '14-5-0',
+    ultimasLutas: [],
+  },
+  fighter2_info: {
+    nome: 'Stewart Nicoll',
+    record: '8-2-0',
+    ultimasLutas: [],
+  },
+  evento_nome: 'UFC Fight Night: Moicano vs Duncan | Pos Weigh-Ins',
+  evento_data: '4 de Abril, 2026',
+  evento_local: 'UFC APEX, Las Vegas, Nevada, EUA',
+  categoria_peso: 'Peso Mosca',
+  num_rounds: 3,
+  is_titulo: false,
+  broadcast: null,
+  status: 'published',
+  analysis_type: 'prelims',
+  created_at: new Date().toISOString(),
+  updated_at: new Date().toISOString(),
+
+  prelims_analysis: {
+    hero: {
+      evento_nome: 'UFC Fight Night: Moicano vs Duncan | Pos Weigh-Ins',
+      evento_data: '4 de Abril, 2026',
+      categoria_peso: 'Peso Mosca',
+      num_rounds: 3,
+      is_titulo: false,
+      fighter1: {
+        nome: 'Costa',
+        record: '14-5-0',
+      },
+      fighter2: {
+        nome: 'Nicoll',
+        record: '8-2-0',
+      },
+    },
+
+    comparacao_estatistica: {
+      stats: [
+        {
+          label: 'Sig. Strikes por Minuto',
+          valueA: 3.64,
+          valueB: 3.00,
+          maxVal: 6,
+          format: 'decimal',
+          note: 'Costa tem volume moderado e consistente. Nicoll fica um pouco atras, mas a diferenca nao e absurda. Ambos preferem lutas de media distancia.',
+        },
+        {
+          label: 'Precisao de Strikes (%)',
+          valueA: 44,
+          valueB: 34,
+          maxVal: 100,
+          format: 'percent',
+          note: 'Costa acerta 10 pontos percentuais a mais. Nicoll com 34% e preocupante, acertando apenas um em cada tres golpes tentados.',
+        },
+        {
+          label: 'Strikes Absorvidos/Min',
+          valueA: 3.57,
+          valueB: 6.69,
+          maxVal: 8,
+          format: 'decimal',
+          reverseWinner: true,
+          note: 'Nicoll absorve quase o dobro de strikes que Costa. Um dos piores numeros defensivos do peso-mosca, sinal de defesa porosa.',
+        },
+        {
+          label: 'Defesa de Strikes (%)',
+          valueA: 57,
+          valueB: 48,
+          maxVal: 100,
+          format: 'percent',
+          note: 'Costa com 57% e razoavel. Nicoll com 48% esta abaixo da media, confirmando a vulnerabilidade defensiva nos numeros de absorcao.',
+        },
+        {
+          label: 'Takedowns por 15 Min',
+          valueA: 0.46,
+          valueB: 2.55,
+          maxVal: 4,
+          format: 'decimal',
+          note: 'Nicoll busca mais o takedown, mas sua precisao e horrivel (14%). Costa raramente tenta, preferindo lutar em pe.',
+        },
+        {
+          label: 'Precisao de Takedown (%)',
+          valueA: 16,
+          valueB: 14,
+          maxVal: 100,
+          format: 'percent',
+          note: 'Ambos sao pessimos em converter takedowns. Nenhum dos dois depende do wrestling como arma primaria de forma eficiente.',
+        },
+        {
+          label: 'Defesa de Takedown (%)',
+          valueA: 83,
+          valueB: 25,
+          maxVal: 100,
+          format: 'percent',
+          note: 'Costa defende 83% dos takedowns, numero excelente. Nicoll defende apenas 25%, o que significa que qualquer tentativa de derruba-lo provavelmente funciona.',
+        },
+      ],
+      tale_of_tape: [
+        {
+          label: 'Idade',
+          fighter1: '30 anos',
+          fighter2: '30 anos',
+          note: 'Mesma idade, ambos na maturidade da carreira',
+        },
+        {
+          label: 'Altura',
+          fighter1: '1,63m (5\'4")',
+          fighter2: '1,65m (5\'5")',
+          note: 'Praticamente a mesma altura, luta equilibrada fisicamente',
+        },
+        {
+          label: 'Envergadura',
+          fighter1: '170cm (67")',
+          fighter2: '165cm (65")',
+          note: 'Costa com leve vantagem de 5cm de envergadura',
+        },
+        {
+          label: 'Stance',
+          fighter1: 'Ortodoxa',
+          fighter2: 'Ortodoxa',
+          note: 'Luta espelho, ambos ortodoxos',
+        },
+        {
+          label: 'Academia',
+          fighter1: 'Brasil',
+          fighter2: 'Ilhas Salomao / Australia',
+          note: null,
+        },
+      ],
+    },
+
+    historico_lutas: {
+      fighter1: {
+        nome: 'Costa',
+        recent_fights: [
+          {
+            date: 'Set 2025',
+            opponent: 'Alden Coria',
+            result: 'L',
+            method: 'KO/TKO R3',
+            opponent_rank: 'N/R',
+            quality_score: 2,
+            quality_label: 'Medio',
+            note: 'Parado por Coria no terceiro round apos uma luta competitiva. Mostra que Costa pode perder o gas e ser vulneravel nos rounds finais.',
+          },
+          {
+            date: 'Mai 2024',
+            opponent: 'Kevin Borjas',
+            result: 'W',
+            method: 'KO/TKO R2',
+            opponent_rank: 'N/R',
+            quality_score: 1,
+            quality_label: 'Ruim',
+            note: 'Nocaute devastador no segundo round. Costa mostrou o poder explosivo que o faz perigoso a qualquer momento.',
+          },
+          {
+            date: 'Nov 2023',
+            opponent: 'Steve Erceg',
+            result: 'L',
+            method: 'Decisao Unanime',
+            opponent_rank: 'N/R',
+            quality_score: 4,
+            quality_label: 'Muito Bom',
+            note: 'Perda por decisao contra Erceg, que depois lutou pelo titulo contra Pantoja. Calibre de oponente altissimo nessa derrota.',
+          },
+          {
+            date: 'Jun 2023',
+            opponent: 'Jimmy Flick',
+            result: 'W',
+            method: 'KO/TKO R2',
+            opponent_rank: 'N/R',
+            quality_score: 2,
+            quality_label: 'Medio',
+            note: 'Nocaute no segundo round com cotoveladas. Poder de finalizacao com varias armas diferentes.',
+          },
+          {
+            date: 'Dez 2022',
+            opponent: 'Amir Albazi',
+            result: 'L',
+            method: 'KO/TKO R3',
+            opponent_rank: 'N/R',
+            quality_score: 4,
+            quality_label: 'Muito Bom',
+            note: 'Perdeu para Albazi, outro nome de elite do peso-mosca. Costa briga com os melhores mas nao consegue vencer o topo.',
+          },
+        ],
+      },
+      fighter2: {
+        nome: 'Nicoll',
+        recent_fights: [
+          {
+            date: 'Out 2025',
+            opponent: 'Lucas Rocha',
+            result: 'L',
+            method: 'Decisao Unanime',
+            opponent_rank: 'N/R',
+            quality_score: 2,
+            quality_label: 'Medio',
+            note: 'Derrota por decisao contra Rocha. Nicoll foi superado na trocacao e absorveu muitos golpes (115 strikes contra 45).',
+          },
+          {
+            date: 'Ago 2024',
+            opponent: 'Jesus Aguilar',
+            result: 'L',
+            method: 'Guilhotina R1',
+            opponent_rank: 'N/R',
+            quality_score: 2,
+            quality_label: 'Medio',
+            note: 'Finalizado com guilhotina no primeiro round na estreia do UFC. Vulnerabilidade no grappling exposta logo de cara.',
+          },
+        ],
+      },
+    },
+
+    perfil_habilidades: {
+      skills: [
+        {
+          label: 'Poder de Impacto',
+          valueA: 78,
+          valueB: 40,
+          labelA: 'Muito Bom',
+          labelB: 'Medio',
+          advantage: 'fighter1',
+          advantage_note: 'Costa tem KO/TKOs impressionantes com socos e cotoveladas. E um finalizador natural no peso-mosca. Nicoll nao tem historico de nocautes relevantes.',
+        },
+        {
+          label: 'Precisao e Eficiencia',
+          valueA: 62,
+          valueB: 38,
+          labelA: 'Bom',
+          labelB: 'Medio',
+          advantage: 'fighter1',
+          advantage_note: 'Costa acerta 44% dos golpes contra 34% de Nicoll. Dez pontos percentuais de diferenca sao significativos em tres rounds.',
+        },
+        {
+          label: 'Defesa de Strikes',
+          valueA: 60,
+          valueB: 35,
+          labelA: 'Bom',
+          labelB: 'Ruim',
+          advantage: 'fighter1',
+          advantage_note: 'Nicoll absorve 6.69 strikes por minuto, numero catastrofico. Contra um finalizador como Costa, cada golpe recebido pode ser o ultimo.',
+        },
+        {
+          label: 'Wrestling e Controle',
+          valueA: 50,
+          valueB: 40,
+          labelA: 'Medio',
+          labelB: 'Medio',
+          advantage: 'even',
+          advantage_note: 'Nenhum dos dois e wrestler de elite. Costa defende 83% dos takedowns enquanto Nicoll converte apenas 14%. Nenhum dos dois deve buscar a queda como plano A.',
+        },
+        {
+          label: 'Experiencia no UFC',
+          valueA: 72,
+          valueB: 35,
+          labelA: 'Bom',
+          labelB: 'Ruim',
+          advantage: 'fighter1',
+          advantage_note: 'Costa tem 7 lutas no UFC contra nomes como Erceg e Albazi. Nicoll tem apenas 2 lutas no octogono, ambas derrotas. A diferenca de experiencia e enorme.',
+        },
+        {
+          label: 'Cardio e Resistencia',
+          valueA: 55,
+          valueB: 50,
+          labelA: 'Bom',
+          labelB: 'Medio',
+          advantage: 'even',
+          advantage_note: 'Costa foi finalizado no R3 contra Coria e Albazi, mostrando queda de desempenho nos rounds finais. Nicoll foi finalizado no R1, entao nao sabemos seu cardio em lutas longas no UFC.',
+        },
+      ],
+      insight: 'Costa domina em praticamente todas as categorias relevantes. A diferenca de experiencia e nivel de oponentes e abismal. Nicoll tem defesa porosa e zero vitorias no UFC, enquanto Costa ja nocauteou gente boa e so perde para a elite da divisao. Esse confronto favorece claramente o brasileiro.',
+    },
+
+    distribuicao_vitorias: {
+      fighter1: {
+        nome: 'Costa',
+        ko_tko: { count: 9, percent: 64 },
+        submission: { count: 2, percent: 14 },
+        decision: { count: 3, percent: 22 },
+        total_wins: 14,
+      },
+      fighter2: {
+        nome: 'Nicoll',
+        ko_tko: { count: 4, percent: 50 },
+        submission: { count: 2, percent: 25 },
+        decision: { count: 2, percent: 25 },
+        total_wins: 8,
+      },
+      insight: 'Costa e uma maquina de nocaute com 64% de vitorias por KO/TKO, incluindo finalizacoes brutais com cotoveladas e socos limpos. Nicoll tem um perfil mais equilibrado mas suas 8 vitorias vieram em circuitos regionais menores. A capacidade de finalizacao de Costa no nivel UFC e comprovada, enquanto Nicoll ainda precisa provar que pode competir nesse patamar.',
+    },
+
+    previsao_final: {
+      winner_name: 'Costa',
+      winner_side: 'fighter1',
+      predicted_method: 'KO/TKO R2',
+      confidence_score: 7,
+      confidence_label: 'MEDIA-ALTA',
+      explanation: 'Costa e o lutador claramente superior neste confronto. Tem mais experiencia no UFC, melhor precisao, melhor defesa e poder de nocaute comprovado no octogono. Nicoll absorve 6.69 strikes por minuto com apenas 48% de defesa, numeros que contra um nocauteador como Costa sao receita para desastre. O brasileiro ja venceu por KO/TKO com socos e cotoveladas, mostrando variedade de armas. Nicoll vem de duas derrotas consecutivas no UFC e nao mostrou que pertence a este nivel. Costa deve encontrar o timing no segundo round e encerrar a luta.',
+      x_factor: {
+        title: 'O queixo de Nicoll e desconhecido no UFC',
+        description: 'Nicoll foi finalizado por guilhotina no R1 e perdeu por decisao na outra luta. Nunca foi testado de verdade na trocacao contra um nocauteador. Se ele tiver queixo de ferro, pode sobreviver, mas os numeros sugerem o contrario.',
+      },
+      upset_alert: {
+        title: 'Costa cai nos rounds finais',
+        description: 'As tres derrotas de Costa no UFC vieram nos terceiros rounds (Coria e Albazi por TKO, Erceg por decisao). Se Nicoll sobreviver os dois primeiros rounds, Costa pode ficar vulneravel no terceiro.',
+      },
+      probabilities: {
+        fighter1: { nome: 'Costa', percent: 68 },
+        fighter2: { nome: 'Nicoll', percent: 30 },
+        draw: 2,
+      },
+      value_picks: undefined,
+    },
+  },
+};
+
+export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const data = await loadAnalysisData(analise as any, locale, 'costa-vs-nicoll-pos-weighins');
+  return <PrelimsAnalysisView analise={data as any} lang={locale as Lang} />;
+}

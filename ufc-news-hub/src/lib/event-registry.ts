@@ -33,6 +33,24 @@ export interface EventRegistryEntry {
 
 export const EVENT_REGISTRY: EventRegistryEntry[] = [
   {
+    slug: 'moicano-vs-duncan-pos-weighins',
+    evento_nome: 'UFC Fight Night: Moicano vs Duncan | Pos Weigh-Ins',
+    evento_data: '4 de Abril, 2026',
+    evento_local: 'UFC APEX, Las Vegas, Nevada, EUA',
+    evento_datetime: '2026-04-04T23:00:00Z', // 7pm ET = 11pm UTC
+    main_event: { fighter1: 'Renato Moicano', fighter2: 'Chris Duncan' },
+    total_fights: 13,
+  },
+  {
+    slug: 'moicano-vs-duncan',
+    evento_nome: 'UFC Fight Night: Moicano vs Duncan',
+    evento_data: '4 de Abril, 2026',
+    evento_local: 'UFC APEX, Las Vegas, Nevada, EUA',
+    evento_datetime: '2026-04-04T23:00:00Z', // 7pm ET = 11pm UTC
+    main_event: { fighter1: 'Renato Moicano', fighter2: 'Chris Duncan' },
+    total_fights: 13,
+  },
+  {
     slug: 'adesanya-vs-pyfer-pos-weighins',
     evento_nome: 'UFC Fight Night: Adesanya vs Pyfer | Pos Weigh-Ins',
     evento_data: '28 de Marco, 2026',
