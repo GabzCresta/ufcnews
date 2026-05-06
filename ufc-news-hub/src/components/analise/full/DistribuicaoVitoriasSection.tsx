@@ -5,6 +5,7 @@ type DistribuicaoVitoriasFighter = { nome: string } & WinMethodBreakdown;
 
 interface DistribuicaoVitoriasSectionProps {
   data: DistribuicaoVitoriasSectionData;
+  hasLosses?: boolean;
 }
 
 interface BarProps {
@@ -49,12 +50,14 @@ function FighterCard({ fighter, nameColor }: { fighter: DistribuicaoVitoriasFigh
   );
 }
 
-export function DistribuicaoVitoriasSection({ data }: DistribuicaoVitoriasSectionProps) {
+export function DistribuicaoVitoriasSection({ data, hasLosses = false }: DistribuicaoVitoriasSectionProps) {
   return (
     <section>
-      <SectionHeader number="07" title="Distribuicao de" accent="Vitorias e Derrotas" />
+      <SectionHeader number="07" title="Distribuicao de" accent={hasLosses ? "Vitorias e Derrotas" : "Vitorias"} />
 
-      <p className="text-xs uppercase tracking-[0.2em] text-dark-textMuted mb-4">Vitorias</p>
+      {hasLosses && (
+        <p className="text-xs uppercase tracking-[0.2em] text-dark-textMuted mb-4">Vitorias</p>
+      )}
 
       <div className="grid md:grid-cols-2 gap-6">
         <FighterCard fighter={data.fighter1} nameColor="text-ufc-red" />

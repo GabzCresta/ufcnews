@@ -182,7 +182,7 @@ export function PrelimsAnalysisView({ analise, lang = 'pt' }: { analise: Prelims
         />
 
         {/* Section 5: Distribuicao de Vitorias e Derrotas */}
-        <DistribuicaoVitoriasSection data={d.distribuicao_vitorias} sectionNumber="04" lang={lang} />
+        <DistribuicaoVitoriasSection data={d.distribuicao_vitorias} sectionNumber="04" lang={lang} hasLosses={!!d.distribuicao_derrotas} />
 
         {/* Continuation of section 5: Derrotas (no header — sub-section of Vitorias e Derrotas) */}
         {d.distribuicao_derrotas && (

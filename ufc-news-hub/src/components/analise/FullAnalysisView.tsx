@@ -97,7 +97,7 @@ export function FullAnalysisView({ analise, lang = 'pt' }: { analise: FullSingle
               hideTaleOfTape
             />
 
-            <DistribuicaoVitoriasSection data={d.distribuicao_vitorias} sectionNumber="05" lang={lang} />
+            <DistribuicaoVitoriasSection data={d.distribuicao_vitorias} sectionNumber="05" lang={lang} hasLosses={!!d.distribuicao_derrotas} />
 
             {d.distribuicao_derrotas && (
               <DistribuicaoDerrotasSection data={d.distribuicao_derrotas} lang={lang} />
@@ -143,7 +143,7 @@ export function FullAnalysisView({ analise, lang = 'pt' }: { analise: FullSingle
                 lang={lang}
               />
             )}
-            <DistribuicaoVitoriasSection data={d.distribuicao_vitorias} lang={lang} />
+            <DistribuicaoVitoriasSection data={d.distribuicao_vitorias} lang={lang} hasLosses={!!d.distribuicao_derrotas} />
             {d.distribuicao_derrotas && <DistribuicaoDerrotasSection data={d.distribuicao_derrotas} lang={lang} />}
             {d.danger_zones && <DangerZonesSection data={d.danger_zones} />}
             {d.intangiveis && <IntangiveisSection data={d.intangiveis} lang={lang} />}

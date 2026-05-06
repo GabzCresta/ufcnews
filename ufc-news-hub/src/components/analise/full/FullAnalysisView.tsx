@@ -109,12 +109,12 @@ export function FullAnalysisView({ analise }: FullAnalysisViewProps) {
           </section>
         )}
 
-        {/* 07 - Distribuicao de Vitorias */}
+        {/* 07 - Distribuicao de Vitorias e Derrotas (combined) */}
         <section>
-          <DistribuicaoVitoriasSection data={fa.distribuicao_vitorias} />
+          <DistribuicaoVitoriasSection data={fa.distribuicao_vitorias} hasLosses={!!fa.distribuicao_derrotas} />
         </section>
 
-        {/* 08 - Distribuicao de Derrotas (optional) */}
+        {/* Continuation of section 07: Derrotas (no header — sub-section of Vitorias e Derrotas) */}
         {fa.distribuicao_derrotas && (
           <section>
             <DistribuicaoDerrotasSection data={fa.distribuicao_derrotas} />

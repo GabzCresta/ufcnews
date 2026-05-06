@@ -50,17 +50,25 @@ function MethodRow({
   );
 }
 
-export function DistribuicaoVitoriasSection({ data, sectionNumber, lang = 'pt' }: { data: DistribuicaoVitoriasSectionData; sectionNumber?: string; lang?: Lang }) {
+export function DistribuicaoVitoriasSection({ data, sectionNumber, lang = 'pt', hasLosses = false }: { data: DistribuicaoVitoriasSectionData; sectionNumber?: string; lang?: Lang; hasLosses?: boolean }) {
   const t = getLabels(lang);
   const f1 = data.fighter1;
   const f2 = data.fighter2;
 
+  // Title and accent depend on whether the page has loss data too. Pages
+  // without distribuicao_derrotas keep the original "Distribuicao de Vitorias"
+  // header to avoid promising loss data that doesn't exist.
+  const title = hasLosses ? t.distribuicao_title : (lang === 'en' ? 'Win' : 'Distribuicao de');
+  const accent = hasLosses ? t.distribuicao_accent : (lang === 'en' ? 'Distribution' : 'Vitorias');
+
   return (
     <section>
-      <SectionHeader number={sectionNumber ?? "07"} title={t.distribuicao_title} accent={t.distribuicao_accent} />
+      <SectionHeader number={sectionNumber ?? "07"} title={title} accent={accent} />
 
-      {/* Sub-heading: Vitórias */}
-      <p className="text-[11px] uppercase tracking-[0.2em] text-white/40 text-center mb-4">{t.distribuicao_subheading_wins}</p>
+      {/* Sub-heading: Vitórias (only when paired with a Losses block) */}
+      {hasLosses && (
+        <p className="text-[11px] uppercase tracking-[0.2em] text-white/40 text-center mb-4">{t.distribuicao_subheading_wins}</p>
+      )}
 
       {/* Fighter names + total wins */}
       <div className="grid grid-cols-[1fr_auto_1fr] items-baseline mb-2">
