@@ -167,6 +167,12 @@ export const analise: FullSingleAnalise = {
       insight: "Susurkaev 82% career KO/TKO finish rate (9 of 11) — extreme finisher. Santos spread across KO (27%), sub (36%) and dec (37%) — grappler-jiu-jitsu profile more than durable journeyman. Both 11 career wins.",
     },
 
+    distribuicao_derrotas: {
+      fighter1: { nome: 'Susurkaev', ko_tko: { count: 0, percent: 0 }, submission: { count: 0, percent: 0 }, decision: { count: 0, percent: 0 }, total_losses: 0 },
+      fighter2: { nome: 'Santos', ko_tko: { count: 0, percent: 0 }, submission: { count: 0, percent: 0 }, decision: { count: 2, percent: 100 }, total_losses: 2 },
+      insight: "Susurkaev is officially UNDEFEATED (11-0-0) — never lost on the pro record. Santos has 2 losses, BOTH by decision (Ozzy Diaz UD UFC debut at UFC 313 and Cristian Torres in regional). Santos has NEVER been finished, durable chin + sub defense. For value bets: Susurkaev by KO/TKO is realistic given his 82% finish rate, but Santos defends finishes well. A decision for the undefeated prospect is also live given the Santos sample.",
+    },
+
     previsao_final: {
       winner_name: 'Baisangur Susurkaev',
       winner_side: 'fighter1',

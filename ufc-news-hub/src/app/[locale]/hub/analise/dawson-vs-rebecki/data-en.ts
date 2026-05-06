@@ -167,6 +167,12 @@ export const analise: FullSingleAnalise = {
       insight: "Dawson decisions 57% of his wins (classic wrestler-runs-rounds profile). Rebecki finishes 75% by KO+sub combined. The numbers mirror the styles.",
     },
 
+    distribuicao_derrotas: {
+      fighter1: { nome: 'Dawson', ko_tko: { count: 3, percent: 100 }, submission: { count: 0, percent: 0 }, decision: { count: 0, percent: 0 }, total_losses: 3 },
+      fighter2: { nome: 'Rebecki', ko_tko: { count: 1, percent: 25 }, submission: { count: 1, percent: 25 }, decision: { count: 2, percent: 50 }, total_losses: 4 },
+      insight: "All THREE of Dawson's losses came by KO/TKO: Bobby Green KO 0:33 R1 (UFC Fight Night 229), Manuel Torres KO R1 (UFC 323), and his first career loss also by knockout. Crystal-clear pattern: chin exposed against heavy striking, exactly Rebecki's profile (45% finish rate by KO). Rebecki has 4 losses spread out (1 KO, 1 sub, 2 dec), more durable. For value bets: Rebecki by KO is a realistic path given the documented Dawson vulnerability in his last 2 fights.",
+    },
+
     previsao_final: {
       winner_name: 'Grant Dawson',
       winner_side: 'fighter1',

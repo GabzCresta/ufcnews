@@ -171,6 +171,12 @@ const analise: FullSingleAnalise = {
       insight: 'Miller finaliza 55% por sub (perfil clássico de jiu-jitseiro UFC, 13 subs UFC = 2ª maior da história). Gordon decide 52% das vitórias (11 em 21) — perfil de durable journeyman que vai pra cards. Os números sustentam a tese de Miller buscar o chão.',
     },
 
+    distribuicao_derrotas: {
+      fighter1: { nome: 'Miller', ko_tko: { count: 2, percent: 11 }, submission: { count: 3, percent: 16 }, decision: { count: 14, percent: 74 }, total_losses: 19 },
+      fighter2: { nome: 'Gordon', ko_tko: { count: 5, percent: 62 }, submission: { count: 1, percent: 13 }, decision: { count: 2, percent: 25 }, total_losses: 8 },
+      insight: 'Miller perde 74% por decisão (14 em 19) — durabilidade lendária aos 41 anos com queixo que aguentou 19 anos no UFC. Apenas 2 KOs sofridos (Hooker, Cerrone) em 38 lutas UFC. Os 3 subs vieram de specialistas (Oliveira RNC, Chiesa, Diaz). Gordon 62% das derrotas por KO/TKO (5 em 8): Ferreira TKO R1, Joaquim Silva KO R3, García TKO R3, etc. Mais 1 sub: Dawson RNC R3 (2022). Padrão claro: Gordon é vulnerável a finalização (75% das derrotas por finish), exatamente o caminho do Miller (55% das vitórias por sub e BJJ vintage). Para value bet: Miller por sub fecha a tese.',
+    },
+
     previsao_final: {
       winner_name: 'Jim Miller',
       winner_side: 'fighter1',

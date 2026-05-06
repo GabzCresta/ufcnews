@@ -174,6 +174,12 @@ const analise: FullSingleAnalise = {
       insight: 'Kopylov 86% das vitórias por KO/TKO (12 em 14), zero subs (perfil de striker técnico que finaliza). Tulio 71% por KO/TKO (10 em 14), 1 sub (striker mais agressivo). Ambos finalizadores natos.',
     },
 
+    distribuicao_derrotas: {
+      fighter1: { nome: 'Kopylov', ko_tko: { count: 0, percent: 0 }, submission: { count: 2, percent: 40 }, decision: { count: 3, percent: 60 }, total_losses: 5 },
+      fighter2: { nome: 'Tulio', ko_tko: { count: 2, percent: 100 }, submission: { count: 0, percent: 0 }, decision: { count: 0, percent: 0 }, total_losses: 2 },
+      insight: 'Kopylov NUNCA foi nocauteado (0 KOs em 5 derrotas). Vulnerabilidade real é grappling/wrestling: 2 subs (Roberson R3 sub, Hernandez RNC UFC 298) e 3 dec (Duraev UD, Costa UD, Rodrigues UD) — todas contra wrestlers ou grapplers que tiraram a luta da troca. Tulio caiu 2 vezes ambas por KO: Alexandre Silva TKO R2 em SFT 5 (2018, em 3:52), e Christian Leroy Duncan KO R2 (2025). Padrão simétrico: Tulio cai pra striker técnico, Kopylov cai pra grappler. Como ambos são strikers, a luta deve ficar em pé onde Tulio é o vulnerável.',
+    },
+
     previsao_final: {
       winner_name: 'Roman Kopylov',
       winner_side: 'fighter1',

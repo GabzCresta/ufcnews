@@ -1,6 +1,5 @@
 import type { DistribuicaoDerrotasSectionData } from '@/types/analise';
 import { getLabels, type Lang } from '@/lib/i18n-labels';
-import { SectionHeader } from './SectionHeader';
 
 function MethodRow({
   method,
@@ -50,14 +49,16 @@ function MethodRow({
   );
 }
 
-export function DistribuicaoDerrotasSection({ data, sectionNumber, lang = 'pt' }: { data: DistribuicaoDerrotasSectionData; sectionNumber?: string; lang?: Lang }) {
+export function DistribuicaoDerrotasSection({ data, lang = 'pt' }: { data: DistribuicaoDerrotasSectionData; sectionNumber?: string; lang?: Lang }) {
   const t = getLabels(lang);
   const f1 = data.fighter1;
   const f2 = data.fighter2;
 
   return (
     <section>
-      <SectionHeader number={sectionNumber ?? "08"} title={t.distribuicao_derrotas_title} accent={t.distribuicao_derrotas_accent} />
+      {/* Sub-heading: Derrotas (no SectionHeader — this block continues the
+          combined "Distribuicao de Vitorias e Derrotas" section above) */}
+      <p className="text-[11px] uppercase tracking-[0.2em] text-white/40 text-center mb-4">{t.distribuicao_subheading_losses}</p>
 
       {/* Fighter names + total losses */}
       <div className="grid grid-cols-[1fr_auto_1fr] items-baseline mb-2">

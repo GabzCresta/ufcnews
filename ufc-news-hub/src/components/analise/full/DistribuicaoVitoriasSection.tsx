@@ -52,7 +52,9 @@ function FighterCard({ fighter, nameColor }: { fighter: DistribuicaoVitoriasFigh
 export function DistribuicaoVitoriasSection({ data }: DistribuicaoVitoriasSectionProps) {
   return (
     <section>
-      <SectionHeader number="07" title="Distribuicao de" accent="Vitorias" />
+      <SectionHeader number="07" title="Distribuicao de" accent="Vitorias e Derrotas" />
+
+      <p className="text-xs uppercase tracking-[0.2em] text-dark-textMuted mb-4">Vitorias</p>
 
       <div className="grid md:grid-cols-2 gap-6">
         <FighterCard fighter={data.fighter1} nameColor="text-ufc-red" />

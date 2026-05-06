@@ -168,6 +168,12 @@ export const analise: FullSingleAnalise = {
       insight: 'Carpenter 50% subs (sub specialist). Ochoa 88% KO/TKO (7 of 8 wins) — extreme KO machine with ZERO career decisions. He only wins when he finishes. Opposite styles with Ochoa much more explosive than appeared.',
     },
 
+    distribuicao_derrotas: {
+      fighter1: { nome: 'Carpenter', ko_tko: { count: 0, percent: 0 }, submission: { count: 1, percent: 50 }, decision: { count: 1, percent: 50 }, total_losses: 2 },
+      fighter2: { nome: 'Ochoa', ko_tko: { count: 0, percent: 0 }, submission: { count: 0, percent: 0 }, decision: { count: 2, percent: 100 }, total_losses: 2 },
+      insight: 'Small sample on both (only 2 losses each), so no firm vulnerability pattern. Carpenter was kimura’d in R1 by Jafel Filho (UFC Oct 2025) and lost a UD to Tagir Ulanbekov (UFC 311). Ochoa lost two UFC decisions: Lone’er Kavanagh (UFC debut, Macao Nov 2024) and Asu Almabayev (Abu Dhabi Jul 2025). Neither has ever been knocked out. For value bets: Ochoa has 88% KO rate among his wins, but Carpenter has NEVER been KO’d — the Peruvian’s explosive path is narrower than the win-side numbers suggest. Decision is the statistical base scenario given both have only lost by dec or sub, never by KO.',
+    },
+
     previsao_final: {
       winner_name: 'Jose Ochoa',
       winner_side: 'fighter2',

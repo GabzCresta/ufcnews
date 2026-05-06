@@ -180,6 +180,12 @@ export const analise: FullSingleAnalise = {
       insight: "Alvarez 74% by sub: 7 triangles, 4 guillotines, 2 anacondas, 2 armbars, 1 brabo, 1 arm triangle. ZERO RNCs (despite the common reporting). Amosov 41% sub + 31% KO/TKO = 72% finish rate, complete profile. His last 5 finishes: Magny (anaconda R1), Cavalcanti (north-south R1), Rickels (D'Arce R2), CFFC return (anaconda R1) — chokes from the anaconda/D'Arce/north-south family are recurring repertoire.",
     },
 
+    distribuicao_derrotas: {
+      fighter1: { nome: 'Alvarez', ko_tko: { count: 2, percent: 67 }, submission: { count: 0, percent: 0 }, decision: { count: 1, percent: 33 }, total_losses: 3 },
+      fighter2: { nome: 'Amosov', ko_tko: { count: 1, percent: 100 }, submission: { count: 0, percent: 0 }, decision: { count: 0, percent: 0 }, total_losses: 1 },
+      insight: "Alvarez has lost 2 of 3 by KO/TKO: Arman Tsarukyan ground-and-pound R2 (UFC Fight Night 202) plus an early aggressive style by wrestlers who dictate pace. The 3rd loss was a UD to Damir Ismagulov in his 2019 UFC debut. Amosov has only ONE career loss (29-1) — Jason Jackson KO R3 at Bellator 301 defending the title; he was 27-0 going in. Rare-tier durability profile. Tiny sample on Amosov, but the only KO suffered signals that heavy strikers in transition can catch him. For value bets: Alvarez by sub remains the most natural path given his finisher profile.",
+    },
+
     previsao_final: {
       winner_name: 'Yaroslav Amosov',
       winner_side: 'fighter2',

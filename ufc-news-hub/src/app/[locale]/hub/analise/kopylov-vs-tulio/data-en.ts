@@ -171,6 +171,12 @@ export const analise: FullSingleAnalise = {
       insight: 'Kopylov 86% career KO/TKO (12 of 14), zero subs (technical striker who finishes profile). Tulio 71% KO/TKO (10 of 14), 1 sub (more aggressive striker). Both natural finishers.',
     },
 
+    distribuicao_derrotas: {
+      fighter1: { nome: 'Kopylov', ko_tko: { count: 0, percent: 0 }, submission: { count: 2, percent: 40 }, decision: { count: 3, percent: 60 }, total_losses: 5 },
+      fighter2: { nome: 'Tulio', ko_tko: { count: 2, percent: 100 }, submission: { count: 0, percent: 0 }, decision: { count: 0, percent: 0 }, total_losses: 2 },
+      insight: 'Kopylov has NEVER been knocked out (0 KOs in 5 losses). Real vulnerability is grappling/wrestling: 2 subs (Roberson R3 sub, Hernandez RNC UFC 298) and 3 decisions (Duraev UD, Costa UD, Rodrigues UD) — all against wrestlers or grapplers who pulled the fight off the feet. Tulio has lost twice, both by KO: Alexandre Silva TKO R2 at SFT 5 (2018, 3:52), and Christian Leroy Duncan KO R2 (2025). Symmetric pattern: Tulio folds to technical strikers, Kopylov folds to grapplers. Since both are strikers, the fight stays standing where Tulio is the vulnerable one.',
+    },
+
     previsao_final: {
       winner_name: 'Roman Kopylov',
       winner_side: 'fighter1',

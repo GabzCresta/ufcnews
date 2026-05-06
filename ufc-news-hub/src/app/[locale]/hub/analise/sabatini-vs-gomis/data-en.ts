@@ -166,6 +166,12 @@ export const analise: FullSingleAnalise = {
       insight: "Sabatini 62% by sub (classic jiu-jitsu profile). Gomis 47% by KO/TKO + 46% by decision (technical French striker with more KO power than the stereotype suggests). Only 1 career sub for the Frenchman.",
     },
 
+    distribuicao_derrotas: {
+      fighter1: { nome: 'Sabatini', ko_tko: { count: 3, percent: 60 }, submission: { count: 0, percent: 0 }, decision: { count: 2, percent: 40 }, total_losses: 5 },
+      fighter2: { nome: 'Gomis', ko_tko: { count: 0, percent: 0 }, submission: { count: 1, percent: 33 }, decision: { count: 2, percent: 67 }, total_losses: 3 },
+      insight: "Sabatini 60% of losses by KO/TKO (3 of 5): Damon Jackson TKO R1 (UFC Fight Night 210), Diego Lopes KO R1 (UFC 295), Gonzalez TKO R1 at CFFC (broken arm, 46 seconds). Pattern: folds quickly to explosive strikers when striking gets honest. Gomis has 3 losses, ZERO by KO — reliable French chin. 1 sub (Charriere 2016 early career) and 2 decisions (including Hyder Amil March 2025). For value bets: Gomis by KO/TKO is a realistic path given Sabatini's pattern against strikers; Sabatini by sub runs into the French armor against finishes.",
+    },
+
     previsao_final: {
       winner_name: 'Pat Sabatini',
       winner_side: 'fighter1',

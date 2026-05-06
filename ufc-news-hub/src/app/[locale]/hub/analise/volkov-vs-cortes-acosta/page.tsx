@@ -182,6 +182,12 @@ const analise: FullSingleAnalise = {
       insight: 'Volkov finaliza 62% por KO/TKO, mas as decisões recentes (Almeida, Pavlovich, Gane) mostram que contra striker disciplinado o russo ganha por cards. Cortes-Acosta finaliza 53% por KO mas tem 41% de decisões na carreira, perfil de boxer que aceita ir pros cards quando não encaixa. Com 3 rounds, a luta tem mais chance de finalização do que decisão.',
     },
 
+    distribuicao_derrotas: {
+      fighter1: { nome: 'Volkov', ko_tko: { count: 2, percent: 18 }, submission: { count: 3, percent: 27 }, decision: { count: 6, percent: 55 }, total_losses: 11 },
+      fighter2: { nome: 'Cortes-Acosta', ko_tko: { count: 0, percent: 0 }, submission: { count: 0, percent: 0 }, decision: { count: 2, percent: 100 }, total_losses: 2 },
+      insight: 'Volkov perde 55% por decisão (6 em 11): Gane, Blaydes, Kongo, Tony Johnson, Bennett. 2 KOs sofridos (Lewis comeback no UFC 229 R3, Minakov pre-UFC). 3 subs incluem Aspinall (front choke UFC 295) e dois russos antigos — vulnerabilidade real é grappling pesado. Cortes-Acosta tem só 2 derrotas, AMBAS por decisão (de Lima UD UFC ESPN 45, Pavlovich UD UFC Fight Night 257) — queixo dominicano sólido, NUNCA foi nocauteado nem finalizado. Para value bet: ambos vão pros cards no perfil base; Volkov por KO depende dele encaixar early antes de Waldo se assentar.',
+    },
+
     previsao_final: {
       winner_name: 'Alexander Volkov',
       winner_side: 'fighter1',

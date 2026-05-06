@@ -183,6 +183,12 @@ const analise: FullSingleAnalise = {
       insight: 'Van finaliza 50% por KO/TKO, perfil de striker volume com poder. Taira finaliza 44% por submission, perfil clássico de BJJ. Van decide 38% (perfil de wars de cinco rounds), Taira decide só 22%. Os números espelham a tese: Van impõe striking pelos 25 minutos e leva nos cards, Taira precisa do chão pra ganhar.',
     },
 
+    distribuicao_derrotas: {
+      fighter1: { nome: 'Van', ko_tko: { count: 1, percent: 50 }, submission: { count: 1, percent: 50 }, decision: { count: 0, percent: 0 }, total_losses: 2 },
+      fighter2: { nome: 'Taira', ko_tko: { count: 0, percent: 0 }, submission: { count: 0, percent: 0 }, decision: { count: 1, percent: 100 }, total_losses: 1 },
+      insight: 'Van caiu 2 vezes na carreira: 1 KO no UFC (Charles Johnson R3 jul/2024) e 1 sub no circuito Fury FC. Vulnerabilidade dividida 50/50 entre stand-up e chão. Taira tem APENAS 1 derrota em 19 lutas (18-1) — split decision contra Brandon Royval em out/2024. NUNCA foi nocauteado nem finalizado em carreira inteira. Para value bet: Taira sem KO/sub registrados é stat raríssima. Van por KO precisa quebrar essa muralha.',
+    },
+
     previsao_final: {
       winner_name: 'Joshua Van',
       winner_side: 'fighter1',

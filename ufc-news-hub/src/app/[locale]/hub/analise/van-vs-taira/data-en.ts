@@ -180,6 +180,12 @@ export const analise: FullSingleAnalise = {
       insight: "Van finishes 50% by KO/TKO, volume-striker-with-power profile. Taira finishes 44% by submission, classic BJJ profile. Van decides 38% (5-round war profile), Taira only 22%. The numbers mirror the thesis: Van presses striking through 25 minutes and wins the cards; Taira needs the ground.",
     },
 
+    distribuicao_derrotas: {
+      fighter1: { nome: 'Van', ko_tko: { count: 1, percent: 50 }, submission: { count: 1, percent: 50 }, decision: { count: 0, percent: 0 }, total_losses: 2 },
+      fighter2: { nome: 'Taira', ko_tko: { count: 0, percent: 0 }, submission: { count: 0, percent: 0 }, decision: { count: 1, percent: 100 }, total_losses: 1 },
+      insight: "Van has 2 career losses: 1 KO in the UFC (Charles Johnson R3, July 2024) and 1 sub on the Fury FC circuit. Vulnerability is split 50/50 between standing and ground. Taira has only ONE loss in 19 fights (18-1) — split decision to Brandon Royval in October 2024. Has NEVER been knocked out or submitted in his career. For value bets: Taira with no KO/sub on the record is a rare-tier stat. Van by KO has to break that wall.",
+    },
+
     previsao_final: {
       winner_name: 'Joshua Van',
       winner_side: 'fighter1',

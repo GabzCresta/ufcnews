@@ -170,6 +170,12 @@ const analise: FullSingleAnalise = {
       insight: 'Susurkaev 82% das vitórias por KO/TKO (9 em 11) — finalizador extremo. Santos distribuído entre KO (27%), sub (36%) e dec (37%) — perfil de grappler-jiu-jitseiro mais que durable journeyman. Ambos 11 vitórias na carreira.',
     },
 
+    distribuicao_derrotas: {
+      fighter1: { nome: 'Susurkaev', ko_tko: { count: 0, percent: 0 }, submission: { count: 0, percent: 0 }, decision: { count: 0, percent: 0 }, total_losses: 0 },
+      fighter2: { nome: 'Santos', ko_tko: { count: 0, percent: 0 }, submission: { count: 0, percent: 0 }, decision: { count: 2, percent: 100 }, total_losses: 2 },
+      insight: 'Susurkaev é INVICTO oficialmente (11-0-0) — nunca caiu em registro profissional. Santos tem 2 derrotas, AMBAS por decisão (Ozzy Diaz UD na estreia UFC em UFC 313 e Cristian Torres em circuito regional). Santos NUNCA foi finalizado, queixo + defesa de submission resilientes. Para value bet: Susurkaev por KO/TKO é caminho realista dado o finish rate dele de 82%, mas Santos defende bem finalização. Decisão a favor do invicto também tem chance dada amostra do Santos.',
+    },
+
     previsao_final: {
       winner_name: 'Baisangur Susurkaev',
       winner_side: 'fighter1',

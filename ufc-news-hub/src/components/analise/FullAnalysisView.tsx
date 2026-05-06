@@ -100,7 +100,7 @@ export function FullAnalysisView({ analise, lang = 'pt' }: { analise: FullSingle
             <DistribuicaoVitoriasSection data={d.distribuicao_vitorias} sectionNumber="05" lang={lang} />
 
             {d.distribuicao_derrotas && (
-              <DistribuicaoDerrotasSection data={d.distribuicao_derrotas} sectionNumber="06" lang={lang} />
+              <DistribuicaoDerrotasSection data={d.distribuicao_derrotas} lang={lang} />
             )}
 
             {d.perfil_habilidades_v2 && (
@@ -108,12 +108,12 @@ export function FullAnalysisView({ analise, lang = 'pt' }: { analise: FullSingle
                 data={d.perfil_habilidades_v2}
                 fighter1Name={f1Name}
                 fighter2Name={f2Name}
-                sectionNumber="07"
+                sectionNumber="06"
                 lang={lang}
               />
             )}
 
-            <PrevisaoFinalSection data={d.previsao_final} sectionNumber="08" lang={lang} />
+            <PrevisaoFinalSection data={d.previsao_final} sectionNumber="07" lang={lang} />
 
             {/* Radar do Apostador is fully absorbed into PrevisaoFinalSection in
                 the new shape. Odds, value picks, key stats and armadilha all live

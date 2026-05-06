@@ -180,6 +180,12 @@ export const analise: FullSingleAnalise = {
       insight: 'Chimaev finishes 80% of his wins (12 of 15 between KO and submission), with KO and sub split evenly — rare for a wrestler. Strickland decisions 47% (14 of 30 wins), the highest decision rate among top-10 middleweights. The numbers mirror the matchup: Chimaev wants the finish, Strickland wants to extend.',
     },
 
+    distribuicao_derrotas: {
+      fighter1: { nome: 'Chimaev', ko_tko: { count: 0, percent: 0 }, submission: { count: 0, percent: 0 }, decision: { count: 0, percent: 0 }, total_losses: 0 },
+      fighter2: { nome: 'Strickland', ko_tko: { count: 2, percent: 29 }, submission: { count: 0, percent: 0 }, decision: { count: 5, percent: 71 }, total_losses: 7 },
+      insight: 'Chimaev has never lost in 15 professional fights — zero defeats, zero submissions absorbed, an extremely rare stat in the middleweight division. Strickland has 7 losses and 5 of them (71%) came by decision: Ponzinibbio in 2015, Usman in 2017, Cannonier in 2022, and Du Plessis twice (UFC 297 split, UFC 312 UD). The 2 KOs were exceptional spinning strikes (Zaleski hook kick in 2018, Pereira left hook at UFC 276). Never finished by submission in 37 professional fights — granite chin. For value bets: Chimaev by submission is a hard path because Strickland holds 25 minutes, but a dominant 50-44 decision is the most likely scenario given Strickland loses by decision 71% of the time he falls.',
+    },
+
     previsao_final: {
       winner_name: 'Khamzat Chimaev',
       winner_side: 'fighter1',

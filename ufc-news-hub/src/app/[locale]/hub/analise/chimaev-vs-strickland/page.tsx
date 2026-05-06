@@ -183,6 +183,12 @@ const analise: FullSingleAnalise = {
       insight: 'Chimaev finaliza 80% das vitórias (12 de 15 entre KO e submissão), com KO e sub em paridade rara pra wrestler. Strickland decide 47% das vitórias (14 de 30), maior taxa de decisão entre top 10 da divisão. Os números espelham a luta: Chimaev quer finalizar, Strickland quer estender.',
     },
 
+    distribuicao_derrotas: {
+      fighter1: { nome: 'Chimaev', ko_tko: { count: 0, percent: 0 }, submission: { count: 0, percent: 0 }, decision: { count: 0, percent: 0 }, total_losses: 0 },
+      fighter2: { nome: 'Strickland', ko_tko: { count: 2, percent: 29 }, submission: { count: 0, percent: 0 }, decision: { count: 5, percent: 71 }, total_losses: 7 },
+      insight: 'Chimaev nunca perdeu em 15 lutas profissionais, zero finalizações sofridas, stat raríssima na divisão. Strickland tem 7 derrotas e 5 delas (71%) foram por decisão: Ponzinibbio em 2015, Usman em 2017, Cannonier em 2022 e Du Plessis duas vezes (UFC 297 split, UFC 312 UD). Os 2 KOs sofridos foram chutes giratórios excepcionais (Zaleski hook kick em 2018, Pereira left hook em UFC 276). NUNCA finalizado em 37 lutas profissionais, queixo de granito. Pra value bet: Chimaev por sub é caminho difícil porque Strickland aguenta 25 minutos, mas decisão dominante 50-44 é o cenário mais provável dado que Strickland perde por decisão 71% das vezes em que cai.',
+    },
+
     previsao_final: {
       winner_name: 'Khamzat Chimaev',
       winner_side: 'fighter1',

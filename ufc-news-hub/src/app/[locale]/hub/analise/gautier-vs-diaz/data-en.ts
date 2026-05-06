@@ -173,6 +173,12 @@ export const analise: FullSingleAnalise = {
       insight: 'Gautier finishes 80% by KO/TKO with zero career submissions (pure striker with finishing instinct). Diaz more spread out (50% KO, 20% sub, 30% dec) but lost his UFC debut by R1 TKO, exposing the exact vulnerability against explosive strikers.',
     },
 
+    distribuicao_derrotas: {
+      fighter1: { nome: 'Gautier', ko_tko: { count: 0, percent: 0 }, submission: { count: 0, percent: 0 }, decision: { count: 1, percent: 100 }, total_losses: 1 },
+      fighter2: { nome: 'Diaz', ko_tko: { count: 3, percent: 100 }, submission: { count: 0, percent: 0 }, decision: { count: 0, percent: 0 }, total_losses: 3 },
+      insight: "Gautier has only 1 loss in 11 pro fights (10-1), a split decision to Glenn Williams in July 2022 early in his regional career. Never KO'd, never submitted. Diaz has 3 losses and ALL by KO/TKO (100%): UFC debut to Mingyang Zhang ended elbows + ground-and-pound R1 at 2:25. Pattern is bare and crystal clear: Diaz folds against heavy striking, and Gautier finishes 80% by KO. For value bets: Gautier by KO is the most natural path on the card, with documented vulnerability and matching arsenal.",
+    },
+
     previsao_final: {
       winner_name: 'Ateba Gautier',
       winner_side: 'fighter1',

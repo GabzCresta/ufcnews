@@ -179,6 +179,12 @@ export const analise: FullSingleAnalise = {
       insight: 'Green spreads wins across KO (35%), sub (26%), and dec (38%) — complete technical-striker profile that can finish. Stephens 66% by KO/TKO — explosive overhand striker but one-dimensional. When Stephens doesn\'t land the KO, he loses (see his 14 decision losses).',
     },
 
+    distribuicao_derrotas: {
+      fighter1: { nome: 'Green', ko_tko: { count: 6, percent: 35 }, submission: { count: 1, percent: 6 }, decision: { count: 10, percent: 59 }, total_losses: 17 },
+      fighter2: { nome: 'Stephens', ko_tko: { count: 3, percent: 14 }, submission: { count: 4, percent: 19 }, decision: { count: 14, percent: 67 }, total_losses: 21 },
+      insight: 'Green has 17 losses in 52 fights: 6 by KO/TKO (Poirier UFC 199 R1, Dober UFC Vegas 66 highlight, Turner 2023, Makhachev ground-and-pound) and 1 sub (Pimblett UFC 304 R1) — his only career submission loss at 38. Stephens 21 catalogued losses (official record 22 with 1 old case lacking verified method), 67% by decision (14): classic KO-or-bust profile — when the overhand misses, it goes to the cards and he loses. Both veterans worn by mileage, but Green has 1 sub vs Stephens 4 (including Lauzon armbar, Gamrot kimura, Schulte arm triangle, Din Thomas armbar). For value bets: base case is the cards. Stephens by early KO is the only angle for him.',
+    },
+
     previsao_final: {
       winner_name: 'Bobby Green',
       winner_side: 'fighter1',

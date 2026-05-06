@@ -59,6 +59,9 @@ export function DistribuicaoVitoriasSection({ data, sectionNumber, lang = 'pt' }
     <section>
       <SectionHeader number={sectionNumber ?? "07"} title={t.distribuicao_title} accent={t.distribuicao_accent} />
 
+      {/* Sub-heading: Vitórias */}
+      <p className="text-[11px] uppercase tracking-[0.2em] text-white/40 text-center mb-4">{t.distribuicao_subheading_wins}</p>
+
       {/* Fighter names + total wins */}
       <div className="grid grid-cols-[1fr_auto_1fr] items-baseline mb-2">
         <div>

@@ -1,4 +1,3 @@
-import { SectionHeader } from './SectionHeader';
 import type { DistribuicaoDerrotasSectionData, LossMethodBreakdown } from '@/types/analise';
 
 type DistribuicaoDerrotasFighter = { nome: string } & LossMethodBreakdown;
@@ -52,7 +51,7 @@ function FighterCard({ fighter, nameColor }: { fighter: DistribuicaoDerrotasFigh
 export function DistribuicaoDerrotasSection({ data }: DistribuicaoDerrotasSectionProps) {
   return (
     <section>
-      <SectionHeader number="08" title="Distribuicao de" accent="Derrotas" />
+      <p className="text-xs uppercase tracking-[0.2em] text-dark-textMuted mb-4">Derrotas</p>
 
       <div className="grid md:grid-cols-2 gap-6">
         <FighterCard fighter={data.fighter1} nameColor="text-ufc-red" />

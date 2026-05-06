@@ -183,6 +183,12 @@ const analise: FullSingleAnalise = {
       insight: 'Brady decide 50% e finaliza 33% por sub (perfil de wrestler-grappler). Buckley finaliza 71% por KO/TKO e ZERO submissões (striker puro sem ofensa de chão). Distribuições espelham os estilos opostos.',
     },
 
+    distribuicao_derrotas: {
+      fighter1: { nome: 'Brady', ko_tko: { count: 2, percent: 100 }, submission: { count: 0, percent: 0 }, decision: { count: 0, percent: 0 }, total_losses: 2 },
+      fighter2: { nome: 'Buckley', ko_tko: { count: 4, percent: 57 }, submission: { count: 0, percent: 0 }, decision: { count: 3, percent: 43 }, total_losses: 7 },
+      insight: 'Amostra pequena pro Brady (só 2 derrotas em 20 lutas), mas as DUAS foram por TKO em pé no UFC: Belal Muhammad em UFC 280 (TKO R2) e Michael Morales em UFC 322 (TKO R1). Padrão claro mesmo com amostra curta: quando Brady perde, é por nocaute técnico em pé, finalizar wrestler é difícil mas striking pesado funciona. Buckley tem 7 derrotas: 4 por KO (Gosh R1 em 2016, Holland TKO R3 em 2020, Di Chirico flying knee em 2021, Curtis TKO R2 em 2022) e 3 por decisão (Storley em Bellator 197, Imavov em 2022, Usman em 2025). Submissão zero pros dois. Caminho do Buckley é striking pesado, do Brady é wrestling pra controlar a luta e tirar o americano da distância onde ele finaliza.',
+    },
+
     previsao_final: {
       winner_name: 'Sean Brady',
       winner_side: 'fighter1',
