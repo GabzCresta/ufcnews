@@ -26,9 +26,8 @@ function RegistroContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const t = useTranslations('arena');
-  const { isAuthenticated, isLoading: authLoading } = useArenaAuth();
-  const redirectTo = searchParams?.get('redirect') || '/hub/arena';
-  const codigoTenant = searchParams?.get('codigo') || null;
+  const { registro, isAuthenticated, isLoading: authLoading } = useArenaAuth();
+  const redirectTo = searchParams?.get('redirect') || '/arena';
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -77,30 +76,19 @@ function RegistroContent() {
 
     setIsLoading(true);
 
-    // Call registro endpoint directly so we can pass codigo_tenant and
-    // the backend joins the tenant atomically with signup.
-    try {
-      const res = await fetch('/api/arena/auth/registro', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({
-          username: formData.username,
-          email: formData.email,
-          senha: formData.senha,
-          codigo_tenant: codigoTenant ?? undefined,
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        setError(data.error || t('registro_error_generic'));
-      } else {
-        // Success — tenant-joined users land on Arena with branding already applied
-        window.location.href = redirectTo;
-      }
-    } catch {
-      setError(t('registro_error_generic'));
+    const result = await registro(
+      formData.username,
+      formData.email,
+      formData.senha,
+      undefined
+    );
+
+    if (result.success) {
+      router.push(redirectTo);
+    } else {
+      setError(result.error || t('registro_error_generic'));
     }
+
     setIsLoading(false);
   };
 

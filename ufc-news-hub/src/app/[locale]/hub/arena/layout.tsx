@@ -7,6 +7,7 @@ import { UserAvatar } from '@/components/arena/UserAvatar';
 import { BottomNav } from '@/components/arena/BottomNav';
 import { XpBar } from '@/components/arena/XpBar';
 import { LevelUpModal } from '@/components/arena/LevelUpModal';
+import { LocaleSwitcher } from '@/components/ui/LocaleSwitcher';
 import { useArenaAuth } from '@/hooks/useArenaAuth';
 import { useProximoEvento } from '@/hooks/useProximoEvento';
 
@@ -37,7 +38,7 @@ export default function ArenaLayout({ children }: { children: React.ReactNode })
             />
           </div>
 
-          {/* Right: XP + points + avatar */}
+          {/* Right: XP bar + Points badge + UserAvatar */}
           <div className="flex items-center gap-3">
             {isAuthenticated && usuario && (
               <>
@@ -50,15 +51,18 @@ export default function ArenaLayout({ children }: { children: React.ReactNode })
                 </div>
               </>
             )}
+            <LocaleSwitcher />
             <UserAvatar usuario={usuario} onLogout={logout} />
           </div>
         </div>
       </div>
 
+      {/* Page Content */}
       <main className="pb-16 md:pb-0">
         {children}
       </main>
 
+      {/* Mobile Bottom Nav */}
       <div className="md:hidden">
         <BottomNav
           eventoId={evento?.id ?? null}
@@ -67,6 +71,7 @@ export default function ArenaLayout({ children }: { children: React.ReactNode })
         />
       </div>
 
+      {/* Global: Level up realtime modal */}
       <LevelUpModal />
     </>
   );

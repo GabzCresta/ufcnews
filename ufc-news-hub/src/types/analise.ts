@@ -110,6 +110,11 @@ export interface Analise {
   subtitulo: string | null;
   lutador1_id: string | null;
   lutador2_id: string | null;
+  artigo_conteudo: string;
+  tactical_breakdown: TacticalBreakdownData;
+  fight_prediction: FightPredictionData;
+  fighter1_info: FighterInfo;
+  fighter2_info: FighterInfo;
   evento_nome: string | null;
   evento_data: string | null;
   evento_local: string | null;
@@ -121,14 +126,6 @@ export interface Analise {
   analysis_type?: string;
   created_at: string;
   updated_at: string;
-  // Deprecated placeholder fields kept for type compatibility with legacy static
-  // page.tsx files. No DB column backs them (dropped in migration 010) and no
-  // current view renders them. Safe to omit in new code.
-  artigo_conteudo: string;
-  tactical_breakdown: TacticalBreakdownData;
-  fight_prediction: FightPredictionData;
-  fighter1_info: FighterInfo;
-  fighter2_info: FighterInfo;
 }
 
 // ==========================================

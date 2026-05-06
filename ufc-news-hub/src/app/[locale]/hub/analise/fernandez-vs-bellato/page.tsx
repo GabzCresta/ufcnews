@@ -364,6 +364,6 @@ const analise: PrelimsAnalise = {
 
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const data = await loadAnalysisData(analise, locale, 'fernandez-vs-bellato');
-  return <PrelimsAnalysisView analise={data} lang={locale as Lang} />;
+  const data = await loadAnalysisData(analise as any, locale, 'fernandez-vs-bellato');
+  return <PrelimsAnalysisView analise={data as any} lang={locale as Lang} />;
 }

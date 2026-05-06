@@ -560,18 +560,12 @@ async function findOrCreateFighter(nome: string): Promise<string | null> {
   );
 
   if (existing.length > 0) {
-    // Refresh image if missing OR stale (>14 days old).
-    // imagem_updated_at é write-once → force refresh se ausente/antiga.
-    const stale = await queryOne<{ needs_refresh: boolean }>(
-      `SELECT (imagem_url IS NULL OR imagem_url = '' OR imagem_updated_at IS NULL OR imagem_updated_at < NOW() - INTERVAL '14 days') AS needs_refresh
-       FROM lutadores WHERE id = $1`,
-      [existing[0].id]
-    );
-    if (stale?.needs_refresh) {
+    // If fighter exists but has no image, try to fetch it
+    if (!existing[0].imagem_url) {
       const imageUrl = await fetchFighterImage(nome);
       if (imageUrl) {
         await query(
-          `UPDATE lutadores SET imagem_url = $1, imagem_updated_at = NOW(), imagem_versao = COALESCE(imagem_versao, 0) + 1 WHERE id = $2`,
+          `UPDATE lutadores SET imagem_url = $1 WHERE id = $2`,
           [imageUrl, existing[0].id]
         );
       }

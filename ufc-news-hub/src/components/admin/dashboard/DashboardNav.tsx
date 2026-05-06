@@ -13,9 +13,6 @@ import {
   Settings,
   ExternalLink,
   LogOut,
-  Building2,
-  Send,
-  ClipboardList,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -29,12 +26,9 @@ const NAV_ITEMS: NavItem[] = [
   { href: '/dashboard', label: 'Entregas', icon: LayoutDashboard },
   { href: '/dashboard/pipeline', label: 'Pipeline', icon: GitBranch },
   { href: '/dashboard/content', label: 'Conteudo', icon: FileText },
-  { href: '/dashboard/post-card', label: 'Post-Card', icon: ClipboardList },
   { href: '/dashboard/clientes', label: 'Clientes', icon: Users },
-  { href: '/dashboard/tenants', label: 'Tenants', icon: Building2 },
   { href: '/dashboard/operations', label: 'Operacoes', icon: Wrench },
   { href: '/dashboard/analytics', label: 'Analytics', icon: BarChart3 },
-  { href: '/dashboard/outreach', label: 'Outreach', icon: Send },
   { href: '/dashboard/settings', label: 'Settings', icon: Settings },
 ];
 

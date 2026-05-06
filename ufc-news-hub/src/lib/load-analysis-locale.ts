@@ -18,17 +18,15 @@ export async function loadAnalysisData<T extends FullSingleAnalise | PrelimsAnal
 ): Promise<T> {
   if (!locale || locale === 'pt') return ptData;
 
-  // Try loading full AI translation (only EN is supported)
-  if (locale === 'en') {
-    try {
-      const mod = await import(
-        /* webpackInclude: /data-en\.ts$/ */
-        `@/app/[locale]/hub/analise/${slug}/data-en`
-      );
-      if (mod.analise) return mod.analise as T;
-    } catch {
-      // File doesn't exist yet — translator agent hasn't run
-    }
+  // Try loading full AI translation
+  try {
+    const mod = await import(
+      /* webpackInclude: /data-(en|es|fr)\.ts$/ */
+      `@/app/[locale]/hub/analise/${slug}/data-${locale}`
+    );
+    if (mod.analise) return mod.analise as T;
+  } catch {
+    // File doesn't exist yet — translator agent hasn't run
   }
 
   // Mechanical dictionary translation only handles full analysis shape.

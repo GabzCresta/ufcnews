@@ -192,25 +192,25 @@ const analise: FullSingleAnalise = {
     previsao_final: {
       winner_name: 'Joshua Van',
       winner_side: 'fighter1',
-      predicted_method: 'Decisão ou TKO tardio',
-      confidence_score: 8,
-      confidence_label: 'ALTA',
+      predicted_method: 'Decisão',
+      confidence_score: 7,
+      confidence_label: 'MEDIA-ALTA',
       explanation:
-        'A pick é Joshua Van por decisão dominante ou TKO tardio. Olhando luta por luta, a vantagem aparece em seis dimensões: stats (Van 8.84 SLpM maior da história + 56.8% precisão + 81% TDD elite vs Taira TDD 45%), nível de competição (Van bateu Royval com 419 sig strikes combinados; Taira perdeu pro mesmo Royval com 124-42 differential), estilo (striker volume com defesa de quedas elite vs grappler que precisa do chão e tem TDD 45%), momento (Van campeão recém-coroado em alta absoluta vs Taira voltando da única derrota), inteligência qualitativa (Royval entregou o blueprint exato e Van faz isso MELHOR que Royval, com mais volume e mais accuracy), e calibre direto do oponente comum (Van 30-27 num juiz contra Royval, Taira split com gap de 82 strikes). Taira tem caminho viável (28%): forçar entradas no clinch usando 8 cm de envergadura, encaixar queda no R1 e ficar por cima 4-5 minutos por round, buscar back take + body triangle como fez com Moreno. Mas precisa fazer isso contra TDD 81% por 25 minutos com cardio que já provou funcionar contra Royval. Convicção 8 porque seis dimensões convergem com precedente direto (oponente comum + stats divergentes massivamente).',
+        'A pick é Joshua Van por decisão. A vantagem real aparece em três dimensões verdadeiramente independentes: stats (Van 8.84 SLpM maior da história + 56.8% precisão + 81% TDD elite vs Taira TDD 45%), oponente comum direto (Van venceu Royval por UD com 419 sig strikes combinados; Taira perdeu pro mesmo Royval com 124-42 differential), e momento (Van campeão recém-coroado vs Taira voltando da única derrota). Onde a convicção fica capada em 7 e não em 8: primeiro, "stats" e "oponente comum" são parcialmente correlacionados (ambos refletem a performance do Van em UFC 317), conta como 1.5 dimensões, não 2. Segundo, Taira tem características raríssimas que a tese de "volume vence" ignora: 18-1, NUNCA foi nocauteado, NUNCA foi finalizado em 19 lutas profissionais — chin e sub defense em nível raro, dificulta cards apertados a favor do Van se a luta vira war. Terceiro, Van TDD 81% nunca foi testado contra grappler-first primary do nível do Taira; Royval é grappler-pressure, não grappler-first. Taira tem caminho viável (32%): forçar entradas no clinch usando 8 cm de envergadura, encaixar queda no R1, transitar pra back control + body triangle como fez com Moreno e Perez, ou apenas aguentar 25 minutos no chin elite e capitalizar em rounds apertados.',
       x_factor: {
         title: 'A Defesa de Quedas Decide',
         description: 'Van tem 81% TDD na carreira. Taira tenta 2.73 takedowns por 15 minutos com 61% accuracy. A matemática: se Taira tenta 8 quedas em 25 minutos, e Van defende em 75-80%, são 1-2 quedas conectadas no fight inteiro. Royval absorveu 6 quedas em 15 tentativas (40% TDA) por 12:13 de bottom control e mesmo assim venceu cards. Van defende melhor que Royval. R1 vai dar a primeira leitura.',
       },
       upset_alert: {
-        title: 'Taira Encaixa Body Triangle de Costas',
-        description: 'O caminho do Taira é repetir o que fez no R2 vs Moreno: queda → back control → body triangle → GnP. Faixa-roxa BJJ, 1.64 sub/15min, 44% subs carreira, 8 cm de envergadura a mais. Mas a TDD do Taira é 45% (não 67% como muitos relatórios), então o problema é simétrico: se Van pega o clinch, Taira também sofre. Probabilidade 28%, real porque o sub repertório existe e finalizou ex-campeão na última.',
+        title: 'Taira Encaixa Body Triangle ou Estende a Luta',
+        description: 'O caminho do Taira é repetir o que fez no R2 vs Moreno: queda → back control → body triangle → GnP (faixa-roxa BJJ, 1.64 sub/15min, 44% subs carreira, 8 cm envergadura a mais). Mas o caminho silencioso do Taira é apenas AGUENTAR — ele tem 18-1, nunca foi nocauteado, nunca foi finalizado, chin de elite. Se a luta vira war de 25 minutos com Van forçando volume, dá pra acabar em cards apertados onde 1-2 quedas conectadas viram a tese. Probabilidade 32%, real porque o sub repertório existe E o chin elite mantém o cenário "decisão dividida pra Taira" no mapa.',
       },
-      probabilities: { fighter1: { nome: 'Van', percent: 69 }, fighter2: { nome: 'Taira', percent: 28 }, draw: 3 },
+      probabilities: { fighter1: { nome: 'Van', percent: 65 }, fighter2: { nome: 'Taira', percent: 32 }, draw: 3 },
       conviction: {
         thesis:
-          'A tese é: Joshua Van vence porque, primeiro, tem 8.84 sig strikes por minuto (MAIOR taxa da história UFC) com 56.8% accuracy (2ª maior peso mosca all-time, atrás só DJ), e 81% TDD elite contra Taira TDD de 45%. Segundo, o oponente comum Brandon Royval entregou evidência DIRETA: Royval venceu Taira 124-42 em strikes (3:1 ratio, +82 differential que é um dos 5 maiores da história do peso) com Taira encaixando 6 quedas em 15 tentativas e 12:13 controle, e Van venceu Royval com 419 sig strikes combinados (1ª vez na história UFC ambos +200), 30-27 num juiz, mostrando cardio pra 25 minutos. Terceiro, Van faz volume MELHOR que Royval: 8.84 SLpM vs 5.4 SLpM, 56.8% vs 47% accuracy, e tem TDD melhor que o próprio Royval. O caminho é Van defender as primeiras tentativas de queda no R1, abrir distância com footwork, acumular volume cadenciado nos rounds 2-3, ditar luta nos rounds tardios e fechar com pressão de finalização ou cards 49-46. Desmorona se Taira encaixar back take e body triangle como fez com Moreno e mantiver controle 4+ min por round.',
-        conviction_score: 8,
-        conviction_rationale: 'Convicção 8 porque seis dimensões convergem com PRECEDENTE DIRETO (Royval) e gaps stat massivos (TDD 81% vs 45%). Royval entregou o blueprint, e Van faz volume + accuracy MELHOR que Royval. Mercado moveu de Taira -180 pra -150 quando smart money entrou e leu o blueprint. Não é 9 porque Taira tem 8 cm reach e jogo de chão grau acima de tudo Van enfrentou (incluindo Royval em sub-threats), e Van tem só 1 luta de 5 rounds (Royval). Probabilidade 69-28-3 reflete isso.',
+          'A tese é: Joshua Van vence porque, primeiro, tem 8.84 sig strikes por minuto (MAIOR taxa da história UFC) com 56.8% accuracy (2ª maior peso mosca all-time) e 81% TDD elite contra Taira TDD de 45%. Segundo, o oponente comum Brandon Royval entregou evidência DIRETA: Royval venceu Taira 124-42 em strikes mesmo absorvendo 6 quedas em 15 tentativas e 12:13 controle, e Van venceu Royval com 419 sig strikes combinados, 30-27 num juiz. Terceiro, Van faz volume MELHOR que Royval (8.84 vs 5.4 SLpM). O caminho é Van defender as primeiras tentativas de queda, abrir distância com footwork, acumular volume cadenciado nos rounds 2-3 e fechar com cards 48-47 ou 49-46. Desmorona se Taira encaixar back take e body triangle como fez com Moreno, ou simplesmente aguentar o chin elite por 25 minutos e capitalizar em rounds apertados.',
+        conviction_score: 7,
+        conviction_rationale: 'Convicção 7 (não 8) porque três dimensões convergem com precedente direto (Royval), mas (1) "stats Van" e "calibre via Royval" são parcialmente correlatas, conta como 1.5 dimensões; (2) Taira tem características raríssimas que a tese ignora — 19 lutas, NUNCA foi nocauteado, NUNCA foi finalizado, chin e sub defense em nível raro que mantém cards apertados no mapa; (3) Van TDD 81% nunca foi testado contra grappler-first primary do nível do Taira (Royval é grappler-pressure, não grappler-first), e Van tem só 1 luta de 5 rounds (Royval) na carreira. Mercado moveu Taira -180 → -150 lendo o blueprint, mas Van como underdog em luta de cinturão ainda paga edge real. Probabilidade 65-32-3 reflete o piso aberto.',
         conviction_breakers: [
           'Taira encaixa back take e body triangle como fez com Moreno R2',
           'Van não consegue manter TDD 80%+ por 25 minutos contra wrestler com identidade ofensiva',
@@ -219,8 +219,8 @@ const analise: FullSingleAnalise = {
         ],
         underdog_path: {
           viable: true,
-          probability_estimate: 28,
-          key_scenario: 'Taira força clinch usando 8 cm envergadura, encaixa double-leg nos primeiros 90s do R1. Estabiliza top control, transita pra back control com body triangle (specialty, finalizou Moreno e Perez assim). Acumula 4-5 minutos top control por round, busca finalização tardia ou cards 49-46. Se finalização não vem, decisão pelo tempo de domínio acumulado. Mas precisa replicar isso 4-5 vezes em 25 minutos contra TDD 81%.',
+          probability_estimate: 32,
+          key_scenario: 'Taira tem dois caminhos paralelos. Caminho A (finalização): força clinch usando 8 cm envergadura, encaixa double-leg nos primeiros 90s do R1, estabiliza top control, transita pra back control com body triangle (specialty, finalizou Moreno e Perez assim). Caminho B (decisão silenciosa): aproveita o chin elite (NUNCA foi nocauteado em 19 lutas) pra simplesmente aguentar 25 minutos absorvendo volume do Van, conecta 2-3 quedas pontuais, ganha 3 dos 5 rounds em cards apertados (48-47 ou 49-46) replicando o que fez SEM ganhar contra Royval em out 2024 (12:13 control, 6 quedas, perdeu split por outlanded 124-42). Contra Van o gap em pé pode ser maior, mas Taira tem cardio + sub defense pra esticar.',
           required_conditions: [
             'Encaixar 2+ quedas nos primeiros 2 rounds (taxa 35%+ contra Van TDD 81%)',
             'Manter top control 4+ minutos por round que conseguir queda',
@@ -232,15 +232,15 @@ const analise: FullSingleAnalise = {
       },
       value_picks_v2: {
         picks: [
-          { type: 'Moneyline', pick: 'Joshua Van', odds: '+150 (FanDuel, abr 2026)', reasoning: 'Probabilidade real estimada em 69%, implícita +150 = 40%. Edge de 29 pontos porcentuais. Mercado abriu Taira -180 e moveu pra -150 quando smart money entrou. Best bet do card UFC 328 by daylight.' },
-          { type: 'Método', pick: 'Van por Decisão', odds: '+200 a +250 (estimado)', reasoning: 'Van fez 25 minutos com Royval mantendo volume (FOTN bonus). Taira só foi finalizado 1 vez carreira (não no UFC). Cenário mais provável é UD dominante 49-46 ou 50-45. Em +225 implícita é 31%, edge real sobre 40-45% estimada.' },
-          { type: 'Total Rounds', pick: 'Passa de 3,5 rounds (Over)', odds: '-150 a -200 (estimado)', reasoning: 'Van por decisão é cenário principal. Mesmo se finalizar, mais provável tarde (R4-R5) por accumulation. Taira chin sólido.' },
+          { type: 'Moneyline', pick: 'Joshua Van', odds: '+150 (FanDuel, abr 2026)', reasoning: 'Probabilidade real estimada em 65%, implícita +150 = 40%. Edge de 25 pontos porcentuais. Mercado abriu Taira -180 e moveu pra -150 quando smart money leu o blueprint Royval. Confiança média porque Taira NUNCA foi finalizado em 19 lutas e o piso pra split decision a favor dele existe.' },
+          { type: 'Total Rounds', pick: 'Passa de 3,5 rounds (Over)', odds: '-150 a -200 (estimado)', reasoning: 'Van por decisão é cenário principal. Taira NUNCA foi nocauteado nem finalizado. Mesmo se Van finalizar, mais provável tarde (R4-R5) por accumulation. Pick mais segura do card.' },
+          { type: 'Método', pick: 'Van por Decisão', odds: '+200 a +250 (estimado)', reasoning: 'Van fez 25 minutos com Royval mantendo volume. Taira chin elite, só foi finalizado 1 vez na carreira (não no UFC). Cenário mais provável é UD apertada 48-47/49-46. Em +225 implícita é 31%, edge sobre estimada 40%.' },
         ],
-        best_bet: { pick: 'Joshua Van ML em +150', reasoning: 'Maior valor esperado do card. Mercado moveu de -180 pra -150 mas ainda paga Van como azarão em luta de cinturão onde a evidência transitiva é direta (Van bate Royval, Royval bate Taira) e Van faz volume melhor que Royval. Probabilidade real 69% vs implícita 40% é vantagem rara em main event.' },
+        best_bet: { pick: 'Total Rounds Over 3.5 em -150 a -200', reasoning: 'Maior segurança do card. Taira NUNCA foi nocauteado nem finalizado em 19 lutas profissionais; Van NUNCA finalizou alguém antes do R3. Caminhos pra terminar antes de R4 são limitados pros dois. Decisão é o cenário mais provável independente do vencedor — Over 3.5 rounds funciona seja qual for o vencedor.' },
       },
       key_stats: [
+        { value: '0', label: 'Vezes que Taira foi nocauteado em 19 lutas', sublabel: 'NUNCA foi nocauteado nem finalizado. Chin + sub defense de elite. Mantém o piso aberto pro Taira independente do volume do Van.' },
         { value: '124-42', label: 'Royval outlanded Taira em sig strikes (UFC FN 244)', sublabel: '3:1 ratio. Royval venceu cards apesar de Taira ter 6 quedas em 15 e 12:13 controle.' },
-        { value: '419', label: 'Sig strikes combinados Van vs Royval (UFC 317)', sublabel: '1ª luta da história UFC com ambos +200. Van 205 strikes, 67.4% accuracy.' },
         { value: '45%', label: 'TDD do Taira na carreira', sublabel: 'Vulnerabilidade real. Análise comum reporta 67% errado. Van defende 81%.' },
         { value: '+150', label: 'Odds do Van como underdog em luta de cinturão', sublabel: 'Mercado paga campeão como azarão. Edge histórico raro.' },
       ],

@@ -5,16 +5,16 @@ import { useTranslations, useLocale } from 'next-intl';
 import { Link, useRouter, usePathname } from '@/i18n/routing';
 import {
   ArrowRight, Brain, CheckCircle2, ChevronDown, ChevronUp,
-  Clock, Database, FileText, Flame, Globe, Layers, MessageCircle, Mail,
-  Package, Plus, Search, Shield, Sparkles, Target, TrendingUp, Trophy,
-  Users, Zap,
+  Clock, Database, FileText, Globe, Layers, MessageCircle, Mail,
+  Search, Shield, Sparkles, TrendingUp, Trophy,
+  Users,
 } from 'lucide-react';
 
 // ═══════════════════════════════════════════════════════════
 // Constants & Types
 // ═══════════════════════════════════════════════════════════
 
-type TabId = 'produto' | 'analise' | 'creatorkit' | 'arena' | 'contato';
+type TabId = 'produto' | 'analise' | 'arena' | 'contato';
 
 const LOCALES = [
   { code: 'pt', flag: '🇧🇷', label: 'PT' },
@@ -67,9 +67,9 @@ function PipelineNode({ icon: Icon, num, title, desc, isLast }: {
   icon: React.ElementType; num: string; title: string; desc: string; isLast: boolean;
 }) {
   return (
-    <div className="relative text-center group flex-1 min-w-0">
-      <div className="mx-auto mb-2 md:mb-4 relative">
-        <svg viewBox="0 0 80 80" className="w-12 h-12 md:w-20 md:h-20 mx-auto">
+    <div className="relative text-center group flex-1">
+      <div className="mx-auto mb-4 relative">
+        <svg viewBox="0 0 80 80" className="w-20 h-20 mx-auto">
           <polygon
             points="40,2 72,16 72,64 40,78 8,64 8,16"
             fill={isLast ? 'rgba(226,8,20,0.12)' : 'rgba(255,255,255,0.03)'}
@@ -79,17 +79,17 @@ function PipelineNode({ icon: Icon, num, title, desc, isLast }: {
           />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
-          <Icon className={`h-4 w-4 md:h-6 md:w-6 ${isLast ? 'text-[#E20814]' : 'text-zinc-300 group-hover:text-white transition-colors'}`} />
+          <Icon className={`h-6 w-6 ${isLast ? 'text-[#E20814]' : 'text-zinc-300 group-hover:text-white transition-colors'}`} />
         </div>
         {isLast && (
           <div className="absolute inset-0 pointer-events-none" style={{ filter: 'blur(15px)', background: 'radial-gradient(circle, rgba(226,8,20,0.25) 0%, transparent 70%)' }} />
         )}
       </div>
-      <p className={`text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] ${isLast ? 'text-[#E20814]' : 'text-zinc-400'}`}>
+      <p className={`text-[10px] font-bold uppercase tracking-[0.2em] ${isLast ? 'text-[#E20814]' : 'text-zinc-400'}`}>
         {num}
       </p>
-      <p className="text-[10px] md:text-[13px] font-bold uppercase tracking-wider text-white mt-0.5 md:mt-1 leading-tight">{title}</p>
-      <p className="hidden md:block text-[11px] text-zinc-400 mt-1.5 leading-relaxed max-w-[180px] mx-auto">{desc}</p>
+      <p className="text-[13px] font-bold uppercase tracking-wider text-white mt-1">{title}</p>
+      <p className="text-[11px] text-zinc-400 mt-1.5 leading-relaxed max-w-[180px] mx-auto">{desc}</p>
     </div>
   );
 }
@@ -145,18 +145,18 @@ function TabNav({ active, onChange }: { active: TabId; onChange: (t: TabId) => v
   const TABS = [
     { id: 'produto' as TabId, label: t('nav_produto'), icon: Sparkles },
     { id: 'analise' as TabId, label: t('nav_analise'), icon: FileText },
-    { id: 'creatorkit' as TabId, label: t('nav_creatorkit'), icon: Package },
     { id: 'arena' as TabId, label: t('nav_arena'), icon: Trophy },
     { id: 'contato' as TabId, label: t('nav_contato'), icon: MessageCircle },
   ];
   return (
     <nav className="sticky top-0 z-50 backdrop-blur-xl bg-[#080808]/90 border-b border-white/[0.06]">
-      <div className="mx-auto max-w-6xl px-3 md:px-6">
+      <div className="mx-auto max-w-6xl px-6">
         <div className="flex items-center h-14 gap-1">
-          <div className="mr-2 md:mr-8 shrink-0">
+          {/* OCTAGON Logo — correction #1 */}
+          <div className="mr-8">
             <OctagonLogo />
           </div>
-          <div className="flex items-center gap-0.5 overflow-x-auto -mx-1 px-1 scrollbar-hide">
+          <div className="flex items-center gap-0.5">
             {TABS.map((tab) => {
               const Icon = tab.icon;
               const isActive = active === tab.id;
@@ -164,13 +164,13 @@ function TabNav({ active, onChange }: { active: TabId; onChange: (t: TabId) => v
                 <button
                   key={tab.id}
                   onClick={() => onChange(tab.id)}
-                  className={`relative shrink-0 flex items-center gap-2 px-2.5 md:px-4 py-2 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-all duration-300 ${
+                  className={`relative flex items-center gap-2 px-4 py-2 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-all duration-300 ${
                     isActive
                       ? 'text-white bg-white/[0.06]'
                       : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.03]'
                   }`}
                 >
-                  <Icon className={`h-3.5 w-3.5 shrink-0 ${isActive ? 'text-[#E20814]' : ''}`} />
+                  <Icon className={`h-3.5 w-3.5 ${isActive ? 'text-[#E20814]' : ''}`} />
                   <span className="hidden sm:inline">{tab.label}</span>
                   {isActive && (
                     <div className="absolute inset-x-2 -bottom-[9px] h-[2px] bg-[#E20814] rounded-full" />
@@ -179,7 +179,7 @@ function TabNav({ active, onChange }: { active: TabId; onChange: (t: TabId) => v
               );
             })}
           </div>
-          <div className="ml-auto flex items-center gap-2 md:gap-3 shrink-0">
+          <div className="ml-auto flex items-center gap-3">
             <LangSwitcher />
             <a
               href="https://wa.me/16463549521?text=Oi!%20Tenho%20interesse%20no%20Crenas%20para%20meu%20canal%20de%20conteudo%20UFC"
@@ -266,7 +266,7 @@ function TabProduto({ onNavigate }: { onNavigate: (t: TabId) => void }) {
           />
         </svg>
 
-        <div className="relative mx-auto max-w-6xl px-4 py-14 md:px-6 md:py-28">
+        <div className="relative mx-auto max-w-6xl px-6 py-28">
           <div className="text-center">
             {/* Badge */}
             <div className="mb-10 inline-flex items-center gap-2.5 rounded-full bg-white/[0.03] px-5 py-2.5 border border-white/[0.05]">
@@ -277,7 +277,7 @@ function TabProduto({ onNavigate }: { onNavigate: (t: TabId) => void }) {
             </div>
 
             {/* Headline — correction #4: condensed, DADOS with red glow */}
-            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[0.95]">
+            <h1 className="font-display text-[clamp(3rem,7vw,5.5rem)] font-bold tracking-tight text-white leading-[0.95]">
               {t('hero_title_1')}<br />
               <span
                 className="text-[#E20814]"
@@ -296,7 +296,7 @@ function TabProduto({ onNavigate }: { onNavigate: (t: TabId) => void }) {
             </p>
 
             {/* Trust numbers */}
-            <div className="mt-10 md:mt-16 flex justify-center gap-6 sm:gap-10 md:gap-20">
+            <div className="mt-16 flex justify-center gap-10 md:gap-20">
               {[
                 { value: '4', label: t('hero_stat_1_label') },
                 { value: '25+', label: t('hero_stat_2_label') },
@@ -331,8 +331,8 @@ function TabProduto({ onNavigate }: { onNavigate: (t: TabId) => void }) {
       </section>
 
       {/* ─── PROBLEM ─── */}
-      <section className="mx-auto max-w-6xl px-4 py-14 md:px-6 md:py-28">
-        <div className="text-center mb-10 md:mb-16">
+      <section className="mx-auto max-w-6xl px-6 py-28">
+        <div className="text-center mb-16">
           <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814] mb-4">{t('problem_tag')}</p>
           <h2 className="font-display text-3xl md:text-5xl font-bold tracking-tight text-white">
             {t('problem_title_1')}<br />{t('problem_title_2')}
@@ -348,7 +348,7 @@ function TabProduto({ onNavigate }: { onNavigate: (t: TabId) => void }) {
             <div key={i} className="group rounded-2xl bg-white/[0.03] border border-white/[0.06] p-7 hover:border-[#E20814]/20 transition-all duration-500">
               <item.icon className="h-5 w-5 text-[#E20814] mb-5" />
               <p className="text-[11px] font-bold uppercase tracking-wider text-zinc-200 mb-2">{item.title}</p>
-              <p className="font-display text-3xl md:text-5xl text-[#E20814] mb-3 leading-none">{item.stat}</p>
+              <p className="font-display text-5xl text-[#E20814] mb-3 leading-none">{item.stat}</p>
               <p className="text-[13px] text-zinc-300 leading-relaxed">{item.desc}</p>
             </div>
           ))}
@@ -357,8 +357,8 @@ function TabProduto({ onNavigate }: { onNavigate: (t: TabId) => void }) {
 
       {/* ─── BEFORE vs AFTER — correction #4: 0H gigantesco, vermelho elétrico ─── */}
       <section className="relative overflow-hidden">
-        <div className="mx-auto max-w-6xl px-4 py-14 md:px-6 md:py-28">
-          <div className="text-center mb-10 md:mb-16">
+        <div className="mx-auto max-w-6xl px-6 py-28">
+          <div className="text-center mb-16">
             <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814] mb-4">{t('value_tag')}</p>
             <h2 className="font-display text-3xl md:text-5xl font-bold tracking-tight text-white">
               {t('value_title')} <span className="text-[#E20814]">&rarr;</span> {t('value_title_2')}
@@ -435,8 +435,8 @@ function TabProduto({ onNavigate }: { onNavigate: (t: TabId) => void }) {
       </section>
 
       {/* ─── PIPELINE — correction #3: hexagonal nodes, glowing flow line ─── */}
-      <section className="relative mx-auto max-w-6xl px-4 py-14 md:px-6 md:py-28">
-        <div className="text-center mb-10 md:mb-20">
+      <section className="relative mx-auto max-w-6xl px-6 py-28">
+        <div className="text-center mb-20">
           <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814] mb-4">{t('pipeline_tag')}</p>
           <h2 className="font-display text-3xl md:text-5xl font-bold tracking-tight text-white">
             {t('pipeline_title')}
@@ -448,13 +448,19 @@ function TabProduto({ onNavigate }: { onNavigate: (t: TabId) => void }) {
 
         {/* Flow component */}
         <div className="relative">
-          {/* Connecting line — horizontal red gradient (mobile uses lower top to match smaller hex) */}
+          {/* Connecting line — full red gradient with glow */}
           <div
-            className="absolute top-6 md:top-10 left-[12.5%] right-[12.5%] h-[2px] z-0 bg-gradient-to-r from-[#E20814]/20 via-[#E20814]/60 to-[#E20814]"
+            className="hidden md:block absolute top-10 left-[12.5%] right-[12.5%] h-[2px] z-0 bg-gradient-to-r from-[#E20814]/20 via-[#E20814]/60 to-[#E20814]"
             style={{ boxShadow: '0 0 8px rgba(226,8,20,0.3), 0 0 20px rgba(226,8,20,0.15)' }}
           />
 
-          <div className="flex flex-row gap-2 md:gap-0 relative z-10">
+          {/* Mobile vertical line */}
+          <div
+            className="md:hidden absolute left-10 top-10 bottom-10 w-[2px] z-0 bg-gradient-to-b from-[#E20814]/20 via-[#E20814]/60 to-[#E20814]"
+            style={{ boxShadow: '0 0 8px rgba(226,8,20,0.3)' }}
+          />
+
+          <div className="flex flex-col md:flex-row gap-10 md:gap-0 relative z-10">
             <PipelineNode icon={Search} num="01" title={t('pipeline_1_title')} desc={t('pipeline_1_desc')} isLast={false} />
             <PipelineNode icon={Database} num="02" title={t('pipeline_2_title')} desc={t('pipeline_2_desc')} isLast={false} />
             <PipelineNode icon={Brain} num="03" title={t('pipeline_3_title')} desc={t('pipeline_3_desc')} isLast={false} />
@@ -480,7 +486,7 @@ function TabAnalise() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_50%,_rgba(59,130,246,0.06)_0%,_transparent_50%)]" />
         <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-zinc-800/60 to-transparent" />
 
-        <div className="relative mx-auto max-w-6xl px-4 py-8 md:px-6 md:py-16 w-full">
+        <div className="relative mx-auto max-w-6xl px-6 py-16 w-full">
           <div className="text-center mb-10">
             <div className="inline-flex items-center gap-2 rounded-full bg-white/[0.03] px-4 py-1.5 border border-white/[0.05] mb-3">
               <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814]">UFC Fight Night</span>
@@ -494,11 +500,11 @@ function TabAnalise() {
           <div className="flex items-center justify-center gap-6 md:gap-16">
             <div className="text-center flex-1 max-w-[220px]">
               <div className="mx-auto mb-4 h-36 w-28 md:h-52 md:w-40 rounded-2xl bg-gradient-to-b from-[#E20814]/15 to-transparent border border-[#E20814]/15 overflow-hidden relative">
-                <img src="/api/image-proxy?url=https%3A%2F%2Fufc.com%2Fimages%2Fstyles%2Fathlete_bio_full_body%2Fs3%2F2025-01%2F5%2FDELLA_MADDALENA_JACK_L_09-16.png%3Fitok%3Ds0owpxMp" alt="Jack Della Maddalena" className="h-full w-full object-cover object-top" />
+                <img src="/api/image-proxy?url=https%3A%2F%2Fufc.com%2Fimages%2Fstyles%2Fathlete_bio_full_body%2Fs3%2F2025-01%2F12%2FMOICANO_RENATO_L_09-28.png%3Fitok%3DaJ4kuhkB" alt="Renato Moicano" className="h-full w-full object-cover object-top" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent" />
               </div>
-              <p className="font-display text-2xl md:text-3xl uppercase text-white">Della Maddalena</p>
-              <p className="text-xs text-[#E20814] font-bold mt-1">&quot;JDM&quot;</p>
+              <p className="font-display text-2xl md:text-3xl uppercase text-white">Moicano</p>
+              <p className="text-xs text-[#E20814] font-bold mt-1">&quot;Money Moicano&quot;</p>
               <p className="text-xs text-zinc-500 mt-1">{t('analise_fighter1_record')}</p>
               <p className="text-[10px] text-zinc-600 mt-1">{t('analise_fighter1_info')}</p>
             </div>
@@ -510,11 +516,11 @@ function TabAnalise() {
 
             <div className="text-center flex-1 max-w-[220px]">
               <div className="mx-auto mb-4 h-36 w-28 md:h-52 md:w-40 rounded-2xl bg-gradient-to-b from-blue-400/15 to-transparent border border-blue-400/15 overflow-hidden relative">
-                <img src="/api/image-proxy?url=https%3A%2F%2Fufc.com%2Fimages%2Fstyles%2Fathlete_bio_full_body%2Fs3%2F2025-01%2F5%2FPRATES_CARLOS_L_08-17.png%3Fitok%3D84ZbFhHS" alt="Carlos Prates" className="h-full w-full object-cover object-top" />
+                <img src="/api/image-proxy?url=https%3A%2F%2Fufc.com%2Fimages%2Fstyles%2Fathlete_bio_full_body%2Fs3%2F2023-07%2FDUNCAN_CHRIS_L_07-22.png%3Fitok%3DHlQ_JCOr" alt="Chris Duncan" className="h-full w-full object-cover object-top" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent" />
               </div>
-              <p className="font-display text-2xl md:text-3xl uppercase text-white">Prates</p>
-              <p className="text-xs text-blue-400 font-bold mt-1">&quot;The Nightmare&quot;</p>
+              <p className="font-display text-2xl md:text-3xl uppercase text-white">Duncan</p>
+              <p className="text-xs text-blue-400 font-bold mt-1">&quot;The Problem&quot;</p>
               <p className="text-xs text-zinc-500 mt-1">{t('analise_fighter2_record')}</p>
               <p className="text-[10px] text-zinc-600 mt-1">{t('analise_fighter2_info')}</p>
             </div>
@@ -527,19 +533,19 @@ function TabAnalise() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-3xl px-4 py-8 md:px-6 md:py-16">
+      <section className="mx-auto max-w-3xl px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="rounded-2xl bg-zinc-900/30 border border-white/[0.04] p-6">
             <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 mb-4 text-center">{t('analise_stats_title')}</p>
             <div className="flex justify-between mb-4 px-2">
-              <span className="text-[10px] font-bold text-[#E20814] uppercase">Della Maddalena</span>
-              <span className="text-[10px] font-bold text-blue-400 uppercase">Prates</span>
+              <span className="text-[10px] font-bold text-[#E20814] uppercase">Moicano</span>
+              <span className="text-[10px] font-bold text-blue-400 uppercase">Duncan</span>
             </div>
-            <MiniStatBar label="Strikes/Min" valueA={6.8} valueB={3.8} nameA="Della Maddalena" nameB="Prates" />
-            <MiniStatBar label={t('analise_stat_accuracy')} valueA={0.8} valueB={2.1} nameA="Della Maddalena" nameB="Prates" />
-            <MiniStatBar label={t('analise_stat_defense')} valueA={56} valueB={62} nameA="Della Maddalena" nameB="Prates" />
-            <MiniStatBar label={t('analise_stat_takedowns')} valueA={1.2} valueB={0.4} nameA="Della Maddalena" nameB="Prates" />
-            <MiniStatBar label={t('analise_stat_td_defense')} valueA={60} valueB={78} nameA="Della Maddalena" nameB="Prates" />
+            <MiniStatBar label="Strikes/Min" valueA={4.17} valueB={5.02} nameA="Moicano" nameB="Duncan" />
+            <MiniStatBar label={t('analise_stat_accuracy')} valueA={48} valueB={46} nameA="Moicano" nameB="Duncan" />
+            <MiniStatBar label={t('analise_stat_defense')} valueA={59} valueB={51} nameA="Moicano" nameB="Duncan" />
+            <MiniStatBar label={t('analise_stat_takedowns')} valueA={1.67} valueB={3.27} nameA="Moicano" nameB="Duncan" />
+            <MiniStatBar label={t('analise_stat_td_defense')} valueA={62} valueB={50} nameA="Moicano" nameB="Duncan" />
           </div>
 
           <div className="space-y-4">
@@ -561,7 +567,7 @@ function TabAnalise() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-8 md:px-6 md:py-10">
+      <section className="mx-auto max-w-6xl px-6 py-10">
         <div className="text-center mb-10">
           <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814] mb-3">{t('analise_sections_tag')}</p>
           <h2 className="font-display text-2xl md:text-3xl font-bold tracking-tight text-white">
@@ -570,7 +576,7 @@ function TabAnalise() {
           <p className="text-xs text-zinc-500 mt-2">{t('analise_sections_desc')}</p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-7 gap-3">
           {[
             { icon: Users, name: t('analise_sec_01'), num: '01' },
             { icon: TrendingUp, name: t('analise_sec_02'), num: '02' },
@@ -590,7 +596,7 @@ function TabAnalise() {
 
         <div className="mt-14 text-center">
           <Link
-            href="/hub/analise/della-maddalena-vs-prates"
+            href="/analise/moicano-vs-duncan"
             className="group inline-flex items-center gap-3 rounded-full bg-[#E20814] border-t border-t-white/20 px-8 py-4 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-red-600 shadow-[0_8px_24px_rgba(226,8,20,0.45)]"
           >
             {t('analise_cta')}
@@ -604,145 +610,7 @@ function TabAnalise() {
 }
 
 // ═══════════════════════════════════════════════════════════
-// TAB 3: CREATOR KIT
-// ═══════════════════════════════════════════════════════════
-
-function TabCreatorKit() {
-  const t = useTranslations('landing');
-  return (
-    <div className="animate-fade-in">
-
-      {/* HERO */}
-      <section className="relative overflow-hidden min-h-[80vh] flex items-center">
-        <div
-          className="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-          style={{ width: 700, height: 700, background: 'radial-gradient(circle, rgba(226,8,20,0.08) 0%, transparent 65%)', filter: 'blur(110px)' }}
-        />
-
-        <div className="relative mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-20 text-center">
-          <div className="mb-8 inline-flex items-center gap-2.5 rounded-full bg-white/[0.03] px-5 py-2.5 border border-white/[0.05]">
-            <Package className="h-3.5 w-3.5 text-[#E20814]" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814]">{t('creatorkit_badge')}</span>
-          </div>
-
-          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[0.95]">
-            {t('creatorkit_title_1')}<br />
-            <span className="text-[#E20814]" style={{ textShadow: '0 0 20px rgba(226,8,20,0.2), 0 0 40px rgba(226,8,20,0.08)' }}>
-              {t('creatorkit_title_2')}
-            </span>
-          </h1>
-
-          <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-white">
-            {t('creatorkit_desc')}
-          </p>
-        </div>
-        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-zinc-800/60 to-transparent" />
-      </section>
-
-      {/* HOW WE BUILD IT */}
-      <section className="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-24">
-        <div className="text-center mb-10 md:mb-16">
-          <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814] mb-4">{t('creatorkit_how_tag')}</p>
-          <h2 className="font-display text-3xl md:text-5xl font-bold tracking-tight text-white">
-            {t('creatorkit_how_title_1')}<br /><span className="text-zinc-500">{t('creatorkit_how_title_2')}</span>
-          </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-zinc-300">
-            {t('creatorkit_how_desc')}
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            { num: '01', icon: Search, title: t('creatorkit_how_step1_title'), desc: t('creatorkit_how_step1_desc') },
-            { num: '02', icon: Layers, title: t('creatorkit_how_step2_title'), desc: t('creatorkit_how_step2_desc') },
-            { num: '03', icon: FileText, title: t('creatorkit_how_step3_title'), desc: t('creatorkit_how_step3_desc') },
-          ].map((step, i) => (
-            <div key={i} className="rounded-2xl bg-zinc-900/30 border border-white/[0.04] p-7">
-              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814]/60 mb-4">{step.num}</p>
-              <step.icon className="h-5 w-5 text-zinc-500 mb-4" />
-              <p className="text-[13px] font-bold uppercase tracking-wider text-white mb-3">{step.title}</p>
-              <p className="text-[13px] text-zinc-400 leading-relaxed">{step.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ADAPTABLE */}
-      <section className="mx-auto max-w-3xl px-4 py-10 md:px-6 md:py-20 text-center">
-        <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814] mb-4">{t('creatorkit_adapt_tag')}</p>
-        <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-white">
-          {t('creatorkit_adapt_title_1')}<br /><span className="text-zinc-500">{t('creatorkit_adapt_title_2')}</span>
-        </h2>
-        <p className="mt-6 text-base leading-relaxed text-zinc-300">
-          {t('creatorkit_adapt_desc')}
-        </p>
-      </section>
-
-      {/* EXAMPLE — HayJive */}
-      <section className="mx-auto max-w-4xl px-4 py-8 md:px-6 md:py-16">
-        <div className="rounded-2xl bg-zinc-900/40 border border-[#E20814]/15 p-8 md:p-10 text-center relative overflow-hidden">
-          <div className="absolute -right-10 -top-10 w-40 h-40 rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(226,8,20,0.08) 0%, transparent 70%)' }} />
-          <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814] mb-3 relative">{t('creatorkit_example_tag')}</p>
-          <h3 className="font-display text-3xl md:text-4xl font-bold text-white mb-4 relative">{t('creatorkit_example_title')}</h3>
-          <p className="text-sm text-zinc-400 max-w-lg mx-auto mb-8 relative">{t('creatorkit_example_desc')}</p>
-          <Link
-            href="/hub/creator-kit/hayjive/della-maddalena-vs-prates"
-            className="group relative inline-flex items-center gap-3 rounded-full bg-[#E20814] border-t border-t-white/20 px-8 py-4 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-red-600 shadow-[0_8px_24px_rgba(226,8,20,0.45)]"
-          >
-            {t('creatorkit_example_cta')}
-            <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </div>
-      </section>
-
-      {/* PACKAGE — what creator gets per card */}
-      <section className="relative mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-24">
-        <div className="text-center mb-10 md:mb-16">
-          <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814] mb-4">{t('creatorkit_package_tag')}</p>
-          <h2 className="font-display text-3xl md:text-5xl font-bold tracking-tight text-white">
-            {t('creatorkit_package_title_1')}<br /><span className="text-[#E20814]">{t('creatorkit_package_title_2')}</span>
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {[
-            { num: '01', icon: FileText, title: t('creatorkit_package_1_title'), desc: t('creatorkit_package_1_desc') },
-            { num: '02', icon: Package, title: t('creatorkit_package_2_title'), desc: t('creatorkit_package_2_desc') },
-            { num: '03', icon: Trophy, title: t('creatorkit_package_3_title'), desc: t('creatorkit_package_3_desc') },
-            { num: '04', icon: Sparkles, title: t('creatorkit_package_4_title'), desc: t('creatorkit_package_4_desc') },
-          ].map((p, i) => (
-            <div key={i} className="rounded-2xl bg-zinc-900/30 border border-white/[0.04] p-7 hover:border-[#E20814]/15 transition-all">
-              <div className="flex items-start gap-5">
-                <div className="flex-shrink-0">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814]/60 block mb-2">{p.num}</span>
-                  <p.icon className="h-5 w-5 text-zinc-500" />
-                </div>
-                <div>
-                  <p className="text-[13px] font-bold uppercase tracking-wider text-white mb-2">{p.title}</p>
-                  <p className="text-[13px] text-zinc-400 leading-relaxed">{p.desc}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ROI honesty block */}
-      <section className="mx-auto max-w-3xl px-4 py-10 md:px-6 md:py-20 text-center">
-        <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-500 mb-4">{t('creatorkit_roi_tag')}</p>
-        <h2 className="font-display text-2xl md:text-3xl font-bold tracking-tight text-white mb-6">
-          {t('creatorkit_roi_title')}
-        </h2>
-        <p className="text-base leading-relaxed text-zinc-400">
-          {t('creatorkit_roi_desc')}
-        </p>
-      </section>
-    </div>
-  );
-}
-
-// ═══════════════════════════════════════════════════════════
-// TAB 4: ARENA
+// TAB 3: ARENA
 // ═══════════════════════════════════════════════════════════
 
 function TabArena() {
@@ -750,11 +618,11 @@ function TabArena() {
   return (
     <div className="animate-fade-in">
 
-      <section className="relative overflow-hidden md:min-h-[85vh] md:flex md:items-center">
+      <section className="relative overflow-hidden min-h-[85vh] flex items-center">
         <div className="absolute left-1/2 top-[35%] -translate-x-1/2 -translate-y-1/2 pointer-events-none" style={{ width: 600, height: 600, background: 'radial-gradient(circle, rgba(226,8,20,0.06) 0%, transparent 65%)', filter: 'blur(120px)' }} />
 
-        <div className="relative mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-20 w-full">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+        <div className="relative mx-auto max-w-6xl px-6 py-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             {/* Left: text */}
             <div>
               <div className="mb-8 inline-flex items-center gap-2.5 rounded-full bg-white/[0.03] px-5 py-2.5 border border-white/[0.05]">
@@ -772,220 +640,130 @@ function TabArena() {
               </p>
             </div>
 
-            {/* Right: Arena mockup — faithful replica of /hub/arena (HomeInProgress logged-in view).
-                Constrained to phone-frame width on mobile so it reads as a preview, not a full panel. */}
-            <div className="relative rounded-2xl overflow-hidden border border-white/[0.06] max-w-[340px] mx-auto md:max-w-none">
-              {/* Poster as fixed background — official JDM vs Prates EVENT ART */}
-              <img
-                src="/api/image-proxy?url=https%3A%2F%2Fufc.com%2Fimages%2Fstyles%2Fbackground_image_xl%2Fs3%2F2026-04%2F050226-ufc-fight-night-della-maddalena-vs-prates-EVENT-ART.jpg%3Fh%3Dd1cb525d%26itok%3DymoA0TLI"
-                alt=""
-                className="absolute inset-0 w-full h-full object-cover object-top"
-              />
-              {/* Dark overlay (lighter at top so poster shows through) */}
-              <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/60 to-black/90" />
-              {/* Red ambient glow */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] pointer-events-none" style={{ background: 'radial-gradient(ellipse, rgba(210,10,10,0.06) 0%, transparent 70%)' }} />
+            {/* Right: 3 Arena mockups showcasing different features */}
+            <div className="flex flex-col gap-0">
 
-              {/* Stacked rectangles, top to bottom */}
-              <div className="relative z-10 p-3 md:p-4 space-y-3 md:space-y-4">
+              {/* 1. SwipeCard — pixel-faithful to real Arena UI */}
+              <div className="rounded-2xl p-5 space-y-5">
+                {/* Fight context */}
+                <div className="text-center space-y-1">
+                  <h3 className="text-xl font-display uppercase tracking-wide font-bold text-[#E20814]">Main Event</h3>
+                  <p className="text-xs text-white/50">Lightweight Bout · 5 rounds</p>
+                  <p className="text-[10px] text-white/30 font-display tracking-wide">Fight 1 of 13</p>
+                </div>
 
-                {/* 1. EVENT HEADER */}
-                <div className="rounded-xl bg-black/60 backdrop-blur-sm px-3 py-3 md:px-5 md:py-4 space-y-2 md:space-y-3">
-                  <div className="text-center">
-                    <div className="text-[9px] md:text-xs text-[#E20814] font-display uppercase tracking-[0.3em]">UFC Fight Night</div>
-                    <div className="flex items-center justify-center gap-2 my-1">
-                      <div className="h-px flex-1 max-w-[30px] md:max-w-[40px] bg-gradient-to-r from-transparent to-[#E20814]/50" />
-                      <span className="text-[#E20814]/60 text-[9px]">✦</span>
-                      <div className="h-px flex-1 max-w-[30px] md:max-w-[40px] bg-gradient-to-l from-transparent to-[#E20814]/50" />
-                    </div>
-                    <h3 className="font-display text-lg md:text-3xl uppercase text-white leading-[0.95]" style={{ textShadow: '0 2px 12px rgba(0,0,0,0.5)' }}>
-                      Della Maddalena <span className="text-[#E20814]">VS</span> Prates
-                    </h3>
+                {/* Picked fighter recap */}
+                <div className="flex items-center gap-3 py-3 px-4 rounded-2xl bg-[#E20814]/10 border border-[#E20814]/30">
+                  <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-[#E20814] shrink-0 bg-zinc-800">
+                    <img src="/api/image-proxy?url=https%3A%2F%2Fufc.com%2Fimages%2Fstyles%2Fevent_results_athlete_headshot%2Fs3%2F2025-06%2FMOICANO_RENATO_06-28.png%3Fitok%3DgO9qvgp6" alt="Moicano" className="w-full h-full object-cover object-top" />
                   </div>
-                  <div className="text-[10px] md:text-xs text-white/50 text-center">RAC Arena, Perth</div>
-                  <div className="flex justify-center gap-1.5 md:gap-3">
-                    {[
-                      { v: '03', l: 'DIAS' },
-                      { v: '12', l: 'HRS' },
-                      { v: '45', l: 'MIN' },
-                      { v: '22', l: 'SEG' },
-                    ].map((u, i) => (
-                      <div key={u.l} className="flex items-center gap-1.5 md:gap-3">
-                        <div className="text-center min-w-[24px] md:min-w-[36px]">
-                          <div className="font-display text-base md:text-3xl leading-none tabular-nums text-white">{u.v}</div>
-                          <div className="text-[7px] md:text-[8px] text-white/40 tracking-[0.15em] mt-0.5 md:mt-1">{u.l}</div>
-                        </div>
-                        {i < 3 && <span className="font-display text-sm md:text-lg text-white/15 -mt-2 md:-mt-3">:</span>}
+                  <div>
+                    <span className="text-lg font-display uppercase font-bold text-white">Moicano</span>
+                    <span className="text-base text-white/40 ml-1.5">wins</span>
+                  </div>
+                  <span className="ml-auto text-[10px] text-white/30 px-2 py-1 rounded-lg bg-white/5">change</span>
+                </div>
+
+                {/* Method */}
+                <div>
+                  <p className="text-[11px] font-display uppercase tracking-widest text-white/40 mb-3">
+                    How? <span className="text-ufc-gold/50">(+50 pts)</span>
+                  </p>
+                  <div className="grid grid-cols-3 gap-3">
+                    <div className="py-3 rounded-xl text-sm font-medium text-center bg-white/5 text-white/40 border border-white/10">KO/TKO</div>
+                    <div className="py-3 rounded-xl text-sm font-medium text-center bg-[#E20814] text-white">Finalizacao</div>
+                    <div className="py-3 rounded-xl text-sm font-medium text-center bg-white/5 text-white/40 border border-white/10">Decisao</div>
+                  </div>
+                </div>
+
+                {/* Round selection */}
+                <div>
+                  <p className="text-[11px] font-display uppercase tracking-widest text-white/40 mb-3">
+                    Which Round? <span className="text-ufc-gold/50">(+50 pts)</span>
+                  </p>
+                  <div className="flex gap-3 justify-center">
+                    {[1, 2, 3, 4, 5].map(r => (
+                      <div
+                        key={r}
+                        className={`w-11 h-11 rounded-full text-sm font-display flex items-center justify-center ${
+                          r === 3 ? 'bg-[#E20814] text-white' : 'bg-white/5 text-white/40 border border-white/10'
+                        }`}
+                      >
+                        R{r}
                       </div>
                     ))}
                   </div>
                 </div>
 
-                {/* 2. SEUS PALPITES */}
-                <div className="rounded-xl border border-white/10 bg-black/50 backdrop-blur-md p-3 md:p-5 space-y-3 md:space-y-4">
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs md:text-sm font-semibold text-white">Seus Palpites</span>
-                      <span className="text-[10px] md:text-xs text-white/50">3/13</span>
-                    </div>
-                    <div className="h-1.5 md:h-2 rounded-full bg-white/10 overflow-hidden">
-                      <div className="h-full rounded-full bg-[#E20814] transition-all duration-500" style={{ width: '23%' }} />
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-center gap-1.5 md:gap-2 w-full py-2.5 md:py-3 bg-[#E20814] text-white font-display uppercase tracking-wide rounded-xl text-[10px] md:text-xs animate-pulse-red">
-                    <Zap className="w-3.5 h-3.5 md:w-4 md:h-4" />
-                    Completar — 10 Restantes
-                    <ArrowRight className="w-3 h-3 md:w-3.5 md:h-3.5" />
-                  </div>
-
-                  <div>
-                    <div className="text-[9px] md:text-[10px] font-display uppercase tracking-widest text-white/30 mb-1.5 md:mb-2">Próxima Luta</div>
-                    <div className="flex items-center justify-between gap-2">
-                      <div className="flex items-center gap-2 flex-1 min-w-0">
-                        <div className="w-7 h-7 md:w-9 md:h-9 rounded-full overflow-hidden border border-white/10 shrink-0 bg-zinc-800">
-                          <img src="/api/image-proxy?url=https%3A%2F%2Fufc.com%2Fimages%2Fstyles%2Fathlete_bio_full_body%2Fs3%2F2025-01%2F5%2FDELLA_MADDALENA_JACK_L_09-16.png%3Fitok%3Ds0owpxMp" alt="Della Maddalena" className="w-full h-full object-cover object-top" />
-                        </div>
-                        <span className="text-[11px] md:text-sm font-semibold text-white truncate">Della Maddalena</span>
-                      </div>
-                      <span className="text-[9px] md:text-[10px] text-white/40 font-display shrink-0">VS</span>
-                      <div className="flex items-center gap-2 flex-1 min-w-0 justify-end">
-                        <span className="text-[11px] md:text-sm font-semibold text-white truncate text-right">Prates</span>
-                        <div className="w-7 h-7 md:w-9 md:h-9 rounded-full overflow-hidden border border-white/10 shrink-0 bg-zinc-800">
-                          <img src="/api/image-proxy?url=https%3A%2F%2Fufc.com%2Fimages%2Fstyles%2Fathlete_bio_full_body%2Fs3%2F2025-01%2F5%2FPRATES_CARLOS_L_08-17.png%3Fitok%3D84ZbFhHS" alt="Prates" className="w-full h-full object-cover object-top" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                {/* Next fight */}
+                <div className="flex items-center justify-center gap-2 py-3 rounded-xl bg-white/5 text-sm font-display uppercase tracking-wider text-white/50">
+                  Next Fight <ArrowRight className="w-3.5 h-3.5" />
                 </div>
-
-                {/* 3. RANKING */}
-                <div className="rounded-xl border border-white/10 bg-black/40 backdrop-blur-md p-3 md:p-5 space-y-2 md:space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Trophy className="w-3.5 h-3.5 md:w-4 md:h-4 text-ufc-gold" />
-                      <span className="text-xs md:text-sm font-display uppercase text-white/70">Ranking</span>
-                    </div>
-                    <div className="flex items-center gap-1 text-[10px] md:text-xs text-white/30">
-                      ver tudo <ArrowRight className="w-3 h-3" />
-                    </div>
-                  </div>
-                  <div className="space-y-1">
-                    {[
-                      { medal: '🥇', name: 'MMAKing_BR', pts: '2.450' },
-                      { medal: '🥈', name: 'OctagonPro', pts: '2.180' },
-                      { medal: '🥉', name: 'GabzCresta', pts: '1.950', highlighted: true },
-                    ].map((r, i) => (
-                      <div key={i} className={`flex items-center justify-between py-1.5 md:py-2 px-2 md:px-3 rounded-lg ${r.highlighted ? 'bg-[#E20814]/10 border border-[#E20814]/20' : ''}`}>
-                        <div className="flex items-center gap-2 md:gap-3">
-                          <span className="text-xs md:text-sm w-5 md:w-6 text-center">{r.medal}</span>
-                          <span className={`text-xs md:text-sm font-medium ${r.highlighted ? 'text-white' : 'text-white/70'}`}>{r.name}</span>
-                        </div>
-                        <span className={`text-xs md:text-sm tabular-nums ${r.highlighted ? 'text-ufc-gold font-bold' : 'text-white/40'}`}>{r.pts} pts</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* 4. MINHAS LIGAS */}
-                <div className="space-y-1.5 md:space-y-2">
-                  <div className="text-[10px] md:text-xs font-display uppercase tracking-widest text-white/40">Minhas Ligas</div>
-                  <div className="flex gap-2 md:gap-3 overflow-x-auto pb-1">
-                    <div className="shrink-0 rounded-xl border border-white/10 bg-black/40 backdrop-blur-md p-3 md:p-4 min-w-[110px] md:min-w-[140px]">
-                      <div className="text-xs md:text-sm font-medium text-white truncate">Teste_Guri</div>
-                      <div className="text-[10px] md:text-xs text-ufc-gold mt-0.5 md:mt-1">#1 / 7</div>
-                    </div>
-                    <div className="shrink-0 rounded-xl border border-white/10 bg-black/40 backdrop-blur-md p-3 md:p-4 min-w-[110px] md:min-w-[140px]">
-                      <div className="text-xs md:text-sm font-medium text-white truncate">Teste 02</div>
-                    </div>
-                    <div className="shrink-0 rounded-xl border border-dashed border-white/10 bg-black/20 p-3 md:p-4 min-w-[80px] md:min-w-[100px] flex flex-col items-center justify-center gap-1">
-                      <Plus className="w-3.5 h-3.5 md:w-4 md:h-4 text-white/30" />
-                      <span className="text-[10px] md:text-xs text-white/30">Criar Liga</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 5. USER STATS */}
-                <div className="flex items-center justify-center gap-3 md:gap-4 text-xs md:text-sm pt-1">
-                  <div className="flex items-center gap-1 md:gap-1.5">
-                    <Trophy className="w-3 h-3 md:w-3.5 md:h-3.5 text-ufc-gold" />
-                    <span className="font-bold text-ufc-gold">2,100</span>
-                    <span className="text-white/40 text-[10px] md:text-xs">pts</span>
-                  </div>
-                  <span className="text-white/15">·</span>
-                  <div className="flex items-center gap-1 md:gap-1.5">
-                    <Target className="w-3 h-3 md:w-3.5 md:h-3.5 text-green-400" />
-                    <span className="font-bold text-green-400">107%</span>
-                    <span className="text-white/40 text-[10px] md:text-xs">acc</span>
-                  </div>
-                  <span className="text-white/15">·</span>
-                  <div className="flex items-center gap-1 md:gap-1.5">
-                    <Flame className="w-3 h-3 md:w-3.5 md:h-3.5 text-orange-400" />
-                    <span className="font-bold text-orange-400">1</span>
-                    <span className="text-white/40 text-[10px] md:text-xs">streak</span>
-                  </div>
-                </div>
-
               </div>
+
+              {/* Separator */}
+              <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-1" />
+
+              {/* 2. Profile Card — user stats showcase */}
+              <div className="rounded-xl p-4">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#E20814]/30 to-[#E20814]/10 border border-[#E20814]/30 flex items-center justify-center text-white text-xs font-bold">GP</div>
+                  <div>
+                    <p className="text-sm font-semibold text-white">GabzCresta</p>
+                    <p className="text-[9px] text-ufc-gold uppercase tracking-wider">Contender</p>
+                  </div>
+                  <div className="ml-auto text-right">
+                    <p className="text-sm font-bold text-white">1,950</p>
+                    <p className="text-[9px] text-white/30 uppercase">pts</p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-4 gap-2">
+                  {[
+                    { label: 'Picks', value: '56' },
+                    { label: 'Correct', value: '15' },
+                    { label: 'Streak', value: '5' },
+                    { label: 'KOs', value: '6' },
+                  ].map((s, i) => (
+                    <div key={i} className="text-center bg-white/[0.03] rounded-lg py-2">
+                      <p className="text-xs font-bold text-white">{s.value}</p>
+                      <p className="text-[8px] text-white/30 uppercase">{s.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Separator */}
+              <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-1" />
+
+              {/* 3. Leaderboard — ranking preview */}
+              <div className="rounded-xl p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-[9px] font-display uppercase tracking-widest text-ufc-gold">Leaderboard</span>
+                  <Trophy className="w-3.5 h-3.5 text-ufc-gold/50" />
+                </div>
+                <div className="space-y-2">
+                  {[
+                    { pos: '1', name: 'MMAKing_BR', pts: '2,450', medal: 'text-yellow-400' },
+                    { pos: '2', name: 'OctagonPro', pts: '2,180', medal: 'text-zinc-400' },
+                    { pos: '3', name: 'GabzCresta', pts: '1,950', medal: 'text-amber-600' },
+                  ].map((row, i) => (
+                    <div key={i} className={`flex items-center gap-3 px-2 py-1.5 rounded-lg ${i === 2 ? 'bg-[#E20814]/10 border border-[#E20814]/20' : ''}`}>
+                      <span className={`text-xs font-bold w-4 ${row.medal}`}>{row.pos}</span>
+                      <span className="text-xs text-white flex-1">{row.name}</span>
+                      <span className="text-xs text-white/50 font-mono">{row.pts}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
         <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-zinc-800/60 to-transparent" />
       </section>
 
-      {/* PURPOSE — what Arena is and why it matters for the creator */}
-      <section className="mx-auto max-w-4xl px-4 py-12 md:px-6 md:py-24 text-center">
-        <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814] mb-4">{t('arena_what_tag')}</p>
-        <h2 className="font-display text-3xl md:text-5xl font-bold tracking-tight text-white">
-          {t('arena_what_title_1')}<br /><span className="text-zinc-500">{t('arena_what_title_2')}</span>
-        </h2>
-        <p className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-zinc-300">
-          {t('arena_what_desc')}
-        </p>
-      </section>
-
-      {/* HOW IT WORKS — 3 picks per fight */}
-      <section className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-20">
-        <div className="text-center mb-14">
-          <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814] mb-4">{t('arena_how_tag')}</p>
-          <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-white">
-            {t('arena_how_title')}
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-          {[
-            { num: '01', icon: Target, title: t('arena_how_step1_title'), desc: t('arena_how_step1_desc') },
-            { num: '02', icon: Sparkles, title: t('arena_how_step2_title'), desc: t('arena_how_step2_desc') },
-            { num: '03', icon: Trophy, title: t('arena_how_step3_title'), desc: t('arena_how_step3_desc') },
-          ].map((step, i) => (
-            <div key={i} className="rounded-2xl bg-zinc-900/30 border border-white/[0.04] p-7 text-center">
-              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814]/60 mb-3">{step.num}</p>
-              <step.icon className="h-6 w-6 text-zinc-500 mx-auto mb-4" />
-              <p className="text-[14px] font-bold uppercase tracking-wider text-white mb-3">{step.title}</p>
-              <p className="text-[12px] text-zinc-400 leading-relaxed">{step.desc}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="text-sm text-zinc-400 leading-relaxed italic">{t('arena_how_points')}</p>
-        </div>
-      </section>
-
-      {/* CREATIVE FREEDOM — how creator activates Arena */}
-      <section className="mx-auto max-w-3xl px-4 py-10 md:px-6 md:py-20 text-center">
-        <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814] mb-4">{t('arena_creative_tag')}</p>
-        <h2 className="font-display text-2xl md:text-4xl font-bold tracking-tight text-white">
-          {t('arena_creative_title')}
-        </h2>
-        <p className="mt-6 text-base leading-relaxed text-zinc-300">
-          {t('arena_creative_desc')}
-        </p>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-24">
-        <div className="text-center mb-10 md:mb-16">
+      <section className="mx-auto max-w-6xl px-6 py-24">
+        <div className="text-center mb-16">
           <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814] mb-4">{t('arena_why_tag')}</p>
           <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-white">
             {t('arena_why_title_1')}<br /><span className="text-zinc-500">{t('arena_why_title_2')}</span>
@@ -1001,17 +779,17 @@ function TabArena() {
             <div key={i} className="group rounded-2xl bg-zinc-900/30 border border-white/[0.04] p-7 hover:border-white/[0.08] transition-all duration-500">
               <item.icon className="h-5 w-5 text-zinc-600 mb-5 group-hover:text-[#E20814] transition-colors" />
               <p className="text-[11px] font-bold uppercase tracking-wider text-zinc-300 mb-2">{item.title}</p>
-              <p className="font-display text-3xl md:text-5xl text-[#E20814]/12 mb-3 leading-none">{item.stat}</p>
+              <p className="font-display text-5xl text-[#E20814]/12 mb-3 leading-none">{item.stat}</p>
               <p className="text-[12px] text-zinc-500 leading-relaxed">{item.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="mx-auto max-w-3xl px-4 py-8 md:px-6 md:py-10">
+      <section className="mx-auto max-w-3xl px-6 py-10">
         <div className="rounded-2xl bg-zinc-900/30 border border-white/[0.04] p-6 md:p-8">
           <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 mb-6">{t('arena_features_title')}</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+          <div className="grid grid-cols-2 gap-x-8 gap-y-4">
             {[
               t('arena_feature_1'), t('arena_feature_2'), t('arena_feature_4'),
               t('arena_feature_5'), t('arena_feature_6'), t('arena_feature_7'), t('arena_feature_8'),
@@ -1025,7 +803,7 @@ function TabArena() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-3xl px-4 py-14 md:px-6 md:py-28">
+      <section className="mx-auto max-w-3xl px-6 py-28">
         <div className="text-center">
           <div className="inline-flex items-center gap-2 rounded-full bg-white/[0.02] border border-zinc-800/60 px-5 py-2 mb-6">
             <Shield className="h-3.5 w-3.5 text-zinc-600" />
@@ -1075,7 +853,7 @@ function TabContato() {
       <section className="relative overflow-hidden min-h-[50vh] flex items-center">
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" style={{ width: 400, height: 400, background: 'radial-gradient(circle, rgba(226,8,20,0.06) 0%, transparent 70%)', filter: 'blur(100px)' }} />
 
-        <div className="relative mx-auto max-w-3xl px-4 py-14 md:px-6 md:py-28 text-center">
+        <div className="relative mx-auto max-w-3xl px-6 py-28 text-center">
           <h1 className="font-display text-4xl md:text-6xl font-bold tracking-tight text-white leading-[0.92]">
             {t('contact_title_1')}<br />
             <span className="text-[#E20814]" style={{ textShadow: '0 0 30px rgba(226,8,20,0.4)' }}>{t('contact_title_2')}</span>
@@ -1084,19 +862,28 @@ function TabContato() {
             {t('contact_desc')}
           </p>
 
-          <div className="mt-12 flex justify-center">
+          <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <a
-              href="mailto:paulocesarjnasr@gmail.com"
-              className="inline-flex items-center gap-2 sm:gap-3 rounded-2xl bg-[#E20814] border-t border-t-white/20 px-5 sm:px-8 py-4 sm:py-5 text-sm sm:text-base font-bold tracking-wider text-white transition-all hover:bg-red-600 shadow-[0_8px_24px_rgba(226,8,20,0.45)] break-all"
+              href="https://wa.me/16463549521?text=Oi!%20Tenho%20interesse%20no%20Crenas%20para%20meu%20canal%20de%20conteudo%20UFC"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 rounded-2xl bg-emerald-600 px-8 py-5 text-base font-bold uppercase tracking-wider text-white transition-all hover:bg-emerald-500 shadow-[0_8px_24px_rgba(16,185,129,0.3)]"
             >
-              <Mail className="h-5 w-5 shrink-0" />
-              paulocesarjnasr@gmail.com
+              <MessageCircle className="h-5 w-5" />
+              WhatsApp
+            </a>
+            <a
+              href="mailto:contato@crenas.site"
+              className="inline-flex items-center gap-3 rounded-2xl border border-zinc-800 px-8 py-5 text-base font-bold uppercase tracking-wider text-zinc-300 transition-all hover:bg-zinc-900"
+            >
+              <Mail className="h-5 w-5" />
+              contato@crenas.site
             </a>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-3xl px-4 py-12 md:px-6 md:py-24">
+      <section className="mx-auto max-w-3xl px-6 py-24">
         <div className="text-center mb-10">
           <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E20814] mb-3">{t('faq_tag')}</p>
           <h2 className="font-display text-2xl md:text-3xl font-bold tracking-tight text-white">FAQ</h2>
@@ -1113,7 +900,7 @@ function TabContato() {
       </section>
 
       <footer className="border-t border-zinc-800/40">
-        <div className="mx-auto max-w-4xl px-4 py-6 md:px-6 md:py-8">
+        <div className="mx-auto max-w-4xl px-6 py-8">
           <div className="flex flex-col items-center gap-4 md:flex-row md:justify-between">
             <OctagonLogo />
             <p className="text-[10px] text-zinc-700">&copy; 2026 Octagon. {t('footer_rights')}</p>
@@ -1142,7 +929,6 @@ export default function LandingPage() {
 
       {activeTab === 'produto' && <TabProduto onNavigate={handleNavigate} />}
       {activeTab === 'analise' && <TabAnalise />}
-      {activeTab === 'creatorkit' && <TabCreatorKit />}
       {activeTab === 'arena' && <TabArena />}
       {activeTab === 'contato' && <TabContato />}
     </main>

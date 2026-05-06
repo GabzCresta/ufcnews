@@ -1,31 +1,8 @@
 import { notFound } from 'next/navigation';
 import { queryOne } from '@/lib/db';
 import type { Lang } from '@/lib/i18n-labels';
-import type { FullSingleAnalise, PrelimsAnalise, Analise, TacticalBreakdownData, FightPredictionData, FighterInfo } from '@/types/analise';
+import type { FullSingleAnalise, PrelimsAnalise, Analise, CardAnalise, FightAnalysisItem, FighterInfo, TacticalBreakdownData, FightPredictionData, CardOverview } from '@/types/analise';
 import { AnalisePageClient } from './AnalisePageClient';
-
-// Legacy placeholders — Analise type still declares these fields, but no
-// DB column or view uses them. Kept only to satisfy the type shape.
-const EMPTY_FIGHTER: FighterInfo = { nome: '', record: '', ultimasLutas: [] };
-const EMPTY_TACTICAL: TacticalBreakdownData = {
-  stats: [],
-  radarData: [],
-  taleOfTape: {
-    fighter1: { altura: '', envergadura: '', idade: 0, academia: '' },
-    fighter2: { altura: '', envergadura: '', idade: 0, academia: '' },
-  },
-  pathsToVictory: { fighter1: [], fighter2: [] },
-  dangerZones: [],
-};
-const EMPTY_PREDICTION: FightPredictionData = {
-  predictedWinner: 'fighter1',
-  predictedMethod: '',
-  confidence: '',
-  fighter1Scenarios: [],
-  fighter2Scenarios: [],
-  keyFactors: [],
-  xFactor: { title: '', description: '' },
-};
 
 // ═══════════════════════════════════════════════════════════
 // Dynamic analysis page — reads from DB, supports 4 locales
@@ -33,8 +10,14 @@ const EMPTY_PREDICTION: FightPredictionData = {
 
 export const dynamic = 'force-dynamic';
 
-const SUPPORTED_LOCALES = ['pt', 'en', 'es', 'fr'] as const;
-type SupportedLocale = typeof SUPPORTED_LOCALES[number];
+const LOCALE_MAP = {
+  pt: { full: 'full_analysis', prelims: 'prelims_analysis' },
+  en: { full: 'full_analysis_en', prelims: 'prelims_analysis_en' },
+  es: { full: 'full_analysis_es', prelims: 'prelims_analysis_es' },
+  fr: { full: 'full_analysis_fr', prelims: 'prelims_analysis_fr' },
+} as const;
+
+type SupportedLocale = keyof typeof LOCALE_MAP;
 
 interface AnaliseRow {
   id: string;
@@ -50,8 +33,15 @@ interface AnaliseRow {
   broadcast: string | null;
   status: string;
   analysis_type: string;
+  artigo_conteudo: string;
   created_at: string;
   updated_at: string;
+  fighter1_info: unknown;
+  fighter2_info: unknown;
+  tactical_breakdown: unknown;
+  fight_prediction: unknown;
+  fights_analysis: unknown;
+  card_overview: unknown;
   full_analysis: unknown;
   prelims_analysis: unknown;
 }
@@ -64,7 +54,7 @@ function safeParse<T>(val: unknown): T | null {
   return val as T;
 }
 
-function buildAnalise(row: AnaliseRow): FullSingleAnalise | PrelimsAnalise | Analise {
+function buildAnalise(row: AnaliseRow): FullSingleAnalise | PrelimsAnalise | CardAnalise | Analise {
   const base: Analise = {
     id: row.id,
     slug: row.slug,
@@ -82,13 +72,13 @@ function buildAnalise(row: AnaliseRow): FullSingleAnalise | PrelimsAnalise | Ana
     broadcast: row.broadcast,
     status: row.status,
     analysis_type: row.analysis_type,
+    artigo_conteudo: row.artigo_conteudo || '',
     created_at: row.created_at,
     updated_at: row.updated_at,
-    artigo_conteudo: '',
-    tactical_breakdown: EMPTY_TACTICAL,
-    fight_prediction: EMPTY_PREDICTION,
-    fighter1_info: EMPTY_FIGHTER,
-    fighter2_info: EMPTY_FIGHTER,
+    fighter1_info: safeParse<FighterInfo>(row.fighter1_info) ?? { nome: '', record: '', ultimasLutas: [] } as FighterInfo,
+    fighter2_info: safeParse<FighterInfo>(row.fighter2_info) ?? { nome: '', record: '', ultimasLutas: [] } as FighterInfo,
+    tactical_breakdown: safeParse<TacticalBreakdownData>(row.tactical_breakdown) ?? { stats: [], radarData: [], taleOfTape: { fighter1: { altura: '', envergadura: '', idade: 0, academia: '' }, fighter2: { altura: '', envergadura: '', idade: 0, academia: '' } }, pathsToVictory: { fighter1: [], fighter2: [] }, dangerZones: [] } as TacticalBreakdownData,
+    fight_prediction: safeParse<FightPredictionData>(row.fight_prediction) ?? { predictedWinner: 'fighter1' as const, predictedMethod: '', confidence: '', fighter1Scenarios: [], fighter2Scenarios: [], keyFactors: [], xFactor: { title: '', description: '' } } as FightPredictionData,
   };
 
   if (row.analysis_type === 'full_single' && row.full_analysis) {
@@ -107,6 +97,15 @@ function buildAnalise(row: AnaliseRow): FullSingleAnalise | PrelimsAnalise | Ana
     } as PrelimsAnalise;
   }
 
+  if (row.analysis_type === 'full_card' && row.fights_analysis) {
+    return {
+      ...base,
+      analysis_type: 'full_card' as const,
+      fights_analysis: safeParse<FightAnalysisItem[]>(row.fights_analysis) ?? [] as FightAnalysisItem[],
+      card_overview: safeParse<CardOverview>(row.card_overview) ?? { card_summary: '', best_bets: [], parlay: { legs: [], reasoning: '', risk_level: 'medium' as const }, total_fights: 0 } as CardOverview,
+    } as CardAnalise;
+  }
+
   return base;
 }
 
@@ -116,29 +115,17 @@ export default async function AnalisePage({
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const { locale, slug } = await params;
-  const lang: SupportedLocale = (SUPPORTED_LOCALES as readonly string[]).includes(locale)
-    ? (locale as SupportedLocale)
-    : 'pt';
+  const lang = (locale in LOCALE_MAP ? locale : 'pt') as SupportedLocale;
+  const cols = LOCALE_MAP[lang];
+  const ptCols = LOCALE_MAP.pt;
 
   const row = await queryOne<AnaliseRow>(
-    `SELECT analises.id, analises.slug, analises.titulo, analises.subtitulo,
-            analises.evento_nome, analises.evento_data, analises.evento_local,
-            analises.categoria_peso, analises.num_rounds, analises.is_titulo,
-            analises.broadcast, analises.status, analises.analysis_type,
-            analises.created_at, analises.updated_at,
-            COALESCE(acl_full.content, analises.full_analysis) as full_analysis,
-            COALESCE(acl_prelim.content, analises.prelims_analysis) as prelims_analysis
+    `SELECT *,
+      COALESCE(${cols.full}, ${ptCols.full}) as full_analysis,
+      COALESCE(${cols.prelims}, ${ptCols.prelims}) as prelims_analysis
     FROM analises
-    LEFT JOIN analises_content_locales acl_full
-      ON acl_full.analise_id = analises.id
-      AND acl_full.locale = $2
-      AND acl_full.content_type = 'full_analysis'
-    LEFT JOIN analises_content_locales acl_prelim
-      ON acl_prelim.analise_id = analises.id
-      AND acl_prelim.locale = $2
-      AND acl_prelim.content_type = 'prelims_analysis'
-    WHERE analises.slug = $1 AND analises.status = 'publicado'`,
-    [slug, lang],
+    WHERE slug = $1 AND status = 'publicado'`,
+    [slug],
   );
 
   if (!row) notFound();

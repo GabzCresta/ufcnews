@@ -1,14 +1,9 @@
 import { NextRequest } from 'next/server';
 import { pool } from '@/lib/db';
 import { getUsuarioAtual } from '@/lib/arena/auth';
-import { log } from '@/lib/log';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
-
-// DEPRECATED (2026-04-24): Socket.IO at /socket.io/ is the preferred channel.
-// This SSE endpoint remains as a fallback. Migrate clients to
-// useArenaSocket() + socket.on('pick:resultado', ...).
 
 const globalForSSE = globalThis as unknown as { __arenaNotifCount?: number };
 const MAX_CONCURRENT = 10;
@@ -30,12 +25,6 @@ export async function GET(request: NextRequest) {
     });
   }
   globalForSSE.__arenaNotifCount = count + 1;
-
-  log.warn({
-    usuario_id: usuario.id,
-    route: '/api/arena/notifications/stream',
-    replacement: 'socket.io `pick:resultado` on user:<uid> room',
-  }, 'SSE notifications is deprecated; migrate to Socket.IO');
 
   const pgClient = await pool.connect();
   await pgClient.query('SET search_path TO public');
