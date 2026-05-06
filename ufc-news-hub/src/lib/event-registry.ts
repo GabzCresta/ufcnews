@@ -33,6 +33,24 @@ export interface EventRegistryEntry {
 
 export const EVENT_REGISTRY: EventRegistryEntry[] = [
   {
+    slug: 'ufc-328',
+    evento_nome: 'UFC 328: Chimaev vs Strickland',
+    evento_data: '9 de Maio, 2026',
+    evento_local: 'Prudential Center, Newark, New Jersey',
+    evento_datetime: '2026-05-10T02:00:00Z', // 10pm EDT Sat = 2am UTC Sun
+    main_event: { fighter1: 'Khamzat Chimaev', fighter2: 'Sean Strickland' },
+    total_fights: 13,
+  },
+  {
+    slug: 'della-maddalena-vs-prates',
+    evento_nome: 'UFC Fight Night: Della Maddalena vs Prates',
+    evento_data: '2 de Maio, 2026',
+    evento_local: 'RAC Arena, Perth, Austrália',
+    evento_datetime: '2026-05-02T11:00:00Z', // 7am ET = 11am UTC = 7pm Perth
+    main_event: { fighter1: 'Jack Della Maddalena', fighter2: 'Carlos Prates' },
+    total_fights: 12,
+  },
+  {
     slug: 'moicano-vs-duncan-pos-weighins',
     evento_nome: 'UFC Fight Night: Moicano vs Duncan | Pos Weigh-Ins',
     evento_data: '4 de Abril, 2026',

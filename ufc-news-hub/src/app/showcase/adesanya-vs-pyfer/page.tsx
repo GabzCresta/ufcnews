@@ -623,5 +623,5 @@ const analise: FullSingleAnalise = {
 export default function Page() {
   
   
-  return <FullAnalysisView analise={translateAnalysis(analise)} />;
+  return <FullAnalysisView analise={translateAnalysis(analise, 'en')} />;
 }

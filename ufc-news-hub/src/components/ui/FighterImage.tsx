@@ -42,7 +42,10 @@ export default function FighterImage({ src, alt, fill, width, height, sizes, cla
     );
   }
 
-  const isUfcUrl = src.includes('ufc.com');
+  // Loaded directly via <img> for both UFC.com and the UFC Cloudfront CDN.
+  // Cloudfront URLs come from the bulk-upgrade to high-res raw originals
+  // (see migration on 2026-04-25). Next/image is reserved for self-hosted assets.
+  const isUfcUrl = src.includes('ufc.com') || src.includes('cloudfront.net');
 
   if (isUfcUrl) {
     return (

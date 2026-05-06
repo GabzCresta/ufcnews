@@ -358,6 +358,6 @@ const eventData: EventAnalysisData = {
 export default async function Page() {
   
   
-  const enrichedData = await enrichEventWithPhotos(translateAnalysis(eventData));
+  const enrichedData = await enrichEventWithPhotos(translateAnalysis(eventData, 'en'));
   return <EventAnalysisView data={enrichedData} />;
 }

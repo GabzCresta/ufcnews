@@ -4,13 +4,18 @@ const globalForDb = globalThis as unknown as {
   pool: Pool | undefined;
 };
 
+// Pool size is tunable — PG max_connections is 100 on this VPS, so we can
+// push up to ~60 safely (reserving headroom for crenas-rt LISTEN, pgadmin,
+// cron scripts, Prisma, and short-lived psql sessions).
+const DB_POOL_MAX = parseInt(process.env.DB_POOL_MAX ?? '50', 10);
+
 export const pool =
   globalForDb.pool ??
   new Pool({
     connectionString: process.env.DATABASE_URL,
-    max: 20,
+    max: DB_POOL_MAX,
     idleTimeoutMillis: 30000,
-    connectionTimeoutMillis: 2000,
+    connectionTimeoutMillis: 5000,
   });
 
 if (process.env.NODE_ENV !== 'production') {

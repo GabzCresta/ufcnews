@@ -3,7 +3,8 @@
 import { Link } from '@/i18n/routing';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useState } from 'react';
-import { NIVEL_CONFIG, type MembroLiga } from '@/types/arena';
+import { type MembroLiga, type NivelUsuario } from '@/types/arena';
+import { NivelBadge, NIVEL_META } from '@/components/arena/NivelBadge';
 import { formatUltimoAcesso } from '@/lib/arena/format';
 
 import { useTranslations } from 'next-intl';
@@ -26,8 +27,8 @@ export function MembroCard({ membro, isCurrentUser, showPicksDetail, posicao }: 
   const t = useTranslations('arena');
   const [expanded, setExpanded] = useState(false);
 
-  const nivelKey = (membro.nivel ?? 'iniciante') as keyof typeof NIVEL_CONFIG;
-  const nivelInfo = NIVEL_CONFIG[nivelKey] ?? NIVEL_CONFIG.iniciante;
+  const nivelKey = (membro.nivel ?? 'iniciante') as NivelUsuario;
+  const nivelMeta = NIVEL_META[nivelKey];
 
   const { text: accessText, isOnline } = formatUltimoAcesso(membro.ultimo_acesso);
 
@@ -40,148 +41,138 @@ export function MembroCard({ membro, isCurrentUser, showPicksDetail, posicao }: 
   const displayName = membro.display_name ?? membro.username;
   const avatarLetter = displayName.charAt(0).toUpperCase();
 
+  const pontos = membro.evento_pontos ?? membro.pontos_temporada ?? 0;
+
   return (
     <div
-      className={`neu-card p-3 rounded-xl transition-all ${
-        isCurrentUser ? 'border border-ufc-red/40' : 'border border-dark-border'
-      }`}
+      className={`py-4 ${isCurrentUser ? 'relative before:absolute before:left-0 before:top-2 before:bottom-2 before:w-0.5 before:bg-ufc-red' : ''}`}
     >
-      {/* ── Main row ── */}
-      <div className="flex items-center gap-3">
+      <div className="grid grid-cols-12 items-center gap-3">
         {/* Position */}
-        <span className="text-dark-textMuted text-sm font-mono w-5 text-center shrink-0">
-          {posicao}
-        </span>
+        <div className="col-span-1">
+          <span className="font-display text-xl sm:text-2xl tabular-nums leading-none text-dark-textMuted">
+            {String(posicao).padStart(2, '0')}
+          </span>
+        </div>
 
         {/* Avatar */}
         <Link
           href={`/hub/arena/perfil/${membro.username}`}
-          className="shrink-0"
+          className="col-span-1 flex justify-center"
           aria-label={`Perfil de ${displayName}`}
         >
           {membro.avatar_url ? (
             <img
               src={membro.avatar_url}
               alt={displayName}
-              className="w-10 h-10 rounded-full object-cover hover:ring-2 hover:ring-ufc-red transition-all"
+              className="w-9 h-9 rounded-full object-cover transition hover:ring-2 hover:ring-ufc-red"
             />
           ) : (
             <div
-              className="w-10 h-10 rounded-full flex items-center justify-center text-white font-display text-lg hover:ring-2 hover:ring-ufc-red transition-all"
-              style={{ backgroundColor: nivelInfo.cor }}
+              className="w-9 h-9 rounded-full flex items-center justify-center font-display text-sm text-white transition hover:ring-2 hover:ring-ufc-red"
+              style={{ backgroundColor: nivelMeta.tom.fg }}
             >
               {avatarLetter}
             </div>
           )}
         </Link>
 
-        {/* Name + badges */}
-        <div className="flex-1 min-w-0">
+        {/* Name + meta */}
+        <div className="col-span-6 sm:col-span-7 min-w-0">
           <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="text-white font-semibold text-sm truncate">
+            <Link
+              href={`/hub/arena/perfil/${membro.username}`}
+              className="font-display text-sm sm:text-base uppercase tracking-[0.04em] text-dark-text truncate hover:text-ufc-red transition"
+            >
               {displayName}
-            </span>
+            </Link>
             {isCurrentUser && (
-              <span className="text-xs bg-dark-card text-dark-textMuted px-1.5 py-0.5 rounded">
+              <span className="font-display text-[9px] uppercase tracking-[0.22em] text-dark-textMuted border border-dark-border px-1.5 py-0.5">
                 {t('you_badge')}
               </span>
             )}
             {membro.is_admin && (
-              <span className="text-xs bg-ufc-red text-white px-1.5 py-0.5 rounded font-semibold">
+              <span className="font-display text-[9px] uppercase tracking-[0.22em] text-ufc-red border border-ufc-red/40 bg-ufc-red/10 px-1.5 py-0.5">
                 {t('creator_badge')}
               </span>
             )}
           </div>
 
-          {/* Level + online status */}
-          <div className="flex items-center gap-2 mt-0.5">
-            <span className="text-xs" title={nivelKey}>
-              {nivelInfo.icone}{' '}
-              <span style={{ color: nivelInfo.cor }} className="font-medium capitalize">
-                {nivelKey}
-              </span>
-            </span>
-
-            <span className="text-dark-textMuted text-xs">·</span>
-
-            {/* Online status */}
+          <div className="mt-1 flex items-center gap-2 flex-wrap">
+            <NivelBadge nivel={nivelKey} size="sm" />
+            <span className="text-dark-border">·</span>
             {isOnline ? (
-              <span className="flex items-center gap-1 text-xs text-green-400">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block" />
+              <span className="flex items-center gap-1.5 font-display text-[10px] uppercase tracking-[0.18em] text-green-400">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
                 {t('online_label')}
               </span>
             ) : (
-              <span className="text-xs text-dark-textMuted">{accessText}</span>
+              <span className="font-display text-[10px] uppercase tracking-[0.18em] text-dark-textMuted">
+                {accessText}
+              </span>
+            )}
+            {membro.picks_status === 'done' && (
+              <>
+                <span className="text-dark-border">·</span>
+                <span className="font-display text-[10px] uppercase tracking-[0.22em] text-ufc-gold">
+                  {t('picks_done')}
+                </span>
+              </>
+            )}
+            {membro.picks_status === 'pending' && (
+              <>
+                <span className="text-dark-border">·</span>
+                <span className="font-display text-[10px] uppercase tracking-[0.22em] text-dark-textMuted">
+                  {t('pending')}
+                </span>
+              </>
             )}
           </div>
         </div>
 
-        {/* Picks chip */}
-        {membro.picks_status !== null && (
-          <div className="shrink-0">
-            {membro.picks_status === 'done' ? (
-              <span className="text-xs bg-green-900/50 text-green-400 border border-green-700 px-2 py-0.5 rounded-full">
-                {t('picks_done')}
-              </span>
-            ) : (
-              <span className="text-xs bg-yellow-900/50 text-yellow-400 border border-yellow-700 px-2 py-0.5 rounded-full">
-                {t('pending')}
-              </span>
-            )}
-          </div>
-        )}
-
         {/* Points */}
-        <div className="shrink-0 text-right">
-          {membro.evento_pontos !== undefined ? (
-            <>
-              <span className="text-ufc-gold font-display text-lg leading-none">
-                {membro.evento_pontos}
-              </span>
-              <span className="text-dark-textMuted text-xs ml-0.5">{t('pts_label')}</span>
-              <div className="text-[10px] text-dark-textMuted">
-                {membro.evento_acertos}/{membro.evento_total_lutas} {t('correct_count')}
-              </div>
-            </>
-          ) : (
-            <>
-              <span className="text-ufc-gold font-display text-lg leading-none">
-                {membro.pontos_temporada}
-              </span>
-              <span className="text-dark-textMuted text-xs ml-0.5">{t('pts_label')}</span>
-            </>
-          )}
+        <div className="col-span-3 sm:col-span-2 flex items-baseline justify-end gap-1">
+          <span className="font-display text-xl sm:text-2xl tabular-nums leading-none text-dark-text">
+            {pontos.toLocaleString('pt-BR')}
+          </span>
+          <span className="font-display text-[9px] uppercase tracking-[0.2em] text-dark-textMuted">
+            pts
+          </span>
         </div>
 
         {/* Expand chevron */}
-        {hasPicksDetail && (
-          <button
-            onClick={() => setExpanded((v) => !v)}
-            className="shrink-0 text-dark-textMuted hover:text-white transition-colors"
-            aria-label={expanded ? 'Recolher picks' : 'Ver picks'}
-          >
-            {expanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-          </button>
-        )}
+        <div className="col-span-1 flex justify-end">
+          {hasPicksDetail ? (
+            <button
+              onClick={() => setExpanded((v) => !v)}
+              className="text-dark-textMuted hover:text-dark-text transition"
+              aria-label={expanded ? 'Recolher picks' : 'Ver picks'}
+            >
+              {expanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            </button>
+          ) : (
+            <span aria-hidden className="block w-4" />
+          )}
+        </div>
       </div>
 
-      {/* ── Picks detail (expandable) ── */}
+      {/* Picks detail (expandable) */}
       {hasPicksDetail && expanded && (
-        <div className="mt-3 pt-3 border-t border-dark-border space-y-1.5">
+        <div className="mt-3 pl-[calc(16.66%)] space-y-1">
           {membro.picks_data!.map((pick) => (
             <div
               key={pick.luta_id}
-              className="flex items-center justify-between text-xs text-dark-textMuted"
+              className="flex items-center justify-between border-l border-dark-border pl-3 py-1 text-xs"
             >
-              <span className="text-white font-medium">{pick.vencedor_nome}</span>
-              <div className="flex gap-2">
-                {pick.metodo_previsto && (
-                  <span className="bg-dark-card px-1.5 py-0.5 rounded">{pick.metodo_previsto}</span>
-                )}
-                {pick.round_previsto && (
-                  <span className="bg-dark-card px-1.5 py-0.5 rounded">R{pick.round_previsto}</span>
-                )}
-                <span className="text-ufc-gold">{pick.pontos_confianca}pts conf.</span>
+              <span className="font-display uppercase tracking-[0.04em] text-dark-text">
+                {pick.vencedor_nome}
+              </span>
+              <div className="flex items-center gap-2 font-display text-[10px] uppercase tracking-[0.14em] text-dark-textMuted">
+                {pick.metodo_previsto && <span>{pick.metodo_previsto}</span>}
+                {pick.round_previsto && <span className="text-dark-border">·</span>}
+                {pick.round_previsto && <span>R{pick.round_previsto}</span>}
+                <span className="text-dark-border">·</span>
+                <span className="text-ufc-gold tabular-nums">{pick.pontos_confianca} conf</span>
               </div>
             </div>
           ))}

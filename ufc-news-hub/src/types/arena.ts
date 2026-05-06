@@ -495,15 +495,16 @@ export const PONTUACAO_CONFIG = {
   UNDERDOG_MULTIPLIER_HIGH: 2.0, // +500+
 };
 
-// Configuracao dos niveis
-export const NIVEL_CONFIG: Record<NivelUsuario, { icone: string; cor: string; xp_necessario: number }> = {
-  iniciante: { icone: '🥊', cor: '#808080', xp_necessario: 100 },
-  amateur: { icone: '🥋', cor: '#CD7F32', xp_necessario: 500 },
-  contender: { icone: '💪', cor: '#C0C0C0', xp_necessario: 1500 },
-  challenger: { icone: '⚔️', cor: '#FFD700', xp_necessario: 3500 },
-  elite: { icone: '🔥', cor: '#E5C100', xp_necessario: 7000 },
-  champion: { icone: '🏆', cor: '#FF4500', xp_necessario: 15000 },
-  legend: { icone: '👑', cor: '#9400D3', xp_necessario: 999999 },
+// Paleta por nivel. Icones/labels ficam em @/components/arena/NivelBadge
+// (Lucide + tipografia — sem emoji).
+export const NIVEL_CONFIG: Record<NivelUsuario, { cor: string; xp_necessario: number }> = {
+  iniciante:  { cor: '#A3A3A3', xp_necessario: 100 },
+  amateur:    { cor: '#CD7F32', xp_necessario: 500 },
+  contender:  { cor: '#E5E5E5', xp_necessario: 1500 },
+  challenger: { cor: '#FF1A1A', xp_necessario: 3500 },
+  elite:      { cor: '#C9B037', xp_necessario: 7000 },
+  champion:   { cor: '#D20A0A', xp_necessario: 15000 },
+  legend:     { cor: '#FFD700', xp_necessario: 999999 },
 };
 
 // =============================================

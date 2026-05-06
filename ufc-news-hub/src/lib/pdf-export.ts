@@ -52,7 +52,7 @@ class PDFBuilder {
     this.doc.setFontSize(8);
     this.doc.setTextColor(...COLORS.muted);
     this.doc.text(
-      `Arena v2.0 Roadmap — UFC News Hub — Pagina ${this.pageNum}`,
+      `Arena v2.0 Roadmap — CRENAS — Pagina ${this.pageNum}`,
       PAGE.width / 2,
       PAGE.height - 10,
       { align: 'center' }
@@ -221,7 +221,7 @@ class PDFBuilder {
       this.doc.setFontSize(8);
       this.doc.setTextColor(...COLORS.muted);
       this.doc.text(
-        `Arena v2.0 Roadmap — UFC News Hub — Pagina ${i} de ${totalPages}`,
+        `Arena v2.0 Roadmap — CRENAS — Pagina ${i} de ${totalPages}`,
         PAGE.width / 2,
         PAGE.height - 10,
         { align: 'center' }

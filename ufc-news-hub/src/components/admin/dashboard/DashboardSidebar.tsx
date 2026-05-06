@@ -70,11 +70,11 @@ export function DashboardSidebar({
       {/* Logo */}
       <div className="flex items-center gap-3 px-4 h-16 border-b border-[#1e1e2e] shrink-0">
         <div className="w-8 h-8 bg-ufc-red/20 rounded-lg flex items-center justify-center shrink-0">
-          <span className="text-ufc-red font-bold text-sm">U</span>
+          <span className="text-ufc-red font-bold text-sm">C</span>
         </div>
         {!collapsed && (
           <span className="font-display text-white text-lg tracking-wide truncate">
-            UFC HUB
+            CRENAS<span className="text-gray-600 text-xs">.site</span>
           </span>
         )}
       </div>

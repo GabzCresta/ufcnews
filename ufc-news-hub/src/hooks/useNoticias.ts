@@ -2,6 +2,7 @@
 
 import useSWR from 'swr';
 import useSWRInfinite from 'swr/infinite';
+import { useLocale } from 'next-intl';
 import { Noticia, NoticiasPaginadas, ContadorCategorias, CategoriaNoticia } from '@/types';
 import { ITEMS_PER_PAGE, AUTO_REFRESH_INTERVAL } from '@/lib/constants';
 
@@ -30,6 +31,7 @@ export function useNoticias(options: UseNoticiasOptions = {}): UseNoticiasReturn
     porPagina = ITEMS_PER_PAGE,
     refreshInterval = AUTO_REFRESH_INTERVAL,
   } = options;
+  const locale = useLocale();
 
   const { data: contadores } = useSWR<ContadorCategorias>(
     '/api/noticias/contadores',
@@ -46,6 +48,7 @@ export function useNoticias(options: UseNoticiasOptions = {}): UseNoticiasReturn
     const params = new URLSearchParams({
       pagina: String(pageIndex + 1),
       porPagina: String(porPagina),
+      locale,
     });
 
     if (categoria) {
@@ -95,8 +98,9 @@ export function useNoticias(options: UseNoticiasOptions = {}): UseNoticiasReturn
 }
 
 export function useNoticia(id: string) {
+  const locale = useLocale();
   const { data, error, isLoading, mutate } = useSWR(
-    id ? `/api/noticias/${id}` : null,
+    id ? `/api/noticias/${id}?locale=${locale}` : null,
     fetcher
   );
 

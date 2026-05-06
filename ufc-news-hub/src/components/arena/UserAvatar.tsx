@@ -7,6 +7,7 @@ import { Link } from '@/i18n/routing';
 import Image from 'next/image';
 import { User, Trophy, History, ImageIcon, LogOut } from 'lucide-react';
 import { UsuarioArena, NivelUsuario, NIVEL_CONFIG } from '@/types/arena';
+import { NivelBadge } from '@/components/arena/NivelBadge';
 
 interface UserAvatarProps {
   usuario: UsuarioArena | null;
@@ -55,7 +56,6 @@ export function UserAvatar({ usuario, onLogout }: UserAvatarProps) {
     );
   }
 
-  const nivelConfig = NIVEL_CONFIG[usuario.nivel];
   const displayName = usuario.display_name || usuario.username;
   const initials = getInitials(displayName);
   const avatarColor = getAvatarColor(usuario.nivel);
@@ -120,14 +120,8 @@ export function UserAvatar({ usuario, onLogout }: UserAvatarProps) {
               <div className="flex-1 min-w-0">
                 <p className="font-bold text-white truncate">{displayName}</p>
                 <p className="text-sm text-dark-textMuted truncate">@{usuario.username}</p>
-                <div className="flex items-center gap-2 mt-1">
-                  <span className="text-sm">{nivelConfig?.icone}</span>
-                  <span
-                    className="text-xs font-medium capitalize"
-                    style={{ color: avatarColor }}
-                  >
-                    {usuario.nivel}
-                  </span>
+                <div className="mt-1">
+                  <NivelBadge nivel={usuario.nivel} size="sm" />
                 </div>
               </div>
             </div>

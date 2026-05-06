@@ -26,7 +26,7 @@ async function runNewsSync(): Promise<void> {
   console.info('═'.repeat(50));
 
   const port = process.env.PORT || '3010';
-  const url = `http://localhost:${port}/api/sync`;
+  const url = `http://localhost:${port}/api/sync-noticias`;
 
   try {
     const response = await fetch(url, {

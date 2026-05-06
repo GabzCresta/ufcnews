@@ -2,17 +2,12 @@
 
 ## Agents
 
-### Fight Analyst Main Card
-- **Protocol**: `.claude/agents/fight-analyst-main-card.md`
-- **Invoke**: "fight analyst: [Fighter A] vs [Fighter B]" or "analise main card [event]"
-- **What it does**: Generates comprehensive 15-section pre-fight analysis for main card fights
-- **Output**: Static Next.js page at `src/app/analise/[slug]/page.tsx` using `FullAnalysisView`
-
-### Fight Analyst Prelims
-- **Protocol**: `.claude/agents/fight-analyst-prelims.md`
-- **Invoke**: "fight analyst prelims: [event]" or "analise prelims [event]"
-- **What it does**: Generates concise 6-section pre-fight analysis for prelim and early prelim fights
-- **Output**: Static Next.js page at `src/app/analise/[slug]/page.tsx` using `PrelimsAnalysisView`
+### Fight Analyst (unificado, abril/2026)
+- **Protocol**: `.claude/agents/fight-analyst.md`
+- **Invoke**: "fight analyst: [Fighter A] vs [Fighter B]", "analise [Fighter A] vs [Fighter B]", "analise do card [event]"
+- **What it does**: Gera análise CONTRACT v2 de 7 seções para QUALQUER luta do card (main event, co-main, main card, prelim, early prelim). A estrutura é única; a densidade da prosa e o escopo de qualitative intel variam com a importância da luta.
+- **Output**: Static Next.js page at `src/app/[locale]/hub/analise/[slug]/page.tsx` using `FullAnalysisView` with `FullSingleAnalise` type.
+- **Aposentados**: `fight-analyst-main-card.md` e `fight-analyst-prelims.md` foram consolidados neste agente em abril de 2026. Não existe mais `PrelimsAnalysisView` nem `PrelimsAnalise` type.
 
 ### Card Scraper
 - **Protocol**: `.claude/agents/card-scraper.md`
@@ -34,9 +29,9 @@
 
 ### Weekly Analysis Pipeline
 - **Trigger**: "analise do card dessa semana", "roda o pipeline semanal", "analise completa [event]"
-- **Pipeline**: Card Scraper -> [HUMAN GATE] -> Fight Analyst Main Card -> Fight Analyst Prelims -> Card Validator -> Event Page Generator
+- **Pipeline**: Card Scraper -> [HUMAN GATE] -> Fight Analyst (roda em todas as lutas do card, main + prelim) -> Card Validator -> Event Page Generator
 - **Se validator falhar**: re-rodar o agente especifico para a luta especifica, re-validar
-- **Agents**: card-scraper.md, fight-analyst-main-card.md, fight-analyst-prelims.md, card-validator.md, event-page-generator.md
+- **Agents**: card-scraper.md, fight-analyst.md, card-validator.md, event-page-generator.md
 
 ## Writing Rules
 - NEVER use travessoes (em dashes — or en dashes –) in written text content. Hyphens in data (records like 27-8-0) are fine.

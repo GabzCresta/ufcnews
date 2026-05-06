@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
 
   if (!code) {
     console.error('[Google Callback] Codigo ausente no callback');
-    return NextResponse.redirect(new URL('/arena/login?error=google_sem_codigo', BASE_URL));
+    return NextResponse.redirect(new URL('/hub/arena/login?error=google_sem_codigo', BASE_URL));
   }
 
   try {
@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
     if (!tokenResponse.ok) {
       const errorBody = await tokenResponse.text();
       console.error('[Google Callback] Erro ao trocar code por token:', errorBody);
-      return NextResponse.redirect(new URL('/arena/login?error=google_token_falhou', BASE_URL));
+      return NextResponse.redirect(new URL('/hub/arena/login?error=google_token_falhou', BASE_URL));
     }
 
     const tokenData: { access_token: string } = await tokenResponse.json();
@@ -40,7 +40,7 @@ export async function GET(request: NextRequest) {
 
     if (!userResponse.ok) {
       console.error('[Google Callback] Erro ao buscar perfil do usuario');
-      return NextResponse.redirect(new URL('/arena/login?error=google_perfil_falhou', BASE_URL));
+      return NextResponse.redirect(new URL('/hub/arena/login?error=google_perfil_falhou', BASE_URL));
     }
 
     const googleUser: { sub: string; email: string; name: string; picture: string } = await userResponse.json();
@@ -50,11 +50,11 @@ export async function GET(request: NextRequest) {
 
     if ('error' in result) {
       console.error('[Google Callback] Erro na auth:', result.error);
-      return NextResponse.redirect(new URL(`/arena/login?error=${encodeURIComponent(result.error)}`, BASE_URL));
+      return NextResponse.redirect(new URL(`/hub/arena/login?error=${encodeURIComponent(result.error)}`, BASE_URL));
     }
 
     // Passo 4: Seta cookie e redireciona pra Arena
-    const response = NextResponse.redirect(new URL('/arena', BASE_URL));
+    const response = NextResponse.redirect(new URL('/hub/arena', BASE_URL));
     response.headers.set('Set-Cookie', criarCookieToken(result.token));
 
     return response;
@@ -63,6 +63,6 @@ export async function GET(request: NextRequest) {
     const stack = error instanceof Error ? error.stack : '';
     console.error('[Google Callback] Erro inesperado:', msg);
     console.error('[Google Callback] Stack:', stack);
-    return NextResponse.redirect(new URL('/arena/login?error=google_erro_interno', BASE_URL));
+    return NextResponse.redirect(new URL('/hub/arena/login?error=google_erro_interno', BASE_URL));
   }
 }

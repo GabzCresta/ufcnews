@@ -42,13 +42,13 @@ function LoginContent() {
 
   // Captura erros do Google OAuth via query string
   useEffect(() => {
-    const googleError = searchParams.get('error');
+    const googleError = searchParams?.get('error');
     if (googleError) {
       setError(GOOGLE_ERROR_MESSAGES[googleError] || googleError);
     }
   }, [searchParams]);
 
-  const redirectTo = searchParams.get('redirect') || '/arena';
+  const redirectTo = searchParams?.get('redirect') || '/arena';
 
   useEffect(() => {
     if (isAuthenticated && !authLoading) {

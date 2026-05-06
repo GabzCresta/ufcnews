@@ -38,12 +38,13 @@ function buildUfcSlug(nome: string): string {
   return nome.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 }
 
-function buildHeadshotUrl(ufcLink: string | null): string | null {
-  if (!ufcLink) return null;
-  // Extract slug from UFC link: http://www.ufc.com/athlete/Israel-Adesanya → Israel-Adesanya
-  const match = ufcLink.match(/\/athlete\/([^/?#]+)/i);
-  if (!match) return null;
-  return `https://www.ufc.com/images/styles/event_results_athlete_headshot/s3/${match[1]}.png`;
+function buildHeadshotUrl(_ufcLink: string | null): string | null {
+  // DEPRECATED 2026-04-24: the static URL pattern
+  // /event_results_athlete_headshot/s3/<slug>.png is unreliable — UFC serves
+  // versioned paths like /s3/YYYY-MM/<SLUG>.png?itok=... New fighters are
+  // created without image; /api/arena/cron/refresh-fotos scrapes the actual
+  // headshot and writes imagem_url + imagem_versao.
+  return null;
 }
 
 async function findOrCreateLutador(fighter: ScrapedFighterInfo, weightClass: string | null): Promise<string> {
@@ -230,7 +231,7 @@ async function scrapeAndUpdateFights(eventoId: string, eventoNome: string) {
 
       // Update fight status
       if (cs.status === 'live' && matchedLuta.status === 'agendada' && !finalizedInPhase1.has(matchedLuta.id)) {
-        await query(`UPDATE lutas SET status = 'ao_vivo' WHERE id = $1`, [matchedLuta.id]);
+        await query(`UPDATE lutas SET status = 'ao_vivo'::status_luta WHERE id = $1`, [matchedLuta.id]);
         console.log(`[live/auto-scrape] Status: ${matchedLuta.lutador1_nome} vs ${matchedLuta.lutador2_nome} → ao_vivo`);
       }
     }
@@ -255,7 +256,7 @@ async function scrapeAndUpdateFights(eventoId: string, eventoNome: string) {
     // Any DB fight marked ao_vivo that's NOT in the live set AND wasn't just finalized → back to agendada
     for (const luta of lutas) {
       if (luta.status === 'ao_vivo' && !liveFightIds.has(luta.id) && !finalizedInPhase1.has(luta.id)) {
-        await query(`UPDATE lutas SET status = 'agendada' WHERE id = $1`, [luta.id]);
+        await query(`UPDATE lutas SET status = 'agendada'::status_luta WHERE id = $1`, [luta.id]);
         console.log(`[live/auto-scrape] Status: ${luta.lutador1_nome} vs ${luta.lutador2_nome} ao_vivo → agendada (no longer live)`);
       }
     }
@@ -408,13 +409,17 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const eventoId = searchParams.get('evento_id');
+    // Tenant-scoped leaderboard: when tenant_id is present, the ranking
+    // only includes members of that tenant (join tenant_membros).
+    const tenantId = searchParams.get('tenant_id');
 
     // No evento_id → return recent finalized events list
     if (!eventoId) {
       const recentes = await query<EventoRecente>(
         `SELECT
            e.id, e.nome, e.data_evento, e.local_evento,
-           COUNT(l.id)::int AS total_lutas,
+           -- Count only fights that actually happened (exclude canceladas)
+           COUNT(l.id) FILTER (WHERE l.status <> 'cancelada')::int AS total_lutas,
            COUNT(l.id) FILTER (WHERE l.status = 'finalizada')::int AS lutas_finalizadas
          FROM eventos e
          LEFT JOIN lutas l ON l.evento_id = e.id
@@ -472,19 +477,29 @@ export async function GET(request: NextRequest) {
       ),
 
       query<LeaderboardRow>(
-        `SELECT
-           ep.usuario_id,
-           ua.username,
-           ua.display_name,
-           COALESCE(ep.pontos_totais, 0) AS pontos_totais,
-           COALESCE(ep.acertos, 0) AS acertos,
-           COALESCE(ep.total_lutas, 0) AS total_lutas
-         FROM evento_pontuacao ep
-         JOIN usuarios_arena ua ON ua.id = ep.usuario_id
-         WHERE ep.evento_id = $1
-         ORDER BY ep.pontos_totais DESC
-         LIMIT 20`,
-        [eventoId]
+        tenantId
+          ? `SELECT
+               ep.usuario_id, ua.username, ua.display_name,
+               COALESCE(ep.pontos_totais, 0) AS pontos_totais,
+               COALESCE(ep.acertos, 0) AS acertos,
+               COALESCE(ep.total_lutas, 0) AS total_lutas
+             FROM evento_pontuacao ep
+             JOIN usuarios_arena ua ON ua.id = ep.usuario_id
+             JOIN tenant_membros tm ON tm.usuario_id = ep.usuario_id AND tm.tenant_id = $2
+            WHERE ep.evento_id = $1
+            ORDER BY ep.pontos_totais DESC
+            LIMIT 20`
+          : `SELECT
+               ep.usuario_id, ua.username, ua.display_name,
+               COALESCE(ep.pontos_totais, 0) AS pontos_totais,
+               COALESCE(ep.acertos, 0) AS acertos,
+               COALESCE(ep.total_lutas, 0) AS total_lutas
+             FROM evento_pontuacao ep
+             JOIN usuarios_arena ua ON ua.id = ep.usuario_id
+            WHERE ep.evento_id = $1
+            ORDER BY ep.pontos_totais DESC
+            LIMIT 20`,
+        tenantId ? [eventoId, tenantId] : [eventoId],
       ),
     ]);
 
@@ -520,8 +535,10 @@ export async function GET(request: NextRequest) {
       userPicks.map((p) => [p.luta_id, p])
     );
 
-    // Count finished fights
+    // Count finished fights — excludes canceled ones so "X/Y" reflects the real card
     const lutasFinalizadas = lutas.filter((l) => l.status === 'finalizada').length;
+    // Overwrite total shown to user (canceled fights should not inflate the denominator)
+    const lutasCount = lutas.filter((l) => l.status !== 'cancelada').length;
 
     // Auto-transition: agendado → ao_vivo if event is within 1h window
     // This makes the system self-healing — doesn't depend solely on the Vercel cron
@@ -573,6 +590,7 @@ export async function GET(request: NextRequest) {
         lutas: lutasComPick,
         leaderboard,
         lutas_finalizadas: lutasFinalizadas,
+        total_lutas: lutasCount, // excludes canceled fights
         usuario_id: usuario?.id ?? null,
         picks_deadline: picksDeadline,
       },

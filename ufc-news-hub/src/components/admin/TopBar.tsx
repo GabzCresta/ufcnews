@@ -283,11 +283,11 @@ export function TopBar({ agents, onRefreshAgents }: TopBarProps) {
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-ufc-red flex items-center justify-center text-white font-black text-sm">
-            UFC
+            C
           </div>
           <div>
             <h1 className="text-2xl font-black tracking-tight bg-gradient-to-r from-dark-text via-ufc-red to-dark-text bg-clip-text text-transparent">AI Company</h1>
-            <p className="text-dark-textMuted text-sm">UFC News Hub — Painel de Agentes</p>
+            <p className="text-dark-textMuted text-sm">CRENAS — Painel de Agentes</p>
           </div>
         </div>
 

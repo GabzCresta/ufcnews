@@ -29,11 +29,11 @@ export function CTAExplorar() {
     : t('cta_noticias_subtitle');
 
   const cards: CardItem[] = [
-    { title: t('cta_noticias'), icon: Newspaper, href: '/noticias', subtitle: noticiasSubtitle, accentColor: '#D20A0A' },
-    { title: t('cta_arena'), icon: Target, href: '/arena', subtitle: t('cta_arena_subtitle'), accentColor: '#C9B037' },
-    { title: t('cta_analises'), icon: BarChart3, href: '/analises', subtitle: t('cta_analises_subtitle'), accentColor: '#14B8A6' },
-    { title: t('cta_lutadores'), icon: Users, href: '/fighters', subtitle: t('cta_lutadores_subtitle'), accentColor: '#3B82F6' },
-    { title: t('cta_calendario'), icon: Calendar, href: '/calendario', subtitle: t('cta_calendario_subtitle'), accentColor: '#8B5CF6' },
+    { title: t('cta_noticias'), icon: Newspaper, href: '/hub/noticias', subtitle: noticiasSubtitle, accentColor: '#D20A0A' },
+    { title: t('cta_arena'), icon: Target, href: '/hub/arena', subtitle: t('cta_arena_subtitle'), accentColor: '#C9B037' },
+    { title: t('cta_analises'), icon: BarChart3, href: '/hub/analises', subtitle: t('cta_analises_subtitle'), accentColor: '#14B8A6' },
+    { title: t('cta_lutadores'), icon: Users, href: '/hub/fighters', subtitle: t('cta_lutadores_subtitle'), accentColor: '#3B82F6' },
+    { title: t('cta_calendario'), icon: Calendar, href: '/hub/calendario', subtitle: t('cta_calendario_subtitle'), accentColor: '#8B5CF6' },
   ];
 
   return (

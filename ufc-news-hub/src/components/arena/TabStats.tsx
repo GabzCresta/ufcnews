@@ -60,7 +60,7 @@ export function TabStats() {
             <p className="text-[10px] text-dark-textMuted">{t('kos_label')}</p>
           </div>
           <div className="rounded-lg bg-dark-bg/50 p-2.5">
-            <p className="text-lg font-bold text-blue-400">{usuario.subs_acertados ?? 0}</p>
+            <p className="text-lg font-bold text-dark-text">{usuario.subs_acertados ?? 0}</p>
             <p className="text-[10px] text-dark-textMuted">{t('subs_label')}</p>
           </div>
           <div className="rounded-lg bg-dark-bg/50 p-2.5">

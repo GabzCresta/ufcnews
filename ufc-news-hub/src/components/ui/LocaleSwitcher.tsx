@@ -6,11 +6,9 @@ import { usePathname, useRouter } from '@/i18n/routing';
 const localeLabels: Record<string, string> = {
   pt: 'PT',
   en: 'EN',
-  fr: 'FR',
-  es: 'ES',
 };
 
-const locales = ['pt', 'en', 'fr', 'es'] as const;
+const locales = ['pt', 'en'] as const;
 
 export function LocaleSwitcher() {
   const locale = useLocale();

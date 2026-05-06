@@ -26,6 +26,28 @@ async function autoDetectEventStatus() {
        )
        AND EXISTS (SELECT 1 FROM lutas l WHERE l.evento_id = eventos.id)`
   );
+
+  // Zombie guard: force finalizado for ao_vivo events older than 2 days,
+  // even when scoring never ran. Prevents live UI showing stale events.
+  await query(
+    `UPDATE eventos SET status = 'finalizado'
+     WHERE status IN ('ao_vivo', 'agendado')
+       AND data_evento < NOW() - INTERVAL '2 days'`
+  );
+
+  // Cancelled-fight guard: fights that stay 'agendada' in finalized events
+  // >2 days after event date are canceled fights that UFC.com doesn't expose.
+  // Mark them 'cancelada' so UI's "X/Y lutas finalizadas" counter reflects
+  // the real card size.
+  await query(
+    `UPDATE lutas SET status = 'cancelada'::status_luta
+      WHERE status = 'agendada'
+        AND vencedor_id IS NULL
+        AND evento_id IN (
+          SELECT id FROM eventos
+          WHERE status = 'finalizado' AND data_evento < NOW() - INTERVAL '2 days'
+        )`
+  );
 }
 
 export async function GET(request: NextRequest) {

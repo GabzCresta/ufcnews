@@ -59,7 +59,7 @@ export function BottomNav({ eventoId, isAoVivo, username }: BottomNavProps) {
 
   const isActive = (tab: NavTab) => {
     if (tab.matchPaths[0] === '/arena' && pathname === '/arena') return true;
-    return tab.matchPaths.some(p => p !== '/arena' && pathname.startsWith(p));
+    return tab.matchPaths.some(p => p !== '/arena' && (pathname ?? '').startsWith(p));
   };
 
   return (

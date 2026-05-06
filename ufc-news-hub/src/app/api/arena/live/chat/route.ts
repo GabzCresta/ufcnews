@@ -90,8 +90,11 @@ export async function POST(request: NextRequest) {
       `SELECT status FROM eventos WHERE id = $1`,
       [evento_id]
     );
-    if (!evento || (evento.status !== 'ao_vivo' && evento.status !== 'agendado')) {
-      return NextResponse.json({ error: 'Evento nao encontrado ou finalizado' }, { status: 400 });
+    // Chat funciona em eventos agendados, ao_vivo e finalizados — discussão
+    // pós-evento é feature (recaps, analise, troca de picks). So rejeita se
+    // evento simplesmente nao existe ou foi cancelado.
+    if (!evento || evento.status === 'cancelado') {
+      return NextResponse.json({ error: 'Evento nao encontrado' }, { status: 400 });
     }
 
     const lastMsg = await queryOne<{ created_at: string }>(

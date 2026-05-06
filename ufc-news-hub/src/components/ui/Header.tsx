@@ -12,12 +12,12 @@ export function Header() {
   const t = useTranslations('nav');
 
   const mainNav = [
-    { href: '/' as const, label: t('home'), icon: Home },
-    { href: '/noticias' as const, label: t('noticias'), icon: Newspaper },
-    { href: '/fighters' as const, label: t('lutadores'), icon: Users },
-    { href: '/analises' as const, label: t('analises'), icon: BarChart3 },
-    { href: '/arena' as const, label: t('arena'), icon: Target },
-    { href: '/calendario' as const, label: t('calendario'), icon: Calendar },
+    { href: '/hub' as const, label: t('home'), icon: Home },
+    { href: '/hub/noticias' as const, label: t('noticias'), icon: Newspaper },
+    { href: '/hub/fighters' as const, label: t('lutadores'), icon: Users },
+    { href: '/hub/analises' as const, label: t('analises'), icon: BarChart3 },
+    { href: '/hub/arena' as const, label: t('arena'), icon: Target },
+    { href: '/hub/calendario' as const, label: t('calendario'), icon: Calendar },
   ];
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export function Header() {
   }, [pathname]);
 
   const isActive = (href: string) => {
-    if (href === '/') return pathname === '/';
+    if (href === '/hub') return pathname === '/hub' || pathname === '/';
     return pathname.startsWith(href);
   };
 

@@ -461,7 +461,7 @@ export default function HeroCinematico() {
             )}
           >
             <Link
-              href={`/calendario/evento/${data.id}`}
+              href={`/hub/calendario/evento/${data.id}`}
               className="neu-button border border-ufc-red/60 px-6 py-3 font-display text-lg uppercase tracking-wider text-white transition-all duration-300 hover:text-ufc-gold hover:shadow-[0_0_20px_rgba(210,10,10,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ufc-red focus-visible:ring-offset-2 focus-visible:ring-offset-dark-bg"
             >
               {t('see_full_card')}

@@ -29,7 +29,7 @@ function getColorForMetodo(metodo: string): { color: string; bgClass: string } {
     return { color: '#ef4444', bgClass: 'bg-red-500' };
   }
   if (lower.includes('submission')) {
-    return { color: '#3b82f6', bgClass: 'bg-blue-500' };
+    return { color: '#9ca3af', bgClass: 'bg-gray-400' };
   }
   if (lower.includes('decision')) {
     return { color: '#eab308', bgClass: 'bg-yellow-500' };

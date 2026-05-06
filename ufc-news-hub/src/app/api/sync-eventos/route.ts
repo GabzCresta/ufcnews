@@ -560,12 +560,18 @@ async function findOrCreateFighter(nome: string): Promise<string | null> {
   );
 
   if (existing.length > 0) {
-    // If fighter exists but has no image, try to fetch it
-    if (!existing[0].imagem_url) {
+    // Refresh image if missing OR stale (>14 days old).
+    // imagem_updated_at é write-once → force refresh se ausente/antiga.
+    const stale = await queryOne<{ needs_refresh: boolean }>(
+      `SELECT (imagem_url IS NULL OR imagem_url = '' OR imagem_updated_at IS NULL OR imagem_updated_at < NOW() - INTERVAL '14 days') AS needs_refresh
+       FROM lutadores WHERE id = $1`,
+      [existing[0].id]
+    );
+    if (stale?.needs_refresh) {
       const imageUrl = await fetchFighterImage(nome);
       if (imageUrl) {
         await query(
-          `UPDATE lutadores SET imagem_url = $1 WHERE id = $2`,
+          `UPDATE lutadores SET imagem_url = $1, imagem_updated_at = NOW(), imagem_versao = COALESCE(imagem_versao, 0) + 1 WHERE id = $2`,
           [imageUrl, existing[0].id]
         );
       }
@@ -736,7 +742,7 @@ async function checkAndUpdateEventStatus(eventoId: string): Promise<boolean> {
 
   if (newStatus !== eventoData.status) {
     await query(
-      `UPDATE eventos SET status = $1 WHERE id = $2`,
+      `UPDATE eventos SET status = $1::status_evento WHERE id = $2`,
       [newStatus, eventoId]
     );
     console.log(`[SYNC] Evento ${eventoId} status: ${eventoData.status} → ${newStatus}`);
@@ -928,9 +934,9 @@ async function syncEvents(): Promise<SyncResult> {
                 round_final = COALESCE($8, round_final),
                 tempo_final = COALESCE($9, tempo_final),
                 status = CASE
-                  WHEN $6 IS NOT NULL THEN 'finalizada'
-                  WHEN lutas.status = 'finalizada' THEN 'finalizada'
-                  ELSE 'agendada'
+                  WHEN $6 IS NOT NULL THEN 'finalizada'::status_luta
+                  WHEN lutas.status = 'finalizada'::status_luta THEN 'finalizada'::status_luta
+                  ELSE 'agendada'::status_luta
                 END
               WHERE evento_id = $10 AND (
                 (lutador1_id = $11 AND lutador2_id = $12) OR
@@ -957,7 +963,7 @@ async function syncEvents(): Promise<SyncResult> {
                 evento_id, lutador1_id, lutador2_id, categoria_peso, ordem, tipo, rounds,
                 is_titulo, vencedor_id, metodo, round_final, tempo_final, status,
                 lutador1_nome_display, lutador2_nome_display
-              ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
+              ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13::status_luta, $14, $15)
               RETURNING id`,
               [
                 eventoId, lutador1Id, lutador2Id, fight.categoria_peso, ordem, fight.tipo,
@@ -1049,7 +1055,15 @@ async function syncEvents(): Promise<SyncResult> {
   }
 }
 
-export async function POST() {
+export async function POST(request: Request) {
+  const cronSecret = process.env.CRON_SECRET;
+  if (cronSecret) {
+    const authHeader = request.headers.get('authorization');
+    if (authHeader !== `Bearer ${cronSecret}`) {
+      return NextResponse.json({ success: false, erro: 'Unauthorized' }, { status: 401 });
+    }
+  }
+
   try {
     const result = await syncEvents();
     console.log('Sync de eventos concluído:', JSON.stringify(result, null, 2));

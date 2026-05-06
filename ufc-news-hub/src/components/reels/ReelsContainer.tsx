@@ -95,9 +95,9 @@ export function ReelsContainer() {
           </Link>
           <div className="flex items-center gap-4">
             <Link href="/" className="text-white/80 active:text-ufc-red"><Home className="h-5 w-5" /></Link>
-            <Link href="/analises" className="text-white/80 active:text-ufc-red"><BarChart3 className="h-5 w-5" /></Link>
-            <Link href="/arena" className="text-white/80 active:text-ufc-red"><Target className="h-5 w-5" /></Link>
-            <Link href="/calendario" className="text-white/80 active:text-ufc-red"><Calendar className="h-5 w-5" /></Link>
+            <Link href="/hub/analises" className="text-white/80 active:text-ufc-red"><BarChart3 className="h-5 w-5" /></Link>
+            <Link href="/hub/arena" className="text-white/80 active:text-ufc-red"><Target className="h-5 w-5" /></Link>
+            <Link href="/hub/calendario" className="text-white/80 active:text-ufc-red"><Calendar className="h-5 w-5" /></Link>
           </div>
         </div>
 

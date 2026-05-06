@@ -1,4 +1,5 @@
 import { Link } from '@/i18n/routing';
+import { LocaleSwitcher } from '@/components/ui/LocaleSwitcher';
 import type { FullSingleAnalise } from '@/types/analise';
 import { HeroSection } from './HeroSection';
 import { NarrativaSection } from './NarrativaSection';
@@ -8,6 +9,7 @@ import { OponenteComumSection } from './OponenteComumSection';
 import { ComparacaoEstatisticaSection } from './ComparacaoEstatisticaSection';
 import { PerfilHabilidadesSection } from './PerfilHabilidadesSection';
 import { DistribuicaoVitoriasSection } from './DistribuicaoVitoriasSection';
+import { DistribuicaoDerrotasSection } from './DistribuicaoDerrotasSection';
 import { DangerZonesSection } from './DangerZonesSection';
 import { IntangiveisSection } from './IntangiveisSection';
 import { CaminhosVitoriaSection } from './CaminhosVitoriaSection';
@@ -26,16 +28,23 @@ export function FullAnalysisView({ analise }: FullAnalysisViewProps) {
   const f1Name = fa.hero.fighter1.sobrenome;
   const f2Name = fa.hero.fighter2.sobrenome;
 
+  // Build event slug from evento_nome: "UFC Fight Night: Moicano vs Duncan" → "moicano-vs-duncan"
+  const eventoNome = fa.hero.evento_nome || '';
+  const eventoSlug = eventoNome.includes(':')
+    ? eventoNome.split(':').pop()!.trim().toLowerCase().replace(/\s+/g, '-')
+    : eventoNome.toLowerCase().replace(/\s+/g, '-');
+
   return (
     <main className="min-h-screen bg-[#0A0A0A]">
-      {/* Breadcrumb */}
+      {/* Breadcrumb + Language Switcher */}
       <div className="mx-auto max-w-5xl px-4 pt-6">
-        <div className="mb-6 flex items-center gap-2 text-xs text-white/30">
-          <Link href="/" className="hover:text-ufc-red transition-colors">Home</Link>
-          <span className="text-white/10">/</span>
-          <Link href="/analises" className="hover:text-ufc-red transition-colors">Analises</Link>
-          <span className="text-white/10">/</span>
-          <span className="text-white/50">{f1Name} vs {f2Name}</span>
+        <div className="mb-6 flex items-center justify-between">
+          <div className="flex items-center gap-2 text-xs text-white/30">
+            <Link href={`/hub/analise/evento/${eventoSlug}`} className="hover:text-ufc-red transition-colors">{eventoNome || 'Evento'}</Link>
+            <span className="text-white/10">/</span>
+            <span className="text-white/50">{f1Name} vs {f2Name}</span>
+          </div>
+          <LocaleSwitcher />
         </div>
       </div>
 
@@ -46,26 +55,30 @@ export function FullAnalysisView({ analise }: FullAnalysisViewProps) {
 
       {/* Sections with consistent spacing */}
       <div className="mx-auto max-w-5xl px-4 space-y-20 py-16">
-        {/* 01 - Narrativa */}
-        <section>
-          <NarrativaSection
-            data={fa.narrativa}
-            fighter1Name={f1Name}
-            fighter2Name={f2Name}
-          />
-        </section>
+        {/* 01 - Narrativa (legacy, optional) */}
+        {fa.narrativa && (
+          <section>
+            <NarrativaSection
+              data={fa.narrativa}
+              fighter1Name={f1Name}
+              fighter2Name={f2Name}
+            />
+          </section>
+        )}
 
-        {/* 02 - Momento Atual */}
-        <section>
-          <MomentoAtualSection data={fa.momento_atual} />
-        </section>
+        {/* 02 - Momento Atual (legacy, optional) */}
+        {fa.momento_atual && (
+          <section>
+            <MomentoAtualSection data={fa.momento_atual} />
+          </section>
+        )}
 
         {/* 03 - Nivel de Competicao */}
         <section>
           <NivelCompeticaoSection data={fa.nivel_competicao} />
         </section>
 
-        {/* 04 - Oponente Comum (optional) */}
+        {/* 04 - Oponente Comum (legacy, optional) */}
         {fa.oponente_comum && (
           <section>
             <OponenteComumSection
@@ -85,49 +98,68 @@ export function FullAnalysisView({ analise }: FullAnalysisViewProps) {
           />
         </section>
 
-        {/* 06 - Perfil de Habilidades */}
-        <section>
-          <PerfilHabilidadesSection
-            data={fa.perfil_habilidades}
-            fighter1Name={f1Name}
-            fighter2Name={f2Name}
-          />
-        </section>
+        {/* 06 - Perfil de Habilidades (legacy, optional — v2 not supported in this legacy view) */}
+        {fa.perfil_habilidades && (
+          <section>
+            <PerfilHabilidadesSection
+              data={fa.perfil_habilidades}
+              fighter1Name={f1Name}
+              fighter2Name={f2Name}
+            />
+          </section>
+        )}
 
         {/* 07 - Distribuicao de Vitorias */}
         <section>
           <DistribuicaoVitoriasSection data={fa.distribuicao_vitorias} />
         </section>
 
-        {/* 08 - Danger Zones */}
-        <section>
-          <DangerZonesSection data={fa.danger_zones} />
-        </section>
+        {/* 08 - Distribuicao de Derrotas (optional) */}
+        {fa.distribuicao_derrotas && (
+          <section>
+            <DistribuicaoDerrotasSection data={fa.distribuicao_derrotas} />
+          </section>
+        )}
 
-        {/* 09 - Intangiveis */}
-        <section>
-          <IntangiveisSection data={fa.intangiveis} />
-        </section>
+        {/* 09 - Danger Zones (legacy, optional) */}
+        {fa.danger_zones && (
+          <section>
+            <DangerZonesSection data={fa.danger_zones} />
+          </section>
+        )}
 
-        {/* 10 - Caminhos Para Vitoria */}
-        <section>
-          <CaminhosVitoriaSection data={fa.caminhos_vitoria} />
-        </section>
+        {/* 09 - Intangiveis (legacy, optional) */}
+        {fa.intangiveis && (
+          <section>
+            <IntangiveisSection data={fa.intangiveis} />
+          </section>
+        )}
+
+        {/* 10 - Caminhos Para Vitoria (legacy, optional) */}
+        {fa.caminhos_vitoria && (
+          <section>
+            <CaminhosVitoriaSection data={fa.caminhos_vitoria} />
+          </section>
+        )}
 
         {/* 11 - Previsao Final */}
         <section>
           <PrevisaoFinalSection data={fa.previsao_final} />
         </section>
 
-        {/* 12 - O Que Observar */}
-        <section>
-          <OQueObservarSection data={fa.o_que_observar} />
-        </section>
+        {/* 12 - O Que Observar (legacy, optional) */}
+        {fa.o_que_observar && (
+          <section>
+            <OQueObservarSection data={fa.o_que_observar} />
+          </section>
+        )}
 
-        {/* 13 - Creator Kit */}
-        <section>
-          <CreatorKitSection data={fa.creator_kit} />
-        </section>
+        {/* 13 - Creator Kit (legacy, optional) */}
+        {fa.creator_kit && (
+          <section>
+            <CreatorKitSection data={fa.creator_kit} />
+          </section>
+        )}
 
         {/* 15 - Radar do Apostador */}
         <section>

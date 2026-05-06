@@ -31,6 +31,18 @@ const config: Config = {
           lutas: '#D20A0A',
           backstage: '#8B5CF6',
         },
+        hayjive: {
+          bg: '#050807',
+          card: '#0B0F0D',
+          cardElev: '#10161300',
+          ink: '#FAFAFA',
+          inkMute: 'rgba(250,250,250,0.6)',
+          inkFaint: 'rgba(250,250,250,0.3)',
+          emerald: '#1FAE5C',
+          emeraldDeep: '#0E5C32',
+          gold: '#D4AF37',
+          goldDeep: '#8B7724',
+        },
       },
       backgroundImage: {
         'octagon-grid': `
@@ -43,6 +55,8 @@ const config: Config = {
       fontFamily: {
         display: ['var(--font-bebas)', 'Impact', 'sans-serif'],
         body: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        hero: ['var(--font-big-shoulders)', 'Impact', 'sans-serif'],
+        monoStat: ['var(--font-jetbrains)', 'ui-monospace', 'monospace'],
       },
       animation: {
         'pulse-red': 'pulse-red 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',

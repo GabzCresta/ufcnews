@@ -2,32 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/admin-sessions';
 import { query } from '@/lib/db';
 import { ensureClientesTables, getSegundaDaSemana } from '@/lib/clientes';
-
-// ═══════════════════════════════════════════════════════════
-// GET: Aggregated dashboard stats
-// ═══════════════════════════════════════════════════════════
-
-interface OverviewStats {
-  clientes: {
-    ativos: number;
-    total: number;
-  };
-  proximo_evento: {
-    nome: string;
-    data: string;
-    local: string;
-    dias_restantes: number;
-  } | null;
-  checklist_semana: {
-    total: number;
-    concluidos: number;
-    percentual: number;
-  };
-  agentes: {
-    total: number;
-    ativos: number;
-  };
-}
+import type { OverviewStats } from '@/types/admin';
 
 export async function GET(request: NextRequest) {
   const authError = requireAdmin(request);
@@ -61,8 +36,8 @@ export async function GET(request: NextRequest) {
       query<{ total: string; ativos: string }>(
         `SELECT
           COUNT(*)::text AS total,
-          COUNT(*) FILTER (WHERE status = 'active')::text AS ativos
-         FROM "Agent"`
+          COUNT(*) FILTER (WHERE status IN ('active', 'idle'))::text AS ativos
+         FROM agents`
       ).catch(() => [{ total: '0', ativos: '0' }]),
     ]);
 

@@ -183,7 +183,7 @@ export async function GET(request: NextRequest) {
           if (matched && cs.status === 'live') {
             liveFightIds.add(matched.id);
             if (matched.status === 'agendada') {
-              await query(`UPDATE lutas SET status = 'ao_vivo' WHERE id = $1`, [matched.id]);
+              await query(`UPDATE lutas SET status = 'ao_vivo'::status_luta WHERE id = $1`, [matched.id]);
               console.log(`[SCORING CRON] Fight status: ${matched.lutador1_nome} vs ${matched.lutador2_nome} → ao_vivo`);
             }
           }
@@ -196,7 +196,7 @@ export async function GET(request: NextRequest) {
         // Reset stale ao_vivo fights
         for (const luta of allLutas) {
           if (luta.status === 'ao_vivo' && !liveFightIds.has(luta.id)) {
-            await query(`UPDATE lutas SET status = 'agendada' WHERE id = $1`, [luta.id]);
+            await query(`UPDATE lutas SET status = 'agendada'::status_luta WHERE id = $1`, [luta.id]);
             console.log(`[SCORING CRON] Fight status: ${luta.lutador1_nome} vs ${luta.lutador2_nome} ao_vivo → agendada`);
           }
         }

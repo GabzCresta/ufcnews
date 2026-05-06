@@ -1,0 +1,71 @@
+{
+  "evento_nome": "UFC 327: Procházka vs Ulberg",
+  "evento_data": "11 de Abril, 2026",
+  "evento_slug": "prochazka-vs-ulberg",
+  "data_atualizacao": "11 de Abril, 2026, manha de sabado pos weigh-in",
+  "mudancas": [
+    {
+      "luta": "Card inteiro",
+      "tipo": "outros",
+      "descricao": "Titulo dos moscas caiu do card: Joshua Van tirou a defesa contra Tatsuro Taira por lesao (luta movida pro UFC 328). Com isso, Procházka vs Ulberg foi elevada de co-main a main event e virou disputa pelo TITULO VAGO do meio-pesado.",
+      "impacto": "A narrativa da noite muda por completo: o card que era pra ser uma defesa de moscas virou o comeco oficial da era pos-Pereira no LHW. Toda a cobertura deve ancorar nessa mudanca, porque o peso historico do evento eh outro agora."
+    },
+    {
+      "luta": "Costa vs Murzakanov",
+      "tipo": "outros",
+      "descricao": "Com o reshuffling do card, Paulo Costa vs Azamat Murzakanov (#6 LHW) foi confirmada como novo co-main event, anunciado durante o broadcast do UFC Vegas 115.",
+      "impacto": "Costa sempre puxa audiencia PT-BR e Murzakanov eh top 6 ranqueado, invicto. Eh uma luta de divisor de aguas pro Costa voltar a serio e uma chance do Murzakanov dar o salto definitivo na divisao."
+    },
+    {
+      "luta": "Mederos vs Padilla",
+      "tipo": "lesao",
+      "descricao": "Nazim Sadykhov tirou no final de marco por lesao. Chris Padilla entrou como substituto de ultima hora pra enfrentar MarQuel Mederos nos prelims.",
+      "impacto": "Padilla teve camp reduzido, o que provavelmente explica a falha de peso (ver secao weigh-in). Mederos agora enfrenta um oponente diferente do previsto, ja entra com vantagem de peso e 20% da bolsa do adversario."
+    },
+    {
+      "luta": "Dariush vs Torres (cancelada)",
+      "tipo": "lesao",
+      "descricao": "Manuel Torres tirou por lesao, Beneil Dariush ficou sem oponente e foi removido inteiro do card, sem remanejamento.",
+      "impacto": "O card perdeu uma das lutas tecnicamente mais interessantes dos leves. Dariush fora por completo, deixando a divisao no card bem mais enxuta."
+    },
+    {
+      "luta": "Procházka vs Ulberg",
+      "tipo": "estilo",
+      "descricao": "Procházka declarou no Cageside Press (08/abr) que quer liberar 'primal aggression' e buscar um comeco mais rapido, desviando do no-mind Bushido reativo classico dele.",
+      "impacto": "A previsao base assumia Jiri esperando Ulberg avancar. Se a declaracao virar execucao, o R1 muda de dinamica: Jiri pode pressionar primeiro, aumentando o risco de trocacao precoce e elevando o ceiling de finalizacao rapida nos dois lados."
+    }
+  ],
+  "weigh_in_failures": [
+    {
+      "lutador": "Chris Padilla",
+      "luta": "Mederos vs Padilla",
+      "peso_alvo": "155 lb",
+      "peso_real": "158 lb",
+      "percentual_multa": 20,
+      "implicacao": "2 libras acima do limite nao-titular. A luta segue em catchweight e 20% da bolsa do Padilla vai pro Mederos. Padilla ja entrou de ultima hora como substituto do Sadykhov lesionado, agora comeca a luta com camp reduzido, peso estourado e desvantagem psicologica. Mederos vira favorito claro no prelim."
+    }
+  ],
+  "news_semana": [
+    {
+      "titulo": "Procházka quer liberar 'primal aggression' e comecar mais rapido",
+      "descricao": "Em entrevista ao Cageside Press, Jiri disse que pretende desviar do no-mind Bushido reativo e buscar agressao logo no R1. Sinalizacao tatica nova vinda direto do lutador, 3 dias antes da luta.",
+      "data": "08 de Abril, 2026",
+      "fonte": "Cageside Press",
+      "impacto_lutas": ["prochazka-vs-ulberg"]
+    },
+    {
+      "titulo": "Procházka pesa 203, Ulberg pesa 204, main event oficializado",
+      "descricao": "Ambos bateram peso com folga no limite de 205 lb do meio-pesado. Pesagem oficial sem falhas no topo do card.",
+      "data": "10 de Abril, 2026",
+      "fonte": "UFC.com Official Weigh-In Results",
+      "impacto_lutas": ["prochazka-vs-ulberg"]
+    },
+    {
+      "titulo": "Chris Padilla falha o peso dos leves por 2 libras",
+      "descricao": "Substituto de ultima hora do Sadykhov lesionado, Padilla chegou a 158 lb no limite de 155 lb do prelim contra MarQuel Mederos. Multa de 20% da bolsa vai pro Mederos e a luta segue em catchweight.",
+      "data": "10 de Abril, 2026",
+      "fonte": "UFC.com Official Weigh-In Results",
+      "impacto_lutas": ["mederos-vs-padilla"]
+    }
+  ]
+}

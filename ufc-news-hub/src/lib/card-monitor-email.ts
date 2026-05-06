@@ -99,7 +99,7 @@ export async function sendCardChangeAlert(
           </p>
           <p style="color: #ccc; font-size: 13px; margin: 0;">
             Verifique as mudancas e re-rode o pipeline de analise para as lutas afetadas.
-            Acesse o dashboard em <a href="${process.env.NEXT_PUBLIC_BASE_URL || 'https://ufc-news.vercel.app'}/admin/card-monitor" style="color: #D20A0A;">Card Monitor</a>.
+            Acesse o dashboard em <a href="${process.env.NEXT_PUBLIC_BASE_URL || 'https://crenas.site'}/dashboard/operations" style="color: #D20A0A;">Card Monitor</a>.
           </p>
         </div>
 

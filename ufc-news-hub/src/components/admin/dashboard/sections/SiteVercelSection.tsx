@@ -62,13 +62,13 @@ export function SiteVercelSection() {
           </div>
           <div>
             <h3 className="text-white font-semibold">Site em Producao</h3>
-            <p className="text-xs text-gray-500">ufc-news.vercel.app</p>
+            <p className="text-xs text-gray-500">crenas.site</p>
           </div>
         </div>
 
         <div className="space-y-2">
           <a
-            href="https://ufc-news.vercel.app"
+            href="https://crenas.site"
             target="_blank"
             rel="noopener noreferrer"
             className="neu-button px-4 py-3 flex items-center justify-between text-gray-300 hover:text-white transition-colors text-sm"
@@ -77,10 +77,10 @@ export function SiteVercelSection() {
               <ExternalLink className="w-4 h-4" />
               Abrir Site
             </span>
-            <code className="text-[10px] text-gray-500 font-mono">ufc-news.vercel.app</code>
+            <code className="text-[10px] text-gray-500 font-mono">crenas.site</code>
           </a>
           <a
-            href="https://ufc-news.vercel.app/enterprise"
+            href="https://crenas.site/enterprise"
             target="_blank"
             rel="noopener noreferrer"
             className="neu-button px-4 py-3 flex items-center justify-between text-gray-300 hover:text-white transition-colors text-sm"
@@ -92,7 +92,7 @@ export function SiteVercelSection() {
             <code className="text-[10px] text-gray-500 font-mono">/enterprise</code>
           </a>
           <a
-            href="https://ufc-news.vercel.app/arena"
+            href="https://crenas.site/arena"
             target="_blank"
             rel="noopener noreferrer"
             className="neu-button px-4 py-3 flex items-center justify-between text-gray-300 hover:text-white transition-colors text-sm"

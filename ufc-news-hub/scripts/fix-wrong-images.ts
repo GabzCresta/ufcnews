@@ -94,21 +94,21 @@ async function fixWrongImages() {
   let browser: Browser | null = null;
 
   try {
-    // Find fighters with potentially wrong images
+    // Find fighters with potentially wrong images OR missing (backfill).
     const fighters = await pool.query(`
       SELECT id, nome, imagem_url
       FROM lutadores
-      WHERE imagem_url IS NOT NULL AND imagem_url != ''
       ORDER BY nome
     `);
 
-    console.log(`📊 Verificando ${fighters.rows.length} lutadores com imagens...\n`);
+    console.log(`📊 Verificando ${fighters.rows.length} lutadores...\n`);
 
-    // Check which ones have wrong images
-    const wrongImages: Array<{ id: string; nome: string; imagem_url: string }> = [];
+    // wrongImages = imagem faltando OU suspeita pelo check heurístico
+    const wrongImages: Array<{ id: string; nome: string; imagem_url: string | null }> = [];
 
     for (const fighter of fighters.rows) {
-      if (!isImageCorrect(fighter.imagem_url, fighter.nome)) {
+      const faltando = !fighter.imagem_url || fighter.imagem_url === '';
+      if (faltando || !isImageCorrect(fighter.imagem_url, fighter.nome)) {
         wrongImages.push(fighter);
       }
     }

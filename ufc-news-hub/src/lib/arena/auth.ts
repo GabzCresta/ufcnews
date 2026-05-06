@@ -121,11 +121,17 @@ export async function registrarUsuario(
   }
 
   const senhaHash = await hashSenha(senha);
+
+  // Inferir dados do usuario automaticamente
+  const { inferUserData } = await import('@/lib/user-enrichment');
+  const inferred = inferUserData(email, displayName || username);
+
   const usuario = await queryOne<UsuarioArena>(
-    `INSERT INTO usuarios_arena (username, email, senha_hash, display_name)
-     VALUES ($1, $2, $3, $4)
+    `INSERT INTO usuarios_arena (username, email, senha_hash, display_name, pais_inferido, idioma_inferido, faixa_etaria)
+     VALUES ($1, $2, $3, $4, $5, $6, $7)
      RETURNING *`,
-    [username.toLowerCase(), email.toLowerCase(), senhaHash, displayName || username]
+    [username.toLowerCase(), email.toLowerCase(), senhaHash, displayName || username,
+     inferred.pais_inferido, inferred.idioma_inferido, inferred.faixa_etaria]
   );
 
   if (!usuario) {

@@ -1,3 +1,17 @@
+---
+name: event-page-generator
+description: Gera pagina de overview do evento com todas previsoes. Use apos validator passar.
+model: sonnet
+effort: high
+maxTurns: 20
+disallowedTools:
+  - Bash
+  - Edit
+  - WebFetch
+  - NotebookEdit
+  - Agent
+---
+
 # EVENT PAGE GENERATOR AGENT
 
 ## Identity

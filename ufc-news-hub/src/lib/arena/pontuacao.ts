@@ -5,6 +5,7 @@
 
 import { query, queryOne } from '@/lib/db';
 import { PONTUACAO_CONFIG, TipoConquista } from '@/types/arena';
+import { concederXp } from '@/lib/arena/xp';
 
 interface ResultadoProcessamento {
   previsoesProcessadas: number;
@@ -134,18 +135,32 @@ export async function processarPrevisoesLuta(lutaId: string): Promise<ResultadoP
         ]
       );
 
-      // Atualizar estatísticas do usuário
+      // Atualizar estatísticas do usuário (counters; XP é concedido via event log)
       await atualizarEstatisticasUsuario(
         previsao.usuario_id,
         acertouVencedor,
         acertouMetodo,
         acertouRound,
         pontosGanhos,
-        xpGanho,
         luta.metodo || '',
         multiplicadorUnderdog > 1.0,
         luta.tipo === 'main_event'
       );
+
+      if (xpGanho > 0) {
+        await concederXp(
+          previsao.usuario_id,
+          'previsao_acerto',
+          xpGanho,
+          `previsao:${previsao.id}`,
+          {
+            luta_id: lutaId,
+            evento_id: luta.evento_id,
+            acertou_metodo: acertouMetodo,
+            acertou_round: acertouRound,
+          }
+        );
+      }
 
       resultado.previsoesProcessadas++;
       resultado.pontosDistribuidos += pontosGanhos;
@@ -206,12 +221,10 @@ async function atualizarEstatisticasUsuario(
   acertouMetodo: boolean,
   acertouRound: boolean,
   pontosGanhos: number,
-  xpGanho: number,
   metodo: string,
   foiUnderdog: boolean,
   foiMainEvent: boolean
 ): Promise<void> {
-  // Determinar incrementos
   const previsaoPerfeita = acertouVencedor && acertouMetodo && acertouRound;
   const foiKO = metodo === 'KO/TKO';
   const foiSub = metodo === 'Submission';
@@ -220,21 +233,19 @@ async function atualizarEstatisticasUsuario(
   await query(
     `UPDATE usuarios_arena SET
       pontos_totais = pontos_totais + $1,
-      xp_total = xp_total + $2,
-      previsoes_corretas = previsoes_corretas + $3,
-      previsoes_perfeitas = previsoes_perfeitas + $4,
-      streak_atual = CASE WHEN $5 THEN streak_atual + 1 ELSE 0 END,
-      melhor_streak = GREATEST(melhor_streak, CASE WHEN $5 THEN streak_atual + 1 ELSE 0 END),
-      streak_main_event = CASE WHEN $6 AND $5 THEN streak_main_event + 1 ELSE CASE WHEN $6 THEN 0 ELSE streak_main_event END END,
-      melhor_streak_main_event = GREATEST(melhor_streak_main_event, CASE WHEN $6 AND $5 THEN streak_main_event + 1 ELSE streak_main_event END),
-      underdogs_acertados = underdogs_acertados + $7,
-      kos_acertados = kos_acertados + $8,
-      subs_acertados = subs_acertados + $9,
-      decisoes_acertadas = decisoes_acertadas + $10
-    WHERE id = $11`,
+      previsoes_corretas = previsoes_corretas + $2,
+      previsoes_perfeitas = previsoes_perfeitas + $3,
+      streak_atual = CASE WHEN $4 THEN streak_atual + 1 ELSE 0 END,
+      melhor_streak = GREATEST(melhor_streak, CASE WHEN $4 THEN streak_atual + 1 ELSE 0 END),
+      streak_main_event = CASE WHEN $5 AND $4 THEN streak_main_event + 1 ELSE CASE WHEN $5 THEN 0 ELSE streak_main_event END END,
+      melhor_streak_main_event = GREATEST(melhor_streak_main_event, CASE WHEN $5 AND $4 THEN streak_main_event + 1 ELSE streak_main_event END),
+      underdogs_acertados = underdogs_acertados + $6,
+      kos_acertados = kos_acertados + $7,
+      subs_acertados = subs_acertados + $8,
+      decisoes_acertadas = decisoes_acertadas + $9
+    WHERE id = $10`,
     [
       pontosGanhos,
-      xpGanho,
       acertouVencedor ? 1 : 0,
       previsaoPerfeita ? 1 : 0,
       acertouVencedor,
@@ -303,13 +314,18 @@ async function verificarCardPerfeito(eventoId: string): Promise<void> {
       [eventoId, usuario_id]
     );
 
-    // Dar bônus
+    // Bônus de pontos (counter) + XP via event log idempotente
     await query(
-      `UPDATE usuarios_arena SET
-        pontos_totais = pontos_totais + $1,
-        xp_total = xp_total + 100
-      WHERE id = $2`,
+      `UPDATE usuarios_arena SET pontos_totais = pontos_totais + $1 WHERE id = $2`,
       [PONTUACAO_CONFIG.BONUS_CARD_PERFEITO, usuario_id]
+    );
+
+    await concederXp(
+      usuario_id,
+      'card_perfeito',
+      100,
+      `card_perfeito:${eventoId}:${usuario_id}`,
+      { evento_id: eventoId }
     );
 
     // Conquista perfect_card
@@ -468,17 +484,18 @@ async function verificarConquistas(usuarioId: string): Promise<number> {
       if (result.length > 0) {
         conquistasNovas++;
 
-        // Dar XP pela conquista
-        await query(
-          `UPDATE usuarios_arena SET xp_total = xp_total + $1 WHERE id = $2`,
-          [PONTUACAO_CONFIG.XP_CONQUISTA, usuarioId]
+        await concederXp(
+          usuarioId,
+          'conquista',
+          PONTUACAO_CONFIG.XP_CONQUISTA,
+          `conquista:${usuarioId}:${tipo}`,
+          { tipo }
         );
 
-        // Criar notificação
         await query(
           `INSERT INTO notificacoes (usuario_id, tipo, titulo, mensagem, dados)
-           VALUES ($1, 'conquista', 'Nova conquista desbloqueada!', $2, $3)`,
-          [usuarioId, `Você desbloqueou a conquista "${tipo}"!`, JSON.stringify({ tipo })]
+           VALUES ($1, 'conquista', 'Nova conquista desbloqueada', $2, $3)`,
+          [usuarioId, `Você desbloqueou a conquista "${tipo}".`, JSON.stringify({ tipo })]
         );
       }
     }

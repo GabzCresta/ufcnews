@@ -6,7 +6,7 @@ export async function GET() {
 
   if (!clientId || !redirectUri) {
     console.error('[Google OAuth] GOOGLE_CLIENT_ID ou GOOGLE_REDIRECT_URI nao configurados');
-    return NextResponse.redirect(new URL('/arena/login?error=google_nao_configurado', process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3010'));
+    return NextResponse.redirect(new URL('/hub/arena/login?error=google_nao_configurado', process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3010'));
   }
 
   const state = crypto.randomUUID();

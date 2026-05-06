@@ -1,10 +1,9 @@
-import { DashboardShell } from '@/components/admin/dashboard/DashboardShell';
+import { redirect } from 'next/navigation';
 
 export const metadata = {
-  title: 'UFC Hub — Admin Dashboard',
-  description: 'Painel de controle unificado do UFC News Hub',
+  title: 'Crenas — Redirecionando...',
 };
 
 export default function AdminPage() {
-  return <DashboardShell />;
+  redirect('/dashboard');
 }

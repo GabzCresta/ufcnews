@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
+import { useArenaEventoRoom } from '@/hooks/useArenaSocket';
 
 // ═══════════════════════════════════════════════════════════════
 // Types
@@ -93,8 +94,9 @@ function FighterAvatar({
 // Main Component
 // ═══════════════════════════════════════════════════════════════
 
-export function FloatingReactions({ currentFight, eventoId: _eventoId, isAuthenticated, username }: FloatingReactionsProps) {
+export function FloatingReactions({ currentFight, eventoId, isAuthenticated, username }: FloatingReactionsProps) {
   const t = useTranslations('arena');
+  const socket = useArenaEventoRoom(eventoId);
   const [reactions, setReactions] = useState<FloatingReaction[]>([]);
   const [counts, setCounts] = useState<Record<string, number>>({});
   const [cooldown, setCooldown] = useState(false);
@@ -110,60 +112,54 @@ export function FloatingReactions({ currentFight, eventoId: _eventoId, isAuthent
     };
   }, []);
 
-  // Polling for counts + recent reactions (every 2s)
+  // Initial counts snapshot (one-shot), then socket push keeps us in sync.
+  // Lightweight fallback: re-fetch every 60s in case socket drops unnoticed.
   useEffect(() => {
     if (!currentFight) return;
-
     let active = true;
 
-    async function poll() {
-      if (!active || !currentFight) return;
+    async function snapshot() {
       try {
-        const res = await fetch(`/api/arena/live/reactions?luta_id=${currentFight.luta_id}`);
-        if (!res.ok) return;
-        const data = await res.json() as {
-          counts: Record<string, number>;
-          recent: RecentReaction[];
-        };
-
+        const res = await fetch(`/api/arena/live/reactions?luta_id=${currentFight!.luta_id}`);
+        if (!res.ok || !active) return;
+        const data = await res.json() as { counts: Record<string, number>; recent: RecentReaction[] };
         if (!active) return;
-
-        // Update counts from server (source of truth)
         setCounts(data.counts);
-
-        // Show floating animations for OTHER users' recent reactions
-        for (const r of data.recent) {
-          // Skip already-seen reactions
-          if (seenIdsRef.current.has(r.id)) continue;
-          seenIdsRef.current.add(r.id);
-
-          // Skip own reactions (already shown optimistically)
-          if (username && r.username === username) continue;
-
-          const isF1 = r.lutador_id === currentFight.lutador1_id;
-          const side: 'red' | 'blue' = isF1 ? 'red' : 'blue';
-          const foto = isF1 ? currentFight.lutador1_foto : currentFight.lutador2_foto;
-          const nome = isF1 ? currentFight.lutador1_nome : currentFight.lutador2_nome;
-
-          addFloatingReaction(foto, nome, side);
-        }
-      } catch {
-        // Network error, retry next cycle
-      }
+        // mark existing as seen so socket stream doesn't replay them
+        for (const r of data.recent) seenIdsRef.current.add(r.id);
+      } catch { /* noop */ }
     }
 
-    // Initial fetch
-    poll();
+    snapshot();
+    const interval = setInterval(snapshot, 60_000);
+    return () => { active = false; clearInterval(interval); };
+  }, [currentFight?.luta_id]); // eslint-disable-line react-hooks/exhaustive-deps
 
-    // Poll every 2s
-    const interval = setInterval(poll, 2000);
+  // Real-time: socket push for reaction:new
+  useEffect(() => {
+    if (!socket || !currentFight) return;
 
-    return () => {
-      active = false;
-      clearInterval(interval);
-    };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentFight?.luta_id, username]);
+    function onReaction(r: { id: string; luta_id: string; lutador_id: string; username: string }) {
+      if (!currentFight || r.luta_id !== currentFight.luta_id) return;
+      if (seenIdsRef.current.has(r.id)) return;
+      seenIdsRef.current.add(r.id);
+
+      // Increment count from push
+      setCounts(prev => ({ ...prev, [r.lutador_id]: (prev[r.lutador_id] || 0) + 1 }));
+
+      // Skip animation for own reactions (already shown optimistically)
+      if (username && r.username === username) return;
+
+      const isF1 = r.lutador_id === currentFight.lutador1_id;
+      const side: 'red' | 'blue' = isF1 ? 'red' : 'blue';
+      const foto = isF1 ? currentFight.lutador1_foto : currentFight.lutador2_foto;
+      const nome = isF1 ? currentFight.lutador1_nome : currentFight.lutador2_nome;
+      addFloatingReaction(foto, nome, side);
+    }
+
+    socket.on('reaction:new', onReaction);
+    return () => { socket.off('reaction:new', onReaction); };
+  }, [socket, currentFight?.luta_id, username]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Reset when fight changes
   useEffect(() => {

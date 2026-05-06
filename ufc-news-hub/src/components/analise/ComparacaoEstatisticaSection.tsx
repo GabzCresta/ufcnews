@@ -56,7 +56,7 @@ function StatRow({ stat, f1Name, f2Name }: { stat: StatBarData; f1Name: string; 
 
       {/* Insight note - prominent */}
       {stat.note && (
-        <p className="mt-2.5 text-xs text-center text-white/40 leading-relaxed">{stat.note}</p>
+        <p className="mt-2.5 text-xs text-center text-white/70 leading-relaxed">{stat.note}</p>
       )}
     </div>
   );
@@ -68,12 +68,19 @@ export function ComparacaoEstatisticaSection({
   fighter2Name,
   sectionNumber,
   lang = 'pt',
+  hideTaleOfTape = false,
 }: {
   data: ComparacaoEstatisticaSectionData;
   fighter1Name: string;
   fighter2Name: string;
   sectionNumber?: string;
   lang?: Lang;
+  /**
+   * When true, skip rendering the embedded tale_of_tape sub-block.
+   * Used by the new "less is more" layout where Tale of the Tape is
+   * rendered as its own standalone section before this one.
+   */
+  hideTaleOfTape?: boolean;
 }) {
   const t = getLabels(lang);
 
@@ -114,8 +121,9 @@ export function ComparacaoEstatisticaSection({
         </p>
       </div>
 
-      {/* Tale of the Tape — compact */}
-      {data.tale_of_tape.length > 0 && (
+      {/* Tale of the Tape — compact. Skipped when hideTaleOfTape is true
+          (new layout renders it standalone before this section). */}
+      {!hideTaleOfTape && data.tale_of_tape.length > 0 && (
         <div className="mt-10 rounded-2xl bg-white/[0.02] border border-white/[0.04] overflow-hidden">
           <div className="px-5 py-3 border-b border-white/[0.04]">
             <p className="text-[10px] uppercase tracking-[0.2em] text-white/25 text-center">Tale of the Tape</p>
@@ -123,9 +131,9 @@ export function ComparacaoEstatisticaSection({
           <div className="divide-y divide-white/[0.03]">
             {data.tale_of_tape.map((row, i) => (
               <div key={i} className="grid grid-cols-[1fr_auto_1fr] items-center px-5 py-3">
-                <span className="text-right text-sm text-white/60 pr-4">{row.fighter1}</span>
-                <span className="text-[9px] uppercase tracking-wider text-white/20 min-w-[90px] text-center">{row.label}</span>
-                <span className="text-left text-sm text-white/60 pl-4">{row.fighter2}</span>
+                <span className="text-right text-sm text-white/80 pr-4">{row.fighter1}</span>
+                <span className="text-[9px] uppercase tracking-wider text-white/25 min-w-[90px] text-center">{row.label}</span>
+                <span className="text-left text-sm text-white/80 pl-4">{row.fighter2}</span>
                 {row.note && (
                   <p className="col-span-3 text-center text-[10px] text-amber-400/50 mt-1">{row.note}</p>
                 )}

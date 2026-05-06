@@ -24,7 +24,8 @@ const CRON_JOBS = [
 const ENV_KEYS = [
   { name: 'DATABASE_URL', status: 'ok', descricao: 'PostgreSQL local (Hostinger)' },
   { name: 'ANTHROPIC_API_KEY', status: 'missing', descricao: 'Chave API da Anthropic (Claude)' },
-  { name: 'ADMIN_PASSWORD', status: 'ok', descricao: 'Senha do dashboard admin' },
+  { name: 'ADMIN_PASSWORD', status: 'ok', descricao: 'HMAC signing secret para tokens de sessao (nao e o PIN)' },
+  { name: 'ADMIN_PASSWORD_HASH', status: 'ok', descricao: 'Bcrypt hash do PIN de 6 digitos' },
   { name: 'CRON_SECRET', status: 'missing', descricao: 'Secret para cron jobs' },
   { name: 'RSS_FEED_URL', status: 'missing', descricao: 'URL do feed RSS' },
 ];
@@ -51,11 +52,13 @@ export default function SettingsPage() {
         </div>
         <div className="space-y-2">
           {[
-            { href: 'https://crenas.site', label: 'Landing Page (Cliente)', path: 'crenas.site' },
-            { href: 'https://crenas.site/pt/app', label: 'Site Original (Dev)', path: '/pt/app' },
-            { href: 'https://crenas.site/pt/arena', label: 'Arena (Funcional)', path: '/pt/arena' },
-            { href: 'https://crenas.site/pt/analises', label: 'Analises', path: '/pt/analises' },
-            { href: 'https://crenas.site/pt/analise/moicano-vs-duncan', label: 'Analise: Moicano vs Duncan', path: '/pt/analise/moicano-vs-duncan' },
+            { href: 'https://crenas.site/pt', label: 'Landing Page (PT)', path: '/pt' },
+            { href: 'https://crenas.site/en', label: 'Landing Page (EN)', path: '/en' },
+            { href: 'https://crenas.site/hub', label: 'Hub (App)', path: '/hub' },
+            { href: 'https://crenas.site/hub/arena', label: 'Arena', path: '/hub/arena' },
+            { href: 'https://crenas.site/hub/analises', label: 'Analises', path: '/hub/analises' },
+            { href: 'https://crenas.site/pt/hub/analise/della-maddalena-vs-prates', label: 'Analise: Della Maddalena vs Prates', path: '/pt/hub/analise/...' },
+            { href: 'https://crenas.site/pt/hub/creator-kit/hayjive/della-maddalena-vs-prates', label: 'Creator Kit: HayJive (Della Maddalena vs Prates)', path: '/hub/creator-kit/hayjive/...' },
             { href: 'https://crenas.site/dashboard', label: 'Dashboard Admin', path: '/dashboard' },
           ].map((link) => (
             <a

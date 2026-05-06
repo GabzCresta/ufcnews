@@ -1,12 +1,26 @@
 'use client';
 
+// ═══════════════════════════════════════════════════════════════════
+// DEPRECATED (April 2026)
+//
+// Main card and prelims analyses were consolidated under a single
+// fight-analyst agent that produces FullSingleAnalise in CONTRACT v2
+// shape (7 sections). All NEW analyses render through FullAnalysisView.
+//
+// This component is kept only to render legacy prelim analyses already
+// published for past events. Do NOT use it for new work. When the legacy
+// prelim pages are migrated or retired, delete this file entirely.
+// ═══════════════════════════════════════════════════════════════════
+
 import Image from 'next/image';
 import type { PrelimsAnalise, RecentFight } from '@/types/analise';
 import { getLabels, type Lang } from '@/lib/i18n-labels';
 import { SectionHeader } from './SectionHeader';
+import { LocaleSwitcher } from '@/components/ui/LocaleSwitcher';
 import { ComparacaoEstatisticaSection } from './ComparacaoEstatisticaSection';
 import { PerfilHabilidadesSection } from './PerfilHabilidadesSection';
 import { DistribuicaoVitoriasSection } from './DistribuicaoVitoriasSection';
+import { DistribuicaoDerrotasSection } from './DistribuicaoDerrotasSection';
 import { PrevisaoFinalSection } from './PrevisaoFinalSection';
 
 /* ── Simple Hero ── */
@@ -137,6 +151,11 @@ export function PrelimsAnalysisView({ analise, lang = 'pt' }: { analise: Prelims
 
   return (
     <main className="min-h-screen bg-[#0A0A0A]">
+      {/* Language Switcher */}
+      <div className="mx-auto max-w-5xl px-4 pt-4 flex justify-end">
+        <LocaleSwitcher />
+      </div>
+
       {/* Section 1: Simple Hero */}
       <SimpleHero data={d.hero} />
 
@@ -165,8 +184,13 @@ export function PrelimsAnalysisView({ analise, lang = 'pt' }: { analise: Prelims
         {/* Section 5: Distribuicao de Vitorias */}
         <DistribuicaoVitoriasSection data={d.distribuicao_vitorias} sectionNumber="04" lang={lang} />
 
-        {/* Section 6: Previsao Final */}
-        <PrevisaoFinalSection data={d.previsao_final} sectionNumber="05" lang={lang} />
+        {/* Section 6: Distribuicao de Derrotas (optional) */}
+        {d.distribuicao_derrotas && (
+          <DistribuicaoDerrotasSection data={d.distribuicao_derrotas} sectionNumber="05" lang={lang} />
+        )}
+
+        {/* Section 7: Previsao Final */}
+        <PrevisaoFinalSection data={d.previsao_final} sectionNumber={d.distribuicao_derrotas ? "06" : "05"} lang={lang} />
       </div>
 
       {/* Footer */}

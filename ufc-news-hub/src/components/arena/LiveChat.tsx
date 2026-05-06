@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import useSWR from 'swr';
 import { useTranslations } from 'next-intl';
 import { Send, MessageCircle } from 'lucide-react';
+import { useArenaSocket } from '@/hooks/useArenaSocket';
 
 interface ChatMessage {
   id: string;
@@ -46,6 +47,7 @@ export function LiveChat({ eventoId, ligaId, ligaNome, currentUserId }: LiveChat
   const [input, setInput] = useState('');
   const [isSending, setIsSending] = useState(false);
   const [cooldown, setCooldown] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
   const [localMessages, setLocalMessages] = useState<ChatMessage[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -57,10 +59,11 @@ export function LiveChat({ eventoId, ligaId, ligaNome, currentUserId }: LiveChat
       ? `/api/arena/ligas/${ligaId}/chat?limit=50`
       : null;
 
+  // Initial fetch: just once (fallback interval kept for socket-dead edge cases)
   const { data } = useSWR<ChatResponse>(
     chatUrl,
     fetcher,
-    { refreshInterval: 5000, revalidateOnFocus: false, dedupingInterval: 3000 }
+    { refreshInterval: 30_000, revalidateOnFocus: false, dedupingInterval: 3000 }
   );
 
   useEffect(() => {
@@ -73,6 +76,38 @@ export function LiveChat({ eventoId, ligaId, ligaNome, currentUserId }: LiveChat
       return merged.slice(-100);
     });
   }, [data?.mensagens]);
+
+  // Real-time: chat:msg push via crenas-rt socket
+  const { socket } = useArenaSocket();
+  useEffect(() => {
+    if (!socket) return;
+    socket.emit('evento:join', eventoId);
+    if (activeTab === 'liga' && ligaId) socket.emit('liga:join', ligaId);
+
+    function onEventoMsg(msg: ChatMessage & { evento_id?: string }) {
+      if (activeTab !== 'geral') return;
+      if (msg.evento_id && msg.evento_id !== eventoId) return;
+      setLocalMessages(prev => {
+        if (prev.some(m => m.id === msg.id)) return prev;
+        return [...prev, msg].slice(-100);
+      });
+    }
+    function onLigaMsg(msg: ChatMessage & { liga_id?: string }) {
+      if (activeTab !== 'liga' || !ligaId) return;
+      if (msg.liga_id && msg.liga_id !== ligaId) return;
+      setLocalMessages(prev => {
+        if (prev.some(m => m.id === msg.id)) return prev;
+        return [...prev, msg].slice(-100);
+      });
+    }
+
+    socket.on('chat:msg', onEventoMsg);
+    socket.on('liga_chat:msg', onLigaMsg);
+    return () => {
+      socket.off('chat:msg', onEventoMsg);
+      socket.off('liga_chat:msg', onLigaMsg);
+    };
+  }, [socket, eventoId, ligaId, activeTab]);
 
   useEffect(() => {
     setLocalMessages([]);
@@ -97,6 +132,7 @@ export function LiveChat({ eventoId, ligaId, ligaNome, currentUserId }: LiveChat
 
     setIsSending(true);
     setInput('');
+    setSendError(null);
 
     try {
       const url = activeTab === 'geral'
@@ -110,25 +146,41 @@ export function LiveChat({ eventoId, ligaId, ligaNome, currentUserId }: LiveChat
       const res = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify(body),
       });
 
       if (res.ok) {
         const raw: unknown = await res.json();
-        // Chat global retorna ChatMessage direto, liga retorna { mensagem: ChatMessage }
         const msg = (raw && typeof raw === 'object' && 'mensagem' in raw && typeof (raw as Record<string, unknown>).mensagem === 'object')
           ? (raw as { mensagem: ChatMessage }).mensagem
           : raw as ChatMessage;
-        setLocalMessages(prev => [...prev, msg]);
-        // Scroll apenas o container do chat, não a página
+        // Dedup by id — socket push may have already delivered the same message.
+        setLocalMessages(prev => {
+          if (prev.some(m => m.id === msg.id)) return prev;
+          return [...prev, msg];
+        });
         if (scrollContainerRef.current) {
           scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
         }
-
         setCooldown(true);
         setTimeout(() => setCooldown(false), 2000);
+      } else {
+        // Show WHY the send failed — 401 login, 400 event, 429 cooldown, etc.
+        let errMsg = `Falha (HTTP ${res.status})`;
+        try {
+          const data = await res.json() as { error?: string };
+          if (data.error) errMsg = data.error;
+        } catch { /* noop */ }
+        setSendError(errMsg);
+        setInput(mensagem); // restaura texto pro user tentar de novo
+        setTimeout(() => setSendError(null), 4000);
       }
-    } catch { /* silent */ }
+    } catch {
+      setSendError('Falha de conexao');
+      setInput(mensagem);
+      setTimeout(() => setSendError(null), 4000);
+    }
     setIsSending(false);
   }, [input, isSending, cooldown, activeTab, eventoId, ligaId]);
 
@@ -204,6 +256,11 @@ export function LiveChat({ eventoId, ligaId, ligaNome, currentUserId }: LiveChat
         <div ref={messagesEndRef} />
       </div>
 
+      {sendError && (
+        <div className="px-4 py-2 text-xs text-red-400 bg-red-500/10 border-t border-red-500/20 text-center">
+          {sendError}
+        </div>
+      )}
       <div className="flex items-center gap-2 px-4 py-3 border-t border-white/10">
         <input
           type="text"

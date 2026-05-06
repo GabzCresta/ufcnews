@@ -13,3 +13,9 @@ node_modules
 *.backup
 db-dump*.sql
 **/public/*.sql
+
+# Build artifacts and local workspace state
+.next/
+.pipeline-logs/
+ufc-news-hub/.openclaw/
+ufc-news-hub/memory/

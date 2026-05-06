@@ -1,3 +1,19 @@
+---
+name: card-validator
+description: Roda 7 checks mecanicos PASS/FAIL nas analises geradas. Use apos analysts completarem.
+model: sonnet
+effort: medium
+maxTurns: 15
+disallowedTools:
+  - Write
+  - Edit
+  - Bash
+  - WebFetch
+  - WebSearch
+  - NotebookEdit
+  - Agent
+---
+
 # CARD VALIDATOR AGENT
 
 ## Identity

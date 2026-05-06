@@ -1,0 +1,24 @@
+import { io as ioClient } from 'socket.io-client';
+import pg from 'pg';
+import 'dotenv/config';
+const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL });
+const { rows: [ev] } = await pool.query(`SELECT id FROM eventos WHERE status='agendado' ORDER BY data_evento LIMIT 1`);
+const { rows: [u] } = await pool.query(`SELECT id FROM usuarios_arena LIMIT 1`);
+const socket = ioClient('https://crenas.site', { path: '/socket.io/', transports: ['websocket'], reconnection: false });
+const received = [];
+await new Promise((r, reject) => {
+  const t = setTimeout(() => reject(new Error('connect timeout')), 8000);
+  socket.once('connect', () => { clearTimeout(t); r(); });
+  socket.once('connect_error', (e) => { clearTimeout(t); reject(e); });
+});
+console.log('✓ connected', socket.id);
+socket.emit('evento:join', ev.id);
+socket.on('chat:msg', (m) => { received.push(m); console.log('  ← chat:msg', JSON.stringify(m).slice(0, 150)); });
+await new Promise(r => setTimeout(r, 500));
+console.log('→ INSERT chat_evento...');
+await pool.query(`INSERT INTO chat_evento (evento_id, usuario_id, mensagem) VALUES ($1, $2, $3)`, [ev.id, u.id, 'SMOKE via socket test ' + Date.now()]);
+await new Promise(r => setTimeout(r, 2000));
+console.log(received.length > 0 ? '✓ PASS' : '✗ FAIL — socket did not receive chat:msg');
+socket.disconnect();
+await pool.end();
+process.exit(received.length > 0 ? 0 : 1);

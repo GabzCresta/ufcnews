@@ -2,6 +2,7 @@
 
 import useSWR from 'swr';
 import { useCallback } from 'react';
+import { useLocale } from 'next-intl';
 import { ReelNoticia } from '@/types';
 import { AUTO_REFRESH_INTERVAL } from '@/lib/constants';
 import { useFingerprint } from './useFingerprint';
@@ -12,9 +13,10 @@ interface ReelsResponse {
 
 export function useReels() {
   const fingerprint = useFingerprint();
+  const locale = useLocale();
 
   const { data, error, isLoading, mutate } = useSWR<ReelsResponse>(
-    fingerprint ? '/api/news/reels' : null,
+    fingerprint ? `/api/noticias/reels?locale=${locale}` : null,
     (url: string) =>
       fetch(url, {
         headers: { 'x-user-fingerprint': fingerprint },
@@ -52,7 +54,7 @@ export function useReels() {
       );
 
       try {
-        await fetch(`/api/news/${noticiaId}/like`, {
+        await fetch(`/api/noticias/${noticiaId}/like`, {
           method: wasLiked ? 'DELETE' : 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ fingerprint }),

@@ -119,8 +119,6 @@ export async function POST(request: Request) {
         INSERT INTO analises (
           evento_id, slug, titulo, subtitulo,
           lutador1_id, lutador2_id,
-          artigo_conteudo, tactical_breakdown, fight_prediction,
-          fighter1_info, fighter2_info,
           evento_nome, evento_data, evento_local,
           categoria_peso, num_rounds, is_titulo, broadcast,
           analysis_type,
@@ -129,9 +127,7 @@ export async function POST(request: Request) {
           $1, $2, $3, $4,
           $5, $6,
           $7, $8, $9,
-          $10, $11,
-          $12, $13, $14,
-          $15, $16, $17, $18,
+          $10, $11, $12, $13,
           'single_fight',
           'publicado'
         ) RETURNING id
@@ -142,11 +138,6 @@ export async function POST(request: Request) {
         analysis.subtitulo,
         (fight.lutador1 as Record<string, unknown>).id,
         (fight.lutador2 as Record<string, unknown>).id,
-        analysis.artigo_conteudo,
-        JSON.stringify(analysis.tactical_breakdown),
-        JSON.stringify(analysis.fight_prediction),
-        JSON.stringify(analysis.fighter1_info),
-        JSON.stringify(analysis.fighter2_info),
         evento.nome,
         evento.data_evento,
         `${evento.local_evento || ''}, ${evento.cidade || ''}`,
@@ -183,8 +174,6 @@ export async function POST(request: Request) {
       INSERT INTO analises (
         evento_id, slug, titulo, subtitulo,
         lutador1_id, lutador2_id,
-        artigo_conteudo, tactical_breakdown, fight_prediction,
-        fighter1_info, fighter2_info,
         evento_nome, evento_data, evento_local,
         categoria_peso, num_rounds, is_titulo, broadcast,
         fights_analysis, card_overview, analysis_type,
@@ -193,10 +182,8 @@ export async function POST(request: Request) {
         $1, $2, $3, $4,
         $5, $6,
         $7, $8, $9,
-        $10, $11,
-        $12, $13, $14,
-        $15, $16, $17, $18,
-        $19, $20, $21,
+        $10, $11, $12, $13,
+        $14, $15, $16,
         'publicado'
       ) RETURNING id
     `, [
@@ -206,11 +193,6 @@ export async function POST(request: Request) {
       fullCardResult.subtitulo || `Análise completa do card principal`,
       (mainFight.lutador1 as Record<string, unknown>).id,
       (mainFight.lutador2 as Record<string, unknown>).id,
-      (fullCardResult.card_overview as Record<string, unknown>).card_summary || '',
-      JSON.stringify(mainEventAnalysis.tactical_breakdown),
-      JSON.stringify(mainEventAnalysis.fight_prediction),
-      JSON.stringify(mainEventAnalysis.fighter1_info),
-      JSON.stringify(mainEventAnalysis.fighter2_info),
       evento.nome,
       evento.data_evento,
       `${evento.local_evento || ''}, ${evento.cidade || ''}`,
@@ -222,6 +204,10 @@ export async function POST(request: Request) {
       JSON.stringify(fullCardResult.card_overview),
       'full_card',
     ]);
+    // NOTE: `full_card` analysis_type is no longer rendered by AnalisePageClient
+    // (retired alongside FightBreakdownCard). This legacy route remains as a
+    // fallback — the output will fall through to UnsupportedAnalysisView. Prefer
+    // the Claude CLI pipeline (docs) for new analyses.
 
     console.log(`[ANALYSIS] Full card analysis saved with id: ${result?.id}`);
 

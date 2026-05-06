@@ -12,21 +12,27 @@ function FightRow({ fight }: { fight: RecentFight }) {
 
   return (
     <div className="py-4 border-b border-white/[0.04] last:border-b-0">
-      <div className="flex items-baseline justify-between mb-1.5">
-        <div className="flex items-baseline gap-2.5">
-          <span className={`font-display text-sm font-bold ${isWin ? 'text-emerald-400' : isLoss ? 'text-red-400' : 'text-white/40'}`}>
+      <div className="flex items-baseline justify-between mb-1.5 gap-2">
+        <div className="flex items-baseline gap-2.5 min-w-0">
+          <span className={`font-display text-sm font-bold ${isWin ? 'text-emerald-400' : isLoss ? 'text-red-400' : 'text-white/50'}`}>
             {fight.result}
           </span>
-          <span className="text-sm text-white/80">{fight.opponent}</span>
+          <span className="text-sm text-white/90 font-medium">{fight.opponent}</span>
           {fight.opponent_rank && fight.opponent_rank !== 'N/R' && (
-            <span className="text-[10px] font-semibold text-white/50 bg-white/[0.05] rounded px-1.5 py-0.5">{fight.opponent_rank}</span>
+            <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 bg-amber-400/10 border border-amber-400/25 rounded px-2 py-0.5 whitespace-nowrap">
+              {fight.opponent_rank}
+            </span>
           )}
         </div>
-        <span className="text-[10px] text-white/25 tabular-nums">{fight.date}</span>
+        <span className="text-[10px] text-amber-400/80 font-bold uppercase tracking-wider tabular-nums whitespace-nowrap">
+          {fight.date}
+        </span>
       </div>
-      <div className="flex items-baseline justify-between">
-        <p className="text-[11px] text-white/35 leading-relaxed max-w-[85%]">{fight.note}</p>
-        <span className="text-[10px] text-white/40 font-medium whitespace-nowrap">{fight.method}</span>
+      <div className="flex items-baseline justify-between gap-3">
+        <p className="text-xs text-white/80 leading-relaxed max-w-[78%]">{fight.note}</p>
+        <span className="text-[10px] text-white/70 font-semibold uppercase tracking-wider whitespace-nowrap">
+          {fight.method}
+        </span>
       </div>
     </div>
   );
@@ -66,7 +72,7 @@ function FighterTimeline({ fighter }: { fighter: MomentoAtualFighter }) {
       {fighter.full_fight_history && fighter.full_fight_history.length > 0 && (
         <button
           onClick={() => setShowHistory(true)}
-          className="mt-3 flex w-full items-center justify-center gap-1.5 py-2.5 text-[10px] uppercase tracking-wider text-white/25 hover:text-white/50 transition-colors"
+          className="mt-3 flex w-full items-center justify-center gap-1.5 py-2.5 text-[10px] uppercase tracking-wider text-white/55 hover:text-white/85 transition-colors font-bold"
         >
           <ChevronDown className="h-3 w-3" />
           Historico completo
@@ -91,14 +97,14 @@ function FighterTimeline({ fighter }: { fighter: MomentoAtualFighter }) {
               {fighter.full_fight_history.map((fight, i) => (
                 <div key={i} className="flex items-center justify-between py-3 border-b border-white/[0.04] last:border-b-0">
                   <div className="flex items-center gap-2.5">
-                    <span className={`font-display text-xs font-bold ${fight.result === 'W' ? 'text-emerald-400' : fight.result === 'L' ? 'text-red-400' : 'text-white/40'}`}>
+                    <span className={`font-display text-xs font-bold ${fight.result === 'W' ? 'text-emerald-400' : fight.result === 'L' ? 'text-red-400' : 'text-white/50'}`}>
                       {fight.result}
                     </span>
-                    <span className="text-xs text-white/70">{fight.opponent}</span>
+                    <span className="text-xs text-white/90 font-medium">{fight.opponent}</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="text-[10px] text-white/35">{fight.method}</span>
-                    <span className="text-[10px] text-white/20">{fight.date}</span>
+                    <span className="text-[10px] text-white/70 font-semibold uppercase tracking-wider">{fight.method}</span>
+                    <span className="text-[10px] text-amber-400/80 font-bold uppercase tracking-wider tabular-nums">{fight.date}</span>
                   </div>
                 </div>
               ))}
@@ -121,17 +127,17 @@ function FighterTimeline({ fighter }: { fighter: MomentoAtualFighter }) {
           <TrendIcon className={`h-3.5 w-3.5 ${trendBadge}`} />
           <span className={`text-xs font-bold uppercase tracking-wider ${trendBadge}`}>{fighter.momentum_label}</span>
         </div>
-        <p className="text-[11px] text-white/30 leading-relaxed">{fighter.momentum_note}</p>
+        <p className="text-xs text-white/75 leading-relaxed">{fighter.momentum_note}</p>
       </div>
     </div>
   );
 }
 
-export function MomentoAtualSection({ data, lang = 'pt' }: { data: MomentoAtualSectionData; lang?: Lang }) {
+export function MomentoAtualSection({ data, sectionNumber, lang = 'pt' }: { data: MomentoAtualSectionData; sectionNumber?: string; lang?: Lang }) {
   const t = getLabels(lang);
   return (
     <section>
-      <SectionHeader number="02" title={t.momento_title} accent={t.momento_accent} />
+      <SectionHeader number={sectionNumber ?? '02'} title={t.momento_title} accent={t.momento_accent} />
       <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
         <FighterTimeline fighter={data.fighter1} />
         <FighterTimeline fighter={data.fighter2} />

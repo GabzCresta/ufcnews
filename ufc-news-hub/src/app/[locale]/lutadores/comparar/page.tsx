@@ -102,7 +102,7 @@ function VirtualizedList({ fighters, selectedId, onSelect }: {
 
 function ComparadorContent() {
   const searchParams = useSearchParams();
-  const initialIds = searchParams.get('ids')?.split(',') || [];
+  const initialIds = searchParams?.get('ids')?.split(',') || [];
 
   const [lutador1Id, setLutador1Id] = useState(initialIds[0] || '');
   const [lutador2Id, setLutador2Id] = useState(initialIds[1] || '');

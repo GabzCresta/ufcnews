@@ -22,13 +22,13 @@ export async function generateMetadata({
     title: t('title'),
     description: t('description'),
     manifest: '/manifest.json',
-    appleWebApp: { capable: true, statusBarStyle: 'black-translucent', title: 'UFC News' },
+    appleWebApp: { capable: true, statusBarStyle: 'black-translucent', title: 'CRENAS' },
     openGraph: {
-      title: 'UFC News Hub',
+      title: 'CRENAS - Analises UFC',
       description: t('description'),
       type: 'website',
       locale,
-      siteName: 'UFC News Hub',
+      siteName: 'CRENAS',
     },
     robots: { index: true, follow: true },
   };
@@ -46,7 +46,7 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  if (!routing.locales.includes(locale as 'pt' | 'en' | 'fr' | 'es')) {
+  if (!routing.locales.includes(locale as 'pt' | 'en')) {
     notFound();
   }
   const messages = await getMessages();

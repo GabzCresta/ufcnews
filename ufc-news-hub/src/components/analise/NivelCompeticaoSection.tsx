@@ -31,7 +31,7 @@ function ComparisonRow({
   );
 }
 
-export function NivelCompeticaoSection({ data, lang = 'pt' }: { data: NivelCompeticaoSectionData; lang?: Lang }) {
+export function NivelCompeticaoSection({ data, sectionNumber, lang = 'pt' }: { data: NivelCompeticaoSectionData; sectionNumber?: string; lang?: Lang }) {
   const t = getLabels(lang);
   const f1 = data.fighter1;
   const f2 = data.fighter2;
@@ -42,7 +42,7 @@ export function NivelCompeticaoSection({ data, lang = 'pt' }: { data: NivelCompe
 
   return (
     <section>
-      <SectionHeader number="03" title={t.nivel_title} accent={t.nivel_accent} />
+      <SectionHeader number={sectionNumber ?? '03'} title={t.nivel_title} accent={t.nivel_accent} />
 
       {/* Fighter names header */}
       <div className="grid grid-cols-[1fr_auto_1fr] items-center mb-2">
@@ -81,7 +81,7 @@ export function NivelCompeticaoSection({ data, lang = 'pt' }: { data: NivelCompe
 
       {/* Note */}
       {data.oponentes_em_comum_note && (
-        <p className="mt-6 text-xs text-white/30 leading-relaxed text-center max-w-2xl mx-auto">
+        <p className="mt-6 text-sm text-white/75 leading-relaxed text-center max-w-2xl mx-auto">
           {data.oponentes_em_comum_note}
         </p>
       )}

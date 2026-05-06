@@ -7,7 +7,7 @@ description: Generate detailed 15-section pre-fight analysis for UFC main card f
 
 ## Overview
 
-Generate a complete 15-section pre-fight analysis for the specified UFC fight(s). This skill delegates to the `fight-analyst-maincard` agent.
+Generate a complete 15-section pre-fight analysis for the specified UFC fight(s). This skill delegates to the `fight-analyst` agent.
 
 ## Steps
 
@@ -39,7 +39,7 @@ Generate a complete 15-section pre-fight analysis for the specified UFC fight(s)
 ## Data Contract
 
 See @.claude/rules/fight-analyst-sections.md for the complete 15-section data specification.
-See @.claude/agents/fight-analyst-maincard.md for rules, writing style, and quality checklist.
+See @.claude/agents/fight-analyst.md for rules, writing style, and quality checklist.
 
 ## Important
 

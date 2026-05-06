@@ -41,6 +41,15 @@ export async function POST(request: Request) {
  */
 export async function GET(request: Request) {
   const url = new URL(request.url);
+  const secret = url.searchParams.get('secret');
+  const expectedSecret = process.env.CRON_SECRET;
+  if (!expectedSecret) {
+    return NextResponse.json({ error: 'CRON_SECRET not configured' }, { status: 503 });
+  }
+  if (secret !== expectedSecret) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   const type = url.searchParams.get('type');
 
   if (!type) {

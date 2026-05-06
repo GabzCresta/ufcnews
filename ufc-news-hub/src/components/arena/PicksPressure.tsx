@@ -1,7 +1,6 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { Target } from 'lucide-react';
 import type { EventoAtualLiga, MembroLiga } from '@/types/arena';
 
 interface PicksPressureProps {
@@ -18,49 +17,48 @@ export function PicksPressure({ eventoAtual, membros, mostrarNomesPendentes }: P
   const isLive = eventoAtual.status === 'ao_vivo';
 
   const pendentes = membros
-    .filter(m => m.picks_status === 'pending')
-    .map(m => m.display_name || m.username);
+    .filter((m) => m.picks_status === 'pending')
+    .map((m) => m.display_name || m.username);
+
+  const accent = isLive ? 'text-ufc-red' : todosProntos ? 'text-green-400' : 'text-ufc-gold';
+  const barColor = isLive ? 'bg-ufc-red' : todosProntos ? 'bg-green-400' : 'bg-ufc-gold';
 
   return (
-    <div className={`neu-card rounded-xl p-4 mb-4 border-l-4 ${
-      isLive ? 'border-l-ufc-red' : todosProntos ? 'border-l-green-500' : 'border-l-yellow-500'
-    }`}>
-      <div className="flex items-center gap-2 mb-2">
+    <div>
+      <div className="mb-3 flex items-center gap-3">
         {isLive ? (
-          <span className="relative flex h-3 w-3">
+          <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ufc-red opacity-75" />
-            <span className="relative inline-flex h-3 w-3 rounded-full bg-ufc-red" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-ufc-red" />
           </span>
-        ) : (
-          <Target className={`w-4 h-4 ${todosProntos ? 'text-green-400' : 'text-yellow-400'}`} />
-        )}
-        <span className="text-sm font-medium text-white">
-          {eventoAtual.nome}
+        ) : null}
+        <span className={`font-display text-[10px] uppercase tracking-[0.3em] ${accent}`}>
+          {isLive ? t('live_label') : 'Evento ativo'}
         </span>
-        {isLive ? (
-          <span className="text-xs font-display uppercase tracking-widest text-ufc-red">{t('live_label')}</span>
-        ) : (
-          <span className="text-sm text-dark-textMuted">
-            {todosProntos
-              ? t('all_ready')
-              : `${membros_com_picks}/${total_membros} ${t('made_picks')}`
-            }
-          </span>
-        )}
+        <span className="h-px flex-1 bg-dark-border" />
+        <span className="font-display text-[10px] uppercase tracking-[0.22em] tabular-nums text-dark-textMuted">
+          {membros_com_picks} / {total_membros}
+        </span>
       </div>
 
-      <div className="w-full h-2 bg-dark-bg rounded-full overflow-hidden">
+      <h3 className="font-display text-lg sm:text-xl uppercase tracking-[0.03em] text-dark-text leading-tight">
+        {eventoAtual.nome}
+      </h3>
+
+      <p className="mt-1.5 font-display text-[11px] uppercase tracking-[0.2em] text-dark-textMuted">
+        {todosProntos ? t('all_ready') : `${membros_com_picks}/${total_membros} ${t('made_picks')}`}
+      </p>
+
+      <div className="mt-4 h-0.5 w-full bg-dark-border/60 overflow-hidden">
         <div
-          className={`h-full rounded-full transition-all duration-500 ${
-            todosProntos ? 'bg-green-500' : 'bg-yellow-500'
-          }`}
+          className={`h-full ${barColor} transition-[width] duration-700`}
           style={{ width: `${percent}%` }}
         />
       </div>
 
       {!todosProntos && mostrarNomesPendentes && pendentes.length > 0 && (
-        <p className="text-xs text-dark-textMuted mt-2">
-          {t('missing')} {pendentes.join(', ')}
+        <p className="mt-3 font-display text-[10px] uppercase tracking-[0.16em] text-dark-textMuted">
+          <span className="text-dark-text">{t('missing')}</span> {pendentes.join(' · ')}
         </p>
       )}
     </div>

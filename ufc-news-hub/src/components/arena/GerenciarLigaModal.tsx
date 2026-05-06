@@ -4,7 +4,8 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import Image from 'next/image';
 import { X, ImageIcon, Settings, Users, UserMinus, Eye, EyeOff, Swords, BarChart3, Trophy, MessageCircle, Globe, Lock } from 'lucide-react';
-import { NIVEL_CONFIG, type Liga, type MembroLiga, type NivelUsuario } from '@/types/arena';
+import { type Liga, type MembroLiga, type NivelUsuario } from '@/types/arena';
+import { NivelBadge } from '@/components/arena/NivelBadge';
 import { BannerUpload } from './BannerUpload';
 import { ConfirmarExpulsaoModal } from './ConfirmarExpulsaoModal';
 
@@ -285,7 +286,6 @@ export function GerenciarLigaModal({
                   <p className="text-center text-dark-textMuted py-4">{t('no_members')}</p>
                 ) : (
                   membros.map(membro => {
-                    const nivelConfig = NIVEL_CONFIG[membro.nivel as NivelUsuario];
                     const displayName = membro.display_name || membro.username;
 
                     return (
@@ -313,9 +313,9 @@ export function GerenciarLigaModal({
                           <span className="text-sm font-medium text-white truncate block">
                             {displayName}
                           </span>
-                          <span className="text-xs text-dark-textMuted">
-                            {nivelConfig?.icone} {membro.nivel}
-                          </span>
+                          <div className="mt-0.5">
+                            <NivelBadge nivel={membro.nivel as NivelUsuario} size="sm" />
+                          </div>
                         </div>
 
                         {membro.is_admin ? (

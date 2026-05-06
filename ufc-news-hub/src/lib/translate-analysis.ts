@@ -1,7 +1,13 @@
 // ═══════════════════════════════════════════════════════════
 // Analysis Translation Utility (PT -> EN)
-// Translates hardcoded Portuguese analysis data to English
+// Mechanical dictionary fallback used when a locale-specific
+// data-en.ts file does not exist for an analysis.
+//
+// PREFERRED: AI-translated data-en.ts via translator agent.
+// This module is the safety net only.
 // ═══════════════════════════════════════════════════════════
+
+import type { Lang } from './i18n-labels';
 
 // ── Weight Classes ──
 const weightClasses: Record<string, string> = {
@@ -42,18 +48,36 @@ const methods: Record<string, string> = {
   'Desqualificacao': 'Disqualification',
 };
 
-// ── Months (full + abbreviated) ──
+// ── Months (full) ──
 const monthsFull: Record<string, string> = {
-  'Janeiro': 'January', 'Fevereiro': 'February', 'Marco': 'March',
-  'Abril': 'April', 'Maio': 'May', 'Junho': 'June',
-  'Julho': 'July', 'Agosto': 'August', 'Setembro': 'September',
-  'Outubro': 'October', 'Novembro': 'November', 'Dezembro': 'December',
+  'Janeiro': 'January',
+  'Fevereiro': 'February',
+  'Marco': 'March',
+  'Abril': 'April',
+  'Maio': 'May',
+  'Junho': 'June',
+  'Julho': 'July',
+  'Agosto': 'August',
+  'Setembro': 'September',
+  'Outubro': 'October',
+  'Novembro': 'November',
+  'Dezembro': 'December',
 };
 
+// ── Months (abbreviated) ──
 const monthsAbbr: Record<string, string> = {
-  'Jan': 'Jan', 'Fev': 'Feb', 'Mar': 'Mar', 'Abr': 'Apr',
-  'Mai': 'May', 'Jun': 'Jun', 'Jul': 'Jul', 'Ago': 'Aug',
-  'Set': 'Sep', 'Out': 'Oct', 'Nov': 'Nov', 'Dez': 'Dec',
+  'Jan': 'Jan',
+  'Fev': 'Feb',
+  'Mar': 'Mar',
+  'Abr': 'Apr',
+  'Mai': 'May',
+  'Jun': 'Jun',
+  'Jul': 'Jul',
+  'Ago': 'Aug',
+  'Set': 'Sep',
+  'Out': 'Oct',
+  'Nov': 'Nov',
+  'Dez': 'Dec',
 };
 
 // ── Stat Labels ──
@@ -70,73 +94,101 @@ const statLabels: Record<string, string> = {
 
 // ── Tale of Tape Labels ──
 const taleOfTapeLabels: Record<string, string> = {
-  'Idade': 'Age', 'Altura': 'Height', 'Envergadura': 'Reach',
-  'Stance': 'Stance', 'Academia': 'Gym', 'Peso': 'Weight',
+  'Idade': 'Age',
+  'Altura': 'Height',
+  'Envergadura': 'Reach',
+  'Stance': 'Stance',
+  'Academia': 'Gym',
+  'Peso': 'Weight',
 };
 
-// ── Confidence / Risk / Momentum Labels ──
+// ── Confidence / Risk / Momentum / Quality Labels ──
 const labels: Record<string, string> = {
   // Confidence
-  'MEDIA': 'MEDIUM', 'MEDIA-ALTA': 'MEDIUM-HIGH', 'ALTA': 'HIGH',
-  'BAIXA': 'LOW', 'MEDIA-BAIXA': 'MEDIUM-LOW',
+  'MEDIA': 'MEDIUM',
+  'MEDIA-ALTA': 'MEDIUM-HIGH',
+  'ALTA': 'HIGH',
+  'BAIXA': 'LOW',
+  'MEDIA-BAIXA': 'MEDIUM-LOW',
   // Risk
-  'RISCO ALTO': 'HIGH RISK', 'RISCO MEDIO': 'MEDIUM RISK',
-  'RISCO BAIXO': 'LOW RISK', 'POSITIVO': 'POSITIVE',
-  'ENORME POSITIVO': 'HUGE POSITIVE', 'NEUTRO': 'NEUTRAL',
+  'RISCO ALTO': 'HIGH RISK',
+  'RISCO MEDIO': 'MEDIUM RISK',
+  'RISCO BAIXO': 'LOW RISK',
+  'POSITIVO': 'POSITIVE',
+  'ENORME POSITIVO': 'HUGE POSITIVE',
+  'NEUTRO': 'NEUTRAL',
   // Momentum
-  'Em Alta': 'On Fire', 'Em Ascensao': 'Rising',
-  'Em Recuperacao': 'Recovering', 'Estavel': 'Stable',
+  'Em Alta': 'On Fire',
+  'Em Ascensao': 'Rising',
+  'Em Recuperacao': 'Recovering',
+  'Estavel': 'Stable',
   'Estavel (com ressalvas)': 'Stable (with caveats)',
   // Quality
-  'Excelente': 'Excellent', 'Muito Bom': 'Very Good',
-  'Bom': 'Good', 'Medio': 'Average', 'Ruim': 'Poor',
-  // Betting
-  'forte': 'strong', 'moderado': 'moderate', 'leve': 'slight',
-  'alta': 'high', 'media': 'medium', 'baixa': 'low',
+  'Excelente': 'Excellent',
+  'Muito Bom': 'Very Good',
+  'Bom': 'Good',
+  'Medio': 'Average',
+  'Ruim': 'Poor',
+  // Betting edge
+  'forte': 'strong',
+  'moderado': 'moderate',
+  'leve': 'slight',
+  'alta': 'high',
+  'media': 'medium',
+  'baixa': 'low',
   // Value pick types
-  'Over/Under': 'Over/Under', 'Duracao': 'Duration',
-  'Metodo': 'Method', 'Moneyline': 'Moneyline', 'Prop': 'Prop',
+  'Over/Under': 'Over/Under',
+  'Duracao': 'Duration',
+  'Metodo': 'Method',
+  'Moneyline': 'Moneyline',
+  'Prop': 'Prop',
   // Danger zone
-  'EQUILIBRADO': 'BALANCED', 'ROUND DECISIVO': 'DECISIVE ROUND',
+  'EQUILIBRADO': 'BALANCED',
+  'ROUND DECISIVO': 'DECISIVE ROUND',
 };
 
-// ── Common Phrases (longer strings found in analysis content) ──
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const phrases: [RegExp, any][] = [
-  // Section headers / titles
-  [/Pos Weigh-Ins/gi, 'Post Weigh-Ins'],
-  [/Titulo em Jogo/gi, 'Title on the Line'],
-  [/Perdeu Titulo/gi, 'Lost Title'],
-  [/Queixo Exposto/gi, 'Chin Exposed'],
-  [/Fraqueza Exposta/gi, 'Weakness Exposed'],
-  [/Bastidores/gi, 'Behind the Scenes'],
+// ── Common Phrases ──
+type PhraseRule = [RegExp, string | ((_match: string, ...args: string[]) => string)];
 
-  // Date pattern: "NN de Month, YYYY"
+const phrases: PhraseRule[] = [
+  // Date pattern: "NN de Month, YYYY" -> "Month NN, YYYY"
   [/(\d{1,2}) de (Janeiro|Fevereiro|Marco|Abril|Maio|Junho|Julho|Agosto|Setembro|Outubro|Novembro|Dezembro),?\s*(\d{4})/gi,
     (_match: string, day: string, month: string, year: string) => {
-      const m = monthsFull[month.charAt(0).toUpperCase() + month.slice(1).toLowerCase()] || month;
+      const key = month.charAt(0).toUpperCase() + month.slice(1).toLowerCase();
+      const m = monthsFull[key] || month;
       return `${m} ${day}, ${year}`;
     }],
 
-  // Abbreviated month + year: "Set 2023", "Ago 2024"
+  // Abbreviated month + year: "Set 2023" -> "Sep 2023"
   [/\b(Jan|Fev|Mar|Abr|Mai|Jun|Jul|Ago|Set|Out|Nov|Dez)\b(?=\s+\d{4})/g,
     (_match: string, month: string) => monthsAbbr[month] || month],
 
   // Rankings: "#N Peso Medio" -> "#N Middleweight"
   [/#(\d+)\s+(Peso\s+(?:Pesado|Meio-Pesado|Medio|Meio-Medio|Leve|Pena|Galo|Mosca|Palha)(?:\s+Feminino)?)/gi,
     (_match: string, num: string, wc: string) => {
-      const translated = Object.entries(weightClasses).find(([k]) =>
+      const entry = Object.entries(weightClasses).find(([k]) =>
         k.toLowerCase().startsWith(wc.toLowerCase())
       );
-      return `#${num} ${translated ? translated[1].replace(/\s*\(.*\)/, '') : wc}`;
+      const translated = entry ? entry[1].replace(/\s*\(.*\)/, '') : wc;
+      return `#${num} ${translated}`;
     }],
 
-  // "Campeao" / "Campeã"
+  // Champion terms
   [/\bCampeao\b/g, 'Champion'],
   [/\bCampea\b/g, 'Champion'],
   [/\bex-campeao\b/gi, 'former champion'],
 
-  // Common terms in descriptions
+  // Disclaimer
+  [/Analise estatistica para fins informativos\. Aposte com responsabilidade\./g,
+    'Statistical analysis for informational purposes only. Bet responsibly.'],
+
+  // EN-specific replacements
+  [/Pos Weigh-Ins/gi, 'Post Weigh-Ins'],
+  [/Titulo em Jogo/gi, 'Title on the Line'],
+  [/Perdeu Titulo/gi, 'Lost Title'],
+  [/Queixo Exposto/gi, 'Chin Exposed'],
+  [/Fraqueza Exposta/gi, 'Weakness Exposed'],
+  [/Bastidores/gi, 'Behind the Scenes'],
   [/\banos\b/g, 'years old'],
   [/\bmeses parado\b/g, 'months inactive'],
   [/\bderrotas seguidas\b/g, 'consecutive losses'],
@@ -147,40 +199,23 @@ const phrases: [RegExp, any][] = [
   [/\bpolegadas\b/g, 'inches'],
   [/\blutador\b/gi, 'fighter'],
   [/\bluta em casa\b/gi, 'fights at home'],
-  [/\bprimeira sub da carreira\b/gi, 'first submission loss of career'],
-
-  // Disclaimer
-  [/Analise estatistica para fins informativos\. Aposte com responsabilidade\./g,
-    'Statistical analysis for informational purposes only. Bet responsibly.'],
-
-  // Creator kit terms
-  [/Carroseis?\b/gi, 'Carousels'],
-  [/\bslides?\b/gi, 'slides'],
-  [/\btaxa de swipe\b/gi, 'swipe rate'],
-  [/\btaxa de save\b/gi, 'save rate'],
-  [/\bDica do Algoritmo\b/gi, 'Algorithm Tip'],
-  [/\bCaption Pronta\b/gi, 'Ready Caption'],
-  [/\bTamanho ideal\b/gi, 'Ideal size'],
-
-  // Betting terms
   [/\bArmadilha:/g, 'Trap:'],
   [/\bArmadilha\b/g, 'Trap'],
-  [/\bOdds Reais\b/gi, 'Real Odds'],
 ];
 
 // ── Deep recursive translator ──
 function translateString(str: string): string {
   if (!str || typeof str !== 'string') return str;
 
-  let result = str;
-
-  // 1. Exact matches (weight classes, methods, stat labels, labels)
+  // 1. Exact matches across all dictionaries
   const allExactMaps = [weightClasses, methods, statLabels, taleOfTapeLabels, labels];
   for (const map of allExactMaps) {
-    if (map[result]) return map[result];
+    if (map[str]) return map[str];
   }
 
-  // 2. Partial replacements within string
+  let result = str;
+
+  // 2. Partial replacements via phrases
   for (const [pattern, replacement] of phrases) {
     result = result.replace(pattern, replacement as string);
   }
@@ -222,7 +257,6 @@ function translateDeep<T>(obj: T): T {
   }
 
   if (typeof obj === 'object' && obj !== null) {
-    // Skip Date objects
     if (obj instanceof Date) return obj;
 
     const result: Record<string, unknown> = {};
@@ -236,21 +270,17 @@ function translateDeep<T>(obj: T): T {
 }
 
 /**
- * Translates analysis data from Portuguese to English.
- * Pass any analysis data object and it recursively translates all strings.
- *
- * Usage:
- * ```
- * const data = locale === 'en' ? translateAnalysis(analisePT) : analisePT;
- * ```
+ * Translates analysis data from Portuguese to English (mechanical fallback).
+ * Returns input unchanged when locale is undefined or 'pt'.
  */
-export function translateAnalysis<T>(data: T): T {
+export function translateAnalysis<T>(data: T, locale?: Lang): T {
+  if (!locale || locale === 'pt') return data;
   return translateDeep(data);
 }
 
 /**
- * Helper to check if locale is English
+ * Helper to check if locale needs translation
  */
-export function isEnglish(locale: string): boolean {
-  return locale === 'en';
+export function needsTranslation(locale: string): boolean {
+  return locale !== 'pt';
 }

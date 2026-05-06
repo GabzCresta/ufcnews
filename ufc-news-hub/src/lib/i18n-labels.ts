@@ -20,6 +20,8 @@ const labels = {
     habilidades_accent: 'Habilidades',
     distribuicao_title: 'Distribuicao de',
     distribuicao_accent: 'Vitorias',
+    distribuicao_derrotas_title: 'Distribuicao de',
+    distribuicao_derrotas_accent: 'Derrotas',
     danger_title: 'Danger',
     danger_accent: 'Zones',
     intangiveis_title: 'Fatores Invisiveis &',
@@ -126,6 +128,16 @@ const labels = {
     over_under: 'Over/Under',
     melhor_valor: 'Melhor Valor',
 
+    // Verdict block (CONTRACT v2)
+    veredito: 'Veredito',
+    vencedor: 'Vencedor',
+    vencedor_previsto: 'Vencedor Previsto',
+    empate: 'empate',
+    apostas: 'Apostas',
+    melhor_aposta: 'Melhor Aposta',
+    stats_que_importam: 'Stats Que Importam',
+    armadilha: 'Armadilha',
+
     // Radar apostador
     odds_fonte: 'Fonte:',
     edge_forte: 'forte',
@@ -169,6 +181,8 @@ const labels = {
     habilidades_accent: 'Profile',
     distribuicao_title: 'Win',
     distribuicao_accent: 'Distribution',
+    distribuicao_derrotas_title: 'Loss',
+    distribuicao_derrotas_accent: 'Distribution',
     danger_title: 'Danger',
     danger_accent: 'Zones',
     intangiveis_title: 'Invisible Factors &',
@@ -275,6 +289,16 @@ const labels = {
     over_under: 'Over/Under',
     melhor_valor: 'Best Value',
 
+    // Verdict block (CONTRACT v2)
+    veredito: 'Verdict',
+    vencedor: 'Winner',
+    vencedor_previsto: 'Predicted Winner',
+    empate: 'draw',
+    apostas: 'Bets',
+    melhor_aposta: 'Best Bet',
+    stats_que_importam: 'Stats That Matter',
+    armadilha: 'The Trap',
+
     // Radar apostador
     odds_fonte: 'Source:',
     edge_forte: 'strong',
@@ -306,10 +330,11 @@ const labels = {
   },
 } as const;
 
+
 export type Labels = typeof labels['pt'];
 
 export function getLabels(lang: Lang = 'pt'): Labels {
-  return labels[lang] as Labels;
+  return (labels[lang] ?? labels.pt) as Labels;
 }
 
 export function getQualityLabel(score: number, lang: Lang = 'pt'): string {

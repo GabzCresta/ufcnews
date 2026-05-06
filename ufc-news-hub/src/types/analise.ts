@@ -110,11 +110,6 @@ export interface Analise {
   subtitulo: string | null;
   lutador1_id: string | null;
   lutador2_id: string | null;
-  artigo_conteudo: string;
-  tactical_breakdown: TacticalBreakdownData;
-  fight_prediction: FightPredictionData;
-  fighter1_info: FighterInfo;
-  fighter2_info: FighterInfo;
   evento_nome: string | null;
   evento_data: string | null;
   evento_local: string | null;
@@ -126,6 +121,14 @@ export interface Analise {
   analysis_type?: string;
   created_at: string;
   updated_at: string;
+  // Deprecated placeholder fields kept for type compatibility with legacy static
+  // page.tsx files. No DB column backs them (dropped in migration 010) and no
+  // current view renders them. Safe to omit in new code.
+  artigo_conteudo: string;
+  tactical_breakdown: TacticalBreakdownData;
+  fight_prediction: FightPredictionData;
+  fighter1_info: FighterInfo;
+  fighter2_info: FighterInfo;
 }
 
 // ==========================================
@@ -224,6 +227,7 @@ export interface HeroSectionData {
     ranking: string;
     info_extra: string; // e.g. "Waianae, Hawaii | 34 anos"
     imagem_fullbody_url: string | null;
+    imagem_head_url?: string | null; // headshot, renders as circular avatar above the name
   };
   fighter2: {
     nome_completo: string;
@@ -233,6 +237,7 @@ export interface HeroSectionData {
     ranking: string;
     info_extra: string;
     imagem_fullbody_url: string | null;
+    imagem_head_url?: string | null;
   };
 }
 
@@ -377,6 +382,19 @@ export interface DistribuicaoVitoriasSectionData {
   insight: string;
 }
 
+export interface LossMethodBreakdown {
+  ko_tko: { count: number; percent: number };
+  submission: { count: number; percent: number };
+  decision: { count: number; percent: number };
+  total_losses: number;
+}
+
+export interface DistribuicaoDerrotasSectionData {
+  fighter1: { nome: string } & LossMethodBreakdown;
+  fighter2: { nome: string } & LossMethodBreakdown;
+  insight: string;
+}
+
 export interface DangerZoneCard {
   rounds: string; // e.g. "R1-R2"
   danger_level: number; // 1-10
@@ -423,6 +441,54 @@ export interface CaminhosVitoriaSectionData {
   };
 }
 
+export interface UnderdogPath {
+  viable: boolean;
+  probability_estimate: number; // realistic % the underdog actually wins
+  key_scenario: string; // step-by-step of HOW the underdog wins
+  required_conditions: string[]; // what MUST happen
+  historical_precedent?: string; // past fight with similar dynamic
+}
+
+export interface ConvictionData {
+  thesis: string; // 3-sentence central thesis (see fight-analyst agent spec)
+  conviction_score: number; // 1-10, capped at 5 if rationale is not specific
+  conviction_rationale: string; // why THIS score and not +/-1
+  conviction_breakers: string[]; // 2-4 specific conditions that invalidate the thesis
+  underdog_path: UnderdogPath;
+}
+
+// ──────────────────────────────────────────────────────────
+// Flexible value picks (NEW 2026-04-07)
+// ──────────────────────────────────────────────────────────
+// The legacy `value_picks` is locked to 3 fixed slots
+// (moneyline + method + over_under), which forces every analysis
+// into the same betting categories. The new model is a free-form
+// array — any number of picks, any type label, any prop.
+// Use whichever picks actually have value for THIS specific fight.
+
+export interface ValuePickItem {
+  type: string; // free text: "Moneyline", "Method", "Round Group", "Total Strikes", "Parlay", "Method Group", etc.
+  pick: string; // "Ulberg +110", "Ulberg by KO/TKO", "Fight ends in R2 or R3", "Ulberg + Under 3.5"
+  odds?: string; // optional: "+110", "+350", "-125"
+  reasoning: string; // 1-2 sentences explaining the value
+}
+
+export interface ValuePicksBlock {
+  picks: ValuePickItem[];
+  best_bet?: {
+    pick: string; // e.g. "Ulberg by KO at +350"
+    reasoning: string; // why this is the single best bet of the fight
+  };
+}
+
+// Inline anchor stat callouts (1-3 max), shown in the verdict block.
+// Used for the "stats that actually matter" — not a flat edge list.
+export interface KeyStat {
+  value: string; // "88%", "NUNCA", "4/5", "+350"
+  label: string; // "das derrotas do Jiri vieram por nocaute"
+  sublabel?: string; // optional secondary line: "(Tapology, ultimas 12 lutas)"
+}
+
 export interface PrevisaoFinalSectionData {
   winner_name: string;
   winner_side: 'fighter1' | 'fighter2';
@@ -437,12 +503,26 @@ export interface PrevisaoFinalSectionData {
     fighter2: { nome: string; percent: number };
     draw: number;
   };
+  // LEGACY value picks — kept for backward compatibility with old pages.
+  // New pages should use `value_picks_v2` instead.
   value_picks?: {
     moneyline: { pick: string; reasoning: string };
     method: { pick: string; reasoning: string };
     over_under: { pick: string; rounds: number; reasoning: string };
     best_value: string;
   };
+  // NEW (2026-04-07) — flexible array of value picks, any number, any type.
+  // When present, the verdict renders this and ignores the legacy shape.
+  value_picks_v2?: ValuePicksBlock;
+  // NEW — 1-3 anchor stats inline in the verdict (replaces flat edges list).
+  key_stats?: KeyStat[];
+  // NEW — odds moved into the verdict in the new shape (was in radar_apostador).
+  odds?: OddsDisplay;
+  // NEW — armadilha (trap warning) moved into the verdict in the new shape.
+  armadilha?: { titulo: string; descricao: string };
+  // Conviction backbone — optional for backward compatibility with legacy analyses.
+  // New main-card analyses MUST populate this; prelims populate a reduced form.
+  conviction?: ConvictionData;
 }
 
 export interface TalkingPoint {
@@ -559,21 +639,65 @@ export interface RadarApostadorSectionData {
   disclaimer: string;
 }
 
+// ==========================================
+// NEW (2026-04-06) — "Less is More" restructure
+// ==========================================
+// The analysis is being refactored to 9 dense sections instead of 15.
+// Cut sections (narrativa, momento_atual, oponente_comum, danger_zones,
+// intangiveis, caminhos_vitoria, o_que_observar, creator_kit) are now
+// OPTIONAL so legacy pages keep rendering unchanged. New pages populate
+// only the 9 sections below.
+
+// Single high-value qualitative insight, shown right after the hero.
+// Not a dossier — one thing that might decide the fight.
+export interface QualitativeInsightSectionData {
+  tag?: string; // e.g. "O X-FACTOR DA LUTA"
+  headline: string; // The big statement
+  insight: string; // 2-3 sentences of dense context, no inline citations
+  // Optional tension block — two contradicting truths presented side-by-side.
+  // Use when the insight is about a paradox (e.g., maximum focus vs structural stat problem).
+  tension?: {
+    truth_a: string;
+    truth_b: string;
+  };
+}
+
+// Head-to-head skill comparison (replaces the 0-100 scale with ruim/medio labels).
+// No absolute scores — only who has the advantage and by how much.
+export interface SkillComparison {
+  label: string; // "Striking em Distancia"
+  advantage: 'fighter1' | 'fighter2' | 'even';
+  gap: number; // 0-5 magnitude of advantage (0 = even, 5 = dominant)
+  note: string; // 1 sentence specific justification
+}
+
+export interface PerfilHabilidadesV2SectionData {
+  skills: SkillComparison[]; // ~6 skills
+  summary: string; // 1-2 sentences on overall balance
+}
+
 export interface FullAnalysisData {
   hero: HeroSectionData;
-  narrativa: NarrativaSectionData;
-  momento_atual: MomentoAtualSectionData;
+  // NEW: single qualitative insight, rendered right after hero
+  qualitative_insight?: QualitativeInsightSectionData;
+  // Legacy sections — now optional. New pages skip these.
+  narrativa?: NarrativaSectionData;
+  momento_atual?: MomentoAtualSectionData;
   nivel_competicao: NivelCompeticaoSectionData;
-  oponente_comum: OponenteComumSectionData | null; // optional
+  oponente_comum?: OponenteComumSectionData | null;
   comparacao_estatistica: ComparacaoEstatisticaSectionData;
-  perfil_habilidades: PerfilHabilidadesSectionData;
+  // Legacy skills (0-100 + labels). Prefer perfil_habilidades_v2 for new pages.
+  perfil_habilidades?: PerfilHabilidadesSectionData;
+  // NEW: head-to-head skill comparison
+  perfil_habilidades_v2?: PerfilHabilidadesV2SectionData;
   distribuicao_vitorias: DistribuicaoVitoriasSectionData;
-  danger_zones: DangerZonesSectionData;
-  intangiveis: IntangiveisSectionData;
-  caminhos_vitoria: CaminhosVitoriaSectionData;
+  distribuicao_derrotas?: DistribuicaoDerrotasSectionData;
+  danger_zones?: DangerZonesSectionData;
+  intangiveis?: IntangiveisSectionData;
+  caminhos_vitoria?: CaminhosVitoriaSectionData;
   previsao_final: PrevisaoFinalSectionData;
-  o_que_observar: OQueObservarSectionData;
-  creator_kit: CreatorKitSectionData;
+  o_que_observar?: OQueObservarSectionData;
+  creator_kit?: CreatorKitSectionData;
   betting_value?: BettingValueSectionData | null;
   radar_apostador?: RadarApostadorSectionData | null;
 }
@@ -630,6 +754,7 @@ export interface PrelimsAnalysisData {
   historico_lutas: PrelimsHistoricoData;
   perfil_habilidades: PerfilHabilidadesSectionData;
   distribuicao_vitorias: DistribuicaoVitoriasSectionData;
+  distribuicao_derrotas?: DistribuicaoDerrotasSectionData;
   previsao_final: PrevisaoFinalSectionData;
 }
 

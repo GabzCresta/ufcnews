@@ -1,0 +1,226 @@
+import type { FullSingleAnalise } from '@/types/analise';
+
+export const analise: FullSingleAnalise = {
+  id: 'gaziev-vs-pericic',
+  evento_id: null,
+  slug: 'gaziev-vs-pericic',
+  titulo: 'Gaziev vs Pericic: Two Bears, One Round',
+  subtitulo:
+    'Shamil Gaziev returns after an 82-second KO loss to Cortes-Acosta. Brando Pericic debuted in Perth with a R1 KO and has never gone past round one in the UFC. Polymarket sits at Pericic 58%. Heavyweight is volatile, but the fight-by-fight read goes to the newcomer right up until The Bahrani Bear takes his first deep breath.',
+  lutador1_id: null,
+  lutador2_id: null,
+  artigo_conteudo: '',
+  tactical_breakdown: {
+    stats: [],
+    radarData: [],
+    taleOfTape: {
+      fighter1: { altura: '6\'4"', envergadura: '78"', idade: 36, academia: 'KHK MMA Team' },
+      fighter2: { altura: '6\'5"', envergadura: '79"', idade: 31, academia: 'City Kickboxing' },
+    },
+    pathsToVictory: { fighter1: [], fighter2: [] },
+    dangerZones: [],
+  },
+  fight_prediction: {
+    predictedWinner: 'fighter2',
+    predictedMethod: 'KO/TKO R1-R2',
+    confidence: 'MEDIUM',
+    fighter1Scenarios: [],
+    fighter2Scenarios: [],
+    keyFactors: [],
+    xFactor: { title: '', description: '' },
+  },
+  fighter1_info: {
+    nome: 'Shamil Gaziev',
+    apelido: 'The Bahrani Bear',
+    record: '14-2-0',
+    ranking: 'N/R Heavyweight',
+    ultimasLutas: [
+      { result: 'L', opponent: 'Waldo Cortes-Acosta', method: 'KO R1 (1:22)', event: 'UFC Qatar (Nov 2025)' },
+      { result: 'W', opponent: 'Thomas Petersen', method: 'TKO R1 (3:12)', event: 'UFC Saudi Arabia (Feb 2025)' },
+      { result: 'W', opponent: "Don'Tale Mayes", method: 'Unanimous Decision (30-27 x3)', event: 'UFC Fight Night (Aug 2024)' },
+    ],
+  },
+  fighter2_info: {
+    nome: 'Brando Pericic',
+    apelido: 'The Balkan Bear',
+    record: '6-1-0',
+    ranking: 'N/R Heavyweight',
+    ultimasLutas: [
+      { result: 'W', opponent: 'Louie Sutherland', method: 'TKO R1 (1:48)', event: 'UFC London (Mar 2026)' },
+      { result: 'W', opponent: 'Elisha Ellison', method: 'KO R1 (1:55)', event: 'UFC Perth (Sep 2025) - Debut' },
+      { result: 'L', opponent: 'Randall Rayment', method: 'Sub R2 (RNC, 1:36)', event: 'HEX FS 30 (May 2024)' },
+    ],
+  },
+  evento_nome: 'UFC Fight Night: Della Maddalena vs Prates',
+  evento_data: 'May 2, 2026',
+  evento_local: 'RAC Arena, Perth, Australia',
+  categoria_peso: 'Heavyweight (265 lbs)',
+  num_rounds: 3,
+  is_titulo: false,
+  broadcast: null,
+  status: 'published',
+  analysis_type: 'full_single',
+  created_at: new Date().toISOString(),
+  updated_at: new Date().toISOString(),
+  full_analysis: {
+    hero: {
+      evento_nome: 'UFC Fight Night: Della Maddalena vs Prates',
+      evento_data: 'May 2, 2026',
+      evento_local: 'RAC Arena, Perth, Australia',
+      categoria_peso: 'Heavyweight (265 lbs)',
+      num_rounds: 3,
+      titulo_em_jogo: null,
+      tagline: 'Two Bears, One Round',
+      tagline_sub: 'Bahrani Bear vs Balkan Bear. The veteran arrives five months removed from a KO. The newcomer has never been past R1.',
+      fighter1: {
+        nome_completo: 'Shamil "The Bahrani Bear" Gaziev',
+        apelido: 'The Bahrani Bear',
+        sobrenome: 'Gaziev',
+        record: '14-2-0',
+        ranking: 'N/R Heavyweight',
+        info_extra: 'Khunzakh, Dagestan (rep. Bahrain) | 36 years old',
+        imagem_fullbody_url: 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/GAZIEV_SHAMIL_L_02-01.png?itok=T5oLga_h',
+      },
+      fighter2: {
+        nome_completo: 'Brando "The Balkan Bear" Pericic',
+        apelido: 'The Balkan Bear',
+        sobrenome: 'Pericic',
+        record: '6-1-0',
+        ranking: 'N/R Heavyweight',
+        info_extra: 'Adelaide, Australia (Auckland-based) | 31 years old',
+        imagem_fullbody_url: 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-09/PERICIC_BRANDO_L_09-27.png?itok=Wznvmlkh',
+      },
+    },
+    qualitative_insight: {
+      tag: 'THE DECIDING POINT',
+      headline: 'Whoever Survives The First Deep Breath',
+      insight:
+        'The easy story is Pericic — younger, fresher, two sub-2-minute KOs in a row, with Eugene Bareman in his corner after becoming Adesanya\'s permanent sparring partner. Read the tape and the picture gets more nuanced. Pericic has NEVER been past round one in the UFC, and the only time he passed R1 in his entire MMA career (vs Rayment) he was finished by RNC at 1:36 of round two. His MMA cardio in long rounds is literally a question mark — 3:43 of total Octagon time. Gaziev has survival tools: he\'s been four rounds with Rozenstruik, has a Dagestani chin (recent KOs notwithstanding), and his power is real (R1 TKO of Petersen with a walk-off right hand). If Pericic doesn\'t finish by ~3 minutes of R1, he steps into completely uncharted territory where Gaziev has the experience edge.',
+      tension: {
+        truth_a: 'Pericic is younger (31 vs 36), taller (1 inch), 1 inch more reach, both orthodox. Coming off two sub-2-minute R1 KOs in consecutive months. CKB camp under Bareman, hand-picked by Adesanya for sparring in the rematch with Pereira. Fought in Perth on debut and KO\'d in 1:55. Friendly stage, immediate momentum.',
+        truth_b: 'Gaziev has 13 pro MMA fights, 7 pre-UFC finishes all in R1-R2. Has been past R1 against real-calibre opponents (Rozenstruik 4 rounds, Mayes UD 30-27). Pericic has NEVER tested MMA cardio past 3:36 of R2 against Rayment, and when tested, he got submitted. Pericic\'s 15.13 SLpM is statistically impossible to sustain over three rounds.',
+      },
+    },
+    momento_atual: {
+      fighter1: {
+        nome: 'Shamil Gaziev', color: 'red', momentum_score: 4, momentum_label: 'Recovering', momentum_trend: 'descending',
+        momentum_note: 'Coming off an 82-second KO loss to Waldo Cortes-Acosta in a short-notice main event at UFC Qatar (Nov 2025). Taking an R1 KO at 36 in heavyweight is the classic decline signal. Before that: a good run with a TKO of Petersen in February, a UD over Mayes — but the loss to Rozenstruik in March 2024 was already a cardio gas-out (corner stopped between rounds before R5). Emerging pattern: real power in the early rounds, but chin and cardio sliding.',
+        recent_fights: [
+          { date: 'Nov 2025', opponent: 'Waldo Cortes-Acosta', result: 'L', method: 'KO R1 (1:22)', opponent_rank: 'Top 5 HW', quality_score: 5, quality_label: 'Excellent', note: 'Short-notice main event. KO in 82s. Chin starting to crack.' },
+          { date: 'Feb 2025', opponent: 'Thomas Petersen', result: 'W', method: 'TKO R1 (3:12)', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'Walk-off right hand. Power confirmed.' },
+          { date: 'Aug 2024', opponent: "Don'Tale Mayes", result: 'W', method: 'Unanimous Decision (30-27 x3)', opponent_rank: 'N/R HW Veteran', quality_score: 2, quality_label: 'Average', note: 'Went 15 minutes. Cardio held against a vet.' },
+          { date: 'Mar 2024', opponent: 'Jairzinho Rozenstruik', result: 'L', method: 'TKO R4 (5:00)', opponent_rank: 'Top 15 HW', quality_score: 3, quality_label: 'Good', note: 'Corner stopped before R5 on the cardio gas-out. Four rounds. Cardio is the vulnerability.' },
+          { date: 'Dec 2023', opponent: 'Martin Buday', result: 'W', method: 'TKO R2 (elbows)', opponent_rank: 'N/R', quality_score: 2, quality_label: 'Average', note: 'UFC debut. Performance of the Night. 60-13 sig strikes.' },
+        ],
+      },
+      fighter2: {
+        nome: 'Brando Pericic', color: 'blue', momentum_score: 9, momentum_label: 'Hot', momentum_trend: 'ascending',
+        momentum_note: 'Red-hot. Two consecutive UFC R1 KOs: TKO of Sutherland at 1:48 at UFC London (Mar 2026) and KO of Ellison at 1:55 at UFC Perth (debut, Sep 2025). 100% career finish rate (6/6 wins by finish, all in R1). Pro kickboxing background 18-2, former ISKA Super HW Commonwealth champion. Hand-picked by Israel Adesanya for sparring in the rematch with Pereira, became permanent camp under Bareman. But the UFC sample is tiny: 3:43 of total Octagon time. MMA cardio in long rounds = zero sample.',
+        recent_fights: [
+          { date: 'Mar 2026', opponent: 'Louie Sutherland', result: 'W', method: 'TKO R1 (1:48)', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'Ground-and-pound. Sutherland 0-2 UFC.' },
+          { date: 'Sep 2025', opponent: 'Elisha Ellison', result: 'W', method: 'KO R1 (1:55)', opponent_rank: 'N/R', quality_score: 1, quality_label: 'Poor', note: 'UFC debut in Perth. Ellison was a debutant.' },
+          { date: 'May 2024', opponent: 'Randall Rayment', result: 'L', method: 'Sub R2 (RNC, 1:36)', opponent_rank: 'Regional', quality_score: 1, quality_label: 'Poor', note: 'ONLY MMA loss. Sub defense is a real gap.' },
+          { date: 'Apr 2024', opponent: 'Kelvin Fitial', result: 'W', method: 'Sub R1 (RNC, 3:26)', opponent_rank: 'Regional', quality_score: 1, quality_label: 'Poor', note: 'Pre-UFC.' },
+          { date: '2023', opponent: 'Phillips / Kenny', result: 'W', method: 'Finish R1', opponent_rank: 'Regional', quality_score: 1, quality_label: 'Poor', note: 'Australian regional circuit.' },
+        ],
+      },
+    },
+    nivel_competicao: {
+      fighter1: { nome: 'Gaziev', media_oponentes: 3, media_oponentes_label: 'Good', aproveitamento: '3W-2L (last 5)', contra_top5: '0W-1L' },
+      fighter2: { nome: 'Pericic', media_oponentes: 1, media_oponentes_label: 'Poor', aproveitamento: '4W-1L (last 5)', contra_top5: '0W-0L' },
+      oponentes_em_comum_count: { fighter1: 0, fighter2: 0 },
+      oponentes_em_comum_note: 'No common opponents. Calibre gap is large: Gaziev faced Cortes-Acosta (top 5), Rozenstruik (top 15), and Mayes (UFC vet). Pericic faced Sutherland (0-2 UFC), Ellison (UFC debutant), and Rayment (regional). 2-tier gap in favor of Gaziev (predicted loser). R2 Tier 1 calibre flag fires: note the calibre advantage, but Tier 2 does NOT fire because Gaziev has 2 recent KO losses and isn\'t in sustained elite tier.',
+    },
+    comparacao_estatistica: {
+      stats: [
+        { label: 'Sig. Strikes per Minute', valueA: 4.8, valueB: 15.13, maxVal: 16, format: 'decimal', note: 'Pericic\'s 15.13 SLpM is inflated by minimal sample (3:43 total Octagon time).' },
+        { label: 'Strike Accuracy (%)', valueA: 44, valueB: 59, maxVal: 100, format: 'percent', note: 'Pericic accuracy is higher, but on a sample of 2 R1 fights.' },
+        { label: 'Sig. Strikes Absorbed/Min', valueA: 4.73, valueB: 1.57, maxVal: 6, format: 'decimal', reverseWinner: true, note: 'Gaziev SApM 4.73 is high. Pericic\'s 1.57 inflated by short fights.' },
+        { label: 'Strike Defense (%)', valueA: 42, valueB: 66, maxVal: 100, format: 'percent', note: 'Gaziev strike def 42% is a clear vulnerability. Pericic minimal sample.' },
+        { label: 'Takedowns per 15 Min', valueA: 0.53, valueB: 0.0, maxVal: 5, format: 'decimal', note: 'Neither uses wrestling. The fight\'s on the feet.' },
+        { label: 'Submissions per 15 Min', valueA: 0.5, valueB: 0.0, maxVal: 3, format: 'decimal', note: 'Pericic\'s only MMA loss was a sub (RNC). Sub defense is a gap.' },
+      ],
+      tale_of_tape: [
+        { label: 'Age', fighter1: '36', fighter2: '31', note: 'Pericic 5 years younger. Age matters at HW.' },
+        { label: 'Height', fighter1: '6\'4"', fighter2: '6\'5"', note: 'Pericic 1 inch taller.' },
+        { label: 'Reach', fighter1: '78"', fighter2: '79"', note: 'Pericic 1 inch more reach.' },
+        { label: 'Stance', fighter1: 'Orthodox', fighter2: 'Orthodox', note: 'No stance asymmetry.' },
+        { label: 'Camp', fighter1: 'KHK MMA Team (Bahrain)', fighter2: 'City Kickboxing (Auckland)', note: 'Former training under Abdulmanap. CKB under Bareman.' },
+      ],
+    },
+    perfil_habilidades_v2: {
+      skills: [
+        { label: 'Distance Striking', advantage: 'fighter2', gap: 2, note: 'Pericic is a pro kickboxer 18-2, superior technique on the feet.' },
+        { label: 'Knockout Power', advantage: 'even', gap: 0, note: 'Both have real one-shot power.' },
+        { label: 'Long-Round Cardio', advantage: 'fighter1', gap: 3, note: 'Gaziev has gone 15 (Mayes) and 4 rounds (Rozenstruik). Pericic 0:00 past 1:55 in the UFC.' },
+        { label: 'Wrestling / Clinch', advantage: 'fighter1', gap: 2, note: 'Trained under Abdulmanap. But TD avg 0.53 is low.' },
+        { label: 'Submission Defense', advantage: 'fighter1', gap: 3, note: 'Pericic\'s only loss = RNC. Clear gap.' },
+        { label: 'UFC Experience', advantage: 'fighter1', gap: 4, note: 'Gaziev 5 UFC fights against real calibre. Pericic 2 fights, 3:43 total.' },
+      ],
+      summary: 'Pericic wins on pure striking and momentum. Gaziev wins almost everything that involves getting past the first deep breath. The fight pivots on who controls R1 timing.',
+    },
+    distribuicao_vitorias: {
+      fighter1: { nome: 'Gaziev', ko_tko: { count: 8, percent: 57 }, submission: { count: 5, percent: 36 }, decision: { count: 1, percent: 7 }, total_wins: 14 },
+      fighter2: { nome: 'Pericic', ko_tko: { count: 5, percent: 83 }, submission: { count: 1, percent: 17 }, decision: { count: 0, percent: 0 }, total_wins: 6 },
+      insight: 'Heavyweight has a decision rate of just 28.6%. Pericic is 100% finisher (6/6 R1). Gaziev is 93% finisher. Combined, Under 1.5 and Fight ITD are the two soundest legs in the book.',
+    },
+    previsao_final: {
+      winner_name: 'Brando Pericic', winner_side: 'fighter2',
+      predicted_method: 'KO/TKO R1-R2', confidence_score: 6, confidence_label: 'MEDIUM',
+      explanation:
+        'The pick is Brando Pericic by KO/TKO in R1-R2. The fight-by-fight read points to an edge in three dimensions: age (5 years younger, important at HW), momentum (2 consecutive sub-2-minute R1 KOs vs Gaziev\'s November R1 KO), and stage (already fought and KO\'d in Perth). The path is specific: exploit Gaziev\'s 42% strike defense in the first 3 minutes, land the power that put Sutherland and Ellison down, finish before unknown territory. Gaziev\'s path (~42%) exists and is real: survive the early storm and capitalize when Pericic enters R2-R3 with no MMA sample. Conviction 6 because heavyweight is volatile, the R2 Tier 1 calibre flag fires (Gaziev\'s opponents are 2 tiers above Pericic\'s), and Pericic\'s window is too narrow to be comfortable.',
+      x_factor: {
+        title: 'The First Deep Breath Decides',
+        description: 'If Pericic lands clean in R1 before the 3-minute mark, he finishes the way he did Sutherland and Ellison. If Gaziev survives, the fight enters completely new territory for Pericic. That\'s exactly what happened against Rayment: he passed R1, got caught in an RNC in R2.',
+      },
+      upset_alert: {
+        title: 'Gaziev survives R1 and capitalizes',
+        description: 'Viable scenario (~42%): Gaziev runs the Buday blueprint (60-13 sig strikes, R2 finish) but as the survivor of the early storm. Holds the Pericic power in R1 with clinch or movement, lets the newcomer gas out, finishes R2-R3.',
+      },
+      probabilities: { fighter1: { nome: 'Gaziev', percent: 42 }, fighter2: { nome: 'Pericic', percent: 55 }, draw: 3 },
+      conviction: {
+        thesis:
+          'The thesis: Brando Pericic wins because, first, he\'s 5 years younger (31 vs 36) in a division where decline accelerates after 35 — and Gaziev just took a R1 KO 5 months ago. Second, the immediate momentum is overwhelming: 2 sub-2-minute R1 KOs in the last 7 months vs Gaziev\'s R1 loss. Third, the Perth stage already proved his (debut R1 KO in Sep 2025). Path: Pericic exploits Gaziev\'s 42% strike defense in the first 3 minutes via R1 power. Collapses if Gaziev survives the early storm.',
+        conviction_score: 6,
+        conviction_rationale: 'Conviction 6 because three dimensions (age, momentum, stage) converge on Pericic, but the R2 Tier 1 calibre flag FIRES: Sutherland/Ellison calibre never tested Pericic past 2 minutes, and Gaziev has survival tools that would invalidate the thesis if he gets past the early storm. Pericic\'s sample is literally 3:43 of Octagon time.',
+        conviction_breakers: [
+          'Gaziev survives the first 3 minutes of R1 with clinch or movement',
+          'Pericic\'s R2 MMA cardio collapses, replicating the Rayment pattern',
+          'Gaziev lands first with the power that dropped Petersen',
+          'Pericic\'s weak sub defense becomes a factor if Gaziev leverages his Abdulmanap-camp grappling',
+        ],
+        underdog_path: {
+          viable: true, probability_estimate: 42,
+          key_scenario: 'Gaziev opens cautious, avoids the jab line in the first 90 seconds, occupies clinch against the cage to neutralize R1 power. Pushes pace at the end of R1, makes Pericic mouth-breathe. Enters R2 with Pericic in unknown territory. Lands the right hand that dropped Petersen, finishes R2 or wins decision.',
+          required_conditions: [
+            'Survive the first 3 minutes of R1 without getting dropped',
+            'Force Pericic to clear 4 minutes of fight time for the first time in the UFC',
+            'Land at least one clean right hand before R3',
+            'Don\'t take the bait to trade open with a pro 18-2 kickboxer',
+          ],
+          historical_precedent: 'Gaziev vs Buday (UFC, Dec 2023): his UFC debut, finished R2 via TKO from elbows. Knows how to build an R2 finish against a striker who didn\'t expect to go long.',
+        },
+      },
+      value_picks_v2: {
+        picks: [
+          { type: 'Moneyline', pick: 'Brando Pericic', odds: '-138 (Polymarket)', reasoning: 'Polymarket has Pericic 58% / Gaziev 44%. Fight-by-fight read points to 55/42/3. Modest edge (~3%) over implied probability.' },
+          { type: 'Total Rounds', pick: 'Under 1.5 Rounds', odds: '-150 to -200', reasoning: 'Pericic 6/6 R1 finishes, 0% UFC decision rate. Gaziev 13/14 career finishes. HW finish rate 71%, decision rate 28.6%. Real probability of clearing R1.5 = ~30-35%. At -180 implied 64.3%. Edge ~5-8%. Soundest pick.' },
+          { type: 'Method', pick: 'Fight Inside the Distance', odds: '-300 to -400', reasoning: 'KO/TKO/Sub combined. HW ~71% finishes. Real probability ~78-82%. Hedge against uncertainty over who wins.' },
+          { type: 'Longshot', pick: 'Gaziev by KO in R1', odds: '+400', reasoning: 'Power exists (Petersen TKO R1, Buday Performance of the Night). Real probability ~12-15%. Hedge if you took Pericic ML.' },
+        ],
+        best_bet: { pick: 'Under 1.5 Rounds at -150 to -200', reasoning: 'Combines HW base finish rate (~71%), Pericic\'s 100% R1 finish rate in the UFC (2/2, both sub-2-minute), Gaziev\'s 93% career finish rate, and zero Pericic sample past 1:55 in the UFC. Real probability ~70%. Doesn\'t require picking a winner — just requires the fight ending where both historically end fights.' },
+      },
+      key_stats: [
+        { value: 'NEVER', label: 'Pericic past R1 in the UFC', sublabel: '2 fights, 3:43 total. KOs at 1:48 and 1:55.' },
+        { value: '5 months', label: 'Since Gaziev\'s R1 KO', sublabel: 'Cortes-Acosta KO in 82s at UFC Qatar. Short window.' },
+        { value: '15.13', label: 'Pericic\'s SLpM (unsustainable)', sublabel: 'Inflated by minimal sample. Will not hold over three rounds.' },
+        { value: '42%', label: 'Gaziev\'s strike defense', sublabel: 'Clear vulnerability against an 18-2 pro kickboxer.' },
+      ],
+      odds: { fighter1_odds: '+120', fighter2_odds: '-138', fighter1_name: 'Gaziev', fighter2_name: 'Pericic', source: 'Polymarket as of April 25, 2026 (Pericic 58% / Gaziev 44%). DraftKings/BetMGM specific moneyline not captured in this snapshot.' },
+      armadilha: {
+        titulo: 'Trap: Pericic by KO in R1 at -180',
+        descricao: 'The market hammers Pericic by KO R1 on the "he only finishes R1, every finish was sub-2-minute" narrative. At -180, that implies ~64% probability. Two holes in the scenario: first, Gaziev has survival tools (4 rounds with Rozenstruik, 15 minutes with Mayes) that Pericic\'s opponents literally didn\'t have. Second, if Gaziev survives the first 3 minutes of R1, Pericic enters territory he\'s NEVER been in the UFC. Real probability of Pericic finishing in R1 = ~38-45%, not 65%. Take Pericic ML or Under 1.5 Rounds — not the combined leg.',
+      },
+    },
+  },
+};

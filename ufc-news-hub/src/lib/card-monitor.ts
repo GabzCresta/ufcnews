@@ -394,7 +394,7 @@ export async function sincronizarLutas(eventoId: string, eventoNome: string, scr
       }
     } else {
       // Fight completely removed
-      await query("UPDATE lutas SET status = 'cancelada' WHERE id = $1", [luta.id]);
+      await query("UPDATE lutas SET status = 'cancelada'::status_luta WHERE id = $1", [luta.id]);
       const deleted = await query<{ usuario_id: string }>(
         'DELETE FROM previsoes WHERE luta_id = $1 RETURNING usuario_id', [luta.id]);
       result.picksInvalidated += deleted.length;

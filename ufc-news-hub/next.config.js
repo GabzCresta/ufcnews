@@ -39,7 +39,7 @@ const securityHeaders = [
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
             "img-src 'self' blob: data: https: http:",
             "font-src 'self' https://fonts.gstatic.com",
-            "connect-src 'self' https://api.anthropic.com https://*.vercel-analytics.com https://*.vercel-insights.com",
+            "connect-src 'self' wss://crenas.site https://api.anthropic.com https://*.vercel-analytics.com https://*.vercel-insights.com",
             "frame-src 'self' https://www.youtube.com https://accounts.google.com",
             "object-src 'none'",
             "base-uri 'self'",
@@ -53,6 +53,15 @@ const securityHeaders = [
 ];
 
 const nextConfig = {
+  async redirects() {
+    return [
+      {
+        source: '/:locale(pt|en|fr|es)/dev/:path*',
+        destination: '/:locale/hub/:path*',
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
@@ -149,11 +158,11 @@ const nextConfig = {
       },
     ],
   },
+  // TypeScript is enforced during build (catches real type bugs).
+  // ESLint is left off-build (style warnings like no-console shouldn't
+  // block deploy). Run `npm run lint` locally to see them.
   eslint: {
     ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
   },
 };
 

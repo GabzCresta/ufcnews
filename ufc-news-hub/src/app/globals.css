@@ -457,6 +457,41 @@
   .float-particle:nth-child(8) { animation-delay: 4s; left: 90%; }
 }
 
+/* ═══════════════════════════════════════════════════════════════
+ * Tenant theming — applies tenant colors to Arena-wide ufc-red classes
+ * The [data-tenant] attribute is set by /hub/arena/layout.tsx and excludes
+ * "crenas" so default branding stays untouched.
+ * ═══════════════════════════════════════════════════════════════ */
+[data-tenant]:not([data-tenant="crenas"]) .text-ufc-red,
+[data-tenant]:not([data-tenant="crenas"]) [class*="text-ufc-red/"] {
+  color: var(--tenant-primary) !important;
+}
+[data-tenant]:not([data-tenant="crenas"]) .bg-ufc-red,
+[data-tenant]:not([data-tenant="crenas"]) [class*="bg-ufc-red/"] {
+  background-color: var(--tenant-primary) !important;
+}
+[data-tenant]:not([data-tenant="crenas"]) .border-ufc-red,
+[data-tenant]:not([data-tenant="crenas"]) [class*="border-ufc-red/"] {
+  border-color: var(--tenant-primary) !important;
+}
+[data-tenant]:not([data-tenant="crenas"]) .ring-ufc-red,
+[data-tenant]:not([data-tenant="crenas"]) [class*="ring-ufc-red/"] {
+  --tw-ring-color: var(--tenant-primary) !important;
+}
+[data-tenant]:not([data-tenant="crenas"]) .from-ufc-red {
+  --tw-gradient-from: var(--tenant-primary) !important;
+}
+[data-tenant]:not([data-tenant="crenas"]) .to-ufc-red {
+  --tw-gradient-to: var(--tenant-primary) !important;
+}
+[data-tenant]:not([data-tenant="crenas"]) .shadow-ufc-red,
+[data-tenant]:not([data-tenant="crenas"]) [class*="shadow-ufc-red/"] {
+  --tw-shadow-color: var(--tenant-primary) !important;
+}
+[data-tenant]:not([data-tenant="crenas"]) .text-ufc-gold {
+  color: var(--tenant-accent) !important;
+}
+
 /* Estilos para imagens de fallback */
 .img-fallback {
   @apply bg-dark-card flex items-center justify-center;

@@ -98,13 +98,13 @@ export async function GET(request: NextRequest) {
       },
       {
         id: 'fight-analyst-main',
-        nome: 'Fight Analyst Main Card',
+        nome: 'Fight Analyst (main card)',
         status: mainDone ? 'completed' : mainCount > 0 ? 'running' : 'pending',
         detalhes: `${mainCount}/${mainLutas} analises main card`,
       },
       {
         id: 'fight-analyst-prelims',
-        nome: 'Fight Analyst Prelims',
+        nome: 'Fight Analyst (prelims)',
         status: prelimDone ? 'completed' : prelimCount > 0 ? 'running' : 'pending',
         detalhes: `${prelimCount}/${prelimLutas} analises prelims`,
       },

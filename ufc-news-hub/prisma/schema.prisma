@@ -49,6 +49,25 @@ model analises {
   card_overview                             Json?
   analysis_type                             String?    @default("single_fight") @db.VarChar(20)
   full_analysis                             Json?
+  full_analysis_en                          Json?
+  full_analysis_es                          Json?
+  full_analysis_fr                          Json?
+  prelims_analysis                          Json?
+  prelims_analysis_en                       Json?
+  prelims_analysis_es                       Json?
+  prelims_analysis_fr                       Json?
+  predicted_winner_name                     String?    @db.VarChar(255)
+  predicted_winner_side                     String?    @db.VarChar(50)
+  predicted_method                          String?    @db.VarChar(100)
+  confidence_score                          Float?
+  actual_winner_name                        String?    @db.VarChar(255)
+  prediction_correct                        Boolean?
+  method_correct                            Boolean?
+  event_overview                            Json?
+  event_overview_en                         Json?
+  event_overview_es                         Json?
+  event_overview_fr                         Json?
+  card_position                             String?    @db.VarChar(20)
   created_at                                DateTime?  @default(now()) @db.Timestamptz(6)
   updated_at                                DateTime?  @default(now()) @db.Timestamptz(6)
   eventos                                   eventos?   @relation(fields: [evento_id], references: [id], onUpdate: NoAction)
@@ -209,6 +228,8 @@ model eventos {
   evento_pontuacao      evento_pontuacao[]
   lutas                 lutas[]
   previsoes             previsoes[]
+  enquetes              enquetes[]
+  pipeline_execucoes    pipeline_execucoes[]
 
   @@index([data_evento(sort: Desc)], map: "idx_eventos_data")
   @@index([data_evento(sort: Desc)], map: "idx_eventos_data_desc")
@@ -358,6 +379,7 @@ model lutadores {
   lutas_lutas_vencedor_idTolutadores       lutas[]             @relation("lutas_vencedor_idTolutadores")
   noticia_entidades                        noticia_entidades[]
   previsoes                                previsoes[]
+  reacoes_luta                             reacoes_luta[]
 
   @@index([pais], map: "idx_lutadores_pais")
   @@index([categoria_peso, ranking_divisao], map: "idx_lutadores_ranking")
@@ -390,6 +412,8 @@ model lutas {
   lutadores_lutas_lutador2_idTolutadores lutadores       @relation("lutas_lutador2_idTolutadores", fields: [lutador2_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   lutadores_lutas_vencedor_idTolutadores lutadores?      @relation("lutas_vencedor_idTolutadores", fields: [vencedor_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   previsoes                              previsoes[]
+  enquetes                               enquetes[]
+  reacoes_luta                           reacoes_luta[]
 
   @@index([evento_id], map: "idx_lutas_evento")
   @@index([lutador1_id], map: "idx_lutas_lutador1")
@@ -418,6 +442,16 @@ model noticias {
   titulo            String              @db.VarChar(500)
   subtitulo         String?
   conteudo_completo String?
+  reel_caption      String?
+  titulo_en         String?             @db.VarChar(500)
+  titulo_es         String?             @db.VarChar(500)
+  titulo_fr         String?             @db.VarChar(500)
+  subtitulo_en      String?
+  subtitulo_es      String?
+  subtitulo_fr      String?
+  conteudo_en       String?
+  conteudo_es       String?
+  conteudo_fr       String?
   imagem_url        String?             @db.VarChar(500)
   fonte_url         String              @unique @db.VarChar(500)
   fonte_nome        String?             @default("MMAMania") @db.VarChar(100)
@@ -429,6 +463,7 @@ model noticias {
   created_at        DateTime?           @default(now()) @db.Timestamptz(6)
   comentarios       comentarios[]
   noticia_entidades noticia_entidades[]
+  news_likes        news_likes[]
 
   @@index([categoria], map: "idx_noticias_categoria")
   @@index([created_at(sort: Desc)], map: "idx_noticias_created")
@@ -563,6 +598,7 @@ model usuarios_arena {
   chat_evento                                  chat_evento[]
   notificacoes                                 notificacoes[]
   previsoes                                    previsoes[]
+  reacoes_luta                                 reacoes_luta[]
 
   @@index([pontos_totais(sort: Desc)], map: "idx_usuarios_arena_pontos")
   @@index([username], map: "idx_usuarios_arena_username")
@@ -890,4 +926,201 @@ model PerformanceReview {
   @@index([agentId])
   @@index([year, weekNumber])
   @@map("performance_reviews")
+}
+
+// ═══════════════════════════════════════
+// SHADOW TABLES (previously outside Prisma)
+// ═══════════════════════════════════════
+
+/// Card monitor check logs - tracks UFC card change detection runs
+model card_monitor_logs {
+  id               String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  evento_nome      String
+  checked_at       DateTime? @default(now()) @db.Timestamptz(6)
+  changes_detected Boolean?  @default(false)
+  changes          Json?     @default("[]")
+  status           String?   @default("ok")
+  error_message    String?
+  snapshot         Json?
+
+  @@index([checked_at(sort: Desc)], map: "idx_card_monitor_logs_checked")
+  @@index([evento_nome], map: "idx_card_monitor_logs_evento")
+}
+
+/// Card snapshots - point-in-time snapshots of UFC event fight cards
+model card_snapshots {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  evento_nome String
+  evento_data String?
+  fights      Json
+  created_at  DateTime? @default(now()) @db.Timestamptz(6)
+  is_latest   Boolean?  @default(true)
+
+  @@index([evento_nome, is_latest], map: "idx_card_snapshots_evento_latest")
+  @@index([created_at(sort: Desc)], map: "idx_card_snapshots_created")
+}
+
+/// Clients CRM - managed by admin dashboard
+model clientes {
+  id             String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  nome           String    @db.VarChar(100)
+  email          String?   @db.VarChar(255)
+  telefone       String?   @db.VarChar(20)
+  tipo           String?   @default("creator") @db.VarChar(20)
+  plano          String?   @default("basico") @db.VarChar(20)
+  status         String?   @default("ativo") @db.VarChar(20)
+  notas          String?
+  arena_liga_id  String?   @db.Uuid
+  contato_nome   String?   @db.VarChar(100)
+  redes_sociais  Json?     @default("{}")
+  config         Json?     @default("{}")
+  created_at     DateTime? @default(now()) @db.Timestamptz(6)
+  updated_at     DateTime? @default(now()) @db.Timestamptz(6)
+
+  entregas cliente_entregas[]
+
+  @@index([status], map: "idx_clientes_status")
+}
+
+/// Weekly delivery checklist items per client
+model cliente_entregas {
+  id            String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  cliente_id    String    @db.Uuid
+  semana_inicio String    @db.VarChar(10)
+  dia_semana    String    @db.VarChar(10)
+  tipo_entrega  String    @db.VarChar(50)
+  titulo        String    @db.VarChar(200)
+  status        String?   @default("pendente") @db.VarChar(20)
+  concluido_em  DateTime? @db.Timestamptz(6)
+  concluido_por String?   @db.VarChar(100)
+  notas         String?
+  dados         Json?     @default("{}")
+  created_at    DateTime? @default(now()) @db.Timestamptz(6)
+  updated_at    DateTime? @default(now()) @db.Timestamptz(6)
+
+  cliente clientes @relation(fields: [cliente_id], references: [id], onDelete: Cascade)
+
+  @@unique([cliente_id, semana_inicio, tipo_entrega], map: "entrega_unica")
+  @@index([cliente_id], map: "idx_entregas_cliente")
+  @@index([semana_inicio], map: "idx_entregas_semana")
+}
+
+/// Polls displayed on the public site
+model enquetes {
+  id           String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  evento_id    String?   @db.Uuid
+  luta_id      String?   @db.Uuid
+  pergunta     String
+  opcao_a_id   String?   @db.Uuid
+  opcao_a_nome String    @db.VarChar(100)
+  opcao_b_id   String?   @db.Uuid
+  opcao_b_nome String    @db.VarChar(100)
+  ativa        Boolean?  @default(true)
+  created_at   DateTime? @default(now()) @db.Timestamptz(6)
+
+  votos        votos_enquete[]
+  comentarios  comentarios_enquete[]
+  eventos      eventos?    @relation(fields: [evento_id], references: [id], onUpdate: NoAction)
+  lutas        lutas?      @relation(fields: [luta_id], references: [id], onUpdate: NoAction)
+
+  @@index([ativa], map: "idx_enquetes_ativa")
+}
+
+/// Votes on polls
+model votos_enquete {
+  id         String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  enquete_id String    @db.Uuid
+  opcao      String    @db.Char(1)
+  usuario_id String?   @db.Uuid
+  guest_id   String?   @db.VarChar(64)
+  ip_address String?
+  created_at DateTime? @default(now()) @db.Timestamptz(6)
+
+  enquete enquetes @relation(fields: [enquete_id], references: [id], onDelete: Cascade)
+
+  @@index([enquete_id], map: "idx_votos_enquete_enquete")
+}
+
+/// Comments on polls
+model comentarios_enquete {
+  id         String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  enquete_id String    @db.Uuid
+  usuario_id String?   @db.Uuid
+  guest_nome String?   @db.VarChar(50)
+  conteudo   String
+  created_at DateTime? @default(now()) @db.Timestamptz(6)
+
+  enquete enquetes @relation(fields: [enquete_id], references: [id], onDelete: Cascade)
+
+  @@index([enquete_id, created_at(sort: Desc)], map: "idx_comentarios_enquete_enquete")
+}
+
+/// Live fight reactions from arena users
+model reacoes_luta {
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  luta_id    String    @db.Uuid
+  lutador_id String    @db.Uuid
+  usuario_id String    @db.Uuid
+  created_at DateTime? @default(now()) @db.Timestamptz(6)
+
+  lutas          lutas          @relation(fields: [luta_id], references: [id], onDelete: Cascade)
+  lutadores      lutadores      @relation(fields: [lutador_id], references: [id], onDelete: Cascade)
+  usuarios_arena usuarios_arena @relation(fields: [usuario_id], references: [id], onDelete: Cascade)
+
+  @@index([luta_id], map: "idx_reacoes_luta_luta_id")
+  @@index([created_at], map: "idx_reacoes_luta_created")
+  @@index([usuario_id, created_at], map: "idx_reacoes_luta_usuario")
+}
+
+/// News article likes
+model news_likes {
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  noticia_id String    @db.Uuid
+  user_hash  String    @db.VarChar(64)
+  created_at DateTime? @default(now()) @db.Timestamptz(6)
+
+  noticias noticias @relation(fields: [noticia_id], references: [id], onDelete: Cascade)
+
+  @@unique([noticia_id, user_hash], map: "news_like_unico")
+  @@index([noticia_id], map: "idx_news_likes_noticia")
+}
+
+// ═══════════════════════════════════════
+// NEW TABLES (Dashboard Unification)
+// ═══════════════════════════════════════
+
+/// Tracks weekly analysis pipeline execution (replaces localStorage)
+model pipeline_execucoes {
+  id                    String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  evento_id             String?   @db.Uuid
+  evento_nome           String    @db.VarChar(255)
+  semana_inicio         DateTime  @db.Date
+  status                String?   @default("pendente") @db.VarChar(20)
+  step_atual            String?   @db.VarChar(50)
+  steps_completos       Json?     @default("[]")
+  custo_total_usd       Decimal?  @default(0) @db.Decimal(8, 4)
+  tempo_total_min       Int?      @default(0)
+  intervencoes_manuais  Int?      @default(0)
+  iniciado_em           DateTime? @db.Timestamptz(6)
+  concluido_em          DateTime? @db.Timestamptz(6)
+  created_at            DateTime? @default(now()) @db.Timestamptz(6)
+  is_test               Boolean   @default(true)
+
+  eventos eventos? @relation(fields: [evento_id], references: [id], onUpdate: NoAction)
+
+  @@unique([evento_id, semana_inicio], map: "pipeline_exec_unica")
+  @@index([semana_inicio(sort: Desc)], map: "idx_pipeline_exec_semana")
+  @@index([status], map: "idx_pipeline_exec_status")
+}
+
+/// Cached dashboard metrics for fast loading
+model dashboard_metrics {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  metric_type String   @db.VarChar(50)
+  metric_date DateTime @db.Date
+  value       Json
+  created_at  DateTime? @default(now()) @db.Timestamptz(6)
+
+  @@unique([metric_type, metric_date], map: "dashboard_metric_unica")
+  @@index([metric_type], map: "idx_dashboard_metrics_type")
 }

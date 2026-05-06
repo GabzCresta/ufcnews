@@ -457,7 +457,7 @@ export const runNpmAuditFix = tool({
       const projectDir = path.resolve(process.cwd());
       let auditOutput: string;
       try {
-        auditOutput = execSync('npm audit --json 2>/dev/null', {
+        auditOutput = execSync('npm audit --json 2>/hub/null', {
           cwd: projectDir,
           encoding: 'utf-8',
           timeout: 30000,
@@ -581,7 +581,7 @@ export const npmAuditCheck = tool({
       const projectDir = path.resolve(process.cwd());
       let auditOutput: string;
       try {
-        auditOutput = execSync('npm audit --json 2>/dev/null', {
+        auditOutput = execSync('npm audit --json 2>/hub/null', {
           cwd: projectDir,
           encoding: 'utf-8',
           timeout: 30000,
@@ -655,7 +655,7 @@ export const checkDependencies = tool({
       // Uses grep -rE (Extended regex, works on both macOS BSD grep and GNU grep)
       try {
         const envCheck = execSync(
-          'grep -rlE "NEXT_PUBLIC_.*(SECRET|PASSWORD|PRIVATE_KEY)" src/ --include="*.ts" --include="*.tsx" 2>/dev/null || true',
+          'grep -rlE "NEXT_PUBLIC_.*(SECRET|PASSWORD|PRIVATE_KEY)" src/ --include="*.ts" --include="*.tsx" 2>/hub/null || true',
           { cwd: projectDir, encoding: 'utf-8', timeout: 10000 }
         ).trim();
         if (envCheck) {
@@ -665,7 +665,7 @@ export const checkDependencies = tool({
             try {
               // Use grep -oE (Extended regex) instead of -oP (Perl) for macOS compat
               const matches = execSync(
-                `grep -oE 'NEXT_PUBLIC_[A-Za-z_]*(SECRET|PASSWORD|PRIVATE_KEY)[A-Za-z_]*' "${file}" 2>/dev/null || true`,
+                `grep -oE 'NEXT_PUBLIC_[A-Za-z_]*(SECRET|PASSWORD|PRIVATE_KEY)[A-Za-z_]*' "${file}" 2>/hub/null || true`,
                 { cwd: projectDir, encoding: 'utf-8', timeout: 5000 }
               ).trim();
               const vars = matches.split('\n').filter(Boolean);
@@ -688,7 +688,7 @@ export const checkDependencies = tool({
       // Check for hardcoded API keys (exclude node_modules, .next, example files)
       try {
         const hardcodedKeys = execSync(
-          'grep -rl "sk-[a-zA-Z0-9]\\{20,\\}\\|ghp_[a-zA-Z0-9]\\{20,\\}\\|AKIA[a-zA-Z0-9]\\{16\\}" src/ --include="*.ts" --include="*.tsx" --exclude-dir=node_modules --exclude-dir=.next 2>/dev/null || true',
+          'grep -rl "sk-[a-zA-Z0-9]\\{20,\\}\\|ghp_[a-zA-Z0-9]\\{20,\\}\\|AKIA[a-zA-Z0-9]\\{16\\}" src/ --include="*.ts" --include="*.tsx" --exclude-dir=node_modules --exclude-dir=.next 2>/hub/null || true',
           { cwd: projectDir, encoding: 'utf-8', timeout: 10000 }
         ).trim();
         if (hardcodedKeys) {
@@ -1992,11 +1992,11 @@ export const authenticationAudit = tool({
     let hashingDetails = '';
     try {
       const bcryptCheck = execSync(
-        'grep -rl "bcrypt\\|argon2\\|scrypt" src/ --include="*.ts" --include="*.tsx" 2>/dev/null || true',
+        'grep -rl "bcrypt\\|argon2\\|scrypt" src/ --include="*.ts" --include="*.tsx" 2>/hub/null || true',
         { cwd: projectDir, encoding: 'utf-8', timeout: 10000 }
       ).trim();
       const shaCheck = execSync(
-        'grep -rl "createHash.*sha\\|SHA-256\\|SHA256" src/ --include="*.ts" --include="*.tsx" 2>/dev/null || true',
+        'grep -rl "createHash.*sha\\|SHA-256\\|SHA256" src/ --include="*.ts" --include="*.tsx" 2>/hub/null || true',
         { cwd: projectDir, encoding: 'utf-8', timeout: 10000 }
       ).trim();
 
@@ -2017,7 +2017,7 @@ export const authenticationAudit = tool({
     let authConfigFindings: string[] = [];
     try {
       const authFiles = execSync(
-        'grep -rl "NextAuth\\|getServerSession\\|createClient\\|clerk\\|supabase.*auth\\|jwt.*secret\\|SESSION" src/ --include="*.ts" --include="*.tsx" 2>/dev/null || true',
+        'grep -rl "NextAuth\\|getServerSession\\|createClient\\|clerk\\|supabase.*auth\\|jwt.*secret\\|SESSION" src/ --include="*.ts" --include="*.tsx" 2>/hub/null || true',
         { cwd: projectDir, encoding: 'utf-8', timeout: 10000 }
       ).trim();
       if (authFiles) {
@@ -2031,7 +2031,7 @@ export const authenticationAudit = tool({
     let jwtAnalysis = 'Nenhum uso de JWT encontrado no codebase';
     try {
       const jwtCheck = execSync(
-        'grep -rn "jsonwebtoken\\|jose\\|jwt\\.sign\\|jwt\\.verify\\|JWT_SECRET" src/ --include="*.ts" --include="*.tsx" 2>/dev/null || true',
+        'grep -rn "jsonwebtoken\\|jose\\|jwt\\.sign\\|jwt\\.verify\\|JWT_SECRET" src/ --include="*.ts" --include="*.tsx" 2>/hub/null || true',
         { cwd: projectDir, encoding: 'utf-8', timeout: 10000 }
       ).trim();
       if (jwtCheck) {
@@ -2184,7 +2184,7 @@ export const injectionAudit = tool({
     let rawSqlLocations: string[] = [];
     try {
       const rawSqlCheck = execSync(
-        'grep -rn "\\$queryRaw\\|\\$executeRaw\\|query(\\`\\|query("\\|query(\'\\|.query(" src/ --include="*.ts" --include="*.tsx" 2>/dev/null || true',
+        'grep -rn "\\$queryRaw\\|\\$executeRaw\\|query(\\`\\|query("\\|query(\'\\|.query(" src/ --include="*.ts" --include="*.tsx" 2>/hub/null || true',
         { cwd: projectDir, encoding: 'utf-8', timeout: 10000 }
       ).trim();
       if (rawSqlCheck) {
@@ -2198,7 +2198,7 @@ export const injectionAudit = tool({
     let prismaUsage = 'Nao detectado';
     try {
       const prismaCheck = execSync(
-        'grep -rl "prisma\\." src/ --include="*.ts" --include="*.tsx" 2>/dev/null | wc -l',
+        'grep -rl "prisma\\." src/ --include="*.ts" --include="*.tsx" 2>/hub/null | wc -l',
         { cwd: projectDir, encoding: 'utf-8', timeout: 10000 }
       ).trim();
       prismaUsage = `${prismaCheck} arquivos usam Prisma Client`;
@@ -2452,7 +2452,7 @@ export const rateLimitAudit = tool({
     let rateLimitMiddleware: string[] = [];
     try {
       const rlCheck = execSync(
-        'grep -rn "rateLimit\\|rate-limit\\|rateLimiter\\|throttle\\|too many requests\\|429" src/ --include="*.ts" --include="*.tsx" 2>/dev/null || true',
+        'grep -rn "rateLimit\\|rate-limit\\|rateLimiter\\|throttle\\|too many requests\\|429" src/ --include="*.ts" --include="*.tsx" 2>/hub/null || true',
         { cwd: projectDir, encoding: 'utf-8', timeout: 10000 }
       ).trim();
       if (rlCheck) {
@@ -2827,7 +2827,7 @@ export const corsAndCsrfAudit = tool({
     let csrfCodeFindings: string[] = [];
     try {
       const csrfCheck = execSync(
-        'grep -rn "csrf\\|CSRF\\|xsrf\\|XSRF\\|csrfToken\\|_csrf" src/ --include="*.ts" --include="*.tsx" 2>/dev/null || true',
+        'grep -rn "csrf\\|CSRF\\|xsrf\\|XSRF\\|csrfToken\\|_csrf" src/ --include="*.ts" --include="*.tsx" 2>/hub/null || true',
         { cwd: projectDir, encoding: 'utf-8', timeout: 10000 }
       ).trim();
       if (csrfCheck) {
@@ -3033,7 +3033,7 @@ export const owaspZapStyleScan = tool({
     let apiRoutes: string[] = [];
     try {
       const routeFiles = execSync(
-        'find src/app/api -name "route.ts" -type f 2>/dev/null',
+        'find src/app/api -name "route.ts" -type f 2>/hub/null',
         { cwd: projectDir, encoding: 'utf-8', timeout: 10000 }
       ).trim();
       if (routeFiles) {
@@ -3228,7 +3228,7 @@ export const bruteForceSimulation = tool({
     const loginBodyField = 'password';
     try {
       const authRoutes = execSync(
-        'find src/app/api -path "*auth*" -name "route.ts" -o -path "*login*" -name "route.ts" 2>/dev/null',
+        'find src/app/api -path "*auth*" -name "route.ts" -o -path "*login*" -name "route.ts" 2>/hub/null',
         { cwd: projectDir, encoding: 'utf-8', timeout: 5000 }
       ).trim();
       if (authRoutes) {
@@ -3330,7 +3330,7 @@ export const bruteForceSimulation = tool({
     let hasRateLimitCode = false;
     try {
       const rlCheck = execSync(
-        'grep -rn "rateLimit\\|rate.limit\\|attempts.*count\\|login.*count\\|too many\\|429" src/app/api/admin/ --include="*.ts" 2>/dev/null || true',
+        'grep -rn "rateLimit\\|rate.limit\\|attempts.*count\\|login.*count\\|too many\\|429" src/app/api/admin/ --include="*.ts" 2>/hub/null || true',
         { cwd: projectDir, encoding: 'utf-8', timeout: 5000 }
       ).trim();
       hasRateLimitCode = rlCheck.length > 0;
@@ -3478,15 +3478,15 @@ export const sessionHijackingTest = tool({
     let storageRisk = '';
     try {
       const localStorageCheck = execSync(
-        'grep -rn "localStorage\\|sessionStorage" src/ --include="*.ts" --include="*.tsx" 2>/dev/null | grep -i "token\\|auth\\|session" || true',
+        'grep -rn "localStorage\\|sessionStorage" src/ --include="*.ts" --include="*.tsx" 2>/hub/null | grep -i "token\\|auth\\|session" || true',
         { cwd: projectDir, encoding: 'utf-8', timeout: 5000 }
       ).trim();
       const cookieCheck = execSync(
-        'grep -rn "document\\.cookie\\|setCookie\\|js-cookie\\|httpOnly\\|Set-Cookie" src/ --include="*.ts" --include="*.tsx" 2>/dev/null || true',
+        'grep -rn "document\\.cookie\\|setCookie\\|js-cookie\\|httpOnly\\|Set-Cookie" src/ --include="*.ts" --include="*.tsx" 2>/hub/null || true',
         { cwd: projectDir, encoding: 'utf-8', timeout: 5000 }
       ).trim();
       const headerCheck = execSync(
-        'grep -rn "Authorization.*Bearer\\|headers.*token\\|Authorization" src/ --include="*.ts" --include="*.tsx" 2>/dev/null | head -5 || true',
+        'grep -rn "Authorization.*Bearer\\|headers.*token\\|Authorization" src/ --include="*.ts" --include="*.tsx" 2>/hub/null | head -5 || true',
         { cwd: projectDir, encoding: 'utf-8', timeout: 5000 }
       ).trim();
 
@@ -3682,11 +3682,11 @@ export const cookieSecurityAudit = tool({
     let authMechanism = 'DESCONHECIDO';
     try {
       const cookieUsage = execSync(
-        'grep -rn "Set-Cookie\\|res.cookie\\|setCookie\\|cookies()" src/ --include="*.ts" --include="*.tsx" 2>/dev/null | wc -l',
+        'grep -rn "Set-Cookie\\|res.cookie\\|setCookie\\|cookies()" src/ --include="*.ts" --include="*.tsx" 2>/hub/null | wc -l',
         { cwd: projectDir, encoding: 'utf-8', timeout: 5000 }
       ).trim();
       const headerUsage = execSync(
-        'grep -rn "Authorization.*Bearer" src/ --include="*.ts" --include="*.tsx" 2>/dev/null | wc -l',
+        'grep -rn "Authorization.*Bearer" src/ --include="*.ts" --include="*.tsx" 2>/hub/null | wc -l',
         { cwd: projectDir, encoding: 'utf-8', timeout: 5000 }
       ).trim();
       if (parseInt(cookieUsage) > parseInt(headerUsage)) {
@@ -3732,7 +3732,7 @@ export const apiFuzzing = tool({
     let writableRoutes: Array<{ route: string; methods: string[] }> = [];
     try {
       const routeFiles = execSync(
-        'find src/app/api -name "route.ts" -type f 2>/dev/null',
+        'find src/app/api -name "route.ts" -type f 2>/hub/null',
         { cwd: projectDir, encoding: 'utf-8', timeout: 10000 }
       ).trim();
       if (routeFiles) {
@@ -4152,7 +4152,7 @@ export const sslTlsAudit = tool({
     let mixedContentDetails: string[] = [];
     try {
       const httpRefs = execSync(
-        'grep -rn "http://" src/ --include="*.ts" --include="*.tsx" 2>/dev/null | grep -v "localhost\\|127.0.0.1\\|http://\\$\\|// http\\|http://schemas\\|http://www.w3.org" | head -10 || true',
+        'grep -rn "http://" src/ --include="*.ts" --include="*.tsx" 2>/hub/null | grep -v "localhost\\|127.0.0.1\\|http://\\$\\|// http\\|http://schemas\\|http://www.w3.org" | head -10 || true',
         { cwd: projectDir, encoding: 'utf-8', timeout: 10000 }
       ).trim();
       if (httpRefs) {

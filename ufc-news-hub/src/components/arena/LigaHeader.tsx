@@ -5,9 +5,6 @@ import { Copy, Settings, LogOut, Lock, Globe, Check } from 'lucide-react';
 import type { Liga } from '@/types/arena';
 
 import { useTranslations } from 'next-intl';
-// ═══════════════════════════════════════════════════════════════
-// Props
-// ═══════════════════════════════════════════════════════════════
 
 interface LigaHeaderProps {
   liga: Liga & {
@@ -24,10 +21,6 @@ interface LigaHeaderProps {
   onGerenciarClick: () => void;
 }
 
-// ═══════════════════════════════════════════════════════════════
-// Component
-// ═══════════════════════════════════════════════════════════════
-
 export function LigaHeader({
   liga,
   isAdmin,
@@ -38,17 +31,14 @@ export function LigaHeader({
   const t = useTranslations('arena');
   const [copied, setCopied] = useState(false);
 
-  // ── Invite copy ──
-
   const handleCopyInvite = async () => {
     if (!liga.codigo_convite) return;
-    const url = `${window.location.origin}/arena/ligas/join/${liga.codigo_convite}`;
+    const url = `${window.location.origin}/hub/arena/ligas/join/${liga.codigo_convite}`;
     try {
       await navigator.clipboard.writeText(url);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // Fallback for non-secure contexts
       const el = document.createElement('textarea');
       el.value = url;
       document.body.appendChild(el);
@@ -60,119 +50,124 @@ export function LigaHeader({
     }
   };
 
-  // ── Date format ──
-
-  const createdYear = new Date(liga.created_at).getFullYear();
-
-  // ── Render ──
+  const createdYear = liga.created_at ? new Date(liga.created_at).getFullYear() : null;
+  const hasBanner = !!liga.imagem_url;
 
   return (
     <div>
-      {/* ── Banner area ── */}
-      <div className="relative w-full rounded-2xl overflow-hidden" style={{ minHeight: '180px' }}>
-        {liga.imagem_url ? (
+      {/* ─── Banner hero ─── */}
+      <div className="relative w-full overflow-hidden border border-dark-border" style={{ minHeight: '180px' }}>
+        {hasBanner ? (
+          /* eslint-disable-next-line @next/next/no-img-element */
           <img
-            src={liga.imagem_url}
-            alt={`Banner da liga ${liga.nome}`}
-            className="w-full h-44 object-cover"
+            src={liga.imagem_url!}
+            alt=""
+            className="w-full h-48 sm:h-56 object-cover"
           />
         ) : (
-          <div className="w-full h-44 bg-gradient-to-r from-ufc-red to-red-900" />
+          <div className="w-full h-48 sm:h-56 bg-octagon-grid" />
         )}
 
-        {/* Overlay gradient for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30" />
 
-        {/* Liga info over banner */}
-        <div className="absolute bottom-0 left-0 right-0 p-5">
-          <h1 className="font-display text-3xl uppercase text-white leading-tight drop-shadow-lg">
-            {liga.nome}
-          </h1>
+        {/* ─── Editorial overlay ─── */}
+        <div className="absolute inset-0 p-5 flex flex-col justify-between">
+          <div className="flex items-center gap-3 font-display text-[10px] uppercase tracking-[0.28em] text-dark-textMuted">
+            {liga.tipo === 'privada' ? (
+              <>
+                <Lock size={12} strokeWidth={2.2} />
+                {t('private')}
+              </>
+            ) : (
+              <>
+                <Globe size={12} strokeWidth={2.2} />
+                {t('public')}
+              </>
+            )}
+            <span className="h-px flex-1 bg-white/20" />
+            {createdYear && (
+              <span>{t('since')} {createdYear}</span>
+            )}
+          </div>
 
-          {/* Meta row */}
-          <div className="flex flex-wrap items-center gap-3 mt-1.5">
-            {/* Type badge */}
-            <span className="flex items-center gap-1 text-xs text-dark-textMuted">
-              {liga.tipo === 'privada' ? (
+          <div>
+            <h1 className="font-display text-3xl sm:text-4xl uppercase leading-[0.95] tracking-tight text-white break-words">
+              {liga.nome}
+            </h1>
+            <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 font-display text-[10px] uppercase tracking-[0.22em] text-white/70 tabular-nums">
+              <span>
+                <span className="text-white">{liga.total_membros}</span>
+                {liga.max_membros > 0 && (
+                  <span className="text-white/60"> / {liga.max_membros}</span>
+                )}
+                <span className="ml-1.5 text-white/60">{t('members')}</span>
+              </span>
+              {liga.codigo_convite && (
                 <>
-                  <Lock size={12} className="text-dark-textMuted" />
-                  {t('private')}
-                </>
-              ) : (
-                <>
-                  <Globe size={12} className="text-dark-textMuted" />
-                  {t('public')}
+                  <span className="text-white/40">·</span>
+                  <span className="font-mono tracking-[0.18em] text-ufc-gold">
+                    {liga.codigo_convite}
+                  </span>
                 </>
               )}
-            </span>
-
-            <span className="text-dark-textMuted text-xs">·</span>
-
-            {/* Member count */}
-            <span className="text-xs text-dark-textMuted">
-              {liga.total_membros} / {liga.max_membros} {t('members')}
-            </span>
-
-            <span className="text-dark-textMuted text-xs">·</span>
-
-            {/* Created year */}
-            <span className="text-xs text-dark-textMuted">{t('since')} {createdYear}</span>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* ── Description ── */}
+      {/* ─── Description ─── */}
       {liga.descricao && (
-        <p className="text-dark-textMuted text-sm mt-3 px-1">{liga.descricao}</p>
+        <p className="mt-4 max-w-xl text-sm leading-relaxed text-dark-textMuted">
+          {liga.descricao}
+        </p>
       )}
 
-      {/* ── Action buttons (members only) ── */}
+      {/* ─── Actions ─── */}
       {isMembro && (
-        <div className="flex flex-wrap gap-2 mt-4">
-          {/* Copy invite */}
+        <div className="mt-4 flex flex-wrap gap-2">
           {liga.codigo_convite && (
             <button
+              type="button"
               onClick={handleCopyInvite}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl border border-dark-border text-dark-textMuted hover:text-white hover:border-ufc-red/50 transition-all text-sm"
+              className="flex items-center gap-2 border border-dark-border px-4 py-2 font-display text-[10px] uppercase tracking-[0.24em] text-dark-textMuted transition hover:border-ufc-red hover:text-dark-text"
             >
               {copied ? (
                 <>
-                  <Check size={14} className="text-green-400" />
+                  <Check size={13} strokeWidth={2.4} className="text-green-400" />
                   <span className="text-green-400">{t('copied')}</span>
                 </>
               ) : (
                 <>
-                  <Copy size={14} />
+                  <Copy size={13} strokeWidth={2.2} />
                   {t('copy_invite')}
                 </>
               )}
             </button>
           )}
 
-          {/* Edit banner (admin only) */}
           {isAdmin && (
             <button
+              type="button"
               onClick={onGerenciarClick}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl border border-dark-border text-dark-textMuted hover:text-white hover:border-ufc-red/50 transition-all text-sm"
+              className="flex items-center gap-2 border border-dark-border px-4 py-2 font-display text-[10px] uppercase tracking-[0.24em] text-dark-textMuted transition hover:border-ufc-red hover:text-dark-text"
             >
-              <Settings size={14} />
+              <Settings size={13} strokeWidth={2.2} />
               {t('edit')}
             </button>
           )}
 
-          {/* Leave (non-admin only) */}
           {!isAdmin && (
             <button
+              type="button"
               onClick={onSairClick}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl border border-red-700/50 text-red-400 hover:bg-red-900/20 transition-all text-sm"
+              className="flex items-center gap-2 border border-red-700/50 px-4 py-2 font-display text-[10px] uppercase tracking-[0.24em] text-red-400 transition hover:bg-red-900/20"
             >
-              <LogOut size={14} />
+              <LogOut size={13} strokeWidth={2.2} />
               {t('leave')}
             </button>
           )}
         </div>
       )}
-
     </div>
   );
 }

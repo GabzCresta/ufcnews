@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { emitEvent, processEvents } from '@/lib/ai-company/event-bus';
 
 // Endpoint para ser chamado por um cron job externo
 // Exemplo: curl -X POST http://localhost:3000/api/cron?secret=YOUR_SECRET
@@ -20,7 +19,7 @@ async function runSync(baseUrl: string) {
   // 1. Sincronizar NOTÍCIAS
   console.log('[CRON] Sincronizando notícias...');
   try {
-    const noticiasResponse = await fetch(`${baseUrl}/api/sync`, {
+    const noticiasResponse = await fetch(`${baseUrl}/api/sync-noticias`, {
       method: 'POST',
     });
     results.noticias = await noticiasResponse.json();
@@ -48,7 +47,7 @@ async function runSync(baseUrl: string) {
   // 2.5. Cleanup old news (>24h)
   console.log('[CRON] Limpando notícias > 24h...');
   try {
-    const deleteResult = await fetch(`${baseUrl}/api/news/cleanup`, {
+    const deleteResult = await fetch(`${baseUrl}/api/noticias/cleanup`, {
       method: 'POST',
     });
     const cleanupData = await deleteResult.json();
@@ -98,26 +97,11 @@ async function runSync(baseUrl: string) {
     results.errors.push(`Análise: ${errorMsg}`);
   }
 
-  // 4. Emit daily event for AI Company agents
-  const today = new Date();
-  console.log('[CRON] Emitting cron.daily event for AI agents...');
-  try {
-    await emitEvent('cron.daily', { timestamp: new Date().toISOString() });
-
-    // Weekly event on Mondays
-    if (today.getUTCDay() === 1) {
-      await emitEvent('cron.weekly', { timestamp: new Date().toISOString() });
-    }
-
-    // Process pending events (including the ones just emitted)
-    const eventResults = await processEvents();
-    (results as Record<string, unknown>).eventBus = eventResults;
-    console.log('[CRON] Event bus processed:', eventResults);
-  } catch (error) {
-    const errorMsg = error instanceof Error ? error.message : 'Erro desconhecido';
-    console.error('[CRON] Erro no event bus:', errorMsg);
-    results.errors.push(`EventBus: ${errorMsg}`);
-  }
+  // 4. AI Company events — DESATIVADO
+  // Os agentes AI Company usavam API paga (ANTHROPIC_API_KEY).
+  // Migrado pra usar Claude CLI via pipeline no dashboard.
+  // Reativar quando migrar orchestrator pra CLI.
+  console.log('[CRON] AI Company events: desativado (usando CLI via pipeline)');
 
   console.log(`[CRON] Sincronização completa finalizada - ${new Date().toISOString()}`);
 

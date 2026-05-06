@@ -30,7 +30,7 @@ function DashboardContent() {
   const router = useRouter();
   const { logout } = useAdminAuth();
 
-  const sectionParam = (searchParams.get('section') || 'overview') as SectionId;
+  const sectionParam = (searchParams?.get('section') || 'overview') as SectionId;
   const validSections: SectionId[] = [
     'overview', 'clientes', 'card-monitor', 'pipeline',
     'ai-company', 'landing-page', 'site-vercel',
