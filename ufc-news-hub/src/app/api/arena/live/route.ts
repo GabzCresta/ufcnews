@@ -541,7 +541,7 @@ export async function GET(request: NextRequest) {
     const lutasCount = lutas.filter((l) => l.status !== 'cancelada').length;
 
     // Auto-transition: agendado → ao_vivo if event is within 1h window
-    // This makes the system self-healing — doesn't depend solely on the Vercel cron
+    // This makes the system self-healing — doesn't depend solely on the VPS cron
     if (evento.status === 'agendado') {
       const eventDate = new Date(evento.data_evento);
       const now = new Date();

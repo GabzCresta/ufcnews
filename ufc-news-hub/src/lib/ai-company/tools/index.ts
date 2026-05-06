@@ -2948,7 +2948,7 @@ headers: [{ source: '/api/:path*', headers: [
 ]}]`,
       'rate limit': `// middleware.ts — adicionar rate limiting
 import rateLimit from 'express-rate-limit';
-// Ou usar Vercel Edge: import { Ratelimit } from '@upstash/ratelimit'`,
+// Ou usar nginx-level: limit_req_zone na config do nginx`,
       'autenticacao': `// middleware.ts — proteger rotas /api/company/*
 export function middleware(req) {
   if (req.nextUrl.pathname.startsWith('/api/company'))
@@ -4226,7 +4226,7 @@ export const sslTlsAudit = tool({
     }
     if (isLocalhost) {
       recommendations.push('Para producao: configurar certificado TLS (Let\'s Encrypt ou CDN com HTTPS)');
-      recommendations.push('Verificar que provider de deploy (Vercel, etc.) forca HTTPS automaticamente');
+      recommendations.push('Verificar nginx/Lets Encrypt na VPS — todo trafego HTTP deve redirecionar pra HTTPS');
     }
 
     return {

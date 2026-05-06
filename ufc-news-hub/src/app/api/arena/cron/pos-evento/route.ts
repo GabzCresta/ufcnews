@@ -4,7 +4,7 @@ import { processarEventoFinalizado } from '@/lib/arena/pontuacao';
 
 // ═══════════════════════════════════════════════════════════
 // Cron: Post-event finalization + summary email
-// Runs Sunday 10h UTC via Vercel Cron
+// Runs Sunday 10h UTC via VPS cron
 // ═══════════════════════════════════════════════════════════
 
 interface LeaderboardRow {
@@ -25,11 +25,6 @@ interface EventoParaFinalizar {
 function isAuthorized(request: NextRequest): boolean {
   const authHeader = request.headers.get('authorization');
   const cronSecret = process.env.CRON_SECRET;
-  const userAgent = request.headers.get('user-agent') || '';
-
-  if (userAgent.toLowerCase().includes('vercel-cron')) {
-    return true;
-  }
 
   if (cronSecret && authHeader === `Bearer ${cronSecret}`) {
     return true;

@@ -4,7 +4,7 @@ import { getUsuarioAtual } from '@/lib/arena/auth';
 
 // ═══════════════════════════════════════════════════════════════
 // GET /api/arena/live/reactions?luta_id=X — Counts + recent reactions
-// Polled every 2s by client for real-time sync (SSE doesn't work on Vercel serverless)
+// Polled every 2s by client for real-time sync (simple HTTP polling; richer real-time goes via Socket.IO on a separate process)
 // ═══════════════════════════════════════════════════════════════
 
 interface RecentReaction {

@@ -23,7 +23,6 @@ const CardMonitorSection = dynamic(() => import('./sections/CardMonitorSection')
 const PipelineSection = dynamic(() => import('./sections/PipelineSection').then(m => ({ default: m.PipelineSection })), { loading: () => <SectionFallback /> });
 const AICompanySection = dynamic(() => import('./sections/AICompanySection').then(m => ({ default: m.AICompanySection })), { loading: () => <SectionFallback /> });
 const LandingPageSection = dynamic(() => import('./sections/LandingPageSection').then(m => ({ default: m.LandingPageSection })), { loading: () => <SectionFallback /> });
-const SiteVercelSection = dynamic(() => import('./sections/SiteVercelSection').then(m => ({ default: m.SiteVercelSection })), { loading: () => <SectionFallback /> });
 
 function DashboardContent() {
   const searchParams = useSearchParams();
@@ -33,7 +32,7 @@ function DashboardContent() {
   const sectionParam = (searchParams?.get('section') || 'overview') as SectionId;
   const validSections: SectionId[] = [
     'overview', 'clientes', 'card-monitor', 'pipeline',
-    'ai-company', 'landing-page', 'site-vercel',
+    'ai-company', 'landing-page',
   ];
   const activeSection = validSections.includes(sectionParam) ? sectionParam : 'overview';
 
@@ -84,7 +83,6 @@ function DashboardContent() {
           {activeSection === 'pipeline' && <PipelineSection />}
           {activeSection === 'ai-company' && <AICompanySection />}
           {activeSection === 'landing-page' && <LandingPageSection />}
-          {activeSection === 'site-vercel' && <SiteVercelSection />}
         </main>
       </div>
     </div>

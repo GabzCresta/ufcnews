@@ -9,7 +9,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 
 function getSecret(): string {
   const s = process.env.ADMIN_PASSWORD;
-  if (!s) throw new Error('ADMIN_PASSWORD environment variable is required. Set it in .env or Vercel dashboard.');
+  if (!s) throw new Error('ADMIN_PASSWORD environment variable is required. Set it in .env on the VPS.');
   return s;
 }
 

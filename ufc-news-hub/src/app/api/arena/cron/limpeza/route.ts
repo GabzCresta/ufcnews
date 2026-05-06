@@ -19,8 +19,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'CRON_SECRET not configured' }, { status: 503 });
   }
 
-  const isVercelCron = userAgent.startsWith('vercel-cron');
-  if (!isVercelCron && authHeader !== `Bearer ${cronSecret}`) {
+  if (authHeader !== `Bearer ${cronSecret}`) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

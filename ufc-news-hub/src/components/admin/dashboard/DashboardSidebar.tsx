@@ -7,7 +7,6 @@ import {
   GitBranch,
   Bot,
   Earth,
-  Server,
   ChevronLeft,
   ChevronRight,
   LogOut,
@@ -24,8 +23,7 @@ export type SectionId =
   | 'card-monitor'
   | 'pipeline'
   | 'ai-company'
-  | 'landing-page'
-  | 'site-vercel';
+  | 'landing-page';
 
 interface NavItem {
   id: SectionId;
@@ -40,7 +38,6 @@ const NAV_ITEMS: NavItem[] = [
   { id: 'pipeline', label: 'Pipeline Clientes', icon: GitBranch },
   { id: 'ai-company', label: 'AI Company', icon: Bot },
   { id: 'landing-page', label: 'Landing Page', icon: Earth },
-  { id: 'site-vercel', label: 'Site / Vercel', icon: Server },
 ];
 
 interface DashboardSidebarProps {

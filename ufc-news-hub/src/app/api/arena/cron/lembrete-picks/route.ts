@@ -119,16 +119,12 @@ async function enviarBatchResend(
 
 export async function GET(request: NextRequest) {
   // ═══════════════════════════════════════════════════════════════
-  // AUTH: CRON_SECRET or Vercel Cron user-agent
+  // AUTH: CRON_SECRET (Bearer token)
   // ═══════════════════════════════════════════════════════════════
   const authHeader = request.headers.get('authorization');
-  const userAgent = request.headers.get('user-agent') || '';
   const cronSecret = process.env.CRON_SECRET;
 
-  const isVercelCron = userAgent.includes('vercel-cron');
-  const isValidToken = cronSecret && authHeader === `Bearer ${cronSecret}`;
-
-  if (!isVercelCron && !isValidToken) {
+  if (!cronSecret || authHeader !== `Bearer ${cronSecret}`) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

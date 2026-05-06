@@ -6,7 +6,7 @@ import { NextResponse } from 'next/server';
 // Este endpoint sincroniza TANTO notícias QUANTO eventos (incluindo posters)
 // Recomendado rodar a cada 15-30 minutos
 
-// Shared sync logic used by both GET (Vercel Cron) and POST (manual trigger)
+// Shared sync logic used by both GET (cron-triggered) and POST (manual trigger)
 async function runSync(baseUrl: string) {
   const results: {
     noticias?: unknown;
@@ -108,9 +108,8 @@ async function runSync(baseUrl: string) {
   return results;
 }
 
-// GET — Called by Vercel Cron
+// GET — Called by VPS cron job (or any external scheduler)
 export async function GET(_request: Request) {
-  // Vercel Cron sends user-agent "vercel-cron/1.0" — optionally verify
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || `http://localhost:${process.env.PORT || '3010'}`;
 
   try {

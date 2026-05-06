@@ -8,18 +8,13 @@ import { query } from '@/lib/db';
 
 export async function GET(request: NextRequest) {
   const authHeader = request.headers.get('authorization');
-  const userAgent = request.headers.get('user-agent') || '';
   const cronSecret = process.env.CRON_SECRET;
 
-  const isVercelCron = userAgent.includes('vercel-cron');
-
-  if (!isVercelCron) {
-    if (!cronSecret) {
-      return NextResponse.json({ error: 'CRON_SECRET not configured' }, { status: 503 });
-    }
-    if (authHeader !== `Bearer ${cronSecret}`) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+  if (!cronSecret) {
+    return NextResponse.json({ error: 'CRON_SECRET not configured' }, { status: 503 });
+  }
+  if (authHeader !== `Bearer ${cronSecret}`) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   console.log(`[PRE-EVENTO CRON] Iniciando - ${new Date().toISOString()}`);

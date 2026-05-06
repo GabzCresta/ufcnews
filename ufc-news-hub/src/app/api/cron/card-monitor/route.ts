@@ -15,7 +15,7 @@ import {
 import { sendCardChangeAlert } from '@/lib/card-monitor-email';
 
 // ═══════════════════════════════════════════════════════════
-// Cron: Automated card check (runs 2x/day via Vercel Cron)
+// Cron: Automated card check (runs 2x/day via VPS cron)
 // Protected by CRON_SECRET
 // ═══════════════════════════════════════════════════════════
 
