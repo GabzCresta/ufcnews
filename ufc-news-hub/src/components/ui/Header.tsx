@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '@/i18n/routing';
-import { Home, Newspaper, BarChart3, Target, Calendar, Menu, X, Users } from 'lucide-react';
+import { Home, BarChart3, Target, Menu, X, Users } from 'lucide-react';
 import { LocaleSwitcher } from './LocaleSwitcher';
 
 export function Header() {
@@ -13,11 +13,9 @@ export function Header() {
 
   const mainNav = [
     { href: '/hub' as const, label: t('home'), icon: Home },
-    { href: '/hub/noticias' as const, label: t('noticias'), icon: Newspaper },
-    { href: '/hub/fighters' as const, label: t('lutadores'), icon: Users },
     { href: '/hub/analises' as const, label: t('analises'), icon: BarChart3 },
     { href: '/hub/arena' as const, label: t('arena'), icon: Target },
-    { href: '/hub/calendario' as const, label: t('calendario'), icon: Calendar },
+    { href: '/hub/fighters' as const, label: t('lutadores'), icon: Users },
   ];
 
   useEffect(() => {

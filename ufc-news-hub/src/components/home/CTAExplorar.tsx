@@ -1,10 +1,8 @@
 'use client';
 
 import { Link } from '@/i18n/routing';
-import useSWR from 'swr';
-import { Newspaper, Target, BarChart3, Users, Calendar, type LucideIcon } from 'lucide-react';
+import { Target, BarChart3, Users, type LucideIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import type { ContadorCategorias } from '@/types';
 
 interface CardItem {
   title: string;
@@ -14,26 +12,13 @@ interface CardItem {
   accentColor: string;
 }
 
-const fetcher = (url: string) => fetch(url).then(res => res.json());
-
 export function CTAExplorar() {
   const t = useTranslations('home');
-  const { data: contadores } = useSWR<ContadorCategorias>(
-    '/api/noticias/contadores',
-    fetcher,
-    { revalidateOnFocus: false, dedupingInterval: 60000 }
-  );
-
-  const noticiasSubtitle = contadores?.reels_disponiveis
-    ? `${contadores.reels_disponiveis} reels`
-    : t('cta_noticias_subtitle');
 
   const cards: CardItem[] = [
-    { title: t('cta_noticias'), icon: Newspaper, href: '/hub/noticias', subtitle: noticiasSubtitle, accentColor: '#D20A0A' },
-    { title: t('cta_arena'), icon: Target, href: '/hub/arena', subtitle: t('cta_arena_subtitle'), accentColor: '#C9B037' },
     { title: t('cta_analises'), icon: BarChart3, href: '/hub/analises', subtitle: t('cta_analises_subtitle'), accentColor: '#14B8A6' },
+    { title: t('cta_arena'), icon: Target, href: '/hub/arena', subtitle: t('cta_arena_subtitle'), accentColor: '#C9B037' },
     { title: t('cta_lutadores'), icon: Users, href: '/hub/fighters', subtitle: t('cta_lutadores_subtitle'), accentColor: '#3B82F6' },
-    { title: t('cta_calendario'), icon: Calendar, href: '/hub/calendario', subtitle: t('cta_calendario_subtitle'), accentColor: '#8B5CF6' },
   ];
 
   return (
