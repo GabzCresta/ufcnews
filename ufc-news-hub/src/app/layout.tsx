@@ -1,4 +1,4 @@
-import { Inter, Bebas_Neue, Big_Shoulders, JetBrains_Mono } from 'next/font/google';
+import { Inter, Bebas_Neue, Big_Shoulders, JetBrains_Mono, Playfair_Display } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getLocale } from 'next-intl/server';
 import './globals.css';
@@ -30,6 +30,14 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 });
 
+const playfair = Playfair_Display({
+  weight: ['400', '500', '600'],
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  variable: '--font-playfair',
+  display: 'swap',
+});
+
 export default async function RootLayout({
   children,
 }: {
@@ -39,7 +47,7 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html className={`${inter.variable} ${bebasNeue.variable} ${bigShoulders.variable} ${jetbrainsMono.variable} dark`} lang={locale}>
+    <html className={`${inter.variable} ${bebasNeue.variable} ${bigShoulders.variable} ${jetbrainsMono.variable} ${playfair.variable} dark`} lang={locale}>
       <head>
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />

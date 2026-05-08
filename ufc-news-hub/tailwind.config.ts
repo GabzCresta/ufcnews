@@ -57,6 +57,7 @@ const config: Config = {
         body: ['var(--font-inter)', 'system-ui', 'sans-serif'],
         hero: ['var(--font-big-shoulders)', 'Impact', 'sans-serif'],
         monoStat: ['var(--font-jetbrains)', 'ui-monospace', 'monospace'],
+        editorial: ['var(--font-playfair)', 'Georgia', 'serif'],
       },
       animation: {
         'pulse-red': 'pulse-red 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
