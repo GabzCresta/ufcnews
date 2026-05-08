@@ -1,7 +1,7 @@
 'use client';
 
 import { Link } from '@/i18n/routing';
-import { Target, Trophy } from 'lucide-react';
+import { ArrowLeft, Target, Trophy } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { UserAvatar } from '@/components/arena/UserAvatar';
 import { BottomNav } from '@/components/arena/BottomNav';
@@ -21,13 +21,22 @@ export default function ArenaLayout({ children }: { children: React.ReactNode })
       {/* Arena Header */}
       <div className="sticky top-0 z-40 w-full bg-dark-bg/80 backdrop-blur-md border-b border-dark-border/50">
         <div className="container mx-auto flex h-12 items-center justify-between px-4">
-          {/* Left: Arena UFC logo */}
-          <Link href="/hub/arena" className="flex items-center gap-2 group">
-            <Target className="w-5 h-5 text-ufc-red transition-transform group-hover:scale-110" />
-            <span className="font-display text-lg text-white tracking-wide">
-              {t('layout_arena')} <span className="text-ufc-red">UFC</span>
-            </span>
-          </Link>
+          {/* Left: Back to hub + Arena UFC logo */}
+          <div className="flex items-center gap-2">
+            <Link
+              href="/hub"
+              aria-label={t('layout_back_to_hub')}
+              className="flex h-8 w-8 items-center justify-center rounded-full text-dark-textMuted transition-all hover:bg-dark-border/40 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ufc-red"
+            >
+              <ArrowLeft className="h-4 w-4" />
+            </Link>
+            <Link href="/hub/arena" className="flex items-center gap-2 group">
+              <Target className="w-5 h-5 text-ufc-red transition-transform group-hover:scale-110" />
+              <span className="font-display text-lg text-white tracking-wide">
+                {t('layout_arena')} <span className="text-ufc-red">UFC</span>
+              </span>
+            </Link>
+          </div>
 
           {/* Center: Desktop nav tabs */}
           <div className="hidden md:block">
