@@ -31,13 +31,23 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-dark-border bg-dark-bg/95 backdrop-blur supports-[backdrop-filter]:bg-dark-bg/80">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
-        <Link href="/" className="group flex items-center gap-2">
-          <div className="relative">
-            <span className="font-display text-2xl text-ufc-red transition-all duration-300 group-hover:glow-red">
-              UFC
-            </span>
-            <span className="font-display text-2xl text-dark-text">NEWS</span>
-          </div>
+        <Link href="/hub" className="group flex items-center gap-2">
+          <svg
+            viewBox="0 0 24 24"
+            className="h-5 w-5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            aria-hidden="true"
+          >
+            <polygon
+              points="7,2 17,2 22,7 22,17 17,22 7,22 2,17 2,7"
+              className="text-ufc-red"
+            />
+          </svg>
+          <span className="font-display text-2xl tracking-[0.05em] text-dark-text">
+            C<span className="text-ufc-red transition-all duration-300 group-hover:glow-red">O</span>LISEUM
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
